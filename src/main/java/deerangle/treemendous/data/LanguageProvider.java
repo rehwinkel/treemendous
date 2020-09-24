@@ -21,8 +21,10 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
             String englishName = tree.getEnglishName();
             add("block." + this.modid + "." + name + "_sapling", englishName + " Sapling");
             add("block." + this.modid + "." + name + "_leaves", englishName + " Leaves");
-            add(this.modid + ":" + name + "_forest", englishName + " Forest"); //TODO
-            add(this.modid + ":" + name + "_forest_hill", englishName + " Forest Hills"); //TODO
+            add("biome." + this.modid + "." + name + "_forest", englishName + " Forest");
+            add("biome." + this.modid + "." + name + "_forest_hills", englishName + " Hills");
+            add("biome." + this.modid + "." + name + "_forest_snow", "Snowy " + englishName + " Forest");
+            add("biome." + this.modid + "." + name + "_forest_hills_snow", "Snowy " + englishName + " Hills");
             if (tree.isNotInherited()) {
                 add("block." + this.modid + "." + name + "_planks", englishName + " Planks");
                 add("block." + this.modid + "." + name + "_log", englishName + " Log");

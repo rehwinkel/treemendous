@@ -40,39 +40,6 @@ import java.util.function.BiFunction;
 
 public class RegisteredTree {
 
-    private static Biome makeForestBiome(float depth, float scale, float temperature, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
-        BiomeGenerationSettings.Builder genSettings = new BiomeGenerationSettings.Builder()
-                .withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
-        DefaultBiomeFeatures.withStrongholdAndMineshaft(genSettings);
-        genSettings.withStructure(StructureFeatures.field_244159_y);
-        DefaultBiomeFeatures.withCavesAndCanyons(genSettings);
-        DefaultBiomeFeatures.withLavaAndWaterLakes(genSettings);
-        DefaultBiomeFeatures.withMonsterRoom(genSettings);
-        DefaultBiomeFeatures.withDisks(genSettings);
-        DefaultBiomeFeatures.withAllForestFlowerGeneration(genSettings);
-        DefaultBiomeFeatures.withDefaultFlowers(genSettings);
-        DefaultBiomeFeatures.withForestGrass(genSettings);
-        DefaultBiomeFeatures.withCommonOverworldBlocks(genSettings);
-        DefaultBiomeFeatures.withOverworldOres(genSettings);
-        DefaultBiomeFeatures.withNormalMushroomGeneration(genSettings);
-        DefaultBiomeFeatures.withSugarCaneAndPumpkins(genSettings);
-        DefaultBiomeFeatures.withLavaAndWaterSprings(genSettings);
-        DefaultBiomeFeatures.withFrozenTopLayer(genSettings);
-        genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, tree);
-
-        return new Biome.Builder().precipitation(Biome.RainType.RAIN).category(Biome.Category.FOREST).depth(depth)
-                .scale(scale).temperature(temperature).downfall(0.8F).setEffects(
-                        (new BiomeAmbience.Builder()).setWaterColor(4159204).setWaterFogColor(329011)
-                                .setFogColor(12638463).withSkyColor(MathHelper.hsvToRGB(0.6105556f, 0.5233333f, 1.0F))
-                                .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
-                .withMobSpawnSettings(mobSpawnBuilder.copy()).withGenerationSettings(genSettings.build()).build();
-    }
-
-    private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
-        return Registry
-                .register(WorldGenRegistries.CONFIGURED_FEATURE, Treemendous.MODID + ":" + key, configuredFeature);
-    }
-
     private static Boolean neverAllowSpawn(BlockState p_235427_0_, IBlockReader p_235427_1_, BlockPos p_235427_2_, EntityType<?> p_235427_3_) {
         return false;
     }
@@ -100,7 +67,6 @@ public class RegisteredTree {
     private ConfiguredFeature<BaseTreeFeatureConfig, ?> feature;
     private ConfiguredFeature<?, ?> treesFeature;
     private final Tree tree;
-    private final RegistryObject<Biome> forest, forest_hill;
 
     private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, int leavesColor, IItemProvider apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
@@ -125,17 +91,31 @@ public class RegisteredTree {
         this.leaves_item = ITEMS.register(name + "_leaves",
                 () -> new BlockItem(this.leaves.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
 
-        this.forest = BIOMES.register(name + "_forest", () -> {
+        BIOMES.register(name + "_forest", () -> {
             this.registerFeature();
-            return makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), new MobSpawnInfo.Builder(),
+            return Forests.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, new MobSpawnInfo.Builder(),
                     this.treesFeature);
         });
 
-        this.forest_hill = BIOMES.register(name + "_forest_hill", () -> {
+        BIOMES.register(name + "_forest_hills", () -> {
             this.registerFeature();
-            return makeForestBiome(0.2f, 0.5f, biomeSettings.getTemperature(), new MobSpawnInfo.Builder(),
+            return Forests.makeForestBiome(0.3f, 0.55f, biomeSettings.getTemperature(), false, new MobSpawnInfo.Builder(),
                     this.treesFeature);
         });
+
+        if (biomeSettings.isSnowy()) {
+            BIOMES.register(name + "_forest_snow", () -> {
+                this.registerFeature();
+                return Forests.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, new MobSpawnInfo.Builder(),
+                        this.treesFeature);
+            });
+
+            BIOMES.register(name + "_forest_hills_snow", () -> {
+                this.registerFeature();
+                return Forests.makeForestBiome(0.3f, 0.55f, biomeSettings.getTemperature(), true, new MobSpawnInfo.Builder(),
+                        this.treesFeature);
+            });
+        }
 
         if (inherit == null) {
             this.inherited = false;
@@ -356,9 +336,9 @@ public class RegisteredTree {
 
     public void registerFeature() {
         if (this.feature == null) {
-            this.feature = registerConfiguredFeature(this.name,
+            this.feature = Forests.registerConfiguredFeature(this.name,
                     featureBiFunction.apply(this.log.get(), this.leaves.get()));
-            this.treesFeature = registerConfiguredFeature("trees_" + this.name,
+            this.treesFeature = Forests.registerConfiguredFeature("trees_" + this.name,
                     this.feature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
                             Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
         }
@@ -382,20 +362,28 @@ public class RegisteredTree {
 
     public static class BiomeSettings {
         private final float temperature;
+        private final boolean snowy;
 
-        private BiomeSettings(float temp) {
+        private BiomeSettings(float temp, boolean snowy) {
             this.temperature = temp;
+            this.snowy = snowy;
         }
 
         private float getTemperature() {
             return temperature;
         }
 
+        public boolean isSnowy() {
+            return snowy;
+        }
+
         public static class Builder {
             private float temperature;
+            private boolean snowy;
 
             public Builder() {
                 this.temperature = 0.7f;
+                this.snowy = false;
             }
 
             public Builder temperature(float temp) {
@@ -403,8 +391,13 @@ public class RegisteredTree {
                 return this;
             }
 
+            public Builder snow() {
+                this.snowy = true;
+                return this;
+            }
+
             public BiomeSettings build() {
-                return new BiomeSettings(this.temperature);
+                return new BiomeSettings(this.temperature, this.snowy);
             }
         }
     }

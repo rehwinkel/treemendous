@@ -1,6 +1,7 @@
 package deerangle.treemendous.main;
 
 import deerangle.treemendous.data.*;
+import deerangle.treemendous.tree.Forests;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -20,6 +21,7 @@ public class Treemendous {
         TreeRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Forests.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
     }
 

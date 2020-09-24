@@ -33,12 +33,17 @@ public class TreeRegistry {
                         new TwoLayerFeature(2, 0, 2)).setIgnoreVines().build());
     }
 
-    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeSmallLeafTree(Block log, Block leaves) {
+    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeSmallLeafTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
-                        new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
-                        new StraightTrunkPlacer(5, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+                        new BlobFoliagePlacer(FeatureSpread.func_242252_a(crownWidth), FeatureSpread.func_242252_a(0),
+                                3), new StraightTrunkPlacer(baseHeight, extraHeight, 0), new TwoLayerFeature(1, 0, 1)))
+                        .setIgnoreVines().build());
+    }
+
+    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeSmallLeafTree(Block log, Block leaves) {
+        return makeSmallLeafTree(log, leaves, 5, 2, 2);
     }
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister
@@ -57,28 +62,29 @@ public class TreeRegistry {
     public static final RegisteredTree douglas = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "douglas", "Douglas Fir").wood(MaterialColor.DIRT)
                     .log(MaterialColor.STONE).leaves(0x78a65d).feature(TreeRegistry::makeNeedleTree)
-                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f)).build());
+                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree pine = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "pine", "Pine").wood(MaterialColor.SAND)
                     .leaves(0x486942).feature(TreeRegistry::makeNeedleTree)
-                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f)).build());
+                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree larch = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "larch", "Larch").leaves(0x486942)
                     .feature(TreeRegistry::makeNeedleTree)
-                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f)).build());
+                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree fir = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "fir", "Fir").log(MaterialColor.OBSIDIAN)
                     .leaves(0x5a914e).feature(TreeRegistry::makeNeedleTree)
-                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f)).build());
+                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree maple = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "maple", "Maple").wood(MaterialColor.DIRT)
-                    .leaves(0x9bd95d).feature(TreeRegistry::makeSmallLeafTree).build());
+                    .leaves(0x9bd95d).feature((log, leaves) -> makeSmallLeafTree(log, leaves, 6, 2, 3)).build());
     public static final RegisteredTree red_maple = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "red_maple", "Red Maple").inheritWood(maple)
-                    .wood(MaterialColor.DIRT).leaves(0xcc764e).feature(TreeRegistry::makeSmallLeafTree).build());
+                    .wood(MaterialColor.DIRT).leaves(0xcc764e).feature((log, leaves) -> makeSmallLeafTree(log, leaves, 6, 2, 3)).build());
     public static final RegisteredTree brown_maple = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "brown_maple", "Brown Maple").inheritWood(maple)
-                    .wood(MaterialColor.DIRT).leaves(0xd9c25d).feature(TreeRegistry::makeSmallLeafTree).build());
+                    .wood(MaterialColor.DIRT).leaves(0xd9c25d)
+                    .feature((log, leaves) -> makeSmallLeafTree(log, leaves, 6, 2, 3)).build());
     public static final RegisteredTree japanese = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "japanese", "Japanese Maple").wood(MaterialColor.PINK)
                     .leaves(0xb54c36).feature(TreeRegistry::makeSmallLeafTree).build());
