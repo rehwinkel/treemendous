@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:potted_douglas_sapling",
+    "treemendous:potted_pine_sapling",
+    "treemendous:potted_larch_sapling",
+    "treemendous:potted_fir_sapling",
+    "treemendous:potted_maple_sapling",
+    "treemendous:potted_japanese_sapling"
+  ]
+}

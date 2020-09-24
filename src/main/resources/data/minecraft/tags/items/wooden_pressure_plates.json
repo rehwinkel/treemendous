@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:douglas_pressure_plate",
+    "treemendous:pine_pressure_plate",
+    "treemendous:larch_pressure_plate",
+    "treemendous:fir_pressure_plate",
+    "treemendous:maple_pressure_plate",
+    "treemendous:japanese_pressure_plate"
+  ]
+}

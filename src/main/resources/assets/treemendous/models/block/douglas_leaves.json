@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "treemendous:block/douglas_leaves"
+  }
+}

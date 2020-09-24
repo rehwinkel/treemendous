@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "treemendous:larch_sign"
+    ]
+  },
+  "criteria": {
+    "has_larch_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "treemendous:larch_planks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "treemendous:larch_sign"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_larch_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

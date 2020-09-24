@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "treemendous:japanese_logs"
+    }
+  ],
+  "result": {
+    "item": "treemendous:japanese_planks",
+    "count": 4
+  }
+}

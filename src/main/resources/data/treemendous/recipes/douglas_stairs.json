@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:douglas_planks"
+    }
+  },
+  "result": {
+    "item": "treemendous:douglas_stairs",
+    "count": 4
+  }
+}

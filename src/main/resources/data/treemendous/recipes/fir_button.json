@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "treemendous:fir_planks"
+    }
+  ],
+  "result": {
+    "item": "treemendous:fir_button"
+  }
+}

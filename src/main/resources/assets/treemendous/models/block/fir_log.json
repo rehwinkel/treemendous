@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "treemendous:block/fir_log",
+    "end": "treemendous:block/fir_log_top"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:douglas_fence_gate",
+    "treemendous:pine_fence_gate",
+    "treemendous:larch_fence_gate",
+    "treemendous:fir_fence_gate",
+    "treemendous:maple_fence_gate",
+    "treemendous:japanese_fence_gate"
+  ]
+}

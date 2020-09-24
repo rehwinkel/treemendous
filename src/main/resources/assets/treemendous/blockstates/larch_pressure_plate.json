@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "treemendous:block/larch_pressure_plate"
+    },
+    "powered=true": {
+      "model": "treemendous:block/larch_pressure_plate_down"
+    }
+  }
+}
