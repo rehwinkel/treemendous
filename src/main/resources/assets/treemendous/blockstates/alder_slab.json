@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "treemendous:block/alder_slab_top"
+    },
+    "type=bottom": {
+      "model": "treemendous:block/alder_slab"
+    },
+    "type=double": {
+      "model": "treemendous:block/alder_planks"
+    }
+  }
+}

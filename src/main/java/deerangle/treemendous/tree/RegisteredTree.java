@@ -99,7 +99,7 @@ public class RegisteredTree {
 
         BIOMES.register(name + "_forest_hills", () -> {
             this.registerFeature();
-            return Forests.makeForestBiome(0.3f, 0.55f, biomeSettings.getTemperature(), false, new MobSpawnInfo.Builder(),
+            return Forests.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, new MobSpawnInfo.Builder(),
                     this.treesFeature);
         });
 
@@ -112,7 +112,7 @@ public class RegisteredTree {
 
             BIOMES.register(name + "_forest_hills_snow", () -> {
                 this.registerFeature();
-                return Forests.makeForestBiome(0.3f, 0.55f, biomeSettings.getTemperature(), true, new MobSpawnInfo.Builder(),
+                return Forests.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, new MobSpawnInfo.Builder(),
                         this.treesFeature);
             });
         }

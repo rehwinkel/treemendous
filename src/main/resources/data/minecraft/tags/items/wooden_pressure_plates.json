@@ -6,6 +6,13 @@
     "treemendous:larch_pressure_plate",
     "treemendous:fir_pressure_plate",
     "treemendous:maple_pressure_plate",
-    "treemendous:japanese_pressure_plate"
+    "treemendous:japanese_pressure_plate",
+    "treemendous:beech_pressure_plate",
+    "treemendous:cherry_pressure_plate",
+    "treemendous:alder_pressure_plate",
+    "treemendous:chestnut_pressure_plate",
+    "treemendous:plane_pressure_plate",
+    "treemendous:ash_pressure_plate",
+    "treemendous:linden_pressure_plate"
   ]
 }

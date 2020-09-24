@@ -6,6 +6,13 @@
     "treemendous:larch_fence",
     "treemendous:fir_fence",
     "treemendous:maple_fence",
-    "treemendous:japanese_fence"
+    "treemendous:japanese_fence",
+    "treemendous:beech_fence",
+    "treemendous:cherry_fence",
+    "treemendous:alder_fence",
+    "treemendous:chestnut_fence",
+    "treemendous:plane_fence",
+    "treemendous:ash_fence",
+    "treemendous:linden_fence"
   ]
 }

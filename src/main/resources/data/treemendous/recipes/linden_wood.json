@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:linden_log"
+    }
+  },
+  "result": {
+    "item": "treemendous:linden_wood",
+    "count": 3
+  }
+}

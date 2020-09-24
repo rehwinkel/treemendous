@@ -16,6 +16,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
     @Override
     protected void addTranslations() {
         add("entity." + this.modid + "." + "boat", "Boat");
+        add("biome." + this.modid + "." + "mixed_maple_forest", "Mixed Maple Forest");
         for (RegisteredTree tree : TreeRegistry.trees) {
             String name = tree.getName();
             String englishName = tree.getEnglishName();

@@ -6,6 +6,13 @@
     "treemendous:larch_button",
     "treemendous:fir_button",
     "treemendous:maple_button",
-    "treemendous:japanese_button"
+    "treemendous:japanese_button",
+    "treemendous:beech_button",
+    "treemendous:cherry_button",
+    "treemendous:alder_button",
+    "treemendous:chestnut_button",
+    "treemendous:plane_button",
+    "treemendous:ash_button",
+    "treemendous:linden_button"
   ]
 }

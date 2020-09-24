@@ -6,6 +6,13 @@
     "#treemendous:larch_logs",
     "#treemendous:fir_logs",
     "#treemendous:maple_logs",
-    "#treemendous:japanese_logs"
+    "#treemendous:japanese_logs",
+    "#treemendous:beech_logs",
+    "#treemendous:cherry_logs",
+    "#treemendous:alder_logs",
+    "#treemendous:chestnut_logs",
+    "#treemendous:plane_logs",
+    "#treemendous:ash_logs",
+    "#treemendous:linden_logs"
   ]
 }

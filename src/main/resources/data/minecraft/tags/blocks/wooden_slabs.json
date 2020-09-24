@@ -6,6 +6,13 @@
     "treemendous:larch_slab",
     "treemendous:fir_slab",
     "treemendous:maple_slab",
-    "treemendous:japanese_slab"
+    "treemendous:japanese_slab",
+    "treemendous:beech_slab",
+    "treemendous:cherry_slab",
+    "treemendous:alder_slab",
+    "treemendous:chestnut_slab",
+    "treemendous:plane_slab",
+    "treemendous:ash_slab",
+    "treemendous:linden_slab"
   ]
 }
