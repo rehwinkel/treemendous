@@ -3,10 +3,7 @@ package deerangle.treemendous.main;
 import com.mojang.serialization.Codec;
 import deerangle.treemendous.block.entity.CustomSignTileEntity;
 import deerangle.treemendous.entity.CustomBoatEntity;
-import deerangle.treemendous.tree.CrossTrunkPlacer;
-import deerangle.treemendous.tree.RegisteredTree;
-import deerangle.treemendous.tree.RoundedFoliagePlacer;
-import deerangle.treemendous.tree.WillowFoliagePlacer;
+import deerangle.treemendous.tree.*;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -36,25 +33,28 @@ public class TreeRegistry {
             "rounded_foliage_placer", RoundedFoliagePlacer.CODEC);
     public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE_PLACER = registerFoliagePlacerType(
             "willow_foliage_placer", WillowFoliagePlacer.CODEC);
-    public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = register("cross_trunk_placer",
-            CrossTrunkPlacer.CODEC);
+    public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = registerTrunkPlacerType(
+            "cross_trunk_placer", CrossTrunkPlacer.CODEC);
+    public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacerType("ash_trunk_placer",
+            AshTrunkPlacer.CODEC);
 
     private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliagePlacerType(String name, Codec<P> codec) {
         return Registry
                 .register(Registry.FOLIAGE_PLACER_TYPE, Treemendous.MODID + ":" + name, new FoliagePlacerType<>(codec));
     }
 
-    private static <P extends AbstractTrunkPlacer> TrunkPlacerType<P> register(String name, Codec<P> codec) {
+    private static <P extends AbstractTrunkPlacer> TrunkPlacerType<P> registerTrunkPlacerType(String name, Codec<P> codec) {
         return Registry.register(Registry.TRUNK_REPLACER, Treemendous.MODID + ":" + name, new TrunkPlacerType<>(codec));
     }
 
-    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeNeedleTree(Block log, Block leaves) {
+    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeNeedleTree(Block log, Block leaves, int trunkBase, int baseHeight, int extraHeight) {
         return Feature.TREE.withConfiguration(
                 new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
                         new SpruceFoliagePlacer(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(0, 2),
-                                FeatureSpread.func_242253_a(1, 1)), new StraightTrunkPlacer(5, 2, 1),
-                        new TwoLayerFeature(2, 0, 2)).setIgnoreVines().build());
+                                FeatureSpread.func_242253_a(trunkBase, 1)),
+                        new StraightTrunkPlacer(baseHeight, extraHeight, 1), new TwoLayerFeature(2, 0, 2))
+                        .setIgnoreVines().build());
     }
 
     private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePineTree(Block log, Block leaves) {
@@ -105,12 +105,22 @@ public class TreeRegistry {
                         .setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
+    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves) {
+        return Feature.TREE.withConfiguration(
+                (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()),
+                        new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4),
+                        new AshTrunkPlacer(5, 3, 1, FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(3)),
+                        new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
+                        .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
+    }
+
     private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePlaneTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
                         new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4),
-                        new CrossTrunkPlacer(6, 3, 0, FeatureSpread.func_242253_a(1, 2),
+                        new CrossTrunkPlacer(7, 3, 0, FeatureSpread.func_242253_a(1, 2),
                                 FeatureSpread.func_242253_a(1, 1), true),
                         new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
                         .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
@@ -141,7 +151,8 @@ public class TreeRegistry {
 
     public static final RegisteredTree douglas = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "douglas", "Douglas Fir").wood(MaterialColor.DIRT)
-                    .log(MaterialColor.STONE).leaves(0x78a65d).feature(TreeRegistry::makeNeedleTree)
+                    .log(MaterialColor.STONE).leaves(0x78a65d)
+                    .feature((log, leaves) -> makeNeedleTree(log, leaves, 1, 6, 2))
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree pine = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "pine", "Pine").wood(MaterialColor.SAND)
@@ -149,11 +160,11 @@ public class TreeRegistry {
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree larch = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "larch", "Larch").leaves(0x486942)
-                    .feature(TreeRegistry::makeNeedleTree)
+                    .feature((log, leaves) -> makeNeedleTree(log, leaves, 2, 7, 3))
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree fir = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "fir", "Fir").log(MaterialColor.OBSIDIAN)
-                    .leaves(0x5a914e).feature(TreeRegistry::makeNeedleTree)
+                    .leaves(0x5a914e).feature((log, leaves) -> makeNeedleTree(log, leaves, 1, 6, 2))
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree maple = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "maple", "Maple").wood(MaterialColor.DIRT)
@@ -193,8 +204,8 @@ public class TreeRegistry {
                     .feature(TreeRegistry::makePlaneTree).build());
     public static final RegisteredTree ash = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "ash", "Ash").wood(MaterialColor.ORANGE_TERRACOTTA)
-                    .log(MaterialColor.BLACK).leaves(0x79a348)
-                    .feature((log, leaves) -> makeSmallLeafTree(log, leaves, 5, 3, 2, 2)).build());
+                    .log(MaterialColor.BLACK).leaves(0x79a348).feature((log, leaves) -> makeAshTree(log, leaves))
+                    .build());
     public static final RegisteredTree linden = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "linden", "Linden")
                     .wood(MaterialColor.ORANGE_TERRACOTTA).log(MaterialColor.BLACK).leaves(0x79a348)

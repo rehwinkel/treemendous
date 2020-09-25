@@ -10,6 +10,7 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.FeatureSpread;
+import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.TrunkPlacerType;
@@ -56,6 +57,8 @@ public class CrossTrunkPlacer extends AbstractTrunkPlacer {
         func_236909_a_(generationReader, pos.down());
         List<FoliagePlacer.Foliage> foliages = new ArrayList<>();
 
+        int fancyTax = featureConfig.field_236677_f_ instanceof FancyFoliagePlacer ? 2 : 0;
+
         int[] branchOffsets = new int[]{this.branchTopOffset.func_242259_a(random), this.branchTopOffset.func_242259_a(
                 random), this.branchTopOffset.func_242259_a(random), this.branchTopOffset.func_242259_a(random)};
         for (int i = 0; i < height; ++i) {
@@ -68,14 +71,14 @@ public class CrossTrunkPlacer extends AbstractTrunkPlacer {
                         func_236913_a_(generationReader, p, featureConfig.trunkProvider.getBlockState(random, p)
                                 .with(RotatedPillarBlock.AXIS, dir.getAxis()), boundingBox);
                         if (branch == thisBranchLen && this.leavesAtEnd) {
-                            foliages.add(new FoliagePlacer.Foliage(p, 0, false));
+                            foliages.add(new FoliagePlacer.Foliage(p.down(fancyTax), 0, false));
                         }
                     }
                 }
             }
         }
 
-        foliages.add(new FoliagePlacer.Foliage(pos.up(height), 0, false));
+        foliages.add(new FoliagePlacer.Foliage(pos.up(height - fancyTax), 0, false));
         return foliages;
     }
 }

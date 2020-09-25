@@ -16,6 +16,9 @@ import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 public class Forests {
 
     static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
@@ -67,6 +70,20 @@ public class Forests {
                             .of(TreeRegistry.red_maple.getFeature().withChance(0.3F),
                                     TreeRegistry.brown_maple.getFeature().withChance(0.3F)),
                             TreeRegistry.maple.getFeature())).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                            .withPlacement(
+                                    Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
+        });
+
+        BIOMES.register("mixed_forest", () -> {
+            for (RegisteredTree tree : TreeRegistry.trees) {
+                tree.registerFeature();
+            }
+
+            ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed",
+                    Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(TreeRegistry.trees.stream()
+                            .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getFeature)
+                            .collect(Collectors.toList()))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                             .withPlacement(
                                     Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
             return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
