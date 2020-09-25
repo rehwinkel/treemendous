@@ -105,12 +105,12 @@ public class TreeRegistry {
                         .setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
-    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves) {
+    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int baseHeight, int extraHeight) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
                         new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4),
-                        new AshTrunkPlacer(5, 3, 1, FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(3)),
+                        new AshTrunkPlacer(baseHeight, extraHeight, 1, FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(3)),
                         new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
                         .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
@@ -198,26 +198,31 @@ public class TreeRegistry {
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.5f).snow())
                     .feature((log, leaves) -> makeSmallLeafTree(log, leaves, 5, 3, 2, 4)).build());
     public static final RegisteredTree plane = registerTree(
-            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "plane", "Plane").wood(MaterialColor.BLUE)
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "plane", "Plane").wood(MaterialColor.CYAN_TERRACOTTA)
                     .log(MaterialColor.PURPLE).leaves(0x8cb856)
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.8f))
                     .feature(TreeRegistry::makePlaneTree).build());
     public static final RegisteredTree ash = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "ash", "Ash").wood(MaterialColor.ORANGE_TERRACOTTA)
-                    .log(MaterialColor.BLACK).leaves(0x79a348).feature((log, leaves) -> makeAshTree(log, leaves))
+                    .log(MaterialColor.BLACK).leaves(0x79a348).feature((log, leaves) -> makeAshTree(log, leaves, 6, 3))
                     .build());
     public static final RegisteredTree linden = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "linden", "Linden")
                     .wood(MaterialColor.ORANGE_TERRACOTTA).log(MaterialColor.BLACK).leaves(0x79a348)
                     .feature(TreeRegistry::makeFancyLeafTree).build());
     public static final RegisteredTree robinia = registerTree(
-            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "robinia", "Robinia").log(MaterialColor.GOLD)
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "robinia", "Robinia").wood(MaterialColor.GOLD)
                     .leaves(0x97bf50).feature(TreeRegistry::makeAcaciaLeafTree)
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(1.0f).dry()).build());
     public static final RegisteredTree willow = registerTree(
-            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "willow", "Willow").log(MaterialColor.GOLD)
-                    .leaves(0x75b354).feature(TreeRegistry::makeWillowLeafTree)
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "willow", "Willow").log(MaterialColor.BLACK)
+                    .wood(MaterialColor.WHITE_TERRACOTTA).leaves(0x75b354).feature(TreeRegistry::makeWillowLeafTree)
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.6f)).build());
+    public static final RegisteredTree pomegranate = registerTree(
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "pomegranate", "Pomegranate")
+                    .log(MaterialColor.GRAY_TERRACOTTA).wood(MaterialColor.WHITE_TERRACOTTA).leaves(0x7dab48)
+                    .feature((log, leaves) -> makeAshTree(log, leaves, 5, 0))
+                    .biome(new RegisteredTree.BiomeSettings.Builder().temperature(1.0f).dry()).build());
 
     public static RegistryObject<Block> rp = BLOCKS
             .register("rainbow_eukalyptus_planks", () -> new Block(AbstractBlock.Properties.create(Material.WOOD)));
