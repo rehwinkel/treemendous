@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "treemendous:block/robinia_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "treemendous:block/robinia_wood"
+    },
+    "axis=z": {
+      "model": "treemendous:block/robinia_wood",
+      "x": 90
+    }
+  }
+}

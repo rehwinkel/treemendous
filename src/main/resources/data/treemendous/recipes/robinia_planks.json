@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "treemendous:robinia_logs"
+    }
+  ],
+  "result": {
+    "item": "treemendous:robinia_planks",
+    "count": 4
+  }
+}

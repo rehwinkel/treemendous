@@ -93,26 +93,26 @@ public class RegisteredTree {
 
         BIOMES.register(name + "_forest", () -> {
             this.registerFeature();
-            return Forests.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, new MobSpawnInfo.Builder(),
+            return Forests.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, biomeSettings.isDry(), new MobSpawnInfo.Builder(),
                     this.treesFeature);
         });
 
         BIOMES.register(name + "_forest_hills", () -> {
             this.registerFeature();
-            return Forests.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, new MobSpawnInfo.Builder(),
+            return Forests.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, biomeSettings.isDry(), new MobSpawnInfo.Builder(),
                     this.treesFeature);
         });
 
         if (biomeSettings.isSnowy()) {
             BIOMES.register(name + "_forest_snow", () -> {
                 this.registerFeature();
-                return Forests.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, new MobSpawnInfo.Builder(),
+                return Forests.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, false, new MobSpawnInfo.Builder(),
                         this.treesFeature);
             });
 
             BIOMES.register(name + "_forest_hills_snow", () -> {
                 this.registerFeature();
-                return Forests.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, new MobSpawnInfo.Builder(),
+                return Forests.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false, new MobSpawnInfo.Builder(),
                         this.treesFeature);
             });
         }
@@ -363,10 +363,12 @@ public class RegisteredTree {
     public static class BiomeSettings {
         private final float temperature;
         private final boolean snowy;
+        private final boolean dry;
 
-        private BiomeSettings(float temp, boolean snowy) {
+        private BiomeSettings(float temp, boolean snowy, boolean dry) {
             this.temperature = temp;
             this.snowy = snowy;
+            this.dry = dry;
         }
 
         private float getTemperature() {
@@ -377,13 +379,19 @@ public class RegisteredTree {
             return snowy;
         }
 
+        public boolean isDry() {
+            return dry;
+        }
+
         public static class Builder {
             private float temperature;
             private boolean snowy;
+            private boolean dry;
 
             public Builder() {
                 this.temperature = 0.7f;
                 this.snowy = false;
+                this.dry = false;
             }
 
             public Builder temperature(float temp) {
@@ -396,8 +404,14 @@ public class RegisteredTree {
                 return this;
             }
 
+            public Builder dry() {
+                this.snowy = false;
+                this.dry = true;
+                return this;
+            }
+
             public BiomeSettings build() {
-                return new BiomeSettings(this.temperature, this.snowy);
+                return new BiomeSettings(this.temperature, this.snowy, this.dry);
             }
         }
     }

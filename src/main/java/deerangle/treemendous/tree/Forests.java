@@ -23,7 +23,7 @@ public class Forests {
                 .register(WorldGenRegistries.CONFIGURED_FEATURE, Treemendous.MODID + ":" + key, configuredFeature);
     }
 
-    static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
+    static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, boolean dry, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
         BiomeGenerationSettings.Builder genSettings = new BiomeGenerationSettings.Builder()
                 .withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
         DefaultBiomeFeatures.withStrongholdAndMineshaft(genSettings);
@@ -43,9 +43,10 @@ public class Forests {
         DefaultBiomeFeatures.withFrozenTopLayer(genSettings);
         genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, tree);
 
-        return new Biome.Builder().precipitation(snowy ? Biome.RainType.SNOW : Biome.RainType.RAIN)
+        return new Biome.Builder()
+                .precipitation(snowy ? Biome.RainType.SNOW : (dry ? Biome.RainType.NONE : Biome.RainType.RAIN))
                 .category(Biome.Category.FOREST).depth(depth).scale(scale).temperature(snowy ? -0.5F : temperature)
-                .downfall(snowy ? 0.4F : 0.8F).setEffects(
+                .downfall(snowy ? 0.4F : (dry ? 0.0F : 0.8F)).setEffects(
                         (new BiomeAmbience.Builder()).setWaterColor(snowy ? 4020182 : 4159204).setWaterFogColor(329011)
                                 .setFogColor(12638463).withSkyColor(MathHelper.hsvToRGB(0.6105556f, 0.5233333f, 1.0F))
                                 .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
@@ -62,12 +63,13 @@ public class Forests {
             TreeRegistry.brown_maple.registerFeature();
 
             ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed_maple",
-                    Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(
-                            ImmutableList.of(TreeRegistry.red_maple.getFeature().withChance(0.3F), TreeRegistry.brown_maple.getFeature().withChance(0.3F)),
-                            TreeRegistry.maple.getFeature())).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
-                            Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
-            return makeForestBiome(0.2f, 0.4f, 0.6f, false, new MobSpawnInfo.Builder(),
-                    treesFeature);
+                    Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList
+                            .of(TreeRegistry.red_maple.getFeature().withChance(0.3F),
+                                    TreeRegistry.brown_maple.getFeature().withChance(0.3F)),
+                            TreeRegistry.maple.getFeature())).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                            .withPlacement(
+                                    Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
         });
     }
 
