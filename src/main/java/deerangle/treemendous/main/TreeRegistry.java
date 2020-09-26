@@ -33,6 +33,8 @@ public class TreeRegistry {
             "rounded_foliage_placer", RoundedFoliagePlacer.CODEC);
     public static final FoliagePlacerType<WillowFoliagePlacer> WILLOW_FOLIAGE_PLACER = registerFoliagePlacerType(
             "willow_foliage_placer", WillowFoliagePlacer.CODEC);
+    public static final FoliagePlacerType<ParabolaFoliagePlacer> PARABOLA_FOLIAGE_PLACER = registerFoliagePlacerType(
+            "parabola_foliage_placer", ParabolaFoliagePlacer.CODEC);
     public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = registerTrunkPlacerType(
             "cross_trunk_placer", CrossTrunkPlacer.CODEC);
     public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacerType("ash_trunk_placer",
@@ -96,6 +98,14 @@ public class TreeRegistry {
         return makeSmallLeafTree(log, leaves, 5, 2, 2, 3);
     }
 
+    private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeMapleTree(Block log, Block leaves) {
+        return Feature.TREE.withConfiguration(
+                (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()),
+                        new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242253_a(0, 1), 4, 3),
+                        new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+    }
+
     private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeFancyLeafTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
@@ -110,9 +120,9 @@ public class TreeRegistry {
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
                         new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4),
-                        new AshTrunkPlacer(baseHeight, extraHeight, 1, FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(3)),
-                        new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
-                        .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
+                        new AshTrunkPlacer(baseHeight, extraHeight, 1, FeatureSpread.func_242253_a(1, 1),
+                                FeatureSpread.func_242252_a(3)), new TwoLayerFeature(0, 0, 0, OptionalInt.of(4))))
+                        .setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
     private static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePlaneTree(Block log, Block leaves) {
@@ -168,15 +178,15 @@ public class TreeRegistry {
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree maple = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "maple", "Maple").wood(MaterialColor.DIRT)
-                    .leaves(0x9bd95d).feature((log, leaves) -> makeSmallLeafTree(log, leaves, 6, 2, 3, 3)).build());
+                    .leaves(0x9bd95d).feature((log, leaves) -> makeMapleTree(log, leaves)).build());
     public static final RegisteredTree red_maple = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "red_maple", "Red Maple").inheritWood(maple)
-                    .wood(MaterialColor.DIRT).leaves(0xcc764e)
-                    .feature((log, leaves) -> makeSmallLeafTree(log, leaves, 6, 2, 3, 3)).build());
+                    .wood(MaterialColor.DIRT).leaves(0xcc764e).feature((log, leaves) -> makeMapleTree(log, leaves))
+                    .build());
     public static final RegisteredTree brown_maple = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "brown_maple", "Brown Maple").inheritWood(maple)
-                    .wood(MaterialColor.DIRT).leaves(0xd9c25d)
-                    .feature((log, leaves) -> makeSmallLeafTree(log, leaves, 6, 2, 3, 3)).build());
+                    .wood(MaterialColor.DIRT).leaves(0xd9c25d).feature((log, leaves) -> makeMapleTree(log, leaves))
+                    .build());
     public static final RegisteredTree japanese = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "japanese", "Japanese Maple").wood(MaterialColor.PINK)
                     .leaves(0xb54c36).feature(TreeRegistry::makeSmallLeafTree).build());
