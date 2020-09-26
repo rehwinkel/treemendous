@@ -13,7 +13,6 @@ import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -21,7 +20,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Forests {
+public class BiomeMaker {
 
     static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry
@@ -69,9 +68,9 @@ public class Forests {
 
             ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed_maple",
                     Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList
-                            .of(TreeRegistry.red_maple.getFeature().withChance(0.3F),
-                                    TreeRegistry.brown_maple.getFeature().withChance(0.3F)),
-                            TreeRegistry.maple.getFeature())).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                            .of(TreeRegistry.red_maple.getSingleTreeFeature().withChance(0.3F),
+                                    TreeRegistry.brown_maple.getSingleTreeFeature().withChance(0.3F)),
+                            TreeRegistry.maple.getSingleTreeFeature())).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                             .withPlacement(
                                     Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
             return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
@@ -84,7 +83,7 @@ public class Forests {
 
             ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed",
                     Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(TreeRegistry.trees.stream()
-                            .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getFeature)
+                            .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getSingleTreeFeature)
                             .collect(Collectors.toList()))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                             .withPlacement(
                                     Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
@@ -99,7 +98,7 @@ public class Forests {
             ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed_vanilla",
                     Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(Stream.concat(
                             TreeRegistry.trees.stream()
-                                    .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getFeature), ImmutableList
+                                    .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getSingleTreeFeature), ImmutableList
                                     .of(Features.OAK, Features.SPRUCE, Features.BIRCH, Features.JUNGLE_TREE,
                                             Features.ACACIA, Features.DARK_OAK).stream().map(tree -> () -> tree))
                             .collect(Collectors.toList()))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)

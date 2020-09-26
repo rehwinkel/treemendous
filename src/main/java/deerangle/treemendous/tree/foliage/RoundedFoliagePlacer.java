@@ -1,4 +1,4 @@
-package deerangle.treemendous.tree;
+package deerangle.treemendous.tree.foliage;
 
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;

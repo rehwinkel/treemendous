@@ -1,4 +1,4 @@
-package deerangle.treemendous.tree;
+package deerangle.treemendous.tree.trunk;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

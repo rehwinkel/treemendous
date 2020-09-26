@@ -1,14 +1,13 @@
 package deerangle.treemendous.data;
 
+import deerangle.treemendous.main.ExtraRegistry;
 import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.tree.RegisteredTree;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.registry.Registry;
@@ -32,8 +31,8 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
     }
 
     private static void shapedBoat(Consumer<IFinishedRecipe> reipceConsumer, IItemProvider result, IItemProvider planks) {
-        ShapedRecipeBuilder.shapedRecipe(result).key('#', planks).patternLine("# #").patternLine("###")
-                .setGroup("boat").addCriterion("in_water", enteredBlock(Blocks.WATER)).build(reipceConsumer);
+        ShapedRecipeBuilder.shapedRecipe(result).key('#', planks).patternLine("# #").patternLine("###").setGroup("boat")
+                .addCriterion("in_water", enteredBlock(Blocks.WATER)).build(reipceConsumer);
     }
 
     private static void shapelessWoodenButton(Consumer<IFinishedRecipe> reipceConsumer, IItemProvider result, IItemProvider p_240474_2_) {
@@ -88,10 +87,30 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
                 .build(reipceConsumer);
     }
 
+    private static void lumberAxe(Consumer<IFinishedRecipe> reipceConsumer, IItemProvider result, IItemProvider axeMaterial) {
+        ShapedRecipeBuilder.shapedRecipe(result).key('#', Items.STICK).key('X', axeMaterial).patternLine("XXX")
+                .patternLine("X# ").patternLine("X# ").addCriterion("has_iron_ingot", hasItem(Items.IRON_INGOT))
+                .build(reipceConsumer);
+
+    }
+
+    private static void smithingReinforce(Consumer<IFinishedRecipe> recipeConsumer, Item itemToReinforce, Item output) {
+        SmithingRecipeBuilder
+                .smithingRecipe(Ingredient.fromItems(itemToReinforce), Ingredient.fromItems(Items.NETHERITE_INGOT),
+                        output).addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
+                .build(recipeConsumer, Registry.ITEM.getKey(output.asItem()).getPath() + "_smithing");
+    }
+
+
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> reipceConsumer) {
+        lumberAxe(reipceConsumer, ExtraRegistry.IRON_LUMBER_AXE.get(), Items.IRON_INGOT);
+        lumberAxe(reipceConsumer, ExtraRegistry.GOLDEN_LUMBER_AXE.get(), Items.GOLD_INGOT);
+        lumberAxe(reipceConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), Items.DIAMOND);
+        smithingReinforce(reipceConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(),
+                ExtraRegistry.NETHERITE_LUMBER_AXE.get());
         for (RegisteredTree tree : TreeRegistry.trees) {
-            if(tree.isNotInherited()) {
+            if (tree.isNotInherited()) {
                 shapelessPlanksNew(reipceConsumer, tree.planks.get(), tree.logsItemTag);
                 shapelessStrippedToPlanks(reipceConsumer, tree.wood.get(), tree.log.get());
                 shapelessStrippedToPlanks(reipceConsumer, tree.stripped_wood.get(), tree.stripped_log.get());

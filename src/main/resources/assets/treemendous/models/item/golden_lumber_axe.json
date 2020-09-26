@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "treemendous:item/golden_lumber_axe"
+  }
+}

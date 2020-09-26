@@ -11,11 +11,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class BlockstateProvider extends BlockStateProvider {
+public class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
 
     private final String modid;
 
-    public BlockstateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
+    public BlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
         super(gen, modid, exFileHelper);
         this.modid = modid;
     }
