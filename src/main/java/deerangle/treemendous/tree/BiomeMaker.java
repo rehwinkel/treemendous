@@ -60,6 +60,8 @@ public class BiomeMaker {
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister
             .create(ForgeRegistries.BIOMES, Treemendous.MODID);
 
+    private static ConfiguredFeature<?, ?> needleTreesFeature;
+
     static {
         BIOMES.register("mixed_maple_forest", () -> {
             TreeRegistry.maple.registerFeature();
@@ -70,9 +72,9 @@ public class BiomeMaker {
                     Feature.RANDOM_SELECTOR.withConfiguration(new MultipleRandomFeatureConfig(ImmutableList
                             .of(TreeRegistry.red_maple.getSingleTreeFeature().withChance(0.3F),
                                     TreeRegistry.brown_maple.getSingleTreeFeature().withChance(0.3F)),
-                            TreeRegistry.maple.getSingleTreeFeature())).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                            .withPlacement(
-                                    Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+                            TreeRegistry.maple.getSingleTreeFeature()))
+                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
+                            Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
             return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
         });
 
@@ -90,6 +92,42 @@ public class BiomeMaker {
             return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
         });
 
+        BIOMES.register("needle_forest", () -> {
+            TreeRegistry.fir.registerFeature();
+            TreeRegistry.douglas.registerFeature();
+            TreeRegistry.larch.registerFeature();
+            TreeRegistry.pine.registerFeature();
+
+            if (needleTreesFeature == null) {
+                needleTreesFeature = registerConfiguredFeature("trees_needle", Feature.SIMPLE_RANDOM_SELECTOR
+                        .withConfiguration(new SingleRandomFeature(ImmutableList
+                                .of(TreeRegistry.fir::getSingleTreeFeature, TreeRegistry.douglas::getSingleTreeFeature,
+                                        TreeRegistry.larch::getSingleTreeFeature,
+                                        TreeRegistry.pine::getSingleTreeFeature, () -> Features.SPRUCE,
+                                        () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                        .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+            }
+            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), needleTreesFeature);
+        });
+
+        BIOMES.register("needle_forest_snow", () -> {
+            TreeRegistry.fir.registerFeature();
+            TreeRegistry.douglas.registerFeature();
+            TreeRegistry.larch.registerFeature();
+            TreeRegistry.pine.registerFeature();
+
+            if (needleTreesFeature == null) {
+                needleTreesFeature = registerConfiguredFeature("trees_needle", Feature.SIMPLE_RANDOM_SELECTOR
+                        .withConfiguration(new SingleRandomFeature(ImmutableList
+                                .of(TreeRegistry.fir::getSingleTreeFeature, TreeRegistry.douglas::getSingleTreeFeature,
+                                        TreeRegistry.larch::getSingleTreeFeature,
+                                        TreeRegistry.pine::getSingleTreeFeature, () -> Features.SPRUCE,
+                                        () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                        .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+            }
+            return makeForestBiome(0.2f, 0.4f, 0.6f, true, false, new MobSpawnInfo.Builder(), needleTreesFeature);
+        });
+
         BIOMES.register("mixed_forest_vanilla", () -> {
             for (RegisteredTree tree : TreeRegistry.trees) {
                 tree.registerFeature();
@@ -98,9 +136,9 @@ public class BiomeMaker {
             ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed_vanilla",
                     Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(Stream.concat(
                             TreeRegistry.trees.stream()
-                                    .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getSingleTreeFeature), ImmutableList
-                                    .of(Features.OAK, Features.SPRUCE, Features.BIRCH, Features.JUNGLE_TREE,
-                                            Features.ACACIA, Features.DARK_OAK).stream().map(tree -> () -> tree))
+                                    .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getSingleTreeFeature),
+                            ImmutableList.of(Features.OAK, Features.SPRUCE, Features.BIRCH, Features.JUNGLE_TREE,
+                                    Features.ACACIA, Features.DARK_OAK).stream().map(tree -> () -> tree))
                             .collect(Collectors.toList()))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                             .withPlacement(
                                     Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));

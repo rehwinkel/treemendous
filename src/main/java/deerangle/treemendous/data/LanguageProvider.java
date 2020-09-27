@@ -23,6 +23,8 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add("biome." + this.modid + "." + "mixed_maple_forest", "Mixed Maple Forest");
         add("biome." + this.modid + "." + "mixed_forest", "Treemendous Mixed Forest");
         add("biome." + this.modid + "." + "mixed_forest_vanilla", "Mixed Forest");
+        add("biome." + this.modid + "." + "needle_forest", "Needle Forest");
+        add("biome." + this.modid + "." + "needle_forest_snow", "Snowy Needle Forest");
         for (RegisteredTree tree : TreeRegistry.trees) {
             String name = tree.getName();
             String englishName = tree.getEnglishName();
