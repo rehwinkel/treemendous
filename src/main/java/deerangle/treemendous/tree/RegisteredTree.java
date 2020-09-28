@@ -1,5 +1,6 @@
 package deerangle.treemendous.tree;
 
+import com.google.common.collect.ImmutableList;
 import deerangle.treemendous.block.CustomStandingSignBlock;
 import deerangle.treemendous.block.CustomWallSignBlock;
 import deerangle.treemendous.block.StrippableBlock;
@@ -16,10 +17,12 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Features;
@@ -28,6 +31,7 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
+import java.util.Collection;
 import java.util.function.BiFunction;
 
 public class RegisteredTree {
@@ -58,6 +62,8 @@ public class RegisteredTree {
     private final BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> featureBiFunction;
     private ConfiguredFeature<BaseTreeFeatureConfig, ?> singleTreeFeature;
     private ConfiguredFeature<?, ?> treesFeature;
+    private final Collection<RegistryKey<Biome>> biomes;
+    private final Collection<RegistryKey<Biome>> frostyBiomes;
 
     private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, int leavesColor, IItemProvider apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
@@ -67,9 +73,10 @@ public class RegisteredTree {
         this.featureBiFunction = feature;
         this.singleTreeFeature = null;
 
-        this.sapling = BLOCKS.register(name + "_sapling", () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
-                AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
-                        .zeroHardnessAndResistance().sound(SoundType.PLANT)));
+        this.sapling = BLOCKS.register(name + "_sapling",
+                () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
+                        AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
+                                .zeroHardnessAndResistance().sound(SoundType.PLANT)));
         this.leaves = BLOCKS.register(name + "_leaves", () -> new LeavesBlock(
                 AbstractBlock.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly()
                         .sound(SoundType.PLANT).notSolid().setAllowsSpawn(RegisteredTree::allowsSpawnOnLeaves)
@@ -83,30 +90,36 @@ public class RegisteredTree {
 
         BIOMES.register(name + "_forest", () -> {
             this.registerFeature();
-            return BiomeMaker
-                    .makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, biomeSettings.isDry(), new MobSpawnInfo.Builder(),
-                    this.treesFeature);
+            return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
+                    new MobSpawnInfo.Builder(), this.treesFeature);
         });
 
         BIOMES.register(name + "_forest_hills", () -> {
             this.registerFeature();
-            return BiomeMaker
-                    .makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, biomeSettings.isDry(), new MobSpawnInfo.Builder(),
-                    this.treesFeature);
+            return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
+                    new MobSpawnInfo.Builder(), this.treesFeature);
         });
+
+
+        this.biomes = ImmutableList
+                .of(BiomeMaker.makeBiomeKey(name + "_forest"), BiomeMaker.makeBiomeKey(name + "_forest_hills"));
 
         if (biomeSettings.isSnowy()) {
             BIOMES.register(name + "_forest_snow", () -> {
                 this.registerFeature();
-                return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, false, new MobSpawnInfo.Builder(),
-                        this.treesFeature);
+                return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, false,
+                        new MobSpawnInfo.Builder(), this.treesFeature);
             });
 
             BIOMES.register(name + "_forest_hills_snow", () -> {
                 this.registerFeature();
-                return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false, new MobSpawnInfo.Builder(),
-                        this.treesFeature);
+                return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false,
+                        new MobSpawnInfo.Builder(), this.treesFeature);
             });
+            this.frostyBiomes = ImmutableList.of(BiomeMaker.makeBiomeKey(name + "_forest_snow"),
+                    BiomeMaker.makeBiomeKey(name + "_forest_hills_snow"));
+        } else {
+            this.frostyBiomes = ImmutableList.of();
         }
 
         if (inherit == null) {
@@ -246,6 +259,14 @@ public class RegisteredTree {
         return this.name;
     }
 
+    public Collection<? extends RegistryKey<Biome>> getBiomes() {
+        return this.biomes;
+    }
+
+    public Collection<? extends RegistryKey<Biome>> getFrostyBiomes() {
+        return this.frostyBiomes;
+    }
+
     public static class Builder {
         private final DeferredRegister<Item> itemRegistry;
         private final DeferredRegister<Block> blockRegistry;
@@ -323,8 +344,8 @@ public class RegisteredTree {
 
     public void registerFeature() {
         if (this.singleTreeFeature == null) {
-            this.singleTreeFeature = BiomeMaker.registerConfiguredFeature(this.name,
-                    featureBiFunction.apply(this.log.get(), this.leaves.get()));
+            this.singleTreeFeature = BiomeMaker
+                    .registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
             this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name,
                     this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
                             Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));

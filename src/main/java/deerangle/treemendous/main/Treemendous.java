@@ -6,6 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -23,6 +24,7 @@ public class Treemendous {
         TreeRegistry.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         BiomeMaker.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
     }
 
     private final Proxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
@@ -44,6 +46,10 @@ public class Treemendous {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         proxy.clientSetup();
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        BiomeMaker.addBiomesToOverworld();
     }
 
 }
