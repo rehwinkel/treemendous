@@ -6,6 +6,7 @@ import deerangle.treemendous.entity.CustomBoatEntity;
 import deerangle.treemendous.tree.RegisteredTree;
 import deerangle.treemendous.tree.TreeMaker;
 import deerangle.treemendous.tree.foliage.ParabolaFoliagePlacer;
+import deerangle.treemendous.tree.foliage.PointyFoliagePlacer;
 import deerangle.treemendous.tree.foliage.RoundedFoliagePlacer;
 import deerangle.treemendous.tree.foliage.WillowFoliagePlacer;
 import deerangle.treemendous.tree.trunk.AshTrunkPlacer;
@@ -38,6 +39,8 @@ public class TreeRegistry {
             "willow_foliage_placer", WillowFoliagePlacer.CODEC);
     public static final FoliagePlacerType<ParabolaFoliagePlacer> PARABOLA_FOLIAGE_PLACER = registerFoliagePlacerType(
             "parabola_foliage_placer", ParabolaFoliagePlacer.CODEC);
+    public static final FoliagePlacerType<PointyFoliagePlacer> POINTY_FOLIAGE_PLACER = registerFoliagePlacerType(
+            "pointy_foliage_placer", PointyFoliagePlacer.CODEC);
     public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = registerTrunkPlacerType(
             "cross_trunk_placer", CrossTrunkPlacer.CODEC);
     public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacerType("ash_trunk_placer",
@@ -119,8 +122,8 @@ public class TreeRegistry {
     public static final RegisteredTree ash = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "ash", "Ash").wood(MaterialColor.ORANGE_TERRACOTTA)
                     .log(MaterialColor.BLACK).leaves(0x79a348).feature((log, leaves) -> TreeMaker
-                    .makeAshTree(log, leaves, 6, 3, FeatureSpread.func_242253_a(1, 2), FeatureSpread.func_242252_a(3)))
-                    .build());
+                    .makeAshTree(log, leaves, 6, 3, FeatureSpread.func_242253_a(1, 2), FeatureSpread.func_242252_a(3),
+                            FeatureSpread.func_242253_a(2, 1))).build());
     public static final RegisteredTree linden = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "linden", "Linden")
                     .wood(MaterialColor.ORANGE_TERRACOTTA).log(MaterialColor.BLACK).leaves(0x79a348)
@@ -137,7 +140,8 @@ public class TreeRegistry {
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "pomegranate", "Pomegranate")
                     .log(MaterialColor.GRAY_TERRACOTTA).wood(MaterialColor.WHITE_TERRACOTTA).leaves(0x7dab48).feature(
                     (log, leaves) -> TreeMaker.makeAshTree(log, leaves, 4, 1, FeatureSpread.func_242253_a(0, 2),
-                            FeatureSpread.func_242253_a(2, 1))).apple(ExtraRegistry.POMEGRANATE::get)
+                            FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(2, 1)))
+                    .apple(ExtraRegistry.POMEGRANATE::get)
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(1.0f).dry()).build());
     public static final RegisteredTree magnolia = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "magnolia", "Magnolia").log(MaterialColor.LIGHT_GRAY)
@@ -148,15 +152,14 @@ public class TreeRegistry {
                     (log, leaves) -> TreeMaker
                             .makeCrossRoundTree(log, leaves, 6, 3, 3, FeatureSpread.func_242253_a(1, 1), 3)).build());
     public static final RegisteredTree cedar = registerTree(
-            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "cedar", "Cedar").leaves(0x81ba56)
-                    .wood(MaterialColor.PINK).feature((log, leaves) -> TreeMaker
-                    .makeCrossRoundTree(log, leaves, 9, 3, 4, FeatureSpread.func_242253_a(3, 2), 4))
-                    .biome(new RegisteredTree.BiomeSettings.Builder().density(6)).build());
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "cedar", "Cedar").leaves(0x5ea148)
+                    .wood(MaterialColor.PINK).feature(TreeMaker::makePointyTree)
+                    .biome(new RegisteredTree.BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
     public static final RegisteredTree poplar = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "poplar", "Poplar").leaves(0x81ba56)
                     .wood(MaterialColor.PINK).feature((log, leaves) -> TreeMaker
-                    .makeAshTree(log, leaves, 6, 6, FeatureSpread.func_242253_a(0, 2),
-                            FeatureSpread.func_242253_a(2, 2)))
+                    .makeAshTree(log, leaves, 6, 6, FeatureSpread.func_242253_a(1, 2),
+                            FeatureSpread.func_242253_a(2, 2), FeatureSpread.func_242252_a(3)))
                     .biome(new RegisteredTree.BiomeSettings.Builder().density(12)).build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {

@@ -1,6 +1,7 @@
 package deerangle.treemendous.tree;
 
 import deerangle.treemendous.tree.foliage.ParabolaFoliagePlacer;
+import deerangle.treemendous.tree.foliage.PointyFoliagePlacer;
 import deerangle.treemendous.tree.foliage.RoundedFoliagePlacer;
 import deerangle.treemendous.tree.foliage.WillowFoliagePlacer;
 import deerangle.treemendous.tree.trunk.AshTrunkPlacer;
@@ -107,11 +108,12 @@ public class TreeMaker {
                         .setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int baseHeight, int extraHeight, FeatureSpread leavesSideOffset, FeatureSpread minLeavesHeight) {
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int baseHeight, int extraHeight, FeatureSpread leavesSideOffset, FeatureSpread minLeavesHeight, FeatureSpread leavesSize) {
+        //TODO: fix this bad tree
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
-                        new FancyFoliagePlacer(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242252_a(4), 4),
+                        new FancyFoliagePlacer(leavesSize, FeatureSpread.func_242252_a(4), 4),
                         new AshTrunkPlacer(baseHeight, extraHeight, 1, leavesSideOffset, minLeavesHeight),
                         new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
                         .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
@@ -139,4 +141,13 @@ public class TreeMaker {
                         .build());
     }
 
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePointyTree(Block log, Block leaves) {
+        return Feature.TREE.withConfiguration(
+                (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()),
+                        new PointyFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(2),
+                                FeatureSpread.func_242252_a(37), FeatureSpread.func_242252_a(100),
+                                FeatureSpread.func_242253_a(1, 1)), new StraightTrunkPlacer(8, 6, 0),
+                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+    }
 }

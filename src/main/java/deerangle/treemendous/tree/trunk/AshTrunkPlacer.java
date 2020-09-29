@@ -47,9 +47,8 @@ public class AshTrunkPlacer extends AbstractTrunkPlacer {
         int last = 0;
         for (int i = 0; i < height; ++i) {
             if (i >= leafHeight && i - last > 3) {
-                BlockPos pos = startPos.up(i - 1);
-                pos = random.nextBoolean() ? pos
-                        .offset(Direction.Plane.HORIZONTAL.random(random), leavesOffset.func_242259_a(random)) : pos;
+                BlockPos pos = startPos.up(i - 1)
+                        .offset(Direction.Plane.HORIZONTAL.random(random), leavesOffset.func_242259_a(random));
                 foliages.add(new FoliagePlacer.Foliage(pos, 0, false));
                 last = i;
             }
