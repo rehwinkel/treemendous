@@ -107,14 +107,14 @@ public class TreeMaker {
                         .setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int baseHeight, int extraHeight) {
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int baseHeight, int extraHeight, FeatureSpread leavesSideOffset, FeatureSpread minLeavesHeight) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
-                        new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4),
-                        new AshTrunkPlacer(baseHeight, extraHeight, 1, FeatureSpread.func_242253_a(1, 1),
-                                FeatureSpread.func_242252_a(3)), new TwoLayerFeature(0, 0, 0, OptionalInt.of(4))))
-                        .setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
+                        new FancyFoliagePlacer(FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242252_a(4), 4),
+                        new AshTrunkPlacer(baseHeight, extraHeight, 1, leavesSideOffset, minLeavesHeight),
+                        new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
+                        .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePlaneTree(Block log, Block leaves) {

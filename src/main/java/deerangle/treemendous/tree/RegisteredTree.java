@@ -65,6 +65,7 @@ public class RegisteredTree {
     private ConfiguredFeature<?, ?> treesFeature;
     private final Collection<RegistryKey<Biome>> biomes;
     private final Collection<RegistryKey<Biome>> frostyBiomes;
+    private final int treeDensity;
 
     private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, int leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
@@ -73,6 +74,7 @@ public class RegisteredTree {
         this.leavesColor = leavesColor;
         this.featureBiFunction = feature;
         this.singleTreeFeature = null;
+        this.treeDensity = biomeSettings.getTreeDensity();
 
         this.sapling = BLOCKS.register(name + "_sapling",
                 () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
@@ -349,7 +351,8 @@ public class RegisteredTree {
                     .registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
             this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name,
                     this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
-                            Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+                            Placement.field_242902_f.configure(
+                                    new AtSurfaceWithExtraConfig(this.treeDensity, 0.1F, this.treeDensity / 4))));
         }
     }
 
@@ -373,11 +376,13 @@ public class RegisteredTree {
         private final float temperature;
         private final boolean snowy;
         private final boolean dry;
+        private final int treeDensity;
 
-        private BiomeSettings(float temp, boolean snowy, boolean dry) {
+        private BiomeSettings(float temp, boolean snowy, boolean dry, int treeDensity) {
             this.temperature = temp;
             this.snowy = snowy;
             this.dry = dry;
+            this.treeDensity = treeDensity;
         }
 
         private float getTemperature() {
@@ -392,15 +397,21 @@ public class RegisteredTree {
             return dry;
         }
 
+        public int getTreeDensity() {
+            return treeDensity;
+        }
+
         public static class Builder {
             private float temperature;
             private boolean snowy;
             private boolean dry;
+            private int treeDensity;
 
             public Builder() {
                 this.temperature = 0.7f;
                 this.snowy = false;
                 this.dry = false;
+                this.treeDensity = 10;
             }
 
             public Builder temperature(float temp) {
@@ -420,7 +431,12 @@ public class RegisteredTree {
             }
 
             public BiomeSettings build() {
-                return new BiomeSettings(this.temperature, this.snowy, this.dry);
+                return new BiomeSettings(this.temperature, this.snowy, this.dry, this.treeDensity);
+            }
+
+            public Builder density(int density) {
+                this.treeDensity = density;
+                return this;
             }
         }
     }
