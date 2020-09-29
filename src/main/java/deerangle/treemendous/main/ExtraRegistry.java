@@ -1,9 +1,7 @@
 package deerangle.treemendous.main;
 
 import deerangle.treemendous.item.LumberAxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemTier;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -21,5 +19,7 @@ public class ExtraRegistry {
             () -> new LumberAxeItem(ItemTier.DIAMOND, 5.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
     public static final RegistryObject<Item> NETHERITE_LUMBER_AXE = ITEMS.register("netherite_lumber_axe",
             () -> new LumberAxeItem(ItemTier.NETHERITE, 5.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
+    public static final RegistryObject<Item> POMEGRANATE = ITEMS.register("pomegranate",
+            () -> new Item((new Item.Properties()).group(ItemGroup.FOOD).food(Foods.APPLE)));
 
 }

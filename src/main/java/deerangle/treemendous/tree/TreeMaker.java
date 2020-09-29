@@ -46,6 +46,28 @@ public class TreeMaker {
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossBlobTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, int crownHeight) {
+        return Feature.TREE.withConfiguration(
+                (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()),
+                        new BlobFoliagePlacer(FeatureSpread.func_242252_a(crownWidth), FeatureSpread.func_242252_a(0),
+                                crownHeight),
+                        new CrossTrunkPlacer(baseHeight, extraHeight, 0, FeatureSpread.func_242253_a(2, 1),
+                                FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(1), true),
+                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossRoundTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, FeatureSpread branchLength, int roundIndex) {
+        return Feature.TREE.withConfiguration(
+                (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()),
+                        new RoundedFoliagePlacer(FeatureSpread.func_242252_a(crownWidth),
+                                FeatureSpread.func_242252_a(0), roundIndex),
+                        new CrossTrunkPlacer(baseHeight, extraHeight, 0, branchLength,
+                                FeatureSpread.func_242253_a(2, 1), FeatureSpread.func_242253_a(1, 2), true),
+                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+    }
+
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeRoundedLeafTree(Block log, Block leaves, int baseHeight, int extraHeight, int roundedIndex) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
@@ -71,8 +93,9 @@ public class TreeMaker {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
-                        new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242253_a(0, 1), 4, 3),
-                        new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+                        new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242253_a(0, 1), 4,
+                                3), new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines()
+                        .build());
     }
 
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeFancyLeafTree(Block log, Block leaves) {
@@ -100,7 +123,7 @@ public class TreeMaker {
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
                         new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4),
                         new CrossTrunkPlacer(7, 3, 0, FeatureSpread.func_242253_a(1, 2),
-                                FeatureSpread.func_242253_a(1, 1), true),
+                                FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(-2), true),
                         new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
                         .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
@@ -112,7 +135,8 @@ public class TreeMaker {
                         new WillowFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(0),
                                 FeatureSpread.func_242253_a(2, 1)),
                         new CrossTrunkPlacer(6, 2, 0, FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(2),
-                                false), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+                                FeatureSpread.func_242252_a(0), false), new TwoLayerFeature(1, 0, 1))).setIgnoreVines()
+                        .build());
     }
-    
+
 }

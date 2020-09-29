@@ -3,7 +3,8 @@ package deerangle.treemendous.main;
 import com.mojang.serialization.Codec;
 import deerangle.treemendous.block.entity.CustomSignTileEntity;
 import deerangle.treemendous.entity.CustomBoatEntity;
-import deerangle.treemendous.tree.*;
+import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeMaker;
 import deerangle.treemendous.tree.foliage.ParabolaFoliagePlacer;
 import deerangle.treemendous.tree.foliage.RoundedFoliagePlacer;
 import deerangle.treemendous.tree.foliage.WillowFoliagePlacer;
@@ -17,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
@@ -134,7 +136,20 @@ public class TreeRegistry {
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "pomegranate", "Pomegranate")
                     .log(MaterialColor.GRAY_TERRACOTTA).wood(MaterialColor.WHITE_TERRACOTTA).leaves(0x7dab48)
                     .feature((log, leaves) -> TreeMaker.makeAshTree(log, leaves, 5, 0))
+                    .apple(ExtraRegistry.POMEGRANATE::get)
                     .biome(new RegisteredTree.BiomeSettings.Builder().temperature(1.0f).dry()).build());
+    public static final RegisteredTree magnolia = registerTree(
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "magnolia", "Magnolia").log(MaterialColor.LIGHT_GRAY)
+                    .wood(MaterialColor.BROWN).leaves(0xFFFFFF)
+                    .feature((log, leaves) -> TreeMaker.makeCrossBlobTree(log, leaves, 6, 3, 2, 3)).build());
+    public static final RegisteredTree walnut = registerTree(
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "walnut", "Walnut").leaves(0x6ba147).feature(
+                    (log, leaves) -> TreeMaker
+                            .makeCrossRoundTree(log, leaves, 6, 3, 3, FeatureSpread.func_242253_a(1, 1), 3)).build());
+    public static final RegisteredTree cedar = registerTree(
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "cedar", "Cedar").leaves(0x81ba56)
+                    .wood(MaterialColor.PINK).feature((log, leaves) -> TreeMaker
+                    .makeCrossRoundTree(log, leaves, 12, 4, 4, FeatureSpread.func_242253_a(3, 2), 4)).build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {
         trees.add(tree);

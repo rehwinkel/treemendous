@@ -33,6 +33,7 @@ import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.Collection;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public class RegisteredTree {
 
@@ -54,7 +55,7 @@ public class RegisteredTree {
     private final boolean inherited;
     public final RegistryObject<Block> planks, sapling, log, stripped_log, wood, stripped_wood, leaves, pressure_plate, trapdoor, potted_sapling, button, stairs, slab, fence_gate, fence, door, sign, wall_sign;
     public final RegistryObject<Item> planks_item, sapling_item, log_item, stripped_log_item, wood_item, stripped_wood_item, leaves_item, pressure_plate_item, trapdoor_item, button_item, stairs_item, slab_item, fence_gate_item, fence_item, door_item, sign_item, boat_item;
-    private final IItemProvider apple;
+    private final Supplier<IItemProvider> apple;
     public final ITag.INamedTag<Item> logsItemTag;
     public final ITag.INamedTag<Block> logsBlockTag;
     private final WoodType woodType;
@@ -65,7 +66,7 @@ public class RegisteredTree {
     private final Collection<RegistryKey<Biome>> biomes;
     private final Collection<RegistryKey<Biome>> frostyBiomes;
 
-    private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, int leavesColor, IItemProvider apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
+    private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, int leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
@@ -276,7 +277,7 @@ public class RegisteredTree {
         private MaterialColor woodColor;
         private MaterialColor logColor;
         private int leavesColor;
-        private IItemProvider apple;
+        private Supplier<IItemProvider> apple;
         private RegisteredTree inherit;
         private BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature;
         private BiomeSettings biomeSettings;
@@ -311,7 +312,7 @@ public class RegisteredTree {
             return this;
         }
 
-        public Builder apple(IItemProvider apple) {
+        public Builder apple(Supplier<IItemProvider> apple) {
             this.apple = apple;
             return this;
         }
@@ -360,7 +361,7 @@ public class RegisteredTree {
         return englishName;
     }
 
-    public IItemProvider getApple() {
+    public Supplier<IItemProvider> getApple() {
         return this.apple;
     }
 

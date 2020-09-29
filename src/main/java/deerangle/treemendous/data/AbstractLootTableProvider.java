@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public abstract class AbstractLootTableProvider implements IDataProvider {
 
@@ -109,11 +110,11 @@ public abstract class AbstractLootTableProvider implements IDataProvider {
                                 .acceptCondition(SurvivesExplosion.builder())).build());
     }
 
-    public void leavesBlock(LeavesBlock block, SaplingBlock saplingBlock, IItemProvider apple) {
+    public void leavesBlock(LeavesBlock block, SaplingBlock saplingBlock, Supplier<IItemProvider> apple) {
         leavesBlock(name(block), block, saplingBlock, apple);
     }
 
-    public void leavesBlock(String name, LeavesBlock block, SaplingBlock sapling, IItemProvider apple) {
+    public void leavesBlock(String name, LeavesBlock block, SaplingBlock sapling, Supplier<IItemProvider> apple) {
         LootTable.Builder builder = LootTable.builder().setParameterSet(LootParameterSets.BLOCK).addLootPool(
                 LootPool.builder().rolls(ConstantRange.of(1)).addEntry(AlternativesLootEntry.builder(
                         ItemLootEntry.builder(block).acceptCondition(Alternative
@@ -138,8 +139,9 @@ public abstract class AbstractLootTableProvider implements IDataProvider {
                             .builder(ItemPredicate.Builder.create().enchantment(
                                     new EnchantmentPredicate(Enchantments.SILK_TOUCH,
                                             MinMaxBounds.IntBound.atLeast(1))))))).addEntry(
-                    ItemLootEntry.builder(apple).acceptCondition(SurvivesExplosion.builder()).acceptCondition(TableBonus
-                            .builder(Enchantments.FORTUNE, 1f / 200f, 1f / 180f, 1f / 160f, 1f / 120f, 1f / 40f))));
+                    ItemLootEntry.builder(apple.get()).acceptCondition(SurvivesExplosion.builder()).acceptCondition(
+                            TableBonus.builder(Enchantments.FORTUNE, 1f / 200f, 1f / 180f, 1f / 160f, 1f / 120f,
+                                    1f / 40f))));
         }
         this.tables.put(new ResourceLocation(this.modid, "blocks/" + name), builder.build());
     }

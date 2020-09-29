@@ -20,6 +20,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add("item." + this.modid + "." + "golden_lumber_axe", "Golden Lumberaxe");
         add("item." + this.modid + "." + "diamond_lumber_axe", "Diamond Lumberaxe");
         add("item." + this.modid + "." + "netherite_lumber_axe", "Netherite Lumberaxe");
+        add("item." + this.modid + "." + "pomegranate", "Pomegranate");
         add("biome." + this.modid + "." + "mixed_maple_forest", "Mixed Maple Forest");
         add("biome." + this.modid + "." + "mixed_forest", "Treemendous Mixed Forest");
         add("biome." + this.modid + "." + "mixed_forest_vanilla", "Mixed Forest");
