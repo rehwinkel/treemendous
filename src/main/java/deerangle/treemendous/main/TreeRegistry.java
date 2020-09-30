@@ -5,10 +5,7 @@ import deerangle.treemendous.block.entity.CustomSignTileEntity;
 import deerangle.treemendous.entity.CustomBoatEntity;
 import deerangle.treemendous.tree.RegisteredTree;
 import deerangle.treemendous.tree.TreeMaker;
-import deerangle.treemendous.tree.foliage.ParabolaFoliagePlacer;
-import deerangle.treemendous.tree.foliage.PointyFoliagePlacer;
-import deerangle.treemendous.tree.foliage.RoundedFoliagePlacer;
-import deerangle.treemendous.tree.foliage.WillowFoliagePlacer;
+import deerangle.treemendous.tree.foliage.*;
 import deerangle.treemendous.tree.trunk.AshTrunkPlacer;
 import deerangle.treemendous.tree.trunk.CrossTrunkPlacer;
 import net.minecraft.block.Block;
@@ -41,6 +38,8 @@ public class TreeRegistry {
             "parabola_foliage_placer", ParabolaFoliagePlacer.CODEC);
     public static final FoliagePlacerType<PointyFoliagePlacer> POINTY_FOLIAGE_PLACER = registerFoliagePlacerType(
             "pointy_foliage_placer", PointyFoliagePlacer.CODEC);
+    public static final FoliagePlacerType<BallFoliagePlacer> BALL_FOLIAGE_PLACER = registerFoliagePlacerType(
+            "ball_foliage_placer", BallFoliagePlacer.CODEC);
     public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = registerTrunkPlacerType(
             "cross_trunk_placer", CrossTrunkPlacer.CODEC);
     public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacerType("ash_trunk_placer",
@@ -161,6 +160,9 @@ public class TreeRegistry {
                     .makeAshTree(log, leaves, 6, 6, FeatureSpread.func_242253_a(1, 2),
                             FeatureSpread.func_242253_a(2, 2), FeatureSpread.func_242252_a(3)))
                     .biome(new RegisteredTree.BiomeSettings.Builder().density(12)).build());
+    public static final RegisteredTree elm = registerTree(
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "elm", "Elm").leaves(0x81ba56)
+                    .feature(TreeMaker::makeBallTree).build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {
         trees.add(tree);

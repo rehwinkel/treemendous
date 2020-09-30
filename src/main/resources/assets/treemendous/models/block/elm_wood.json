@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "side": "treemendous:block/elm_log",
+    "end": "treemendous:block/elm_log"
+  }
+}

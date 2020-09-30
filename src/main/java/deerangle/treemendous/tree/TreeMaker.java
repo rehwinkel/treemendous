@@ -1,9 +1,6 @@
 package deerangle.treemendous.tree;
 
-import deerangle.treemendous.tree.foliage.ParabolaFoliagePlacer;
-import deerangle.treemendous.tree.foliage.PointyFoliagePlacer;
-import deerangle.treemendous.tree.foliage.RoundedFoliagePlacer;
-import deerangle.treemendous.tree.foliage.WillowFoliagePlacer;
+import deerangle.treemendous.tree.foliage.*;
 import deerangle.treemendous.tree.trunk.AshTrunkPlacer;
 import deerangle.treemendous.tree.trunk.CrossTrunkPlacer;
 import net.minecraft.block.Block;
@@ -148,6 +145,16 @@ public class TreeMaker {
                         new PointyFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(2),
                                 FeatureSpread.func_242252_a(37), FeatureSpread.func_242252_a(100),
                                 FeatureSpread.func_242253_a(1, 1)), new StraightTrunkPlacer(8, 6, 0),
+                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeBallTree(Block log, Block leaves) {
+        return Feature.TREE.withConfiguration(
+                (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()),
+                        new BallFoliagePlacer(FeatureSpread.func_242253_a(3, 2)),
+                        new CrossTrunkPlacer(11, 2, 1, FeatureSpread.func_242253_a(2, 2),
+                                FeatureSpread.func_242253_a(1, 2), FeatureSpread.func_242252_a(0), true),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 }
