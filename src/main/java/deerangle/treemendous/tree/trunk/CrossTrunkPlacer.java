@@ -27,7 +27,7 @@ public class CrossTrunkPlacer extends AbstractTrunkPlacer {
                     .and(FeatureSpread.func_242254_a(0, 8, 8).fieldOf("branch_offset")
                             .forGetter((placerInstance2) -> placerInstance2.branchTopOffset))
                     .and(FeatureSpread.func_242254_a(-6, 5, 12).fieldOf("crown_offset")
-                            .forGetter((placerInstance2) -> placerInstance2.branchTopOffset))
+                            .forGetter((placerInstance2) -> placerInstance2.crownOffset))
                     .and(Codec.intRange(0, 1).fieldOf("leaves_at_end")
                             .forGetter((placerInstance2) -> placerInstance2.leavesAtEnd ? 1 : 0))
                     .apply(placerInstance, CrossTrunkPlacer::new));
@@ -41,8 +41,8 @@ public class CrossTrunkPlacer extends AbstractTrunkPlacer {
         super(baseHeight, heightRandA, heightRandB);
         this.branchLength = branchLength;
         this.branchTopOffset = branchTopOffset;
-        this.leavesAtEnd = leavesAtEnd;
         this.crownOffset = crownOffset;
+        this.leavesAtEnd = leavesAtEnd;
     }
 
     public CrossTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, FeatureSpread branchLength, FeatureSpread branchTopOffset, FeatureSpread crownOffset, int leavesAtEnd) {
@@ -81,7 +81,7 @@ public class CrossTrunkPlacer extends AbstractTrunkPlacer {
             }
         }
 
-        foliages.add(new FoliagePlacer.Foliage(pos.up(height + crownHeightOffset), 0, false));
+        foliages.add(new FoliagePlacer.Foliage(pos.up(height + crownHeightOffset - 1), 0, false));
         return foliages;
     }
 }

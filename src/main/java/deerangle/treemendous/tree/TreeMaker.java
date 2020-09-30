@@ -152,8 +152,8 @@ public class TreeMaker {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
-                        new BallFoliagePlacer(FeatureSpread.func_242253_a(3, 2)),
-                        new CrossTrunkPlacer(11, 2, 1, FeatureSpread.func_242253_a(2, 2),
+                        new BallFoliagePlacer(FeatureSpread.func_242253_a(2, 2)),
+                        new CrossTrunkPlacer(9, 2, 1, FeatureSpread.func_242253_a(2, 2),
                                 FeatureSpread.func_242253_a(1, 2), FeatureSpread.func_242252_a(0), true),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }

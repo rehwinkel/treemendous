@@ -161,8 +161,9 @@ public class TreeRegistry {
                             FeatureSpread.func_242253_a(2, 2), FeatureSpread.func_242252_a(3)))
                     .biome(new RegisteredTree.BiomeSettings.Builder().density(12)).build());
     public static final RegisteredTree elm = registerTree(
-            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "elm", "Elm").leaves(0x81ba56)
-                    .feature(TreeMaker::makeBallTree).build());
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "elm", "Elm").leaves(0x9ac45e)
+                    .feature(TreeMaker::makeBallTree).biome(new RegisteredTree.BiomeSettings.Builder().density(5))
+                    .build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {
         trees.add(tree);

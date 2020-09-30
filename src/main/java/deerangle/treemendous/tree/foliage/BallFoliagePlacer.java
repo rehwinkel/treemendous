@@ -22,7 +22,7 @@ public class BallFoliagePlacer extends FoliagePlacer {
     private final FeatureSpread size;
 
     public BallFoliagePlacer(FeatureSpread ballSize) {
-        super(ballSize, ballSize);
+        super(ballSize, FeatureSpread.func_242252_a(0));
         this.size = ballSize;
     }
 
@@ -32,7 +32,7 @@ public class BallFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void func_230372_a_(IWorldGenerationReader worldGenerationReader, Random random, BaseTreeFeatureConfig p_230372_3_, int p_230372_4_, Foliage p_230372_5_, int p_230372_6_, int p_230372_7_, Set<BlockPos> p_230372_8_, int p_230372_9_, MutableBoundingBox p_230372_10_) {
+    protected void func_230372_a_(IWorldGenerationReader worldGenerationReader, Random random, BaseTreeFeatureConfig p_230372_3_, int trunkHeight, Foliage p_230372_5_, int crownOffset, int p_230372_7_, Set<BlockPos> p_230372_8_, int startY, MutableBoundingBox p_230372_10_) {
         int size = this.size.func_242259_a(random);
         for (int i = size; i >= -size; --i) {
             this.func_236753_a_(worldGenerationReader, random, p_230372_3_, p_230372_5_.func_236763_a_(), size,
@@ -42,11 +42,12 @@ public class BallFoliagePlacer extends FoliagePlacer {
 
     @Override
     public int func_230374_a_(Random random, int i, BaseTreeFeatureConfig featureConfig) {
-        return 3;
+        return 0;
     }
 
     @Override
     protected boolean func_230373_a_(Random random, int x, int y, int z, int size, boolean p_230373_6_) {
-        return Math.sqrt(x * x + y * y + z * z) > size;
+        double sqrt = Math.sqrt(x * x + y * y + z * z);
+        return sqrt > size || (sqrt > size * 0.9 && random.nextBoolean());
     }
 }
