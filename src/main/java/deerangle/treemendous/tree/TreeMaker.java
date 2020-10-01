@@ -109,8 +109,7 @@ public class TreeMaker {
         //TODO: fix this bad tree
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
-                        new SimpleBlockStateProvider(leaves.getDefaultState()),
-                        new FancyFoliagePlacer(leavesSize, FeatureSpread.func_242252_a(4), 4),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()), new BallFoliagePlacer(leavesSize),
                         new AshTrunkPlacer(baseHeight, extraHeight, 1, leavesSideOffset, minLeavesHeight),
                         new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines()
                         .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
