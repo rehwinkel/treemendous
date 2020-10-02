@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "treemendous:block/rainbow_eucalyptus_sapling"
+  }
+}

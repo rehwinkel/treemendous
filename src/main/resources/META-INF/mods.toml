@@ -5,7 +5,7 @@ license="All rights reserved"
 [[mods]]
 
 modId="treemendous"
-version="0.2.1"
+version="0.3.0"
 displayName="Treemendous"
 logoFile="treemendous.png"
 authors="Ian Rehwinkel"

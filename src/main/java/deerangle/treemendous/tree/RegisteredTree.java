@@ -10,6 +10,7 @@ import deerangle.treemendous.main.Treemendous;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.tags.BlockTags;
@@ -49,7 +50,7 @@ public class RegisteredTree {
         return false;
     }
 
-    private final int leavesColor;
+    private final IBlockColor leavesColor;
     private final String name;
     private final String englishName;
     private final boolean inherited;
@@ -67,7 +68,7 @@ public class RegisteredTree {
     private final Collection<RegistryKey<Biome>> frostyBiomes;
     private final int treeDensity;
 
-    private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, int leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
+    private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, IBlockColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
@@ -76,8 +77,8 @@ public class RegisteredTree {
         this.singleTreeFeature = null;
         this.treeDensity = biomeSettings.getTreeDensity();
 
-        this.sapling = BLOCKS.register(name + "_sapling",
-                () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
+        this.sapling = BLOCKS
+                .register(name + "_sapling", () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
                         AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
                                 .zeroHardnessAndResistance().sound(SoundType.PLANT)));
         this.leaves = BLOCKS.register(name + "_leaves", () -> new LeavesBlock(
@@ -270,6 +271,33 @@ public class RegisteredTree {
         return this.frostyBiomes;
     }
 
+    public IBlockColor getLeavesColor() {
+        return this.leavesColor;
+    }
+
+    public void registerFeature() {
+        if (this.singleTreeFeature == null) {
+            this.singleTreeFeature = BiomeMaker
+                    .registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
+            this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name,
+                    this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
+                            Placement.field_242902_f.configure(
+                                    new AtSurfaceWithExtraConfig(this.treeDensity, 0.1F, this.treeDensity / 4))));
+        }
+    }
+
+    public boolean isNotInherited() {
+        return !inherited;
+    }
+
+    public String getEnglishName() {
+        return englishName;
+    }
+
+    public Supplier<IItemProvider> getApple() {
+        return this.apple;
+    }
+
     public static class Builder {
         private final DeferredRegister<Item> itemRegistry;
         private final DeferredRegister<Block> blockRegistry;
@@ -278,7 +306,7 @@ public class RegisteredTree {
         private final String englishName;
         private MaterialColor woodColor;
         private MaterialColor logColor;
-        private int leavesColor;
+        private IBlockColor leavesColor;
         private Supplier<IItemProvider> apple;
         private RegisteredTree inherit;
         private BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature;
@@ -292,7 +320,7 @@ public class RegisteredTree {
             this.englishName = englishName;
             this.woodColor = MaterialColor.WOOD;
             this.logColor = MaterialColor.BROWN;
-            this.leavesColor = 8431445;
+            this.leavesColor = (state, displayReader, blockPos, tintIndex) -> 8431445;
             this.apple = null;
             this.inherit = null;
             this.feature = (log, leaves) -> null;
@@ -310,6 +338,11 @@ public class RegisteredTree {
         }
 
         public Builder leaves(int color) {
+            this.leavesColor = (state, displayReader, blockPos, tintIndex) -> color;
+            return this;
+        }
+
+        public Builder leaves(IBlockColor color) {
             this.leavesColor = color;
             return this;
         }
@@ -343,33 +376,6 @@ public class RegisteredTree {
             this.feature = feature;
             return this;
         }
-    }
-
-    public void registerFeature() {
-        if (this.singleTreeFeature == null) {
-            this.singleTreeFeature = BiomeMaker
-                    .registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
-            this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name,
-                    this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
-                            Placement.field_242902_f.configure(
-                                    new AtSurfaceWithExtraConfig(this.treeDensity, 0.1F, this.treeDensity / 4))));
-        }
-    }
-
-    public boolean isNotInherited() {
-        return !inherited;
-    }
-
-    public String getEnglishName() {
-        return englishName;
-    }
-
-    public Supplier<IItemProvider> getApple() {
-        return this.apple;
-    }
-
-    public int getLeavesColor() {
-        return this.leavesColor;
     }
 
     public static class BiomeSettings {

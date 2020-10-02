@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "treemendous:block/rainbow_eucalyptus_planks",
+    "bottom": "treemendous:block/rainbow_eucalyptus_planks",
+    "top": "treemendous:block/rainbow_eucalyptus_planks"
+  }
+}

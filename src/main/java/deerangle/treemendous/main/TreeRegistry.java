@@ -25,6 +25,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,6 +163,14 @@ public class TreeRegistry {
                     .biome(new RegisteredTree.BiomeSettings.Builder().density(8)).build());
     public static final RegisteredTree elm = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "elm", "Elm").leaves(0xaed162)
+                    .feature(TreeMaker::makeBallTree).biome(new RegisteredTree.BiomeSettings.Builder().density(5))
+                    .build());
+    public static final RegisteredTree rainbow_eucalyptus = registerTree(
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "rainbow_eucalyptus", "Rainbow Eucalyptus")
+                    .leaves((blockState, world, blockPos, tintIndex) -> blockPos != null ? Color.HSBtoRGB(
+                            (float) (Math.pow((blockPos.getX() % 32) / 32.0f, 3) + Math
+                                    .pow((blockPos.getY() % 32) / 32.0f, 3) + Math
+                                    .pow((blockPos.getZ() % 32) / 32.0f, 3)), 0.7f, 0.8f) : Color.HSBtoRGB(0, 1, 1))
                     .feature(TreeMaker::makeBallTree).biome(new RegisteredTree.BiomeSettings.Builder().density(5))
                     .build());
 

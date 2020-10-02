@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.item.BlockItem;
-import net.minecraft.world.FoliageColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,8 +33,7 @@ public class ClientProxy implements Proxy {
     @SubscribeEvent
     public static void onBlockColors(ColorHandlerEvent.Block event) {
         for (RegisteredTree tree : TreeRegistry.trees) {
-            event.getBlockColors().register((state, displayReader, blockPos, tintIndex) -> tree.getLeavesColor(),
-                    tree.leaves.get());
+            event.getBlockColors().register(tree.getLeavesColor(), tree.leaves.get());
         }
     }
 
