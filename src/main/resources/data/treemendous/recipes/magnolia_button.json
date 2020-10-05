@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "treemendous:magnolia_planks"
+    }
+  ],
+  "result": {
+    "item": "treemendous:magnolia_button"
+  }
+}

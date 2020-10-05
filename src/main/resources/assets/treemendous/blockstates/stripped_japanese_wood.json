@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "treemendous:block/stripped_japanese_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "treemendous:block/stripped_japanese_wood"
+    },
+    "axis=z": {
+      "model": "treemendous:block/stripped_japanese_wood",
+      "x": 90
+    }
+  }
+}

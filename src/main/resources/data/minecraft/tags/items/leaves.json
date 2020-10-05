@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:douglas_leaves",
+    "treemendous:pine_leaves",
+    "treemendous:larch_leaves",
+    "treemendous:fir_leaves",
+    "treemendous:maple_leaves",
+    "treemendous:red_maple_leaves",
+    "treemendous:brown_maple_leaves",
+    "treemendous:japanese_leaves",
+    "treemendous:beech_leaves",
+    "treemendous:cherry_leaves",
+    "treemendous:alder_leaves",
+    "treemendous:chestnut_leaves",
+    "treemendous:plane_leaves",
+    "treemendous:ash_leaves",
+    "treemendous:linden_leaves",
+    "treemendous:robinia_leaves",
+    "treemendous:willow_leaves",
+    "treemendous:pomegranate_leaves",
+    "treemendous:magnolia_leaves",
+    "treemendous:walnut_leaves",
+    "treemendous:cedar_leaves",
+    "treemendous:poplar_leaves",
+    "treemendous:elm_leaves",
+    "treemendous:rainbow_eucalyptus_leaves",
+    "treemendous:juniper_leaves"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_pressure_plate",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:pomegranate_planks"
+    }
+  },
+  "result": {
+    "item": "treemendous:pomegranate_pressure_plate"
+  }
+}

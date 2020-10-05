@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[34.1.0,)"
+license="All rights reserved"
+
+[[mods]]
+
+modId="treemendous"
+version="0.3.1"
+displayName="Treemendous"
+logoFile="treemendous.png"
+authors="Ian Rehwinkel"
+credits="Thanks to Sebastian Gerdon for making Assets and providing Inspiration"
+description='''This mod adds lot's of trees and forests.'''
+
+[[dependencies.treemendous]]
+    modId="forge"
+    mandatory=true
+    versionRange="[34.1.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.treemendous]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3]"
+    ordering="NONE"
+    side="BOTH"

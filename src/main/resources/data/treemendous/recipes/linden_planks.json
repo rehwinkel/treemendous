@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "treemendous:linden_logs"
+    }
+  ],
+  "result": {
+    "item": "treemendous:linden_planks",
+    "count": 4
+  }
+}

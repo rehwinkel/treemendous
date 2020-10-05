@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "treemendous:block/poplar_planks",
+    "bottom": "treemendous:block/poplar_planks",
+    "top": "treemendous:block/poplar_planks"
+  }
+}

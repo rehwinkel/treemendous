@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "treemendous:block/fir_planks",
+    "bottom": "treemendous:block/fir_planks",
+    "top": "treemendous:block/fir_planks"
+  }
+}

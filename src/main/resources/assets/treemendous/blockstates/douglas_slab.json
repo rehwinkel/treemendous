@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "treemendous:block/douglas_slab_top"
+    },
+    "type=bottom": {
+      "model": "treemendous:block/douglas_slab"
+    },
+    "type=double": {
+      "model": "treemendous:block/douglas_planks"
+    }
+  }
+}

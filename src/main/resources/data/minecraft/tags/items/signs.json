@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:douglas_sign",
+    "treemendous:pine_sign",
+    "treemendous:larch_sign",
+    "treemendous:fir_sign",
+    "treemendous:maple_sign",
+    "treemendous:japanese_sign",
+    "treemendous:beech_sign",
+    "treemendous:cherry_sign",
+    "treemendous:alder_sign",
+    "treemendous:chestnut_sign",
+    "treemendous:plane_sign",
+    "treemendous:ash_sign",
+    "treemendous:linden_sign",
+    "treemendous:robinia_sign",
+    "treemendous:willow_sign",
+    "treemendous:pomegranate_sign",
+    "treemendous:magnolia_sign",
+    "treemendous:walnut_sign",
+    "treemendous:cedar_sign",
+    "treemendous:poplar_sign",
+    "treemendous:elm_sign",
+    "treemendous:rainbow_eucalyptus_sign",
+    "treemendous:juniper_sign"
+  ]
+}

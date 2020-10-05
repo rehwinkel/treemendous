@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:elm_log",
+    "treemendous:stripped_elm_log",
+    "treemendous:elm_wood",
+    "treemendous:stripped_elm_wood"
+  ]
+}

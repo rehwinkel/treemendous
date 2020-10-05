@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "treemendous:block/walnut_slab_top"
+    },
+    "type=bottom": {
+      "model": "treemendous:block/walnut_slab"
+    },
+    "type=double": {
+      "model": "treemendous:block/walnut_planks"
+    }
+  }
+}

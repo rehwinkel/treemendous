@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:juniper_log",
+    "treemendous:stripped_juniper_log",
+    "treemendous:juniper_wood",
+    "treemendous:stripped_juniper_wood"
+  ]
+}

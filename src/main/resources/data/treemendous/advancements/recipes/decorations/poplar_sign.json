@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "treemendous:poplar_sign"
+    ]
+  },
+  "criteria": {
+    "has_poplar_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "treemendous:poplar_planks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "treemendous:poplar_sign"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_poplar_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

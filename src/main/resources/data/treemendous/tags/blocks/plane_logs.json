@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:plane_log",
+    "treemendous:stripped_plane_log",
+    "treemendous:plane_wood",
+    "treemendous:stripped_plane_wood"
+  ]
+}
