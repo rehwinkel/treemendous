@@ -153,8 +153,10 @@ public class TreeRegistry {
                             .makeCrossRoundTree(log, leaves, 6, 3, 3, FeatureSpread.func_242253_a(1, 1), 3)).build());
     public static final RegisteredTree cedar = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "cedar", "Cedar").leaves(0x5ea148)
-                    .wood(MaterialColor.PINK).feature(TreeMaker::makePointyTree)
-                    .biome(new RegisteredTree.BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
+                    .wood(MaterialColor.PINK).feature((log, leaves) -> TreeMaker
+                    .makePointyTree(log, leaves, FeatureSpread.func_242252_a(37), FeatureSpread.func_242252_a(100), 1,
+                            8, 5)).biome(new RegisteredTree.BiomeSettings.Builder().density(8).temperature(0.5f).snow())
+                    .build());
     public static final RegisteredTree poplar = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "poplar", "Poplar").leaves(0x81ba56)
                     .wood(MaterialColor.PINK).feature((log, leaves) -> TreeMaker
@@ -173,6 +175,12 @@ public class TreeRegistry {
                                     .pow((blockPos.getZ() % 32) / 32.0f, 2)), 0.7f, 0.8f) : Color.HSBtoRGB(0, 1, 1))
                     .feature(TreeMaker::makeBallTree).biome(new RegisteredTree.BiomeSettings.Builder().density(5))
                     .build());
+    public static final RegisteredTree juniper = registerTree(
+            RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "juniper", "Juniper").leaves(0x5ead55)
+                    .wood(MaterialColor.CYAN).feature((log, leaves) -> TreeMaker
+                    .makeJuniperTree(log, leaves, FeatureSpread.func_242252_a(42), FeatureSpread.func_242252_a(100), 2,
+                            12, 6))
+                    .biome(new RegisteredTree.BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {
         trees.add(tree);

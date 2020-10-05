@@ -137,13 +137,24 @@ public class TreeMaker {
                         .build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePointyTree(Block log, Block leaves) {
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePointyTree(Block log, Block leaves, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
                         new PointyFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(2),
-                                FeatureSpread.func_242252_a(37), FeatureSpread.func_242252_a(100),
-                                FeatureSpread.func_242253_a(1, 1)), new StraightTrunkPlacer(8, 6, 0),
+                                topSpread, bottomSpread, FeatureSpread.func_242253_a(bottomOffset, 1)),
+                        new StraightTrunkPlacer(baseHeight, extraHeight, 1), new TwoLayerFeature(1, 0, 1)))
+                        .setIgnoreVines().build());
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeJuniperTree(Block log, Block leaves, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {
+        return Feature.TREE.withConfiguration(
+                (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                        new SimpleBlockStateProvider(leaves.getDefaultState()),
+                        new PointyFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(2),
+                                topSpread, bottomSpread, FeatureSpread.func_242253_a(bottomOffset, 1)),
+                        new CrossTrunkPlacer(baseHeight, extraHeight, 1, FeatureSpread.func_242252_a(1),
+                                FeatureSpread.func_242252_a(6), FeatureSpread.func_242252_a(0), false),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
