@@ -5,12 +5,15 @@ license="All rights reserved"
 [[mods]]
 
 modId="treemendous"
-version="0.3.2"
+version="0.3.3"
 displayName="Treemendous"
 logoFile="treemendous.png"
 authors="Ian Rehwinkel"
 credits="Thanks to Sebastian Gerdon for making assets and providing inspiration"
-description='''This mod adds lot's of trees and forests.'''
+description='''
+This mod adds a total of 25 new trees with wood, custom foliage and a forest biome for each.
+This mod is for the people who want more variation in Minecraft's forests.
+'''
 
 [[dependencies.treemendous]]
     modId="forge"
