@@ -132,9 +132,9 @@ public class TreeMaker {
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
                         new WillowFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242252_a(0),
                                 FeatureSpread.func_242253_a(2, 1)),
-                        new CrossTrunkPlacer(6, 2, 0, FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(2),
-                                FeatureSpread.func_242252_a(0), false), new TwoLayerFeature(1, 0, 1))).setIgnoreVines()
-                        .build());
+                        new CrossTrunkPlacer(6, 2, 0, FeatureSpread.func_242253_a(1, 1),
+                                FeatureSpread.func_242253_a(1, 1), FeatureSpread.func_242252_a(1), false),
+                        new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePointyTree(Block log, Block leaves, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {

@@ -123,12 +123,16 @@ public class BiomeMaker {
             TreeRegistry.douglas.registerFeature();
             TreeRegistry.larch.registerFeature();
             TreeRegistry.pine.registerFeature();
+            TreeRegistry.cedar.registerFeature();
+            TreeRegistry.juniper.registerFeature();
 
             if (needleTreesFeature == null) {
                 needleTreesFeature = registerConfiguredFeature("trees_needle", Feature.SIMPLE_RANDOM_SELECTOR
                         .withConfiguration(new SingleRandomFeature(ImmutableList
                                 .of(TreeRegistry.fir::getSingleTreeFeature, TreeRegistry.douglas::getSingleTreeFeature,
                                         TreeRegistry.larch::getSingleTreeFeature,
+                                        TreeRegistry.juniper::getSingleTreeFeature,
+                                        TreeRegistry.cedar::getSingleTreeFeature,
                                         TreeRegistry.pine::getSingleTreeFeature, () -> Features.SPRUCE,
                                         () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                         .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
@@ -141,12 +145,16 @@ public class BiomeMaker {
             TreeRegistry.douglas.registerFeature();
             TreeRegistry.larch.registerFeature();
             TreeRegistry.pine.registerFeature();
+            TreeRegistry.cedar.registerFeature();
+            TreeRegistry.juniper.registerFeature();
 
             if (needleTreesFeature == null) {
                 needleTreesFeature = registerConfiguredFeature("trees_needle", Feature.SIMPLE_RANDOM_SELECTOR
                         .withConfiguration(new SingleRandomFeature(ImmutableList
                                 .of(TreeRegistry.fir::getSingleTreeFeature, TreeRegistry.douglas::getSingleTreeFeature,
                                         TreeRegistry.larch::getSingleTreeFeature,
+                                        TreeRegistry.juniper::getSingleTreeFeature,
+                                        TreeRegistry.cedar::getSingleTreeFeature,
                                         TreeRegistry.pine::getSingleTreeFeature, () -> Features.SPRUCE,
                                         () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                         .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));

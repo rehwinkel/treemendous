@@ -73,7 +73,7 @@ public class WillowFoliagePlacer extends FoliagePlacer {
 
     @Override
     public int func_230374_a_(Random p_230374_1_, int p_230374_2_, BaseTreeFeatureConfig p_230374_3_) {
-        return 5;
+        return 6;
     }
 
     @Override
