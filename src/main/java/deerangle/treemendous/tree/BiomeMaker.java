@@ -137,7 +137,7 @@ public class BiomeMaker {
                                         () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                         .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
             }
-            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), needleTreesFeature);
+            return makeForestBiome(0.2f, 0.4f, 0.4f, false, false, new MobSpawnInfo.Builder(), needleTreesFeature);
         });
 
         BIOMES.register("needle_forest_snow", () -> {
@@ -159,7 +159,7 @@ public class BiomeMaker {
                                         () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                         .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
             }
-            return makeForestBiome(0.2f, 0.4f, 0.6f, true, false, new MobSpawnInfo.Builder(), needleTreesFeature);
+            return makeForestBiome(0.2f, 0.4f, 0.4f, true, false, new MobSpawnInfo.Builder(), needleTreesFeature);
         });
     }
 

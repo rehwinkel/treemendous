@@ -33,7 +33,9 @@ public class ClientProxy implements Proxy {
     @SubscribeEvent
     public static void onBlockColors(ColorHandlerEvent.Block event) {
         for (RegisteredTree tree : TreeRegistry.trees) {
-            event.getBlockColors().register(tree.getLeavesColor(), tree.leaves.get());
+            event.getBlockColors()
+                    .register((blockState, world, blockPos, tintIndex) -> tree.getLeavesColor().getColor(blockPos),
+                            tree.leaves.get());
         }
     }
 

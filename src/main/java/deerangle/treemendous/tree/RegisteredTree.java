@@ -10,7 +10,6 @@ import deerangle.treemendous.main.Treemendous;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.tags.BlockTags;
@@ -50,7 +49,7 @@ public class RegisteredTree {
         return false;
     }
 
-    private final IBlockColor leavesColor;
+    private final ILeavesColor leavesColor;
     private final String name;
     private final String englishName;
     private final boolean inherited;
@@ -68,7 +67,7 @@ public class RegisteredTree {
     private final Collection<RegistryKey<Biome>> frostyBiomes;
     private final int treeDensity;
 
-    private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, IBlockColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
+    private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
@@ -271,7 +270,7 @@ public class RegisteredTree {
         return this.frostyBiomes;
     }
 
-    public IBlockColor getLeavesColor() {
+    public ILeavesColor getLeavesColor() {
         return this.leavesColor;
     }
 
@@ -306,7 +305,7 @@ public class RegisteredTree {
         private final String englishName;
         private MaterialColor woodColor;
         private MaterialColor logColor;
-        private IBlockColor leavesColor;
+        private ILeavesColor leavesColor;
         private Supplier<IItemProvider> apple;
         private RegisteredTree inherit;
         private BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature;
@@ -320,7 +319,7 @@ public class RegisteredTree {
             this.englishName = englishName;
             this.woodColor = MaterialColor.WOOD;
             this.logColor = MaterialColor.BROWN;
-            this.leavesColor = (state, displayReader, blockPos, tintIndex) -> 8431445;
+            this.leavesColor = (blockPos) -> 8431445;
             this.apple = null;
             this.inherit = null;
             this.feature = (log, leaves) -> null;
@@ -338,11 +337,11 @@ public class RegisteredTree {
         }
 
         public Builder leaves(int color) {
-            this.leavesColor = (state, displayReader, blockPos, tintIndex) -> color;
+            this.leavesColor = (blockPos) -> color;
             return this;
         }
 
-        public Builder leaves(IBlockColor color) {
+        public Builder leaves(ILeavesColor color) {
             this.leavesColor = color;
             return this;
         }

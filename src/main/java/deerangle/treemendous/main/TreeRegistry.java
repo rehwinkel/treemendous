@@ -169,7 +169,7 @@ public class TreeRegistry {
                     .build());
     public static final RegisteredTree rainbow_eucalyptus = registerTree(
             RegisteredTree.Builder.create(BLOCKS, ITEMS, BIOMES, "rainbow_eucalyptus", "Rainbow Eucalyptus")
-                    .leaves((blockState, world, blockPos, tintIndex) -> blockPos != null ? Color.HSBtoRGB(
+                    .leaves(blockPos -> blockPos != null ? Color.HSBtoRGB(
                             (float) (Math.pow((blockPos.getX() % 32) / 32.0f, 2) + Math
                                     .pow((blockPos.getY() % 32) / 32.0f, 2) + Math
                                     .pow((blockPos.getZ() % 32) / 32.0f, 2)), 0.7f, 0.8f) : Color.HSBtoRGB(0, 1, 1))
