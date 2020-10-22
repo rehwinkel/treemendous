@@ -64,8 +64,9 @@ public class RegisteredTree {
     private ConfiguredFeature<?, ?> treesFeature;
     private final int woodColor;
     private final int logColor;
+    private final int plankType;
 
-    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
+    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, int plankType, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
@@ -76,8 +77,7 @@ public class RegisteredTree {
 
         this.woodColor = woodColorVal;
         this.logColor = barkColorVal;
-        MaterialColor woodColor = getClosestMaterialColor(woodColorVal);
-        MaterialColor barkColor = getClosestMaterialColor(barkColorVal);
+        this.plankType = plankType;
 
         this.sapling = registerBlock(BLOCKS, name + "_sapling",
                 () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
@@ -131,6 +131,9 @@ public class RegisteredTree {
         }
 
         if (inherit == null) {
+            MaterialColor woodColor = getClosestMaterialColor(woodColorVal);
+            MaterialColor barkColor = getClosestMaterialColor(barkColorVal);
+
             this.inherited = false;
             this.logsItemTag = ItemTags.makeWrapperTag(Treemendous.MODID + ":" + name + "_logs");
             this.logsBlockTag = BlockTags.makeWrapperTag(Treemendous.MODID + ":" + name + "_logs");
@@ -360,5 +363,10 @@ public class RegisteredTree {
     public int getLogColor() {
         return this.logColor;
     }
+
+    public int getPlankType() {
+        return plankType;
+    }
+
 }
 

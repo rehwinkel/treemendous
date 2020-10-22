@@ -20,6 +20,7 @@ public class TreeBuilder {
     private final String englishName;
     private int woodColor;
     private int logColor;
+    private int plankType;
     private ILeavesColor leavesColor;
     private Supplier<IItemProvider> apple;
     private RegisteredTree inherit;
@@ -32,8 +33,9 @@ public class TreeBuilder {
         this.blockRegistry = BLOCKS;
         this.name = name;
         this.englishName = englishName;
-        this.woodColor = 0x8f7748;
-        this.logColor = 0x664c33;
+        this.woodColor = 0;
+        this.logColor = 0;
+        this.plankType = 0;
         this.leavesColor = (blockPos) -> 0x80a755;
         this.apple = null;
         this.inherit = null;
@@ -47,6 +49,11 @@ public class TreeBuilder {
 
     public TreeBuilder wood(int color) {
         this.woodColor = color;
+        return this;
+    }
+
+    public TreeBuilder plankType(int type) {
+        this.plankType = type;
         return this;
     }
 
@@ -72,8 +79,8 @@ public class TreeBuilder {
 
     public RegisteredTree build() {
         return new RegisteredTree(this.blockRegistry, this.itemRegistry, this.biomeRegistry, this.name,
-                this.englishName, this.woodColor, this.logColor, this.leavesColor, this.apple, this.inherit,
-                this.feature, this.biomeSettings);
+                this.englishName, this.woodColor, this.logColor, this.plankType, this.leavesColor, this.apple,
+                this.inherit, this.feature, this.biomeSettings);
     }
 
     public TreeBuilder biome(BiomeSettings.Builder settings) {

@@ -87,6 +87,14 @@ public abstract class AbstractTextureProvider implements IDataProvider {
         return "Wood Textures";
     }
 
+    protected ResourceLocation blockTexture(ResourceLocation id) {
+        return new ResourceLocation(id.getNamespace(), "block/" + id.getPath());
+    }
+
+    protected ResourceLocation itemTexture(ResourceLocation id) {
+        return new ResourceLocation(id.getNamespace(), "item/" + id.getPath());
+    }
+
     class Texture {
         private final int width;
         private final int height;
@@ -104,19 +112,30 @@ public abstract class AbstractTextureProvider implements IDataProvider {
         }
 
         public Texture multiply(int color) {
+            Texture newTex = this.copy();
+            newTex.multiplyArea(color, 0, 0, this.width, this.height);
+            return newTex;
+        }
+
+        public Texture copy() {
+            return new Texture(this.width, this.height, this.data.clone());
+        }
+
+        public void multiplyArea(int color, int x, int y, int areaWidth, int areaHeight) {
             float colorR = ((color >> 16) & 0xFF) / 255f;
             float colorG = ((color >> 8) & 0xFF) / 255f;
             float colorB = (color & 0xFF) / 255f;
-            byte[] newData = this.data.clone();
-            for (int i = 0; i < this.width * this.height; i++) {
-                float pixelR = (newData[4 * i + 3] & 0xFF) / 255f;
-                float pixelG = (newData[4 * i + 2] & 0xFF) / 255f;
-                float pixelB = (newData[4 * i + 1] & 0xFF) / 255f;
-                newData[4 * i + 3] = (byte) (255f * colorR * pixelR);
-                newData[4 * i + 2] = (byte) (255f * colorG * pixelG);
-                newData[4 * i + 1] = (byte) (255f * colorB * pixelB);
+            for (int ity = y; ity < y + areaHeight; ity++) {
+                for (int itx = x; itx < x + areaWidth; itx++) {
+                    int i = (this.width * ity + itx) * 4;
+                    float pixelR = (this.data[i + 3] & 0xFF) / 255f;
+                    float pixelG = (this.data[i + 2] & 0xFF) / 255f;
+                    float pixelB = (this.data[i + 1] & 0xFF) / 255f;
+                    this.data[i + 3] = (byte) (255f * colorR * pixelR);
+                    this.data[i + 2] = (byte) (255f * colorG * pixelG);
+                    this.data[i + 1] = (byte) (255f * colorB * pixelB);
+                }
             }
-            return new Texture(this.width, this.height, newData);
         }
 
         private NativeImage getNativeImage() {
