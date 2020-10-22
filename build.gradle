@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.3.4'
+version = '0.3.5'
 group = 'deerangle.treemendous' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'treemendous'
 
@@ -139,9 +139,33 @@ jar {
     }
 }
 
+task apiJar(type: Jar) {
+    afterEvaluate {
+        finalizedBy reobfApiJar
+    }
+    from(sourceSets.main.allJava) {
+        include 'deerangle/treemendous/api/**'
+    }
+    from (sourceSets.main.output) {
+        include 'deerangle/treemendous/api/**'
+    }
+
+    classifier = 'api'
+}
+
+artifacts {
+    apiJar
+}
+
+reobf {
+    apiJar {}
+}
+
+build.dependsOn(apiJar)
+
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar') 
+jar.finalizedBy('reobfJar')
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
 

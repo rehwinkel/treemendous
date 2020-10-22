@@ -9,11 +9,15 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(Treemendous.MODID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Treemendous {
     public static final String MODID = "treemendous";
+
+    public static final Logger logger = LogManager.getLogger();
 
     public Treemendous() {
         ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
