@@ -1,4 +1,4 @@
-package deerangle.treemendous.tree;
+package deerangle.treemendous.world;
 
 import com.mojang.serialization.Codec;
 import deerangle.treemendous.main.Treemendous;
@@ -11,7 +11,7 @@ import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.TrunkPlacerType;
 
-public class TreeWorldgenRegistry {
+public class TreeWorldGenRegistry {
 
     public static final FoliagePlacerType<RoundedFoliagePlacer> ROUNDED_FOLIAGE_PLACER = registerFoliagePlacerType(
             "rounded_foliage_placer", RoundedFoliagePlacer.CODEC);
@@ -27,6 +27,9 @@ public class TreeWorldgenRegistry {
             "cross_trunk_placer", CrossTrunkPlacer.CODEC);
     public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacerType("ash_trunk_placer",
             AshTrunkPlacer.CODEC);
+
+    public static void register() {
+    }
 
     private static <P extends FoliagePlacer> FoliagePlacerType<P> registerFoliagePlacerType(String name, Codec<P> codec) {
         return Registry

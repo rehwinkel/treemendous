@@ -2,7 +2,7 @@ package deerangle.treemendous.tree.trunk;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import deerangle.treemendous.tree.TreeWorldgenRegistry;
+import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -35,7 +35,7 @@ public class AshTrunkPlacer extends AbstractTrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> func_230381_a_() {
-        return TreeWorldgenRegistry.ASH_TRUNK_PLACER;
+        return TreeWorldGenRegistry.ASH_TRUNK_PLACER;
     }
 
     @Override

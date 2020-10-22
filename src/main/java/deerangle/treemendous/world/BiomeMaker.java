@@ -1,7 +1,9 @@
-package deerangle.treemendous.tree;
+package deerangle.treemendous.world;
 
 import com.google.common.collect.ImmutableList;
 import deerangle.treemendous.main.Treemendous;
+import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -125,12 +127,12 @@ public class BiomeMaker {
         });
     }
 
-    static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
+    public static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry
                 .register(WorldGenRegistries.CONFIGURED_FEATURE, Treemendous.MODID + ":" + key, configuredFeature);
     }
 
-    static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, boolean dry, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
+    public static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, boolean dry, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
         BiomeGenerationSettings.Builder genSettings = new BiomeGenerationSettings.Builder()
                 .withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
         DefaultBiomeFeatures.withStrongholdAndMineshaft(genSettings);
@@ -176,7 +178,7 @@ public class BiomeMaker {
         }
     }
 
-    static RegistryKey<Biome> makeBiomeKey(String name) {
+    public static RegistryKey<Biome> makeBiomeKey(String name) {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Treemendous.MODID, name));
     }
 

@@ -3,7 +3,7 @@ package deerangle.treemendous.tree.foliage;
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import deerangle.treemendous.tree.TreeWorldgenRegistry;
+import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
@@ -36,7 +36,7 @@ public class RoundedFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> func_230371_a_() {
-        return TreeWorldgenRegistry.ROUNDED_FOLIAGE_PLACER;
+        return TreeWorldGenRegistry.ROUNDED_FOLIAGE_PLACER;
     }
 
     // generateLayers

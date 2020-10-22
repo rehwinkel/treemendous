@@ -1,4 +1,4 @@
-package deerangle.treemendous.tree;
+package deerangle.treemendous.world;
 
 public class BiomeSettings {
     private final float temperature;

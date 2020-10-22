@@ -2,7 +2,7 @@ package deerangle.treemendous.tree.trunk;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import deerangle.treemendous.tree.TreeWorldgenRegistry;
+import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -51,7 +51,7 @@ public class CrossTrunkPlacer extends AbstractTrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> func_230381_a_() {
-        return TreeWorldgenRegistry.CROSS_TRUNK_PLACER;
+        return TreeWorldGenRegistry.CROSS_TRUNK_PLACER;
     }
 
     @Override

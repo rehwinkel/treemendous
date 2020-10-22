@@ -8,6 +8,8 @@ import deerangle.treemendous.block.StrippableBlock;
 import deerangle.treemendous.entity.CustomBoatType;
 import deerangle.treemendous.item.CustomBoatItem;
 import deerangle.treemendous.main.Treemendous;
+import deerangle.treemendous.world.BiomeMaker;
+import deerangle.treemendous.world.BiomeSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -33,9 +35,13 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class RegisteredTree {
 
@@ -57,7 +63,7 @@ public class RegisteredTree {
     private ConfiguredFeature<BaseTreeFeatureConfig, ?> singleTreeFeature;
     private ConfiguredFeature<?, ?> treesFeature;
 
-    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
+    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
@@ -65,6 +71,9 @@ public class RegisteredTree {
         this.featureBiFunction = feature;
         this.singleTreeFeature = null;
         this.treeDensity = biomeSettings.getTreeDensity();
+
+        MaterialColor woodColor = getClosestMaterialColor(woodColorVal);
+        MaterialColor barkColor = getClosestMaterialColor(barkColorVal);
 
         this.sapling = registerBlock(BLOCKS, name + "_sapling",
                 () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
@@ -245,6 +254,24 @@ public class RegisteredTree {
             this.sign_item = inherit.sign_item;
             this.boat_item = inherit.boat_item;
         }
+    }
+
+    private MaterialColor getClosestMaterialColor(int color) {
+        int colorR = (color >> 16) & 0xFF;
+        int colorG = (color >> 8) & 0xFF;
+        int colorB = color & 0xFF;
+        Map<Double, MaterialColor> dists = Arrays.stream(MaterialColor.COLORS).filter(Objects::nonNull)
+                .collect(Collectors.toMap(materialColor -> {
+                    int col = materialColor.colorValue;
+                    int colR = (col >> 16) & 0xFF;
+                    int colG = (col >> 8) & 0xFF;
+                    int colB = col & 0xFF;
+                    return Math
+                            .sqrt((colR - colorR) * (colR - colorR) + (colG - colorG) * (colG - colorG) + (colB - colorB) * (colB - colorB));
+                }, materialColor -> materialColor));
+        Double dist = dists.keySet().stream().sorted().findFirst()
+                .orElseThrow(() -> new RuntimeException("failed to find MaterialColor"));
+        return dists.get(dist);
     }
 
     private static Boolean neverAllowSpawn(BlockState state, IBlockReader world, BlockPos pos, EntityType<?> entity) {

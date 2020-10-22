@@ -2,7 +2,7 @@ package deerangle.treemendous.tree.foliage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import deerangle.treemendous.tree.TreeWorldgenRegistry;
+import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
@@ -30,7 +30,7 @@ public class WillowFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> func_230371_a_() {
-        return TreeWorldgenRegistry.WILLOW_FOLIAGE_PLACER;
+        return TreeWorldGenRegistry.WILLOW_FOLIAGE_PLACER;
     }
 
     @Override
