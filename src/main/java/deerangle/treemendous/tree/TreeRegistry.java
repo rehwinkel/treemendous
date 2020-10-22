@@ -1,5 +1,6 @@
 package deerangle.treemendous.tree;
 
+import deerangle.treemendous.api.WoodColors;
 import deerangle.treemendous.main.ExtraRegistry;
 import deerangle.treemendous.main.Treemendous;
 import deerangle.treemendous.world.BiomeSettings;
@@ -25,112 +26,121 @@ public class TreeRegistry {
 
     public static final List<RegisteredTree> TREES = new ArrayList<>();
 
-    // ACACIA: 0xcd6b38
-
     public static final RegisteredTree douglas = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "douglas", "Douglas Fir").wood(0xc18879).log(0x9f9390)
-                    .leaves(0x78a65d).feature((log, leaves) -> TreeMaker.makeNeedleTree(log, leaves, 1, 6, 2))
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "douglas", "Douglas Fir").wood(WoodColors.DOUGLAS_WOOD)
+                    .log(WoodColors.DOUGLAS_LOG).leaves(WoodColors.DOUGLAS_LEAVES)
+                    .feature((log, leaves) -> TreeMaker.makeNeedleTree(log, leaves, 1, 6, 2))
                     .biome(new BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree pine = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "pine", "Pine").wood(0xc19b6d).log(0x91654c).leaves(0x486942)
-                    .feature(TreeMaker::makePineTree).biome(new BiomeSettings.Builder().temperature(0.4f).snow())
-                    .build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "pine", "Pine").wood(WoodColors.PINE_WOOD)
+                    .log(WoodColors.PINE_LOG).leaves(WoodColors.PINE_LEAVES).feature(TreeMaker::makePineTree)
+                    .biome(new BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree larch = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "larch", "Larch").wood(0xeaac67).log(0x4a3e26).leaves(0x486942)
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "larch", "Larch").wood(WoodColors.LARCH_WOOD)
+                    .log(WoodColors.LARCH_LOG).leaves(WoodColors.LARCH_LEAVES)
                     .feature((log, leaves) -> TreeMaker.makeNeedleTree(log, leaves, 2, 7, 3))
                     .biome(new BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree fir = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "fir", "Fir").wood(0xae8152).log(0x6f674e).leaves(0x5a914e)
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "fir", "Fir").wood(WoodColors.FIR_WOOD).log(WoodColors.FIR_LOG)
+                    .leaves(WoodColors.FIR_LEAVES)
                     .feature((log, leaves) -> TreeMaker.makeNeedleTree(log, leaves, 1, 6, 2))
                     .biome(new BiomeSettings.Builder().temperature(0.4f).snow()).build());
     public static final RegisteredTree maple = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "maple", "Maple").wood(0xdc9971).log(0x50302d).leaves(0x9bd95d)
-                    .feature(TreeMaker::makeMapleTree).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "maple", "Maple").wood(WoodColors.MAPLE_WOOD)
+                    .log(WoodColors.MAPLE_LOG).leaves(WoodColors.MAPLE_LEAVES).feature(TreeMaker::makeMapleTree)
+                    .build());
     public static final RegisteredTree red_maple = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "red_maple", "Red Maple").inheritWood(maple).leaves(0xcc764e)
-                    .feature(TreeMaker::makeMapleTree).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "red_maple", "Red Maple").inheritWood(maple)
+                    .leaves(WoodColors.MAPLE_LEAVES_RED).feature(TreeMaker::makeMapleTree).build());
     public static final RegisteredTree brown_maple = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "brown_maple", "Brown Maple").inheritWood(maple).leaves(0xd9c25d)
-                    .feature(TreeMaker::makeMapleTree).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "brown_maple", "Brown Maple").inheritWood(maple)
+                    .leaves(WoodColors.MAPLE_LEAVES_BROWN).feature(TreeMaker::makeMapleTree).build());
     public static final RegisteredTree japanese = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "japanese", "Japanese Maple").wood(0xef9085).log(0x533432)
-                    .leaves(0xb54c36).feature(TreeMaker::makeLeafTree).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "japanese", "Japanese Maple").wood(WoodColors.JAPANESE_WOOD)
+                    .log(WoodColors.JAPANESE_LOG).leaves(WoodColors.JAPANESE_LEAVES).feature(TreeMaker::makeLeafTree)
+                    .build());
     public static final RegisteredTree beech = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "beech", "Beech").wood(0x919773).log(0x8d8873).leaves(0xaadb69)
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "beech", "Beech").wood(WoodColors.BEECH_WOOD)
+                    .log(WoodColors.BEECH_LOG).leaves(WoodColors.BEECH_LEAVES)
                     .feature((log, leaves) -> TreeMaker.makeRoundedLeafTree(log, leaves, 5, 2, 3)).build());
     public static final RegisteredTree cherry = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "cherry", "Cherry").wood(0xc35249).log(0x69524c).plankType(1)
-                    .leaves(0x81ba56).feature((log, leaves) -> TreeMaker.makeRoundedLeafTree(log, leaves, 6, 2, 4))
-                    .build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "cherry", "Cherry").wood(WoodColors.CHERRY_WOOD)
+                    .log(WoodColors.CHERRY_LOG).plankType(1).leaves(WoodColors.CHERRY_LEAVES)
+                    .feature((log, leaves) -> TreeMaker.makeRoundedLeafTree(log, leaves, 6, 2, 4)).build());
     public static final RegisteredTree alder = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "alder", "Alder").wood(0xb0bb98).log(0xb0aca6).leaves(0x589926)
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "alder", "Alder").wood(WoodColors.ALDER_WOOD)
+                    .log(WoodColors.ALDER_LOG).leaves(WoodColors.ALDER_LEAVES)
                     .feature((log, leaves) -> TreeMaker.makeRoundedLeafTree(log, leaves, 5, 2, 2)).build());
     public static final RegisteredTree chestnut = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "chestnut", "Chestnut").wood(0x472024).log(0x392719).plankType(1)
-                    .leaves(0x6a9956).biome(new BiomeSettings.Builder().temperature(0.5f).snow())
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "chestnut", "Chestnut").wood(WoodColors.CHESTNUT_WOOD)
+                    .log(WoodColors.CHESTNUT_LOG).plankType(1).leaves(WoodColors.CHESTNUT_LEAVES)
+                    .biome(new BiomeSettings.Builder().temperature(0.5f).snow())
                     .feature((log, leaves) -> TreeMaker.makeSmallLeafTree(log, leaves, 5, 3, 2, 4)).build());
     public static final RegisteredTree plane = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "plane", "Plane").wood(0x5a4e54).log(0x614b5a).leaves(0x8cb856)
-                    .plankType(1).biome(new BiomeSettings.Builder().temperature(0.8f)).feature(TreeMaker::makePlaneTree)
-                    .build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "plane", "Plane").wood(WoodColors.PLANE_WOOD)
+                    .log(WoodColors.PLANE_LOG).leaves(WoodColors.PLANE_LEAVES).plankType(1)
+                    .biome(new BiomeSettings.Builder().temperature(0.8f)).feature(TreeMaker::makePlaneTree).build());
     public static final RegisteredTree ash = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "ash", "Ash").wood(0xe88a4c).log(0x484340).leaves(0x79a348)
-                    .plankType(1).feature((log, leaves) -> TreeMaker
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "ash", "Ash").wood(WoodColors.ASH_WOOD).log(WoodColors.ASH_LOG)
+                    .leaves(WoodColors.ASH_LEAVES).plankType(1).feature((log, leaves) -> TreeMaker
                     .makeAshTree(log, leaves, 7, 5, FeatureSpread.func_242253_a(1, 1),
                             FeatureSpread.func_242253_a(4, 2), FeatureSpread.func_242253_a(2, 1))).build());
     public static final RegisteredTree linden = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "linden", "Linden").wood(0x65382b).log(0xd0ac53).leaves(0x79a348)
-                    .plankType(2).feature(TreeMaker::makeFancyLeafTree).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "linden", "Linden").wood(WoodColors.LINDEN_WOOD)
+                    .log(WoodColors.LINDEN_LOG).leaves(WoodColors.LINDEN_LEAVES).plankType(2)
+                    .feature(TreeMaker::makeFancyLeafTree).build());
     public static final RegisteredTree robinia = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "robinia", "Robinia").wood(0x986508).log(0x917f5f)
-                    .leaves(0x97bf50).feature(TreeMaker::makeAcaciaLeafTree)
-                    .biome(new BiomeSettings.Builder().temperature(1.0f).dry()).build());
-    public static final RegisteredTree willow = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "willow", "Willow").wood(0xffdba5).log(0x493c49).leaves(0x75b354)
-                    .feature(TreeMaker::makeWillowLeafTree).biome(new BiomeSettings.Builder().temperature(0.6f))
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "robinia", "Robinia").wood(WoodColors.ROBINIA_WOOD)
+                    .log(WoodColors.ROBINIA_LOG).leaves(WoodColors.ROBINIA_LEAVES)
+                    .feature(TreeMaker::makeAcaciaLeafTree).biome(new BiomeSettings.Builder().temperature(1.0f).dry())
                     .build());
+    public static final RegisteredTree willow = registerTree(
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "willow", "Willow").wood(WoodColors.WILLOW_WOOD)
+                    .log(WoodColors.WILLOW_LOG).leaves(WoodColors.WILLOW_LEAVES).feature(TreeMaker::makeWillowLeafTree)
+                    .biome(new BiomeSettings.Builder().temperature(0.6f)).build());
     public static final RegisteredTree pomegranate = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "pomegranate", "Pomegranate").wood(0xcfa67c).log(0xb78e80)
-                    .leaves(0x7dab48).feature((log, leaves) -> TreeMaker
-                    .makeAshTree(log, leaves, 4, 2, FeatureSpread.func_242253_a(0, 2),
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "pomegranate", "Pomegranate").wood(WoodColors.POMEGRANATE_WOOD)
+                    .log(WoodColors.POMEGRANATE_LOG).leaves(WoodColors.POMEGRANATE_LEAVES).feature(
+                    (log, leaves) -> TreeMaker.makeAshTree(log, leaves, 4, 2, FeatureSpread.func_242253_a(0, 2),
                             FeatureSpread.func_242253_a(3, 1), FeatureSpread.func_242253_a(2, 1)))
                     .apple(ExtraRegistry.POMEGRANATE::get).biome(new BiomeSettings.Builder().temperature(1.0f).dry())
                     .build());
     public static final RegisteredTree magnolia = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "magnolia", "Magnolia").log(0x000000).wood(0x000000)
-                    .leaves(0xFFFFFF).feature((log, leaves) -> TreeMaker.makeCrossBlobTree(log, leaves, 6, 3, 2, 3))
-                    .build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "magnolia", "Magnolia").leaves(WoodColors.MAGNOLIA_LEAVES)
+                    .feature((log, leaves) -> TreeMaker.makeCrossBlobTree(log, leaves, 6, 3, 2, 3)).build());
     public static final RegisteredTree walnut = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "walnut", "Walnut").wood(0xd18e4f).leaves(0x6ba147).plankType(3)
-                    .feature((log, leaves) -> TreeMaker
-                            .makeCrossRoundTree(log, leaves, 6, 3, 3, FeatureSpread.func_242253_a(1, 1), 3)).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "walnut", "Walnut").wood(WoodColors.WALNUT_WOOD)
+                    .leaves(WoodColors.WALNUT_LEAVES).plankType(3).feature((log, leaves) -> TreeMaker
+                    .makeCrossRoundTree(log, leaves, 6, 3, 3, FeatureSpread.func_242253_a(1, 1), 3)).build());
     public static final RegisteredTree cedar = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "cedar", "Cedar").leaves(0x5ea148).wood(0xf8747d).log(0x3b1910)
-                    .plankType(1).feature((log, leaves) -> TreeMaker
-                    .makePointyTree(log, leaves, FeatureSpread.func_242252_a(37), FeatureSpread.func_242252_a(100), 1,
-                            8, 5)).biome(new BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "cedar", "Cedar").leaves(WoodColors.CEDAR_LEAVES)
+                    .wood(WoodColors.CEDAR_WOOD).log(WoodColors.CEDAR_LOG).plankType(1).feature(
+                    (log, leaves) -> TreeMaker.makePointyTree(log, leaves, FeatureSpread.func_242252_a(37),
+                            FeatureSpread.func_242252_a(100), 1, 8, 5))
+                    .biome(new BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
     public static final RegisteredTree poplar = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "poplar", "Poplar").leaves(0x81ba56).wood(0x7e98b3).log(0x6a7b65)
-                    .plankType(1).feature((log, leaves) -> TreeMaker
-                    .makeAshTree(log, leaves, 8, 6, FeatureSpread.func_242253_a(0, 1),
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "poplar", "Poplar").leaves(WoodColors.POPLAR_LEAVES)
+                    .wood(WoodColors.POPLAR_WOOD).log(WoodColors.POPLAR_LOG).plankType(1).feature(
+                    (log, leaves) -> TreeMaker.makeAshTree(log, leaves, 8, 6, FeatureSpread.func_242253_a(0, 1),
                             FeatureSpread.func_242253_a(4, 2), FeatureSpread.func_242253_a(3, 1)))
                     .biome(new BiomeSettings.Builder().density(8)).build());
     public static final RegisteredTree elm = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "elm", "Elm").wood(0xddbf5d).log(0x4b6541).leaves(0xaed162)
-                    .plankType(2).feature(TreeMaker::makeBallTree).biome(new BiomeSettings.Builder().density(5))
-                    .build());
-    public static final RegisteredTree rainbow_eucalyptus = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "rainbow_eucalyptus", "Rainbow Eucalyptus").log(0x000000)
-                    .wood(0x000000).leaves(blockPos -> blockPos != null ? Color.HSBtoRGB(
-                    (float) (Math.pow((blockPos.getX() % 32) / 32.0f, 2) + Math
-                            .pow((blockPos.getY() % 32) / 32.0f, 2) + Math.pow((blockPos.getZ() % 32) / 32.0f, 2)),
-                    0.7f, 0.8f) : Color.HSBtoRGB(0, 1, 1)).feature(TreeMaker::makeBallTree)
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "elm", "Elm").wood(WoodColors.ELM_WOOD).log(WoodColors.ELM_LOG)
+                    .leaves(WoodColors.ELM_LEAVES).plankType(2).feature(TreeMaker::makeBallTree)
                     .biome(new BiomeSettings.Builder().density(5)).build());
+    public static final RegisteredTree rainbow_eucalyptus = registerTree(
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "rainbow_eucalyptus", "Rainbow Eucalyptus")
+                    .leaves(blockPos -> blockPos != null ? Color.HSBtoRGB(
+                            (float) (Math.pow((blockPos.getX() % 32) / 32.0f, 2) + Math
+                                    .pow((blockPos.getY() % 32) / 32.0f, 2) + Math
+                                    .pow((blockPos.getZ() % 32) / 32.0f, 2)), 0.7f, 0.8f) : Color.HSBtoRGB(0, 1, 1))
+                    .feature(TreeMaker::makeBallTree).biome(new BiomeSettings.Builder().density(5)).build());
     public static final RegisteredTree juniper = registerTree(
-            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "juniper", "Juniper").leaves(0x5ead55).wood(0x34595c).plankType(1)
-                    .log(0x897975).feature((log, leaves) -> TreeMaker
-                    .makeJuniperTree(log, leaves, FeatureSpread.func_242252_a(42), FeatureSpread.func_242252_a(100), 2,
-                            12, 6)).biome(new BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
+            TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "juniper", "Juniper").leaves(WoodColors.JUNIPER_LEAVES)
+                    .wood(WoodColors.JUNIPER_WOOD).plankType(1).log(WoodColors.JUNIPER_LOG).feature(
+                    (log, leaves) -> TreeMaker.makeJuniperTree(log, leaves, FeatureSpread.func_242252_a(42),
+                            FeatureSpread.func_242252_a(100), 2, 12, 6))
+                    .biome(new BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {
         TREES.add(tree);
