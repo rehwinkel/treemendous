@@ -33,6 +33,8 @@ sourceSets {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+sourceSets.main.resources { srcDir 'src/generated_tex/resources' }
+
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
@@ -89,13 +91,20 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'treemendous', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
+            args '--mod', 'treemendous', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources'), '--existing', file('src/generated_tex/resources')
 
             mods {
                 treemendous {
                     source sourceSets.main
                 }
             }
+        }
+
+        textureData {
+            parent data
+            property 'forge.logging.console.level', 'debug'
+            property 'generate_textures', 'true'
+            args '--mod', 'treemendous', '--all', '--output', file('src/generated_tex/resources/'), '--existing', file('src/main/resources')
         }
     }
 }

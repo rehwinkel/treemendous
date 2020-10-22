@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 public class Treemendous {
     public static final String MODID = "treemendous";
 
-    public static final Logger logger = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     private final Proxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public Treemendous() {
@@ -39,16 +39,23 @@ public class Treemendous {
     @SubscribeEvent
     public static void registerDataGens(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        if (event.includeServer()) {
-            generator.addProvider(new RecipeProvider(generator));
-            generator.addProvider(new LootTableProvider(generator, MODID));
-            generator.addProvider(new ItemTagsProvider(generator, MODID, event.getExistingFileHelper()));
-            generator.addProvider(new BlockTagsProvider(generator, MODID, event.getExistingFileHelper()));
-        }
-        if (event.includeClient()) {
-            generator.addProvider(new LanguageProvider(generator, MODID, "en_us"));
-            generator.addProvider(new ItemModelProvider(generator, MODID, event.getExistingFileHelper()));
-            generator.addProvider(new BlockStateProvider(generator, MODID, event.getExistingFileHelper()));
+        boolean genTextures = Boolean.parseBoolean(System.getProperty("generate_textures"));
+        if (genTextures) {
+            if (event.includeClient()) {
+                generator.addProvider(new TextureProvider(generator, MODID, event.getExistingFileHelper()));
+            }
+        } else {
+            if (event.includeServer()) {
+                generator.addProvider(new RecipeProvider(generator));
+                generator.addProvider(new LootTableProvider(generator, MODID));
+                generator.addProvider(new ItemTagsProvider(generator, MODID, event.getExistingFileHelper()));
+                generator.addProvider(new BlockTagsProvider(generator, MODID, event.getExistingFileHelper()));
+            }
+            if (event.includeClient()) {
+                generator.addProvider(new LanguageProvider(generator, MODID, "en_us"));
+                generator.addProvider(new ItemModelProvider(generator, MODID, event.getExistingFileHelper()));
+                generator.addProvider(new BlockStateProvider(generator, MODID, event.getExistingFileHelper()));
+            }
         }
     }
 

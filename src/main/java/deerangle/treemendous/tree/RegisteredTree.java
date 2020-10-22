@@ -62,6 +62,8 @@ public class RegisteredTree {
     private final BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> featureBiFunction;
     private ConfiguredFeature<BaseTreeFeatureConfig, ?> singleTreeFeature;
     private ConfiguredFeature<?, ?> treesFeature;
+    private final int woodColor;
+    private final int logColor;
 
     RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
@@ -72,6 +74,8 @@ public class RegisteredTree {
         this.singleTreeFeature = null;
         this.treeDensity = biomeSettings.getTreeDensity();
 
+        this.woodColor = woodColorVal;
+        this.logColor = barkColorVal;
         MaterialColor woodColor = getClosestMaterialColor(woodColorVal);
         MaterialColor barkColor = getClosestMaterialColor(barkColorVal);
 
@@ -268,7 +272,10 @@ public class RegisteredTree {
                     int colB = col & 0xFF;
                     return Math
                             .sqrt((colR - colorR) * (colR - colorR) + (colG - colorG) * (colG - colorG) + (colB - colorB) * (colB - colorB));
-                }, materialColor -> materialColor));
+                }, materialColor -> materialColor, (a, b) -> {
+                    Treemendous.LOGGER.warn("duplicate distance to MaterialColor: {}, {}", a, b);
+                    return a;
+                }));
         Double dist = dists.keySet().stream().sorted().findFirst()
                 .orElseThrow(() -> new RuntimeException("failed to find MaterialColor"));
         return dists.get(dist);
@@ -292,7 +299,7 @@ public class RegisteredTree {
             try {
                 storeInAPI(name, b);
             } catch (ReflectiveOperationException e) {
-                Treemendous.logger.error("Missing field in API: " + name);
+                Treemendous.LOGGER.error("Missing field in API: " + name);
             }
             return b;
         });
@@ -346,5 +353,12 @@ public class RegisteredTree {
         return this.apple;
     }
 
+    public int getWoodColor() {
+        return this.woodColor;
+    }
+
+    public int getLogColor() {
+        return this.logColor;
+    }
 }
 
