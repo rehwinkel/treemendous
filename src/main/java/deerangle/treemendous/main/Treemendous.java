@@ -2,6 +2,8 @@ package deerangle.treemendous.main;
 
 import deerangle.treemendous.data.*;
 import deerangle.treemendous.tree.BiomeMaker;
+import deerangle.treemendous.tree.TreeRegistry;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -18,34 +20,34 @@ public class Treemendous {
     public static final String MODID = "treemendous";
 
     public static final Logger logger = LogManager.getLogger();
+    private final Proxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public Treemendous() {
         ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TreeRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TreeRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         BiomeMaker.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
     }
 
-    private final Proxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-
     @SubscribeEvent
     public static void registerDataGens(GatherDataEvent event) {
-        event.getGenerator().addProvider(new LanguageProvider(event.getGenerator(), MODID, "en_us"));
-        event.getGenerator()
-                .addProvider(new ItemModelProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
-        event.getGenerator()
-                .addProvider(new BlockStateProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new LootTableProvider(event.getGenerator(), MODID));
-        event.getGenerator().addProvider(new RecipeProvider(event.getGenerator()));
-        event.getGenerator()
-                .addProvider(new ItemTagsProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
-        event.getGenerator()
-                .addProvider(new BlockTagsProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
+        DataGenerator generator = event.getGenerator();
+        if (event.includeServer()) {
+            generator.addProvider(new RecipeProvider(generator));
+            generator.addProvider(new LootTableProvider(generator, MODID));
+            generator.addProvider(new ItemTagsProvider(generator, MODID, event.getExistingFileHelper()));
+            generator.addProvider(new BlockTagsProvider(generator, MODID, event.getExistingFileHelper()));
+        }
+        if (event.includeClient()) {
+            generator.addProvider(new LanguageProvider(generator, MODID, "en_us"));
+            generator.addProvider(new ItemModelProvider(generator, MODID, event.getExistingFileHelper()));
+            generator.addProvider(new BlockStateProvider(generator, MODID, event.getExistingFileHelper()));
+        }
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

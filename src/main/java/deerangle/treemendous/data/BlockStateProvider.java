@@ -1,14 +1,17 @@
 package deerangle.treemendous.data;
 
-import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
@@ -135,7 +138,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     @Override
     protected void registerStatesAndModels() {
-        for (RegisteredTree tree : TreeRegistry.trees) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
             sapling((SaplingBlock) tree.sapling.get(), (FlowerPotBlock) tree.potted_sapling.get());
             leaves((LeavesBlock) tree.leaves.get());
             generatedItem(tree.sapling.get(), blockTexture(tree.sapling.get()));

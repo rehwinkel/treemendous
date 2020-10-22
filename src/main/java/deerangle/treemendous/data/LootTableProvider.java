@@ -1,7 +1,7 @@
 package deerangle.treemendous.data;
 
-import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.SaplingBlock;
@@ -16,10 +16,10 @@ public class LootTableProvider extends AbstractLootTableProvider {
 
     @Override
     protected void addLootTables() {
-        for (RegisteredTree tree : TreeRegistry.trees) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
             regularBlock(tree.sapling.get());
             leavesBlock((LeavesBlock) tree.leaves.get(), (SaplingBlock) tree.sapling.get(), tree.getApple());
-            if(tree.isNotInherited()) {
+            if (tree.isNotInherited()) {
                 regularBlock(tree.planks.get());
                 regularBlock(tree.log.get());
                 regularBlock(tree.wood.get());

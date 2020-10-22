@@ -1,8 +1,8 @@
 package deerangle.treemendous.data;
 
 import deerangle.treemendous.main.ExtraRegistry;
-import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
@@ -109,7 +109,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
         lumberAxe(reipceConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), Items.DIAMOND);
         smithingReinforce(reipceConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(),
                 ExtraRegistry.NETHERITE_LUMBER_AXE.get());
-        for (RegisteredTree tree : TreeRegistry.trees) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
             if (tree.isNotInherited()) {
                 shapelessPlanksNew(reipceConsumer, tree.planks.get(), tree.logsItemTag);
                 shapelessStrippedToPlanks(reipceConsumer, tree.wood.get(), tree.log.get());

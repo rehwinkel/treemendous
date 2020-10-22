@@ -1,7 +1,7 @@
 package deerangle.treemendous.data;
 
-import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.ItemTags;
@@ -15,13 +15,13 @@ public class ItemTagsProvider extends net.minecraft.data.ItemTagsProvider {
 
     @Override
     protected void registerTags() {
-        for (RegisteredTree tree : TreeRegistry.trees) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
             getOrCreateBuilder(ItemTags.SAPLINGS).add(tree.sapling_item.get());
             getOrCreateBuilder(ItemTags.LEAVES).add(tree.leaves_item.get());
 
-            if(tree.isNotInherited()) {
-                getOrCreateBuilder(tree.logsItemTag).add(tree.log_item.get()).add(tree.stripped_log_item.get()).add(tree.wood_item.get())
-                        .add(tree.stripped_wood_item.get());
+            if (tree.isNotInherited()) {
+                getOrCreateBuilder(tree.logsItemTag).add(tree.log_item.get()).add(tree.stripped_log_item.get())
+                        .add(tree.wood_item.get()).add(tree.stripped_wood_item.get());
                 getOrCreateBuilder(ItemTags.WOODEN_TRAPDOORS).add(tree.trapdoor_item.get());
                 getOrCreateBuilder(ItemTags.WOODEN_DOORS).add(tree.door_item.get());
                 getOrCreateBuilder(ItemTags.WOODEN_FENCES).add(tree.fence_item.get());

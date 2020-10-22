@@ -39,37 +39,25 @@ import java.util.function.Supplier;
 
 public class RegisteredTree {
 
-    private static Boolean neverAllowSpawn(BlockState p_235427_0_, IBlockReader p_235427_1_, BlockPos p_235427_2_, EntityType<?> p_235427_3_) {
-        return false;
-    }
-
-    private static Boolean allowsSpawnOnLeaves(BlockState p_235441_0_, IBlockReader p_235441_1_, BlockPos p_235441_2_, EntityType<?> p_235441_3_) {
-        return p_235441_3_ == EntityType.OCELOT || p_235441_3_ == EntityType.PARROT;
-    }
-
-    private static boolean isntSolid(BlockState p_235436_0_, IBlockReader p_235436_1_, BlockPos p_235436_2_) {
-        return false;
-    }
-
+    public final ITag.INamedTag<Item> logsItemTag;
+    public final ITag.INamedTag<Block> logsBlockTag;
+    public final RegistryObject<Block> planks, sapling, log, stripped_log, wood, stripped_wood, leaves, pressure_plate, trapdoor, potted_sapling, button, stairs, slab, fence_gate, fence, door, sign, wall_sign;
+    public final RegistryObject<Item> planks_item, sapling_item, log_item, stripped_log_item, wood_item, stripped_wood_item, leaves_item, pressure_plate_item, trapdoor_item, button_item, stairs_item, slab_item, fence_gate_item, fence_item, door_item, sign_item, boat_item;
     private final ILeavesColor leavesColor;
     private final String name;
     private final String englishName;
     private final boolean inherited;
-    public final RegistryObject<Block> planks, sapling, log, stripped_log, wood, stripped_wood, leaves, pressure_plate, trapdoor, potted_sapling, button, stairs, slab, fence_gate, fence, door, sign, wall_sign;
-    public final RegistryObject<Item> planks_item, sapling_item, log_item, stripped_log_item, wood_item, stripped_wood_item, leaves_item, pressure_plate_item, trapdoor_item, button_item, stairs_item, slab_item, fence_gate_item, fence_item, door_item, sign_item, boat_item;
-    private final Supplier<IItemProvider> apple;
-    public final ITag.INamedTag<Item> logsItemTag;
-    public final ITag.INamedTag<Block> logsBlockTag;
     private final WoodType woodType;
     private final CustomBoatType boatType;
-    private final BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> featureBiFunction;
-    private ConfiguredFeature<BaseTreeFeatureConfig, ?> singleTreeFeature;
-    private ConfiguredFeature<?, ?> treesFeature;
+    private final Supplier<IItemProvider> apple;
     private final Collection<RegistryKey<Biome>> biomes;
     private final Collection<RegistryKey<Biome>> frostyBiomes;
     private final int treeDensity;
+    private final BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> featureBiFunction;
+    private ConfiguredFeature<BaseTreeFeatureConfig, ?> singleTreeFeature;
+    private ConfiguredFeature<?, ?> treesFeature;
 
-    private RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
+    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, MaterialColor woodColor, MaterialColor barkColor, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
@@ -259,6 +247,18 @@ public class RegisteredTree {
         }
     }
 
+    private static Boolean neverAllowSpawn(BlockState state, IBlockReader world, BlockPos pos, EntityType<?> entity) {
+        return false;
+    }
+
+    private static Boolean allowsSpawnOnLeaves(BlockState state, IBlockReader world, BlockPos pos, EntityType<?> entity) {
+        return entity == EntityType.OCELOT || entity == EntityType.PARROT;
+    }
+
+    private static boolean isntSolid(BlockState state, IBlockReader world, BlockPos pos) {
+        return false;
+    }
+
     private RegistryObject<Block> registerBlock(DeferredRegister<Block> registry, String name, Supplier<Block> blockSupplier) {
         return registry.register(name, () -> {
             Block b = blockSupplier.get();
@@ -319,153 +319,5 @@ public class RegisteredTree {
         return this.apple;
     }
 
-    public static class Builder {
-        private final DeferredRegister<Item> itemRegistry;
-        private final DeferredRegister<Block> blockRegistry;
-        private final DeferredRegister<Biome> biomeRegistry;
-        private final String name;
-        private final String englishName;
-        private MaterialColor woodColor;
-        private MaterialColor logColor;
-        private ILeavesColor leavesColor;
-        private Supplier<IItemProvider> apple;
-        private RegisteredTree inherit;
-        private BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature;
-        private BiomeSettings biomeSettings;
-
-        private Builder(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName) {
-            this.biomeRegistry = BIOMES;
-            this.itemRegistry = ITEMS;
-            this.blockRegistry = BLOCKS;
-            this.name = name;
-            this.englishName = englishName;
-            this.woodColor = MaterialColor.WOOD;
-            this.logColor = MaterialColor.BROWN;
-            this.leavesColor = (blockPos) -> 8431445;
-            this.apple = null;
-            this.inherit = null;
-            this.feature = (log, leaves) -> null;
-            this.biomeSettings = new BiomeSettings.Builder().build();
-        }
-
-        public Builder wood(MaterialColor color) {
-            this.woodColor = color;
-            return this;
-        }
-
-        public Builder log(MaterialColor color) {
-            this.logColor = color;
-            return this;
-        }
-
-        public Builder leaves(int color) {
-            this.leavesColor = (blockPos) -> color;
-            return this;
-        }
-
-        public Builder leaves(ILeavesColor color) {
-            this.leavesColor = color;
-            return this;
-        }
-
-        public Builder apple(Supplier<IItemProvider> apple) {
-            this.apple = apple;
-            return this;
-        }
-
-        public static Builder create(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String id, String name) {
-            return new Builder(BLOCKS, ITEMS, BIOMES, id, name);
-        }
-
-        public RegisteredTree build() {
-            return new RegisteredTree(this.blockRegistry, this.itemRegistry, this.biomeRegistry, this.name,
-                    this.englishName, this.woodColor, this.logColor, this.leavesColor, this.apple, this.inherit,
-                    this.feature, this.biomeSettings);
-        }
-
-        public Builder biome(BiomeSettings.Builder settings) {
-            this.biomeSettings = settings.build();
-            return this;
-        }
-
-        public Builder inheritWood(RegisteredTree inherit) {
-            this.inherit = inherit;
-            return this;
-        }
-
-        public Builder feature(BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature) {
-            this.feature = feature;
-            return this;
-        }
-    }
-
-    public static class BiomeSettings {
-        private final float temperature;
-        private final boolean snowy;
-        private final boolean dry;
-        private final int treeDensity;
-
-        private BiomeSettings(float temp, boolean snowy, boolean dry, int treeDensity) {
-            this.temperature = temp;
-            this.snowy = snowy;
-            this.dry = dry;
-            this.treeDensity = treeDensity;
-        }
-
-        private float getTemperature() {
-            return temperature;
-        }
-
-        public boolean isSnowy() {
-            return snowy;
-        }
-
-        public boolean isDry() {
-            return dry;
-        }
-
-        public int getTreeDensity() {
-            return treeDensity;
-        }
-
-        public static class Builder {
-            private float temperature;
-            private boolean snowy;
-            private boolean dry;
-            private int treeDensity;
-
-            public Builder() {
-                this.temperature = 0.7f;
-                this.snowy = false;
-                this.dry = false;
-                this.treeDensity = 10;
-            }
-
-            public Builder temperature(float temp) {
-                this.temperature = temp;
-                return this;
-            }
-
-            public Builder snow() {
-                this.snowy = true;
-                return this;
-            }
-
-            public Builder dry() {
-                this.snowy = false;
-                this.dry = true;
-                return this;
-            }
-
-            public BiomeSettings build() {
-                return new BiomeSettings(this.temperature, this.snowy, this.dry, this.treeDensity);
-            }
-
-            public Builder density(int density) {
-                this.treeDensity = density;
-                return this;
-            }
-        }
-    }
 }
 

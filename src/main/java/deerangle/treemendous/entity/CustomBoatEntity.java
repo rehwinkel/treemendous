@@ -1,7 +1,7 @@
 package deerangle.treemendous.entity;
 
-import deerangle.treemendous.main.TreeRegistry;
-import net.minecraft.entity.*;
+import deerangle.treemendous.main.ExtraRegistry;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,7 +17,7 @@ public class CustomBoatEntity extends BoatEntity {
     }
 
     public CustomBoatEntity(World worldIn, double x, double y, double z) {
-        this(TreeRegistry.BOAT.get(), worldIn);
+        this(ExtraRegistry.BOAT.get(), worldIn);
         this.setPosition(x, y, z);
         this.setMotion(Vector3d.ZERO);
         this.prevPosX = x;
@@ -26,7 +26,7 @@ public class CustomBoatEntity extends BoatEntity {
     }
 
     public CustomBoatEntity(World worldIn) {
-        this(TreeRegistry.BOAT.get(), worldIn);
+        this(ExtraRegistry.BOAT.get(), worldIn);
         this.setMotion(Vector3d.ZERO);
     }
 

@@ -12,8 +12,8 @@ public class CustomBoatType {
     private final int id;
     private final String name;
     private final ResourceLocation texture;
-    private IItemProvider boatItem;
     private final Supplier<IItemProvider> planksItem;
+    private IItemProvider boatItem;
 
     private CustomBoatType(int id, String name, ResourceLocation texture, Supplier<IItemProvider> planksItem) {
         this.id = id;
@@ -47,12 +47,12 @@ public class CustomBoatType {
         return id;
     }
 
-    public void setBoatItem(IItemProvider boatItem) {
-        this.boatItem = boatItem;
-    }
-
     public IItemProvider getBoatItem() {
         return this.boatItem;
+    }
+
+    public void setBoatItem(IItemProvider boatItem) {
+        this.boatItem = boatItem;
     }
 
     public String getName() {

@@ -2,7 +2,7 @@ package deerangle.treemendous.tree.foliage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import deerangle.treemendous.main.TreeRegistry;
+import deerangle.treemendous.tree.TreeWorldgenRegistry;
 import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
@@ -23,7 +23,7 @@ public class ParabolaFoliagePlacer extends BlobFoliagePlacer {
     }
 
     protected FoliagePlacerType<?> func_230371_a_() {
-        return TreeRegistry.PARABOLA_FOLIAGE_PLACER;
+        return TreeWorldgenRegistry.PARABOLA_FOLIAGE_PLACER;
     }
 
     private double getSize(double x, double width, double atHeight) {

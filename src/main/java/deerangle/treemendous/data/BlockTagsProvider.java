@@ -1,7 +1,7 @@
 package deerangle.treemendous.data;
 
-import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -14,7 +14,7 @@ public class BlockTagsProvider extends net.minecraft.data.BlockTagsProvider {
 
     @Override
     protected void registerTags() {
-        for (RegisteredTree tree : TreeRegistry.trees) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
             getOrCreateBuilder(BlockTags.SAPLINGS).add(tree.sapling.get());
             getOrCreateBuilder(BlockTags.LEAVES).add(tree.leaves.get());
 

@@ -1,7 +1,7 @@
 package deerangle.treemendous.data;
 
-import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.DataGenerator;
 
 public class LanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
@@ -26,7 +26,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add("biome." + this.modid + "." + "mixed_forest_vanilla", "Mixed Forest");
         add("biome." + this.modid + "." + "needle_forest", "Needle Forest");
         add("biome." + this.modid + "." + "needle_forest_snow", "Snowy Needle Forest");
-        for (RegisteredTree tree : TreeRegistry.trees) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
             String name = tree.getName();
             String englishName = tree.getEnglishName();
             add("block." + this.modid + "." + name + "_sapling", englishName + " Sapling");

@@ -1,7 +1,6 @@
 package deerangle.treemendous.tree;
 
 import com.google.common.collect.ImmutableList;
-import deerangle.treemendous.main.TreeRegistry;
 import deerangle.treemendous.main.Treemendous;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -25,50 +24,13 @@ import java.util.stream.Stream;
 
 public class BiomeMaker {
 
-    static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
-        return Registry
-                .register(WorldGenRegistries.CONFIGURED_FEATURE, Treemendous.MODID + ":" + key, configuredFeature);
-    }
-
-    static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, boolean dry, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
-        BiomeGenerationSettings.Builder genSettings = new BiomeGenerationSettings.Builder()
-                .withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
-        DefaultBiomeFeatures.withStrongholdAndMineshaft(genSettings);
-        genSettings.withStructure(StructureFeatures.field_244159_y);
-        DefaultBiomeFeatures.withCavesAndCanyons(genSettings);
-        DefaultBiomeFeatures.withLavaAndWaterLakes(genSettings);
-        DefaultBiomeFeatures.withMonsterRoom(genSettings);
-        DefaultBiomeFeatures.withDisks(genSettings);
-        DefaultBiomeFeatures.withAllForestFlowerGeneration(genSettings);
-        DefaultBiomeFeatures.withDefaultFlowers(genSettings);
-        DefaultBiomeFeatures.withForestGrass(genSettings);
-        DefaultBiomeFeatures.withCommonOverworldBlocks(genSettings);
-        DefaultBiomeFeatures.withOverworldOres(genSettings);
-        DefaultBiomeFeatures.withNormalMushroomGeneration(genSettings);
-        DefaultBiomeFeatures.withSugarCaneAndPumpkins(genSettings);
-        DefaultBiomeFeatures.withLavaAndWaterSprings(genSettings);
-        DefaultBiomeFeatures.withFrozenTopLayer(genSettings);
-        genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, tree);
-
-        return new Biome.Builder()
-                .precipitation(snowy ? Biome.RainType.SNOW : (dry ? Biome.RainType.NONE : Biome.RainType.RAIN))
-                .category(Biome.Category.FOREST).depth(depth).scale(scale).temperature(snowy ? -0.5F : temperature)
-                .downfall(snowy ? 0.4F : (dry ? 0.0F : 0.8F)).setEffects(
-                        (new BiomeAmbience.Builder()).setWaterColor(snowy ? 4020182 : 4159204).setWaterFogColor(329011)
-                                .setFogColor(12638463).withSkyColor(MathHelper.hsvToRGB(0.6105556f, 0.5233333f, 1.0F))
-                                .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
-                .withMobSpawnSettings(mobSpawnBuilder.copy()).withGenerationSettings(genSettings.build()).build();
-    }
-
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister
             .create(ForgeRegistries.BIOMES, Treemendous.MODID);
-
     public static final RegistryKey<Biome> MIXED_MAPLE_FOREST = makeBiomeKey("mixed_maple_forest");
     public static final RegistryKey<Biome> MIXED_FOREST = makeBiomeKey("mixed_forest");
     public static final RegistryKey<Biome> MIXED_FOREST_VANILLA = makeBiomeKey("mixed_forest_vanilla");
     public static final RegistryKey<Biome> NEEDLE_FOREST = makeBiomeKey("needle_forest");
     public static final RegistryKey<Biome> NEEDLE_FOREST_SNOW = makeBiomeKey("needle_forest_snow");
-
     private static ConfiguredFeature<?, ?> needleTreesFeature;
 
     static {
@@ -88,12 +50,12 @@ public class BiomeMaker {
         });
 
         BIOMES.register("mixed_forest", () -> {
-            for (RegisteredTree tree : TreeRegistry.trees) {
+            for (RegisteredTree tree : TreeRegistry.TREES) {
                 tree.registerFeature();
             }
 
             ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed",
-                    Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(TreeRegistry.trees.stream()
+                    Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(TreeRegistry.TREES.stream()
                             .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getSingleTreeFeature)
                             .collect(Collectors.toList()))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                             .withPlacement(
@@ -102,13 +64,13 @@ public class BiomeMaker {
         });
 
         BIOMES.register("mixed_forest_vanilla", () -> {
-            for (RegisteredTree tree : TreeRegistry.trees) {
+            for (RegisteredTree tree : TreeRegistry.TREES) {
                 tree.registerFeature();
             }
 
             ConfiguredFeature<?, ?> treesFeature = registerConfiguredFeature("trees_mixed_vanilla",
                     Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(Stream.concat(
-                            TreeRegistry.trees.stream()
+                            TreeRegistry.TREES.stream()
                                     .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getSingleTreeFeature),
                             ImmutableList.of(Features.OAK, Features.SPRUCE, Features.BIRCH, Features.JUNGLE_TREE,
                                     Features.ACACIA, Features.DARK_OAK).stream().map(tree -> () -> tree))
@@ -163,13 +125,48 @@ public class BiomeMaker {
         });
     }
 
+    static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerConfiguredFeature(String key, ConfiguredFeature<FC, ?> configuredFeature) {
+        return Registry
+                .register(WorldGenRegistries.CONFIGURED_FEATURE, Treemendous.MODID + ":" + key, configuredFeature);
+    }
+
+    static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, boolean dry, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
+        BiomeGenerationSettings.Builder genSettings = new BiomeGenerationSettings.Builder()
+                .withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
+        DefaultBiomeFeatures.withStrongholdAndMineshaft(genSettings);
+        genSettings.withStructure(StructureFeatures.field_244159_y);
+        DefaultBiomeFeatures.withCavesAndCanyons(genSettings);
+        DefaultBiomeFeatures.withLavaAndWaterLakes(genSettings);
+        DefaultBiomeFeatures.withMonsterRoom(genSettings);
+        DefaultBiomeFeatures.withDisks(genSettings);
+        DefaultBiomeFeatures.withAllForestFlowerGeneration(genSettings);
+        DefaultBiomeFeatures.withDefaultFlowers(genSettings);
+        DefaultBiomeFeatures.withForestGrass(genSettings);
+        DefaultBiomeFeatures.withCommonOverworldBlocks(genSettings);
+        DefaultBiomeFeatures.withOverworldOres(genSettings);
+        DefaultBiomeFeatures.withNormalMushroomGeneration(genSettings);
+        DefaultBiomeFeatures.withSugarCaneAndPumpkins(genSettings);
+        DefaultBiomeFeatures.withLavaAndWaterSprings(genSettings);
+        DefaultBiomeFeatures.withFrozenTopLayer(genSettings);
+        genSettings.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, tree);
+
+        return new Biome.Builder()
+                .precipitation(snowy ? Biome.RainType.SNOW : (dry ? Biome.RainType.NONE : Biome.RainType.RAIN))
+                .category(Biome.Category.FOREST).depth(depth).scale(scale).temperature(snowy ? -0.5F : temperature)
+                .downfall(snowy ? 0.4F : (dry ? 0.0F : 0.8F)).setEffects(
+                        (new BiomeAmbience.Builder()).setWaterColor(snowy ? 4020182 : 4159204).setWaterFogColor(329011)
+                                .setFogColor(12638463).withSkyColor(MathHelper.hsvToRGB(0.6105556f, 0.5233333f, 1.0F))
+                                .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
+                .withMobSpawnSettings(mobSpawnBuilder.copy()).withGenerationSettings(genSettings.build()).build();
+    }
+
     public static void addBiomesToOverworld() {
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_MAPLE_FOREST, 8));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_FOREST, 8));
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_FOREST_VANILLA, 8));
         BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(NEEDLE_FOREST, 8));
         BiomeManager.addBiome(BiomeManager.BiomeType.ICY, new BiomeManager.BiomeEntry(NEEDLE_FOREST_SNOW, 8));
-        for (RegisteredTree tree : TreeRegistry.trees) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
             for (RegistryKey<Biome> b : tree.getFrostyBiomes()) {
                 BiomeManager.addBiome(BiomeManager.BiomeType.ICY, new BiomeManager.BiomeEntry(b, 10));
             }
