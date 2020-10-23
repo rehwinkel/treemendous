@@ -20,6 +20,7 @@ build
 # other
 eclipse
 run
+src/generated_tex/resources/assets/ilikewood
 
 # Files from Forge MDK
 forge*changelog.txt

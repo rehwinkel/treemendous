@@ -33,9 +33,12 @@ public abstract class AbstractTextureProvider implements IDataProvider {
     }
 
     protected Texture loadTexture(String path) throws IOException {
+        return this.loadTexture(path, "templates");
+    }
+
+    protected Texture loadTexture(String path, String folder) throws IOException {
         IResource res = existingFileHelper
-                .getResource(new ResourceLocation("base", path), ResourcePackType.CLIENT_RESOURCES, ".png",
-                        "templates");
+                .getResource(new ResourceLocation("base", path), ResourcePackType.CLIENT_RESOURCES, ".png", folder);
         NativeImage img = NativeImage.read(res.getInputStream());
         byte[] data = new byte[img.getHeight() * img.getWidth() * 4];
         for (int y = 0; y < img.getHeight(); y++) {
