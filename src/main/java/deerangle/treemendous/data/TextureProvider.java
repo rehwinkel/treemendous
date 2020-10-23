@@ -186,7 +186,7 @@ public class TextureProvider extends AbstractTextureProvider {
             colored.multiplyArea(tree.getWoodColor(), 30, 1, 14, 12);
             colored.multiplyArea(tree.getWoodColor(), 1, 15, 12, 3);
             colored.multiplyArea(tree.getWoodColor(), 15, 15, 14, 3);
-            colored.multiplyArea(tree.getWoodColor(), 45, 15, 14, 3);
+            colored.multiplyArea(tree.getWoodColor(), 43, 15, 14, 3);
             colored.multiplyArea(tree.getWoodColor(), 15, 20, 14, 12);
             colored.multiplyArea(tree.getWoodColor(), 30, 20, 14, 1);
             colored.multiplyArea(tree.getWoodColor(), 30, 21, 1, 10);
