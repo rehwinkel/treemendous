@@ -1,5 +1,13 @@
 package deerangle.treemendous.api;
 
+import deerangle.treemendous.main.Treemendous;
+import net.minecraft.block.material.MaterialColor;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 public class WoodColors {
     public static final int DOUGLAS_WOOD = 0xc18879;
     public static final int DOUGLAS_LOG = 0x9f9390;
@@ -66,4 +74,25 @@ public class WoodColors {
     public static final int JUNIPER_LEAVES = 0x5ead55;
     public static final int JUNIPER_WOOD = 0x34595c;
     public static final int JUNIPER_LOG = 0x897975;
+
+    public static MaterialColor getClosestMaterialColor(int color) {
+        int colorR = (color >> 16) & 0xFF;
+        int colorG = (color >> 8) & 0xFF;
+        int colorB = color & 0xFF;
+        Map<Double, MaterialColor> dists = Arrays.stream(MaterialColor.COLORS).filter(Objects::nonNull)
+                .collect(Collectors.toMap(materialColor -> {
+                    int col = materialColor.colorValue;
+                    int colR = (col >> 16) & 0xFF;
+                    int colG = (col >> 8) & 0xFF;
+                    int colB = col & 0xFF;
+                    return Math
+                            .sqrt((colR - colorR) * (colR - colorR) + (colG - colorG) * (colG - colorG) + (colB - colorB) * (colB - colorB));
+                }, materialColor -> materialColor, (a, b) -> {
+                    Treemendous.LOGGER.warn("duplicate distance to MaterialColor: {}, {}", a, b);
+                    return a;
+                }));
+        Double dist = dists.keySet().stream().sorted().findFirst()
+                .orElseThrow(() -> new RuntimeException("failed to find MaterialColor"));
+        return dists.get(dist);
+    }
 }

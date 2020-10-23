@@ -2,6 +2,7 @@ package deerangle.treemendous.tree;
 
 import com.google.common.collect.ImmutableList;
 import deerangle.treemendous.api.TreemendousBlocks;
+import deerangle.treemendous.api.WoodColors;
 import deerangle.treemendous.block.CustomStandingSignBlock;
 import deerangle.treemendous.block.CustomWallSignBlock;
 import deerangle.treemendous.block.StrippableBlock;
@@ -35,13 +36,9 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class RegisteredTree {
 
@@ -131,8 +128,8 @@ public class RegisteredTree {
         }
 
         if (inherit == null) {
-            MaterialColor woodColor = getClosestMaterialColor(woodColorVal);
-            MaterialColor barkColor = getClosestMaterialColor(barkColorVal);
+            MaterialColor woodColor = WoodColors.getClosestMaterialColor(woodColorVal);
+            MaterialColor barkColor = WoodColors.getClosestMaterialColor(barkColorVal);
 
             this.inherited = false;
             this.logsItemTag = ItemTags.makeWrapperTag(Treemendous.MODID + ":" + name + "_logs");
@@ -261,27 +258,6 @@ public class RegisteredTree {
             this.sign_item = inherit.sign_item;
             this.boat_item = inherit.boat_item;
         }
-    }
-
-    private MaterialColor getClosestMaterialColor(int color) {
-        int colorR = (color >> 16) & 0xFF;
-        int colorG = (color >> 8) & 0xFF;
-        int colorB = color & 0xFF;
-        Map<Double, MaterialColor> dists = Arrays.stream(MaterialColor.COLORS).filter(Objects::nonNull)
-                .collect(Collectors.toMap(materialColor -> {
-                    int col = materialColor.colorValue;
-                    int colR = (col >> 16) & 0xFF;
-                    int colG = (col >> 8) & 0xFF;
-                    int colB = col & 0xFF;
-                    return Math
-                            .sqrt((colR - colorR) * (colR - colorR) + (colG - colorG) * (colG - colorG) + (colB - colorB) * (colB - colorB));
-                }, materialColor -> materialColor, (a, b) -> {
-                    Treemendous.LOGGER.warn("duplicate distance to MaterialColor: {}, {}", a, b);
-                    return a;
-                }));
-        Double dist = dists.keySet().stream().sorted().findFirst()
-                .orElseThrow(() -> new RuntimeException("failed to find MaterialColor"));
-        return dists.get(dist);
     }
 
     private static Boolean neverAllowSpawn(BlockState state, IBlockReader world, BlockPos pos, EntityType<?> entity) {
