@@ -157,9 +157,30 @@ public class TextureProvider extends AbstractTextureProvider {
             this.textures.put(new ResourceLocation("ilikewood", "block/scaffolding/bottom/" + name), colored);
 
             colored = scaffoldingTop.copy();
-            colored.multiplyArea(tree.getWoodColor(), 2, 0, 12, 2);
-            colored.multiplyArea(tree.getWoodColor(), 0, 2, 16, 12);
-            colored.multiplyArea(tree.getWoodColor(), 2, 14, 12, 2);
+            colored.multiplyArea(tree.getWoodColor(), 2, 0, 2, 2);
+            colored.multiplyArea(tree.getWoodColor(), 5, 0, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 7, 0, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 9, 0, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 11, 0, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 13, 0, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 0, 2, 2, 2);
+            colored.multiplyArea(tree.getWoodColor(), 0, 5, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 0, 7, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 0, 9, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 0, 11, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 0, 13, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 14, 2, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 14, 4, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 14, 6, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 14, 8, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 14, 10, 2, 1);
+            colored.multiplyArea(tree.getWoodColor(), 14, 12, 2, 2);
+            colored.multiplyArea(tree.getWoodColor(), 2, 14, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 4, 14, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 6, 14, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 8, 14, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 10, 14, 1, 2);
+            colored.multiplyArea(tree.getWoodColor(), 12, 14, 2, 2);
             this.textures.put(new ResourceLocation("ilikewood", "block/scaffolding/top/" + name), colored);
 
             colored = chestLeft.copy();
