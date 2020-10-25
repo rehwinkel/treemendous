@@ -1,25 +1,8 @@
 package deerangle.treemendous.tree.trunk;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import deerangle.treemendous.world.TreeWorldGenRegistry;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.gen.IWorldGenerationReader;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.FeatureSpread;
-import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
-import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
-import net.minecraft.world.gen.trunkplacer.TrunkPlacerType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-public class CrossTrunkPlacer extends AbstractTrunkPlacer {
+public class CrossTrunkPlacer {
+    /*
     public static final Codec<CrossTrunkPlacer> CODEC = RecordCodecBuilder
             .create((placerInstance) -> func_236915_a_(placerInstance)
                     .and(FeatureSpread.func_242254_a(0, 8, 8).fieldOf("branch")
@@ -84,4 +67,5 @@ public class CrossTrunkPlacer extends AbstractTrunkPlacer {
         foliages.add(new FoliagePlacer.Foliage(pos.up(height + crownHeightOffset - 1), 0, false));
         return foliages;
     }
+    */
 }

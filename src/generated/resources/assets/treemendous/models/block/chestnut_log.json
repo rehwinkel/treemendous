@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "block/cube_column",
   "textures": {
     "side": "treemendous:block/chestnut_log",
     "end": "treemendous:block/chestnut_log_top"

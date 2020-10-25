@@ -3,11 +3,11 @@ package deerangle.treemendous.tree;
 import deerangle.treemendous.api.WoodColors;
 import deerangle.treemendous.main.ExtraRegistry;
 import deerangle.treemendous.main.Treemendous;
+import deerangle.treemendous.util.FeatureSpread;
 import deerangle.treemendous.world.BiomeSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -17,12 +17,11 @@ import java.util.List;
 
 public class TreeRegistry {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister
-            .create(ForgeRegistries.BLOCKS, Treemendous.MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister
-            .create(ForgeRegistries.ITEMS, Treemendous.MODID);
-    public static final DeferredRegister<Biome> BIOMES = DeferredRegister
-            .create(ForgeRegistries.BIOMES, Treemendous.MODID);
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS,
+            Treemendous.MODID);
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Treemendous.MODID);
+    public static final DeferredRegister<Biome> BIOMES = new DeferredRegister<>(ForgeRegistries.BIOMES,
+            Treemendous.MODID);
 
     public static final List<RegisteredTree> TREES = new ArrayList<>();
 

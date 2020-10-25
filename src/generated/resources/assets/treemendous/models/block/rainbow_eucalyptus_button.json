@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/button",
+  "parent": "block/button",
   "textures": {
     "texture": "treemendous:block/rainbow_eucalyptus_planks"
   }

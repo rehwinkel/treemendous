@@ -13,7 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -36,11 +36,11 @@ public class CustomBoatItem extends Item {
         if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
             return ActionResult.resultPass(itemstack);
         } else {
-            Vector3d vector3d = playerIn.getLook(1.0F);
+            Vec3d vector3d = playerIn.getLook(1.0F);
             List<Entity> list = worldIn.getEntitiesInAABBexcluding(playerIn,
                     playerIn.getBoundingBox().expand(vector3d.scale(5.0D)).grow(1.0D), NOT_SPECTATING_PREDICATE);
             if (!list.isEmpty()) {
-                Vector3d vector3d1 = playerIn.getEyePosition(1.0F);
+                Vec3d vector3d1 = playerIn.getEyePosition(1.0F);
 
                 for (Entity entity : list) {
                     AxisAlignedBB axisalignedbb = entity.getBoundingBox().grow(entity.getCollisionBorderSize());
@@ -66,7 +66,7 @@ public class CustomBoatItem extends Item {
                     }
 
                     playerIn.addStat(Stats.ITEM_USED.get(this));
-                    return ActionResult.func_233538_a_(itemstack, worldIn.isRemote());
+                    return ActionResult.resultSuccess(itemstack);
                 }
             } else {
                 return ActionResult.resultPass(itemstack);

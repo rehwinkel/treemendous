@@ -4,7 +4,7 @@ import deerangle.treemendous.tree.RegisteredTree;
 import deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.ExistingFileHelper;
 
 import java.io.IOException;
 

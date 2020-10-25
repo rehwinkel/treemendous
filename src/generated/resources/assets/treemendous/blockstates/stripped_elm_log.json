@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "treemendous:block/stripped_elm_log_horizontal",
+      "model": "treemendous:block/stripped_elm_log",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "treemendous:block/stripped_elm_log"
     },
     "axis=z": {
-      "model": "treemendous:block/stripped_elm_log_horizontal",
+      "model": "treemendous:block/stripped_elm_log",
       "x": 90
     }
   }

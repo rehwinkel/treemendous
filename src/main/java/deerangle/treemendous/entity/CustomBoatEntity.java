@@ -6,7 +6,7 @@ import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -19,7 +19,7 @@ public class CustomBoatEntity extends BoatEntity {
     public CustomBoatEntity(World worldIn, double x, double y, double z) {
         this(ExtraRegistry.BOAT.get(), worldIn);
         this.setPosition(x, y, z);
-        this.setMotion(Vector3d.ZERO);
+        this.setMotion(Vec3d.ZERO);
         this.prevPosX = x;
         this.prevPosY = y;
         this.prevPosZ = z;
@@ -27,7 +27,7 @@ public class CustomBoatEntity extends BoatEntity {
 
     public CustomBoatEntity(World worldIn) {
         this(ExtraRegistry.BOAT.get(), worldIn);
-        this.setMotion(Vector3d.ZERO);
+        this.setMotion(Vec3d.ZERO);
     }
 
     public Item getItemBoat() {

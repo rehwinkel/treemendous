@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/stairs",
+  "parent": "block/stairs",
   "textures": {
     "side": "treemendous:block/elm_planks",
     "bottom": "treemendous:block/elm_planks",

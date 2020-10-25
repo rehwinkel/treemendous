@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/leaves",
+  "parent": "block/leaves",
   "textures": {
     "all": "treemendous:block/rainbow_eucalyptus_leaves"
   }

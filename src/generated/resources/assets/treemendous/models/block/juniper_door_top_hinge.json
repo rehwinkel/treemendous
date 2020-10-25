@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/door_top_rh",
+  "parent": "block/door_top_rh",
   "textures": {
     "bottom": "treemendous:block/juniper_door_bottom",
     "top": "treemendous:block/juniper_door_top"

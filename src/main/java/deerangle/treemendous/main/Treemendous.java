@@ -21,7 +21,7 @@ public class Treemendous {
     public static final String MODID = "treemendous";
 
     public static final Logger LOGGER = LogManager.getLogger();
-    private final Proxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    private final Proxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public Treemendous() {
         ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -53,8 +53,8 @@ public class Treemendous {
             }
             if (event.includeClient()) {
                 generator.addProvider(new LanguageProvider(generator, MODID, "en_us"));
-                generator.addProvider(new ItemModelProvider(generator, MODID, event.getExistingFileHelper()));
                 generator.addProvider(new BlockStateProvider(generator, MODID, event.getExistingFileHelper()));
+                generator.addProvider(new ItemModelProvider(generator, MODID, event.getExistingFileHelper()));
             }
         }
     }
@@ -64,7 +64,7 @@ public class Treemendous {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        BiomeMaker.addBiomesToOverworld();
+        // BiomeMaker.addBiomesToOverworld();
     }
 
 }

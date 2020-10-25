@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/door_bottom",
+  "parent": "block/door_bottom",
   "textures": {
     "bottom": "treemendous:block/robinia_door_bottom",
     "top": "treemendous:block/robinia_door_top"

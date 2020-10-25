@@ -32,7 +32,8 @@ public class LumberAxeItem extends AxeItem {
         if (destroyed.size() >= leftUses) {
             return true;
         }
-        pos.setAndOffset(start, offX, offY, offZ);
+        pos.setPos(start);
+        pos.move(offX, offY, offZ);
         if (destroyed.contains(new BlockPos(pos))) {
             return false;
         }

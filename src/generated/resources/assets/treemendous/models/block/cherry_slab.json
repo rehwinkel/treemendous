@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/slab",
+  "parent": "block/slab",
   "textures": {
     "side": "treemendous:block/cherry_planks",
     "bottom": "treemendous:block/cherry_planks",

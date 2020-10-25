@@ -8,11 +8,7 @@ import net.minecraft.state.properties.AttachFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.*;
 
 public class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
 
@@ -29,8 +25,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     public void woodBlock(RotatedPillarBlock block, Block textureBlock) {
         ResourceLocation tex = blockTexture(textureBlock);
-        axisBlock(block, models().cubeColumn(name(block), tex, tex),
-                models().cubeColumnHorizontal(name(block), tex, tex));
+        axisBlock(block, models().cubeColumn(name(block), tex, tex));
     }
 
     public void pressurePlate(PressurePlateBlock block, Block textureBlock) {
@@ -103,6 +98,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         simpleBlock(wallSign, model);
     }
 
+    /*
     public void basicBlockItem(Block block) {
         simpleBlockItem(block, models().getExistingFile(new ResourceLocation(this.modid, name(block))));
     }
@@ -116,24 +112,11 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .parent(itemModels().getExistingFile(new ResourceLocation("item/generated")))
                 .texture("layer0", texture);
     }
+    */
 
     public ResourceLocation itemTexture(IItemProvider block) {
         ResourceLocation name = block.asItem().getRegistryName();
         return new ResourceLocation(name.getNamespace(), ModelProvider.ITEM_FOLDER + "/" + name.getPath());
-    }
-
-    public void buttonItem(AbstractButtonBlock block, Block textureBlock) {
-        ModelFile inventory = models().singleTexture(name(block) + "_inventory",
-                new ResourceLocation(ModelProvider.BLOCK_FOLDER + "/button_inventory"), "texture",
-                blockTexture(textureBlock));
-        simpleBlockItem(block, inventory);
-    }
-
-    public void fenceBlockWithItem(FenceBlock block, ResourceLocation texture) {
-        fenceBlock(block, texture);
-        ModelFile inventory = models().singleTexture(name(block) + "_inventory",
-                new ResourceLocation(ModelProvider.BLOCK_FOLDER + "/fence_inventory"), "texture", texture);
-        simpleBlockItem(block, inventory);
     }
 
     @Override
@@ -141,13 +124,11 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         for (RegisteredTree tree : TreeRegistry.TREES) {
             sapling((SaplingBlock) tree.sapling.get(), (FlowerPotBlock) tree.potted_sapling.get());
             leaves((LeavesBlock) tree.leaves.get());
-            generatedItem(tree.sapling.get(), blockTexture(tree.sapling.get()));
-            basicBlockItem(tree.leaves.get());
 
             if (tree.isNotInherited()) {
                 simpleBlock(tree.planks.get());
-                logBlock((RotatedPillarBlock) tree.log.get());
-                logBlock((RotatedPillarBlock) tree.stripped_log.get());
+                logBlock((LogBlock) tree.log.get());
+                logBlock((LogBlock) tree.stripped_log.get());
                 woodBlock((RotatedPillarBlock) tree.wood.get(), tree.log.get());
                 woodBlock((RotatedPillarBlock) tree.stripped_wood.get(), tree.stripped_log.get());
                 pressurePlate((PressurePlateBlock) tree.pressure_plate.get(), tree.planks.get());
@@ -157,27 +138,12 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 slabBlock((SlabBlock) tree.slab.get(), new ResourceLocation(this.modid, name(tree.planks.get())),
                         blockTexture(tree.planks.get()));
                 fenceGateBlock((FenceGateBlock) tree.fence_gate.get(), blockTexture(tree.planks.get()));
-                fenceBlockWithItem((FenceBlock) tree.fence.get(), blockTexture(tree.planks.get()));
+                fenceBlock((FenceBlock) tree.fence.get(), blockTexture(tree.planks.get()));
                 String door_name = blockTexture(tree.door.get()).toString();
                 doorBlock((DoorBlock) tree.door.get(), new ResourceLocation(door_name + "_bottom"),
                         new ResourceLocation(door_name + "_top"));
                 signBlock((StandingSignBlock) tree.sign.get(), (WallSignBlock) tree.wall_sign.get(),
                         blockTexture(tree.planks.get()));
-
-                basicBlockItem(tree.planks.get());
-                basicBlockItem(tree.log.get());
-                basicBlockItem(tree.stripped_log.get());
-                basicBlockItem(tree.wood.get());
-                basicBlockItem(tree.stripped_wood.get());
-                basicBlockItem(tree.pressure_plate.get());
-                basicBlockItem(tree.trapdoor.get(), "_bottom");
-                buttonItem((AbstractButtonBlock) tree.button.get(), tree.planks.get());
-                basicBlockItem(tree.stairs.get());
-                basicBlockItem(tree.slab.get());
-                basicBlockItem(tree.fence_gate.get());
-                generatedItem(tree.door.get(), itemTexture(tree.door.get()));
-                generatedItem(tree.sign_item.get(), itemTexture(tree.sign_item.get()));
-                generatedItem(tree.boat_item.get(), itemTexture(tree.boat_item.get()));
             }
         }
     }

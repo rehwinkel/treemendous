@@ -18,12 +18,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ExtraRegistry {
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister
-            .create(ForgeRegistries.ITEMS, Treemendous.MODID);
-    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister
-            .create(ForgeRegistries.TILE_ENTITIES, Treemendous.MODID);
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister
-            .create(ForgeRegistries.ENTITIES, Treemendous.MODID);
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Treemendous.MODID);
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = new DeferredRegister<>(
+            ForgeRegistries.TILE_ENTITIES, Treemendous.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES,
+            Treemendous.MODID);
 
     public static final RegistryObject<Item> IRON_LUMBER_AXE = ITEMS.register("iron_lumber_axe",
             () -> new LumberAxeItem(ItemTier.IRON, 6.0F, -3.1F, (new Item.Properties()).group(ItemGroup.TOOLS)));
@@ -31,8 +30,7 @@ public class ExtraRegistry {
             () -> new LumberAxeItem(ItemTier.GOLD, 6.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
     public static final RegistryObject<Item> DIAMOND_LUMBER_AXE = ITEMS.register("diamond_lumber_axe",
             () -> new LumberAxeItem(ItemTier.DIAMOND, 5.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
-    public static final RegistryObject<Item> NETHERITE_LUMBER_AXE = ITEMS.register("netherite_lumber_axe",
-            () -> new LumberAxeItem(ItemTier.NETHERITE, 5.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
+    // public static final RegistryObject<Item> NETHERITE_LUMBER_AXE = ITEMS.register("netherite_lumber_axe", () -> new LumberAxeItem(ItemTier.NETHERITE, 5.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
     public static final RegistryObject<Item> POMEGRANATE = ITEMS
             .register("pomegranate", () -> new Item((new Item.Properties()).group(ItemGroup.FOOD).food(Foods.APPLE)));
 
@@ -48,7 +46,7 @@ public class ExtraRegistry {
 
     public static final RegistryObject<EntityType<CustomBoatEntity>> BOAT = ENTITIES.register("boat",
             () -> EntityType.Builder.<CustomBoatEntity>create(CustomBoatEntity::new, EntityClassification.MISC)
-                    .size(1.375F, 0.5625F).trackingRange(10)
-                    .setCustomClientFactory((spawnEntity, world) -> new CustomBoatEntity(world)).build("boat"));
+                    .size(1.375F, 0.5625F).setCustomClientFactory((spawnEntity, world) -> new CustomBoatEntity(world))
+                    .build("boat"));
 
 }

@@ -1,21 +1,76 @@
 package deerangle.treemendous.tree;
 
-import deerangle.treemendous.tree.foliage.*;
-import deerangle.treemendous.tree.trunk.AshTrunkPlacer;
-import deerangle.treemendous.tree.trunk.CrossTrunkPlacer;
+import deerangle.treemendous.util.FeatureSpread;
 import net.minecraft.block.Block;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.foliageplacer.*;
-import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
-import net.minecraft.world.gen.trunkplacer.ForkyTrunkPlacer;
-import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
-
-import java.util.OptionalInt;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public class TreeMaker {
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeNeedleTree(Block log, Block leaves, int i, int i1, int i2) {
+        return null;
+    }
 
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePineTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeMapleTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeLeafTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeRoundedLeafTree(Block log, Block leaves, int i, int i1, int i2) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeSmallLeafTree(Block log, Block leaves, int i, int i1, int i2, int i3) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePlaneTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int i, int i1, FeatureSpread func_242253_a, FeatureSpread func_242253_a1, FeatureSpread func_242253_a2) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeFancyLeafTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAcaciaLeafTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeWillowLeafTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossBlobTree(Block log, Block leaves, int i, int i1, int i2, int i3) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossRoundTree(Block log, Block leaves, int i, int i1, int i2, FeatureSpread func_242253_a, int i3) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePointyTree(Block log, Block leaves, FeatureSpread func_242252_a, FeatureSpread func_242252_a1, int i, int i1, int i2) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeBallTree(Block block, Block block1) {
+        return null;
+    }
+
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeJuniperTree(Block log, Block leaves, FeatureSpread func_242252_a, FeatureSpread func_242252_a1, int i, int i1, int i2) {
+        return null;
+    }
+
+    /*
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeNeedleTree(Block log, Block leaves, int trunkBase, int baseHeight, int extraHeight) {
         return Feature.TREE.withConfiguration(
                 new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
@@ -91,7 +146,7 @@ public class TreeMaker {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
-                        new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242253_a(0, 1), 4,
+                        new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), 4,
                                 3), new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines()
                         .build());
     }
@@ -167,4 +222,6 @@ public class TreeMaker {
                                 FeatureSpread.func_242253_a(1, 2), FeatureSpread.func_242252_a(0), true),
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
+    */
+
 }

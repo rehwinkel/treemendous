@@ -1,15 +1,11 @@
 package deerangle.treemendous.tree;
 
-import com.google.common.collect.ImmutableList;
 import deerangle.treemendous.api.TreemendousBlocks;
 import deerangle.treemendous.api.WoodColors;
-import deerangle.treemendous.block.CustomStandingSignBlock;
-import deerangle.treemendous.block.CustomWallSignBlock;
-import deerangle.treemendous.block.StrippableBlock;
+import deerangle.treemendous.block.*;
 import deerangle.treemendous.entity.CustomBoatType;
 import deerangle.treemendous.item.CustomBoatItem;
 import deerangle.treemendous.main.Treemendous;
-import deerangle.treemendous.world.BiomeMaker;
 import deerangle.treemendous.world.BiomeSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -17,33 +13,27 @@ import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Direction;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class RegisteredTree {
 
-    public final ITag.INamedTag<Item> logsItemTag;
-    public final ITag.INamedTag<Block> logsBlockTag;
+    public final Tag<Item> logsItemTag;
+    public final Tag<Block> logsBlockTag;
     public final RegistryObject<Block> planks, sapling, log, stripped_log, wood, stripped_wood, leaves, pressure_plate, trapdoor, potted_sapling, button, stairs, slab, fence_gate, fence, door, sign, wall_sign;
     public final RegistryObject<Item> planks_item, sapling_item, log_item, stripped_log_item, wood_item, stripped_wood_item, leaves_item, pressure_plate_item, trapdoor_item, button_item, stairs_item, slab_item, fence_gate_item, fence_item, door_item, sign_item, boat_item;
     private final ILeavesColor leavesColor;
@@ -53,11 +43,11 @@ public class RegisteredTree {
     private final WoodType woodType;
     private final CustomBoatType boatType;
     private final Supplier<IItemProvider> apple;
-    private final Collection<RegistryKey<Biome>> biomes;
-    private final Collection<RegistryKey<Biome>> frostyBiomes;
+    // private final Collection<RegistryKey<Biome>> biomes;
+    // private final Collection<RegistryKey<Biome>> frostyBiomes;
     private final int treeDensity;
     private final BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> featureBiFunction;
-    private ConfiguredFeature<BaseTreeFeatureConfig, ?> singleTreeFeature;
+    private final ConfiguredFeature<TreeFeatureConfig, ?> singleTreeFeature;
     private ConfiguredFeature<?, ?> treesFeature;
     private final int woodColor;
     private final int logColor;
@@ -77,22 +67,21 @@ public class RegisteredTree {
         this.plankType = plankType;
 
         this.sapling = registerBlock(BLOCKS, name + "_sapling",
-                () -> new SaplingBlock(new CustomTree(() -> this.singleTreeFeature),
-                        AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
-                                .zeroHardnessAndResistance().sound(SoundType.PLANT)));
+                () -> new CustomSaplingBlock(new CustomTree(() -> this.singleTreeFeature),
+                        Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
+                                .hardnessAndResistance(0).sound(SoundType.PLANT)));
         this.leaves = registerBlock(BLOCKS, name + "_leaves", () -> new LeavesBlock(
-                AbstractBlock.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly()
-                        .sound(SoundType.PLANT).notSolid().setAllowsSpawn(RegisteredTree::allowsSpawnOnLeaves)
-                        .setSuffocates(RegisteredTree::isntSolid).setBlocksVision(RegisteredTree::isntSolid)));
+                Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly()
+                        .sound(SoundType.PLANT).notSolid()));
         this.potted_sapling = registerBlock(BLOCKS, "potted_" + name + "_sapling",
                 () -> new FlowerPotBlock(sapling.get(),
-                        AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance()
-                                .notSolid()));
+                        Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0).notSolid()));
         this.sapling_item = ITEMS.register(name + "_sapling",
                 () -> new BlockItem(this.sapling.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
         this.leaves_item = ITEMS.register(name + "_leaves",
                 () -> new BlockItem(this.leaves.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
 
+        /*
         BIOMES.register(name + "_forest", () -> {
             this.registerFeature();
             return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
@@ -104,11 +93,11 @@ public class RegisteredTree {
             return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
                     new MobSpawnInfo.Builder(), this.treesFeature);
         });
+        */
 
+        // this.biomes = ImmutableList.of(BiomeMaker.makeBiomeKey(name + "_forest"), BiomeMaker.makeBiomeKey(name + "_forest_hills"));
 
-        this.biomes = ImmutableList
-                .of(BiomeMaker.makeBiomeKey(name + "_forest"), BiomeMaker.makeBiomeKey(name + "_forest_hills"));
-
+        /*
         if (biomeSettings.isSnowy()) {
             BIOMES.register(name + "_forest_snow", () -> {
                 this.registerFeature();
@@ -116,7 +105,8 @@ public class RegisteredTree {
                         new MobSpawnInfo.Builder(), this.treesFeature);
             });
 
-            BIOMES.register(name + "_forest_hills_snow", () -> {
+            BIO
+MES.register(name + "_forest_hills_snow", () -> {
                 this.registerFeature();
                 return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false,
                         new MobSpawnInfo.Builder(), this.treesFeature);
@@ -126,63 +116,62 @@ public class RegisteredTree {
         } else {
             this.frostyBiomes = ImmutableList.of();
         }
+        */
 
         if (inherit == null) {
             MaterialColor woodColor = WoodColors.getClosestMaterialColor(woodColorVal);
             MaterialColor barkColor = WoodColors.getClosestMaterialColor(barkColorVal);
 
             this.inherited = false;
-            this.logsItemTag = ItemTags.makeWrapperTag(Treemendous.MODID + ":" + name + "_logs");
-            this.logsBlockTag = BlockTags.makeWrapperTag(Treemendous.MODID + ":" + name + "_logs");
+            this.logsItemTag = new ItemTags.Wrapper(new ResourceLocation(Treemendous.MODID, name + "_logs"));
+            this.logsBlockTag = new BlockTags.Wrapper(new ResourceLocation(Treemendous.MODID, name + "_logs"));
             this.woodType = new WoodType(name);
             WoodType.VALUES.add(this.woodType);
             this.planks = registerBlock(BLOCKS, name + "_planks", () -> new Block(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
                             .sound(SoundType.WOOD)));
-            this.stripped_log = registerBlock(BLOCKS, "stripped_" + name + "_log", () -> new RotatedPillarBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, (p_235431_2_) -> woodColor)
-                            .hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
-            this.log = registerBlock(BLOCKS, name + "_log", () -> new StrippableBlock(AbstractBlock.Properties
-                    .create(Material.WOOD, (blockState) -> blockState
-                            .get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? woodColor : barkColor)
-                    .hardnessAndResistance(2.0F).sound(SoundType.WOOD), this.stripped_log));
+            this.stripped_log = registerBlock(BLOCKS, "stripped_" + name + "_log", () -> new LogBlock(woodColor,
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F)
+                            .sound(SoundType.WOOD)));
+            this.log = registerBlock(BLOCKS, name + "_log", () -> new LogBlock(woodColor,
+                    Block.Properties.create(Material.WOOD, barkColor).hardnessAndResistance(2.0F)
+                            .sound(SoundType.WOOD)));
             this.stripped_wood = registerBlock(BLOCKS, "stripped_" + name + "_wood", () -> new RotatedPillarBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F)
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F)
                             .sound(SoundType.WOOD)));
             this.wood = registerBlock(BLOCKS, name + "_wood", () -> new StrippableBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, barkColor).hardnessAndResistance(2.0F)
-                            .sound(SoundType.WOOD), this.stripped_wood));
+                    Block.Properties.create(Material.WOOD, barkColor).hardnessAndResistance(2.0F)
+                            .sound(SoundType.WOOD)));
             this.sign = registerBlock(BLOCKS, name + "_sign", () -> new CustomStandingSignBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement()
-                            .hardnessAndResistance(1.0F).sound(SoundType.WOOD), this.woodType));
+                    Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(1.0F)
+                            .sound(SoundType.WOOD), this.woodType));
             this.wall_sign = registerBlock(BLOCKS, name + "_wall_sign", () -> new CustomWallSignBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement()
-                            .hardnessAndResistance(1.0F).sound(SoundType.WOOD).lootFrom(sign.get()), this.woodType));
+                    Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(1.0F)
+                            .sound(SoundType.WOOD).lootFrom(sign.get()), this.woodType));
             this.pressure_plate = registerBlock(BLOCKS, name + "_pressure_plate",
-                    () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
-                            AbstractBlock.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement()
+                    () -> new CustomPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
+                            Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement()
                                     .hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
-            this.trapdoor = registerBlock(BLOCKS, name + "_trapdoor", () -> new TrapDoorBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F)
-                            .sound(SoundType.WOOD).notSolid().setAllowsSpawn(RegisteredTree::neverAllowSpawn)));
-            this.button = registerBlock(BLOCKS, name + "_button", () -> new WoodButtonBlock(
-                    AbstractBlock.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement()
-                            .hardnessAndResistance(0.5F).sound(SoundType.WOOD)));
+            this.trapdoor = registerBlock(BLOCKS, name + "_trapdoor", () -> new CustomTrapDoorBlock(
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD)
+                            .notSolid()));
+            this.button = registerBlock(BLOCKS, name + "_button", () -> new CustomWoodButtonBlock(
+                    Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F)
+                            .sound(SoundType.WOOD)));
             this.stairs = registerBlock(BLOCKS, name + "_stairs",
-                    () -> new StairsBlock(() -> planks.get().getDefaultState(),
-                            AbstractBlock.Properties.from(planks.get())));
+                    () -> new StairsBlock(() -> planks.get().getDefaultState(), Block.Properties.from(planks.get())));
             this.slab = registerBlock(BLOCKS, name + "_slab", () -> new SlabBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
                             .sound(SoundType.WOOD)));
             this.fence_gate = registerBlock(BLOCKS, name + "_fence_gate", () -> new FenceGateBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
                             .sound(SoundType.WOOD)));
             this.fence = registerBlock(BLOCKS, name + "_fence", () -> new FenceBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F)
                             .sound(SoundType.WOOD)));
-            this.door = registerBlock(BLOCKS, name + "_door", () -> new DoorBlock(
-                    AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F)
-                            .sound(SoundType.WOOD).notSolid()));
+            this.door = registerBlock(BLOCKS, name + "_door", () -> new CustomDoorBlock(
+                    Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD)
+                            .notSolid()));
 
             this.planks_item = ITEMS.register(name + "_planks",
                     () -> new BlockItem(this.planks.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
@@ -191,8 +180,8 @@ public class RegisteredTree {
             this.stripped_log_item = ITEMS.register("stripped_" + name + "_log",
                     () -> new BlockItem(this.stripped_log.get(),
                             new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.stripped_wood_item = ITEMS.register("stripped_" + name + "_wood",
-                    () -> new BlockItem(this.stripped_wood.get(),
+            this.stripped_wood_item = ITEMS
+                    .register("stripped_" + name + "_wood", () -> new BlockItem(this.stripped_wood.get(),
                             new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
             this.wood_item = ITEMS.register(name + "_wood",
                     () -> new BlockItem(this.wood.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
@@ -289,7 +278,7 @@ public class RegisteredTree {
         f.set(null, block);
     }
 
-    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getSingleTreeFeature() {
+    public ConfiguredFeature<TreeFeatureConfig, ?> getSingleTreeFeature() {
         return singleTreeFeature;
     }
 
@@ -297,6 +286,7 @@ public class RegisteredTree {
         return this.name;
     }
 
+    /*
     public Collection<? extends RegistryKey<Biome>> getBiomes() {
         return this.biomes;
     }
@@ -304,6 +294,7 @@ public class RegisteredTree {
     public Collection<? extends RegistryKey<Biome>> getFrostyBiomes() {
         return this.frostyBiomes;
     }
+    */
 
     public ILeavesColor getLeavesColor() {
         return this.leavesColor;
@@ -311,12 +302,8 @@ public class RegisteredTree {
 
     public void registerFeature() {
         if (this.singleTreeFeature == null) {
-            this.singleTreeFeature = BiomeMaker
-                    .registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
-            this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name,
-                    this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
-                            Placement.field_242902_f.configure(
-                                    new AtSurfaceWithExtraConfig(this.treeDensity, 0.1F, this.treeDensity / 4))));
+            // this.singleTreeFeature = BiomeMaker.registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
+            // this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name, this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(this.treeDensity, 0.1F, this.treeDensity / 4))));
         }
     }
 

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34.1.0,)"
+loaderVersion="[31.2.0,)"
 license="All rights reserved"
 
 [[mods]]
@@ -18,13 +18,13 @@ This mod is for the people who want more variation in Minecraft's forests.
 [[dependencies.treemendous]]
     modId="forge"
     mandatory=true
-    versionRange="[34.1.0,)"
+    versionRange="[31.2.0,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.treemendous]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.15.2]"
     ordering="NONE"
     side="BOTH"

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/slab_top",
+  "parent": "block/slab_top",
   "textures": {
     "side": "treemendous:block/elm_planks",
     "bottom": "treemendous:block/elm_planks",

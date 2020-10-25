@@ -1,85 +1,102 @@
 package deerangle.treemendous.tree.foliage;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.Dynamic;
+import com.mojang.datafixers.types.DynamicOps;
+import deerangle.treemendous.util.FeatureSpread;
 import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.FeatureSpread;
 import net.minecraft.world.gen.feature.TreeFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 
 import java.util.Random;
 import java.util.Set;
 
 public class WillowFoliagePlacer extends FoliagePlacer {
-    public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder
-            .create((placerInstance) -> func_242830_b(placerInstance)
-                    .and(FeatureSpread.func_242254_a(0, 8, 8).fieldOf("branch_lengeth")
-                            .forGetter((inst) -> inst.branchLength)).apply(placerInstance, WillowFoliagePlacer::new));
 
     private final FeatureSpread branchLength;
 
-    public WillowFoliagePlacer(FeatureSpread radius, FeatureSpread offset, FeatureSpread branchLength) {
-        super(radius, offset);
+    public WillowFoliagePlacer(FeatureSpread radius, FeatureSpread branchLength) {
+        super(radius.getBase(), radius.getVariance(), TreeWorldGenRegistry.WILLOW_FOLIAGE_PLACER);
         this.branchLength = branchLength;
     }
 
-    @Override
-    protected FoliagePlacerType<?> func_230371_a_() {
-        return TreeWorldGenRegistry.WILLOW_FOLIAGE_PLACER;
+    public <T> WillowFoliagePlacer(Dynamic<T> p_i225847_1_) {
+        this(FeatureSpread
+                        .func_242253_a(p_i225847_1_.get("radius").asInt(0), p_i225847_1_.get("radius_random").asInt(0)),
+                FeatureSpread.func_242253_a(p_i225847_1_.get("branch").asInt(0),
+                        p_i225847_1_.get("branch_random").asInt(0)));
     }
 
-    @Override
-    protected void func_230372_a_(IWorldGenerationReader worldGenerationReader, Random random, BaseTreeFeatureConfig featureConfig, int p_230372_4_, Foliage foliage, int offset, int radius, Set<BlockPos> resultingBlocks, int startY, MutableBoundingBox boundingBox) {
-        for (int i = 0; i < 4; i++) {
-            this.func_236753_a_(worldGenerationReader, random, featureConfig, foliage.func_236763_a_(),
-                    Math.min(i + 1, 3), resultingBlocks, startY - i, foliage.func_236765_c_(), boundingBox);
-        }
-
-        growBranchDown(2, startY - 4, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-        growBranchDown(-2, startY - 4, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-        growBranchDown(-2, startY - 4, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-        growBranchDown(2, startY - 4, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-        growBranchDown(3, startY - 4, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-        growBranchDown(-3, startY - 4, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-        growBranchDown(0, startY - 4, 3, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-        growBranchDown(0, startY - 4, -3, branchLength.func_242259_a(random), worldGenerationReader, random,
-                featureConfig, foliage, resultingBlocks, boundingBox);
-    }
-
-    private void growBranchDown(int x, int y, int z, int length, IWorldGenerationReader worldGenerationReader, Random random, BaseTreeFeatureConfig featureConfig, Foliage foliage, Set<BlockPos> resultingBlocks, MutableBoundingBox boundingBox) {
+    private void growBranchDown(int x, int y, int z, int length, IWorldGenerationReader worldGenerationReader, Random random, BaseTreeFeatureConfig featureConfig, BlockPos foliage, Set<BlockPos> resultingBlocks) {
         BlockPos.Mutable mutablePos = new BlockPos.Mutable();
         for (int i = 0; i < length; i++) {
-            mutablePos.setAndOffset(foliage.func_236763_a_(), x, y - i, z);
-            if (TreeFeature.isReplaceableAt(worldGenerationReader, mutablePos)) {
+            mutablePos.setPos(foliage);
+            mutablePos.move(x, y - i, z);
+            if (TreeFeature.isAirOrLeaves(worldGenerationReader, mutablePos)) {
                 worldGenerationReader
                         .setBlockState(mutablePos, featureConfig.leavesProvider.getBlockState(random, mutablePos), 19);
-                boundingBox.expandTo(new MutableBoundingBox(mutablePos, mutablePos));
                 resultingBlocks.add(mutablePos.toImmutable());
             }
         }
     }
 
     @Override
-    public int func_230374_a_(Random p_230374_1_, int p_230374_2_, BaseTreeFeatureConfig p_230374_3_) {
+    public void func_225571_a_(IWorldGenerationReader worldGenerationReader, Random random, TreeFeatureConfig featureConfig, int startY, int trunk, int foliage, BlockPos pos, Set<BlockPos> resultingBlocks) {
+        for (int i = 0; i < 4; i++) {
+            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY, pos, startY - i,
+                    Math.min(i + 1, 3), resultingBlocks);
+        }
+
+        growBranchDown(2, startY - 4, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+        growBranchDown(-2, startY - 4, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+        growBranchDown(-2, startY - 4, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+        growBranchDown(2, startY - 4, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+        growBranchDown(3, startY - 4, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+        growBranchDown(-3, startY - 4, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+        growBranchDown(0, startY - 4, 3, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+        growBranchDown(0, startY - 4, -3, branchLength.func_242259_a(random), worldGenerationReader, random,
+                featureConfig, pos, resultingBlocks);
+    }
+
+    @Override
+    public int func_225573_a_(Random p_225573_1_, int p_225573_2_, int p_225573_3_, TreeFeatureConfig p_225573_4_) {
         return 6;
     }
 
     @Override
-    protected boolean func_230373_a_(Random rand, int x, int y, int z, int p_230373_5_, boolean p_230373_6_) {
+    protected boolean func_225572_a_(Random rand, int x, int y, int z, int p_225572_5_, int p_225572_6_) {
         double realSize = new double[]{1.5, 2.5, 3, 3.5}[-y];
         double distance = Math.sqrt(x * x + z * z) - realSize;
         return distance > 0;
     }
+
+    @Override
+    public int func_225570_a_(int p_225570_1_, int p_225570_2_, int p_225570_3_, int r) {
+        return r == 0 ? 0 : 1;
+    }
+
+    @Override
+    public <T> T serialize(DynamicOps<T> p_218175_1_) {
+        ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
+        builder.put(p_218175_1_.createString("type"),
+                p_218175_1_.createString(Registry.FOLIAGE_PLACER_TYPE.getKey(this.field_227383_c_).toString()))
+                .put(p_218175_1_.createString("radius"), p_218175_1_.createInt(this.field_227381_a_))
+                .put(p_218175_1_.createString("radius_random"), p_218175_1_.createInt(this.field_227382_b_))
+                .put(p_218175_1_.createString("branch"), p_218175_1_.createInt(this.branchLength.getBase()))
+                .put(p_218175_1_.createString("branch_random"), p_218175_1_.createInt(this.branchLength.getVariance()));
+        return (new Dynamic<>(p_218175_1_, p_218175_1_.createMap(builder.build()))).getValue();
+    }
+
 }

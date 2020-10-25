@@ -1,33 +1,15 @@
 package deerangle.treemendous.world;
 
-import com.google.common.collect.ImmutableList;
 import deerangle.treemendous.main.Treemendous;
-import deerangle.treemendous.tree.RegisteredTree;
-import deerangle.treemendous.tree.TreeRegistry;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
-import net.minecraftforge.common.BiomeManager;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public class BiomeMaker {
 
-    public static final DeferredRegister<Biome> BIOMES = DeferredRegister
-            .create(ForgeRegistries.BIOMES, Treemendous.MODID);
+    public static final DeferredRegister<Biome> BIOMES = new DeferredRegister<>(ForgeRegistries.BIOMES,
+            Treemendous.MODID);
+    /*
     public static final RegistryKey<Biome> MIXED_MAPLE_FOREST = makeBiomeKey("mixed_maple_forest");
     public static final RegistryKey<Biome> MIXED_FOREST = makeBiomeKey("mixed_forest");
     public static final RegistryKey<Biome> MIXED_FOREST_VANILLA = makeBiomeKey("mixed_forest_vanilla");
@@ -181,5 +163,6 @@ public class BiomeMaker {
     public static RegistryKey<Biome> makeBiomeKey(String name) {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Treemendous.MODID, name));
     }
+    */
 
 }
