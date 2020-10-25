@@ -28,7 +28,8 @@ public class BallFoliagePlacer extends FoliagePlacer {
     public void func_225571_a_(IWorldGenerationReader worldGenerationReader, Random random, TreeFeatureConfig featureConfig, int startY, int trunk, int foliage, BlockPos pos, Set<BlockPos> resultingBlocks) {
         int size = this.size.func_242259_a(random);
         for (int i = size; i >= -size; --i) {
-            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY, pos, i, size, resultingBlocks);
+            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY, pos, startY + i, size,
+                    resultingBlocks);
         }
     }
 
@@ -43,8 +44,9 @@ public class BallFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected boolean func_225572_a_(Random random, int x, int y, int z, int size, int p_225572_6_) {
+    protected boolean func_225572_a_(Random random, int height, int x, int y, int z, int size) {
+        y = y - height + 1;
         double sqrt = Math.sqrt(x * x + y * y + z * z);
-        return sqrt > size || (sqrt > size * 0.9 && random.nextBoolean());
+        return sqrt > Math.abs(size) || (sqrt > Math.abs(size) * 0.9 && random.nextBoolean());
     }
 }

@@ -76,8 +76,8 @@ public class WillowFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected boolean func_225572_a_(Random rand, int x, int y, int z, int p_225572_5_, int p_225572_6_) {
-        double realSize = new double[]{1.5, 2.5, 3, 3.5}[-y];
+    protected boolean func_225572_a_(Random random, int height, int x, int y, int z, int size) {
+        double realSize = new double[]{1.5, 2.5, 3, 3.5}[-y + height];
         double distance = Math.sqrt(x * x + z * z) - realSize;
         return distance > 0;
     }

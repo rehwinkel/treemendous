@@ -30,10 +30,11 @@ public class ParabolaFoliagePlacer extends FoliagePlacer {
         this(FeatureSpread.fromDynamic(dyn, "radius"), dyn.get("width").asInt(0), dyn.get("height").asInt(0));
     }
 
-    public void func_225571_a_(IWorldGenerationReader p_225571_1_, Random p_225571_2_, TreeFeatureConfig p_225571_3_, int p_225571_4_, int p_225571_5_, int p_225571_6_, BlockPos p_225571_7_, Set<BlockPos> p_225571_8_) {
-        for (int i = p_225571_4_; i >= p_225571_5_; --i) {
-            int j = Math.max(p_225571_6_ - 1 - (i - p_225571_4_) / 2, 0);
-            this.func_227384_a_(p_225571_1_, p_225571_2_, p_225571_3_, p_225571_4_, p_225571_7_, i, j, p_225571_8_);
+    @Override
+    public void func_225571_a_(IWorldGenerationReader worldGenerationReader, Random random, TreeFeatureConfig featureConfig, int startY, int trunk, int foliage, BlockPos pos, Set<BlockPos> resultingBlocks) {
+        for (int i = startY; i >= trunk; --i) {
+            int j = Math.max(foliage - 1 - (i - startY) / 2, 0);
+            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY, pos, i, j, resultingBlocks);
         }
 
     }
@@ -46,7 +47,8 @@ public class ParabolaFoliagePlacer extends FoliagePlacer {
         return this.field_227381_a_ + p_225573_1_.nextInt(this.field_227382_b_ + 1);
     }
 
-    protected boolean func_225572_a_(Random p_225572_1_, int x, int y, int z, int p_225572_5_, int p_225572_6_) {
+    protected boolean func_225572_a_(Random random, int height, int x, int y, int z, int size) {
+        y = y - height + 1;
         double dist = Math.sqrt(x * x + z * z);
         double realSize = getSize(1.5 - y);
         return dist > realSize;//x == size && z == size && (random.nextInt(2) == 0 || y == 0);

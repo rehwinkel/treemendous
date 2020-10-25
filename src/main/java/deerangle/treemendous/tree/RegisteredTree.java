@@ -10,24 +10,20 @@ import deerangle.treemendous.world.BiomeSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.lang.reflect.Field;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class RegisteredTree {
@@ -46,28 +42,28 @@ public class RegisteredTree {
     // private final Collection<RegistryKey<Biome>> biomes;
     // private final Collection<RegistryKey<Biome>> frostyBiomes;
     private final int treeDensity;
-    private final BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> featureBiFunction;
-    private final ConfiguredFeature<TreeFeatureConfig, ?> singleTreeFeature;
-    private ConfiguredFeature<?, ?> treesFeature;
     private final int woodColor;
     private final int logColor;
     private final int plankType;
+    private final IConfigProvider configProvider;
+    private final Feature<TreeFeatureConfig> feature;
+    private TreeFeatureConfig treeConfig;
 
-    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, int plankType, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature, BiomeSettings biomeSettings) {
+    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, int plankType, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, IConfigProvider configProvider, Feature<TreeFeatureConfig> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
         this.leavesColor = leavesColor;
-        this.featureBiFunction = feature;
-        this.singleTreeFeature = null;
         this.treeDensity = biomeSettings.getTreeDensity();
 
         this.woodColor = woodColorVal;
         this.logColor = barkColorVal;
         this.plankType = plankType;
+        this.configProvider = configProvider;
+        this.feature = feature;
 
         this.sapling = registerBlock(BLOCKS, name + "_sapling",
-                () -> new CustomSaplingBlock(new CustomTree(() -> this.singleTreeFeature),
+                () -> new CustomSaplingBlock(new CustomTree(() -> this.feature.withConfiguration(this.treeConfig)),
                         Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
                                 .hardnessAndResistance(0).sound(SoundType.PLANT)));
         this.leaves = registerBlock(BLOCKS, name + "_leaves", () -> new LeavesBlock(
@@ -80,6 +76,8 @@ public class RegisteredTree {
                 () -> new BlockItem(this.sapling.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
         this.leaves_item = ITEMS.register(name + "_leaves",
                 () -> new BlockItem(this.leaves.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+
+        Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.BIRCH_TREE_CONFIG);
 
         /*
         BIOMES.register(name + "_forest", () -> {
@@ -105,8 +103,7 @@ public class RegisteredTree {
                         new MobSpawnInfo.Builder(), this.treesFeature);
             });
 
-            BIO
-MES.register(name + "_forest_hills_snow", () -> {
+            BIOMES.register(name + "_forest_hills_snow", () -> {
                 this.registerFeature();
                 return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false,
                         new MobSpawnInfo.Builder(), this.treesFeature);
@@ -180,8 +177,8 @@ MES.register(name + "_forest_hills_snow", () -> {
             this.stripped_log_item = ITEMS.register("stripped_" + name + "_log",
                     () -> new BlockItem(this.stripped_log.get(),
                             new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.stripped_wood_item = ITEMS
-                    .register("stripped_" + name + "_wood", () -> new BlockItem(this.stripped_wood.get(),
+            this.stripped_wood_item = ITEMS.register("stripped_" + name + "_wood",
+                    () -> new BlockItem(this.stripped_wood.get(),
                             new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
             this.wood_item = ITEMS.register(name + "_wood",
                     () -> new BlockItem(this.wood.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
@@ -249,18 +246,6 @@ MES.register(name + "_forest_hills_snow", () -> {
         }
     }
 
-    private static Boolean neverAllowSpawn(BlockState state, IBlockReader world, BlockPos pos, EntityType<?> entity) {
-        return false;
-    }
-
-    private static Boolean allowsSpawnOnLeaves(BlockState state, IBlockReader world, BlockPos pos, EntityType<?> entity) {
-        return entity == EntityType.OCELOT || entity == EntityType.PARROT;
-    }
-
-    private static boolean isntSolid(BlockState state, IBlockReader world, BlockPos pos) {
-        return false;
-    }
-
     private RegistryObject<Block> registerBlock(DeferredRegister<Block> registry, String name, Supplier<Block> blockSupplier) {
         return registry.register(name, () -> {
             Block b = blockSupplier.get();
@@ -276,10 +261,6 @@ MES.register(name + "_forest_hills_snow", () -> {
     private void storeInAPI(String name, Block block) throws NoSuchFieldException, IllegalAccessException {
         Field f = TreemendousBlocks.class.getDeclaredField(name);
         f.set(null, block);
-    }
-
-    public ConfiguredFeature<TreeFeatureConfig, ?> getSingleTreeFeature() {
-        return singleTreeFeature;
     }
 
     public String getName() {
@@ -301,9 +282,8 @@ MES.register(name + "_forest_hills_snow", () -> {
     }
 
     public void registerFeature() {
-        if (this.singleTreeFeature == null) {
-            // this.singleTreeFeature = BiomeMaker.registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
-            // this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name, this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(this.treeDensity, 0.1F, this.treeDensity / 4))));
+        if (this.treeConfig == null) {
+            this.treeConfig = configProvider.getConfig(this.log.get(), this.leaves.get(), this.sapling.get());
         }
     }
 

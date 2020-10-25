@@ -1,77 +1,99 @@
 package deerangle.treemendous.tree;
 
+import deerangle.treemendous.main.Treemendous;
+import deerangle.treemendous.tree.foliage.BallFoliagePlacer;
+import deerangle.treemendous.tree.foliage.ParabolaFoliagePlacer;
+import deerangle.treemendous.tree.foliage.WillowFoliagePlacer;
 import deerangle.treemendous.util.FeatureSpread;
 import net.minecraft.block.Block;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class TreeMaker {
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeNeedleTree(Block log, Block leaves, int i, int i1, int i2) {
+
+    public static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES,
+            Treemendous.MODID);
+
+    public static TreeFeatureConfig makeNeedleTree(Block log, Block leaves, Block sapling, int i, int i1, int i2) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePineTree(Block block, Block block1) {
+    public static TreeFeatureConfig makePineTree(Block block, Block block1, Block sapling) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeMapleTree(Block block, Block block1) {
+    public static TreeFeatureConfig makeMapleTree(Block log, Block leaves, Block sapling) {
+        return (new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                new SimpleBlockStateProvider(leaves.getDefaultState()),
+                new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), 4, 3))).baseHeight(6).heightRandA(2)
+                .heightRandB(0).trunkHeight(0).ignoreVines().setSapling((net.minecraftforge.common.IPlantable) sapling)
+                .build();
+    }
+
+    public static TreeFeatureConfig makeLeafTree(Block block, Block block1, Block sapling) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeLeafTree(Block block, Block block1) {
+    public static TreeFeatureConfig makeRoundedLeafTree(Block log, Block leaves, Block sapling, int i, int i1, int i2) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeRoundedLeafTree(Block log, Block leaves, int i, int i1, int i2) {
+    public static TreeFeatureConfig makeSmallLeafTree(Block log, Block leaves, Block sapling, int i, int i1, int i2, int i3) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeSmallLeafTree(Block log, Block leaves, int i, int i1, int i2, int i3) {
+    public static TreeFeatureConfig makePlaneTree(Block block, Block block1, Block sapling) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePlaneTree(Block block, Block block1) {
+    public static TreeFeatureConfig makeAshTree(Block log, Block leaves, Block sapling, int i, int i1, FeatureSpread func_242253_a, FeatureSpread func_242253_a1, FeatureSpread func_242253_a2) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int i, int i1, FeatureSpread func_242253_a, FeatureSpread func_242253_a1, FeatureSpread func_242253_a2) {
+    public static TreeFeatureConfig makeFancyLeafTree(Block block, Block block1, Block sapling) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeFancyLeafTree(Block block, Block block1) {
+    public static TreeFeatureConfig makeAcaciaLeafTree(Block block, Block block1, Block sapling) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAcaciaLeafTree(Block block, Block block1) {
+    public static TreeFeatureConfig makeWillowLeafTree(Block log, Block leaves, Block sapling) {
+        return (new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                new SimpleBlockStateProvider(leaves.getDefaultState()),
+                new WillowFoliagePlacer(FeatureSpread.func_242252_a(3), FeatureSpread.func_242253_a(2, 1))))
+                .baseHeight(6).heightRandA(2).heightRandB(0).trunkHeight(0).ignoreVines()
+                .setSapling((net.minecraftforge.common.IPlantable) sapling).build();
+    }
+
+    public static TreeFeatureConfig makeCrossBlobTree(Block log, Block leaves, Block sapling, int i, int i1, int i2, int i3) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeWillowLeafTree(Block block, Block block1) {
+    public static TreeFeatureConfig makeCrossRoundTree(Block log, Block leaves, Block sapling, int i, int i1, int i2, FeatureSpread func_242253_a, int i3) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossBlobTree(Block log, Block leaves, int i, int i1, int i2, int i3) {
+    public static TreeFeatureConfig makePointyTree(Block log, Block leaves, Block sapling, FeatureSpread func_242252_a, FeatureSpread func_242252_a1, int i, int i1, int i2) {
         return null;
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossRoundTree(Block log, Block leaves, int i, int i1, int i2, FeatureSpread func_242253_a, int i3) {
-        return null;
+    public static TreeFeatureConfig makeBallTree(Block log, Block leaves, Block sapling) {
+        return (new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                new SimpleBlockStateProvider(leaves.getDefaultState()),
+                new BallFoliagePlacer(FeatureSpread.func_242253_a(2, 2)))).baseHeight(9).heightRandA(2).heightRandB(1)
+                .trunkHeight(0).ignoreVines().setSapling((net.minecraftforge.common.IPlantable) sapling).build();
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePointyTree(Block log, Block leaves, FeatureSpread func_242252_a, FeatureSpread func_242252_a1, int i, int i1, int i2) {
-        return null;
-    }
-
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeBallTree(Block block, Block block1) {
-        return null;
-    }
-
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeJuniperTree(Block log, Block leaves, FeatureSpread func_242252_a, FeatureSpread func_242252_a1, int i, int i1, int i2) {
+    public static TreeFeatureConfig makeJuniperTree(Block log, Block leaves, Block sapling, FeatureSpread func_242252_a, FeatureSpread func_242252_a1, int i, int i1, int i2) {
         return null;
     }
 
     /*
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeNeedleTree(Block log, Block leaves, int trunkBase, int baseHeight, int extraHeight) {
+    public static TreeFeatureConfig makeNeedleTree(Block log, Block leaves, int trunkBase, int baseHeight, int extraHeight) {
         return Feature.TREE.withConfiguration(
                 new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -81,7 +103,7 @@ public class TreeMaker {
                         .setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePineTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makePineTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -90,7 +112,7 @@ public class TreeMaker {
                         new TwoLayerFeature(2, 0, 2))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeSmallLeafTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, int crownHeight) {
+    public static TreeFeatureConfig makeSmallLeafTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, int crownHeight) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -99,7 +121,7 @@ public class TreeMaker {
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossBlobTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, int crownHeight) {
+    public static TreeFeatureConfig makeCrossBlobTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, int crownHeight) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -110,7 +132,7 @@ public class TreeMaker {
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeCrossRoundTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, FeatureSpread branchLength, int roundIndex) {
+    public static TreeFeatureConfig makeCrossRoundTree(Block log, Block leaves, int baseHeight, int extraHeight, int crownWidth, FeatureSpread branchLength, int roundIndex) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -121,7 +143,7 @@ public class TreeMaker {
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeRoundedLeafTree(Block log, Block leaves, int baseHeight, int extraHeight, int roundedIndex) {
+    public static TreeFeatureConfig makeRoundedLeafTree(Block log, Block leaves, int baseHeight, int extraHeight, int roundedIndex) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -130,7 +152,7 @@ public class TreeMaker {
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAcaciaLeafTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makeAcaciaLeafTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -138,11 +160,11 @@ public class TreeMaker {
                         new ForkyTrunkPlacer(4, 1, 2), new TwoLayerFeature(1, 0, 2))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeLeafTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makeLeafTree(Block log, Block leaves) {
         return makeSmallLeafTree(log, leaves, 5, 2, 2, 3);
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeMapleTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makeMapleTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -151,7 +173,7 @@ public class TreeMaker {
                         .build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeFancyLeafTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makeFancyLeafTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -160,7 +182,7 @@ public class TreeMaker {
                         .setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeAshTree(Block log, Block leaves, int baseHeight, int extraHeight, FeatureSpread leavesSideOffset, FeatureSpread minLeavesHeight, FeatureSpread leavesSize) {
+    public static TreeFeatureConfig makeAshTree(Block log, Block leaves, int baseHeight, int extraHeight, FeatureSpread leavesSideOffset, FeatureSpread minLeavesHeight, FeatureSpread leavesSize) {
         //TODO: fix this bad tree
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
@@ -170,7 +192,7 @@ public class TreeMaker {
                         .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePlaneTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makePlaneTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -181,7 +203,7 @@ public class TreeMaker {
                         .func_236702_a_(Heightmap.Type.MOTION_BLOCKING).build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeWillowLeafTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makeWillowLeafTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -192,7 +214,7 @@ public class TreeMaker {
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makePointyTree(Block log, Block leaves, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {
+    public static TreeFeatureConfig makePointyTree(Block log, Block leaves, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -202,7 +224,7 @@ public class TreeMaker {
                         .setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeJuniperTree(Block log, Block leaves, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {
+    public static TreeFeatureConfig makeJuniperTree(Block log, Block leaves, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),
@@ -213,7 +235,7 @@ public class TreeMaker {
                         new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build());
     }
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> makeBallTree(Block log, Block leaves) {
+    public static TreeFeatureConfig makeBallTree(Block log, Block leaves) {
         return Feature.TREE.withConfiguration(
                 (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                         new SimpleBlockStateProvider(leaves.getDefaultState()),

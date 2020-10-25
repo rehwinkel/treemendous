@@ -1,6 +1,8 @@
 package deerangle.treemendous.main;
 
 import deerangle.treemendous.data.*;
+import deerangle.treemendous.tree.RegisteredTree;
+import deerangle.treemendous.tree.TreeMaker;
 import deerangle.treemendous.tree.TreeRegistry;
 import deerangle.treemendous.world.BiomeMaker;
 import deerangle.treemendous.world.TreeWorldGenRegistry;
@@ -30,6 +32,7 @@ public class Treemendous {
         TreeRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TreeMaker.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         BiomeMaker.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
@@ -64,6 +67,9 @@ public class Treemendous {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        for (RegisteredTree tree : TreeRegistry.TREES) {
+            tree.registerFeature();
+        }
         // BiomeMaker.addBiomesToOverworld();
     }
 

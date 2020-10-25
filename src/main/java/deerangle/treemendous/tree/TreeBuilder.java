@@ -5,11 +5,10 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraftforge.registries.DeferredRegister;
 
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class TreeBuilder {
@@ -24,7 +23,8 @@ public class TreeBuilder {
     private ILeavesColor leavesColor;
     private Supplier<IItemProvider> apple;
     private RegisteredTree inherit;
-    private BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature;
+    private IConfigProvider configProvider;
+    private Feature<TreeFeatureConfig> feature;
     private BiomeSettings biomeSettings;
 
     private TreeBuilder(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName) {
@@ -39,7 +39,8 @@ public class TreeBuilder {
         this.leavesColor = (blockPos) -> 0x80a755;
         this.apple = null;
         this.inherit = null;
-        this.feature = (log, leaves) -> null;
+        this.configProvider = (log, leaves, sapling) -> null;
+        this.feature = null;
         this.biomeSettings = new BiomeSettings.Builder().build();
     }
 
@@ -80,7 +81,7 @@ public class TreeBuilder {
     public RegisteredTree build() {
         return new RegisteredTree(this.blockRegistry, this.itemRegistry, this.biomeRegistry, this.name,
                 this.englishName, this.woodColor, this.logColor, this.plankType, this.leavesColor, this.apple,
-                this.inherit, this.feature, this.biomeSettings);
+                this.inherit, this.configProvider, this.feature, this.biomeSettings);
     }
 
     public TreeBuilder biome(BiomeSettings.Builder settings) {
@@ -93,7 +94,8 @@ public class TreeBuilder {
         return this;
     }
 
-    public TreeBuilder feature(BiFunction<Block, Block, ConfiguredFeature<BaseTreeFeatureConfig, ?>> feature) {
+    public TreeBuilder feature(IConfigProvider config, Feature<TreeFeatureConfig> feature) {
+        this.configProvider = config;
         this.feature = feature;
         return this;
     }
