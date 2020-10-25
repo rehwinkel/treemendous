@@ -14,16 +14,16 @@ public class FeatureSpread {
         this.variance = variance;
     }
 
-    public static FeatureSpread func_242253_a(int base, int variance) {
+    public static FeatureSpread create(int base, int variance) {
         return new FeatureSpread(base, variance);
     }
 
-    public static FeatureSpread func_242252_a(int base) {
-        return func_242253_a(base, 0);
+    public static FeatureSpread create(int base) {
+        return create(base, 0);
     }
 
     public static <T> FeatureSpread fromDynamic(Dynamic<T> dyn, String name) {
-        return FeatureSpread.func_242253_a(dyn.get(name).asInt(0), dyn.get(name + "_random").asInt(0));
+        return FeatureSpread.create(dyn.get(name).asInt(0), dyn.get(name + "_random").asInt(0));
     }
 
     public int func_242259_a(Random random) {

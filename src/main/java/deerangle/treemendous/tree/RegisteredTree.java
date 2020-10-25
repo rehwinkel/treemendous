@@ -46,10 +46,10 @@ public class RegisteredTree {
     private final int logColor;
     private final int plankType;
     private final IConfigProvider configProvider;
-    private final Feature<TreeFeatureConfig> feature;
+    private final Supplier<? extends Feature<? extends TreeFeatureConfig>> feature;
     private TreeFeatureConfig treeConfig;
 
-    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, int plankType, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, IConfigProvider configProvider, Feature<TreeFeatureConfig> feature, BiomeSettings biomeSettings) {
+    RegisteredTree(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName, int woodColorVal, int barkColorVal, int plankType, ILeavesColor leavesColor, Supplier<IItemProvider> apple, RegisteredTree inherit, IConfigProvider configProvider, Supplier<? extends Feature<? extends TreeFeatureConfig>> feature, BiomeSettings biomeSettings) {
         this.apple = apple;
         this.englishName = englishName;
         this.name = name;
@@ -62,10 +62,10 @@ public class RegisteredTree {
         this.configProvider = configProvider;
         this.feature = feature;
 
-        this.sapling = registerBlock(BLOCKS, name + "_sapling",
-                () -> new CustomSaplingBlock(new CustomTree(() -> this.feature.withConfiguration(this.treeConfig)),
-                        Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
-                                .hardnessAndResistance(0).sound(SoundType.PLANT)));
+        this.sapling = registerBlock(BLOCKS, name + "_sapling", () -> new CustomSaplingBlock(new CustomTree(
+                () -> ((Feature<TreeFeatureConfig>) this.feature.get()).withConfiguration(this.treeConfig)),
+                Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0)
+                        .sound(SoundType.PLANT)));
         this.leaves = registerBlock(BLOCKS, name + "_leaves", () -> new LeavesBlock(
                 Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly()
                         .sound(SoundType.PLANT).notSolid()));

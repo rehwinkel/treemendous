@@ -26,10 +26,8 @@ public class WillowFoliagePlacer extends FoliagePlacer {
     }
 
     public <T> WillowFoliagePlacer(Dynamic<T> p_i225847_1_) {
-        this(FeatureSpread
-                        .func_242253_a(p_i225847_1_.get("radius").asInt(0), p_i225847_1_.get("radius_random").asInt(0)),
-                FeatureSpread.func_242253_a(p_i225847_1_.get("branch").asInt(0),
-                        p_i225847_1_.get("branch_random").asInt(0)));
+        this(FeatureSpread.create(p_i225847_1_.get("radius").asInt(0), p_i225847_1_.get("radius_random").asInt(0)),
+                FeatureSpread.create(p_i225847_1_.get("branch").asInt(0), p_i225847_1_.get("branch_random").asInt(0)));
     }
 
     private void growBranchDown(int x, int y, int z, int length, IWorldGenerationReader worldGenerationReader, Random random, BaseTreeFeatureConfig featureConfig, BlockPos foliage, Set<BlockPos> resultingBlocks) {
@@ -48,25 +46,25 @@ public class WillowFoliagePlacer extends FoliagePlacer {
     @Override
     public void func_225571_a_(IWorldGenerationReader worldGenerationReader, Random random, TreeFeatureConfig featureConfig, int startY, int trunk, int foliage, BlockPos pos, Set<BlockPos> resultingBlocks) {
         for (int i = 0; i < 4; i++) {
-            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY, pos, startY - i,
+            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY - 2, pos, startY - i - 2,
                     Math.min(i + 1, 3), resultingBlocks);
         }
 
-        growBranchDown(2, startY - 4, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(2, startY - 6, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
-        growBranchDown(-2, startY - 4, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(-2, startY - 6, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
-        growBranchDown(-2, startY - 4, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(-2, startY - 6, 2, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
-        growBranchDown(2, startY - 4, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(2, startY - 6, -2, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
-        growBranchDown(3, startY - 4, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(3, startY - 6, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
-        growBranchDown(-3, startY - 4, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(-3, startY - 6, 0, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
-        growBranchDown(0, startY - 4, 3, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(0, startY - 6, 3, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
-        growBranchDown(0, startY - 4, -3, branchLength.func_242259_a(random), worldGenerationReader, random,
+        growBranchDown(0, startY - 6, -3, branchLength.func_242259_a(random), worldGenerationReader, random,
                 featureConfig, pos, resultingBlocks);
     }
 
@@ -77,9 +75,13 @@ public class WillowFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected boolean func_225572_a_(Random random, int height, int x, int y, int z, int size) {
-        double realSize = new double[]{1.5, 2.5, 3, 3.5}[-y + height];
-        double distance = Math.sqrt(x * x + z * z) - realSize;
-        return distance > 0;
+        try {
+            double realSize = new double[]{1.5, 2.5, 3, 3.5}[-y + height];
+            double distance = Math.sqrt(x * x + z * z) - realSize;
+            return distance > 0;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return true;
+        }
     }
 
     @Override

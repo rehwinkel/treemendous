@@ -47,8 +47,8 @@ public class RoundedFoliagePlacer extends FoliagePlacer {
 
     // shouldPlaceAtPos
     @Override
-    protected boolean func_225572_a_(Random rand, int x, int y, int z, int p_225572_5_, int p_225572_6_) {
-        float realSize = rings[index][-y];
+    protected boolean func_225572_a_(Random rand, int height, int x, int y, int z, int size) {
+        float realSize = rings[index][-y + height];
         double distance = Math.sqrt(x * x + z * z) - realSize;
         return distance > 0 || (!(distance / realSize < -0.1) && rand.nextFloat() < 0.1f);
     }

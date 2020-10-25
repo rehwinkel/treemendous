@@ -24,7 +24,7 @@ public class TreeBuilder {
     private Supplier<IItemProvider> apple;
     private RegisteredTree inherit;
     private IConfigProvider configProvider;
-    private Feature<TreeFeatureConfig> feature;
+    private Supplier<? extends Feature<? extends TreeFeatureConfig>> feature;
     private BiomeSettings biomeSettings;
 
     private TreeBuilder(DeferredRegister<Block> BLOCKS, DeferredRegister<Item> ITEMS, DeferredRegister<Biome> BIOMES, String name, String englishName) {
@@ -94,7 +94,13 @@ public class TreeBuilder {
         return this;
     }
 
-    public TreeBuilder feature(IConfigProvider config, Feature<TreeFeatureConfig> feature) {
+    public TreeBuilder feature(IConfigProvider config, Feature<? extends TreeFeatureConfig> feature) {
+        this.configProvider = config;
+        this.feature = () -> feature;
+        return this;
+    }
+
+    public TreeBuilder feature(IConfigProvider config, Supplier<? extends Feature<? extends TreeFeatureConfig>> feature) {
         this.configProvider = config;
         this.feature = feature;
         return this;
