@@ -28,7 +28,7 @@ public class TreeMaker {
     public static TreeFeatureConfig makeMapleTree(Block log, Block leaves, Block sapling) {
         return (new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
                 new SimpleBlockStateProvider(leaves.getDefaultState()),
-                new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), 4, 3))).baseHeight(6).heightRandA(2)
+                new ParabolaFoliagePlacer(FeatureSpread.func_242252_a(3), 3, 4))).baseHeight(6).heightRandA(2)
                 .heightRandB(0).trunkHeight(0).ignoreVines().setSapling((net.minecraftforge.common.IPlantable) sapling)
                 .build();
     }

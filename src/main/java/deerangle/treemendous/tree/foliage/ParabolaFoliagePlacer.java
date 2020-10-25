@@ -32,11 +32,13 @@ public class ParabolaFoliagePlacer extends FoliagePlacer {
 
     @Override
     public void func_225571_a_(IWorldGenerationReader worldGenerationReader, Random random, TreeFeatureConfig featureConfig, int startY, int trunk, int foliage, BlockPos pos, Set<BlockPos> resultingBlocks) {
-        for (int i = startY; i >= trunk; --i) {
+        int off = random.nextInt(2);
+        int skinni = random.nextInt(2);
+        for (int i = startY + off; i >= 3 + off; --i) {
             int j = Math.max(foliage - 1 - (i - startY) / 2, 0);
-            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY, pos, i, j, resultingBlocks);
+            this.func_227384_a_(worldGenerationReader, random, featureConfig, startY + skinni, pos, i, j,
+                    resultingBlocks);
         }
-
     }
 
     private double getSize(double x) {
@@ -48,7 +50,7 @@ public class ParabolaFoliagePlacer extends FoliagePlacer {
     }
 
     protected boolean func_225572_a_(Random random, int height, int x, int y, int z, int size) {
-        y = y - height + 1;
+        y = y - height;
         double dist = Math.sqrt(x * x + z * z);
         double realSize = getSize(1.5 - y);
         return dist > realSize;//x == size && z == size && (random.nextInt(2) == 0 || y == 0);
