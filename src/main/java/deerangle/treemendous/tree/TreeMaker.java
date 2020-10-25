@@ -3,6 +3,7 @@ package deerangle.treemendous.tree;
 import deerangle.treemendous.main.Treemendous;
 import deerangle.treemendous.tree.foliage.BallFoliagePlacer;
 import deerangle.treemendous.tree.foliage.ParabolaFoliagePlacer;
+import deerangle.treemendous.tree.foliage.PointyFoliagePlacer;
 import deerangle.treemendous.tree.foliage.WillowFoliagePlacer;
 import deerangle.treemendous.util.FeatureSpread;
 import net.minecraft.block.Block;
@@ -77,8 +78,13 @@ public class TreeMaker {
         return null;
     }
 
-    public static TreeFeatureConfig makePointyTree(Block log, Block leaves, Block sapling, FeatureSpread func_242252_a, FeatureSpread func_242252_a1, int i, int i1, int i2) {
-        return null;
+    public static TreeFeatureConfig makePointyTree(Block log, Block leaves, Block sapling, FeatureSpread topSpread, FeatureSpread bottomSpread, int bottomOffset, int baseHeight, int extraHeight) {
+        return (new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),
+                new SimpleBlockStateProvider(leaves.getDefaultState()),
+                new PointyFoliagePlacer(FeatureSpread.func_242252_a(3), topSpread, bottomSpread,
+                        FeatureSpread.func_242253_a(bottomOffset, 1)))).baseHeight(baseHeight).heightRandA(extraHeight)
+                .heightRandB(0).trunkHeight(0).ignoreVines().setSapling((net.minecraftforge.common.IPlantable) sapling)
+                .build();
     }
 
     public static TreeFeatureConfig makeBallTree(Block log, Block leaves, Block sapling) {

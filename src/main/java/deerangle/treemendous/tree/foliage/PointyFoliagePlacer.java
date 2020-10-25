@@ -39,11 +39,11 @@ public class PointyFoliagePlacer extends FoliagePlacer {
     public void func_225571_a_(IWorldGenerationReader worldGenerationReader, Random random, TreeFeatureConfig featureConfig, int startY, int trunk, int foliage, BlockPos pos, Set<BlockPos> resultingBlocks) {
         float m = this.inwardSpeedX100.func_242259_a(random) * 0.01f;
         float n = this.outwardSpeedX100.func_242259_a(random) * 0.01f;
-        float h = trunk - this.bottomOffset.func_242259_a(random) + startY;
+        float h = trunk - this.bottomOffset.func_242259_a(random) + startY + 2;
         float targetHeightN = m / (n + m) * h;
         float targetWidthAct = n * targetHeightN;
 
-        int y = -startY;
+        int y = -startY - 2;
         currentWidth = 0.0f;
         for (; currentWidth <= targetWidthAct; y++) {
             currentWidth += n;
@@ -63,7 +63,7 @@ public class PointyFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected boolean func_225572_a_(Random rand, int x, int y, int z, int p_225572_5_, int p_225572_6_) {
+    protected boolean func_225572_a_(Random rand, int height, int x, int y, int z, int size) {
         double distance = Math.sqrt(x * x + z * z) - currentWidth;
         return distance > 0 || (!(distance / currentWidth < -0.15) && rand.nextFloat() < 0.3f);
     }
