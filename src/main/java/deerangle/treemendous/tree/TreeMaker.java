@@ -1,28 +1,17 @@
 package deerangle.treemendous.tree;
 
-import deerangle.treemendous.main.Treemendous;
 import deerangle.treemendous.tree.foliage.*;
 import deerangle.treemendous.util.FeatureSpread;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliageplacer.AcaciaFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.PineFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.SpruceFoliagePlacer;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class TreeMaker {
-
-    public static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES,
-            Treemendous.MODID);
-
-    public static final RegistryObject<Feature<CrossTreeFeatureConfig>> CROSS_TREE = FEATURES
-            .register("cross_tree", () -> new CrossTreeFeature(CrossTreeFeatureConfig::deserializeCrossTree));
 
     public static TreeFeatureConfig makeNeedleTree(Block log, Block leaves, Block sapling, int trunkBase, int baseHeight, int extraHeight) {
         return (new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(log.getDefaultState()),

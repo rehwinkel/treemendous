@@ -5,6 +5,7 @@ import deerangle.treemendous.main.ExtraRegistry;
 import deerangle.treemendous.main.Treemendous;
 import deerangle.treemendous.util.FeatureSpread;
 import deerangle.treemendous.world.BiomeSettings;
+import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.Biome;
@@ -87,7 +88,7 @@ public class TreeRegistry {
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "plane", "Plane").wood(WoodColors.PLANE_WOOD)
                     .log(WoodColors.PLANE_LOG).leaves(WoodColors.PLANE_LEAVES).plankType(1)
                     .biome(new BiomeSettings.Builder().temperature(0.8f))
-                    .feature(TreeMaker::makePlaneTreeCross, TreeMaker.CROSS_TREE).build());
+                    .feature(TreeMaker::makePlaneTreeCross, TreeWorldGenRegistry::getCrossTree).build());
     public static final RegisteredTree ash = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "ash", "Ash").wood(WoodColors.ASH_WOOD).log(WoodColors.ASH_LOG)
                     .leaves(WoodColors.ASH_LEAVES).plankType(1)
@@ -105,7 +106,7 @@ public class TreeRegistry {
     public static final RegisteredTree willow = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "willow", "Willow").wood(WoodColors.WILLOW_WOOD)
                     .log(WoodColors.WILLOW_LOG).leaves(WoodColors.WILLOW_LEAVES)
-                    .feature(TreeMaker::makeWillowTreeCross, TreeMaker.CROSS_TREE)
+                    .feature(TreeMaker::makeWillowTreeCross, TreeWorldGenRegistry::getCrossTree)
                     .biome(new BiomeSettings.Builder().temperature(0.6f)).build());
     public static final RegisteredTree pomegranate = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "pomegranate", "Pomegranate").wood(WoodColors.POMEGRANATE_WOOD)
@@ -116,12 +117,12 @@ public class TreeRegistry {
     public static final RegisteredTree magnolia = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "magnolia", "Magnolia").leaves(WoodColors.MAGNOLIA_LEAVES)
                     .feature((log, leaves, sapling) -> TreeMaker.makeBlobTreeCross(log, leaves, sapling, 6, 3, 2),
-                            TreeMaker.CROSS_TREE).build());
+                            TreeWorldGenRegistry::getCrossTree).build());
     public static final RegisteredTree walnut = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "walnut", "Walnut").wood(WoodColors.WALNUT_WOOD)
                     .leaves(WoodColors.WALNUT_LEAVES).plankType(3).feature((log, leaves, sapling) -> TreeMaker
                             .makeRoundTreeCross(log, leaves, sapling, 7, 3, 3, FeatureSpread.create(1, 1), 1),
-                    TreeMaker.CROSS_TREE).build());
+                    TreeWorldGenRegistry::getCrossTree).build());
     public static final RegisteredTree cedar = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "cedar", "Cedar").leaves(WoodColors.CEDAR_LEAVES)
                     .wood(WoodColors.CEDAR_WOOD).log(WoodColors.CEDAR_LOG).plankType(1).feature(
@@ -137,7 +138,7 @@ public class TreeRegistry {
     public static final RegisteredTree elm = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "elm", "Elm").wood(WoodColors.ELM_WOOD).log(WoodColors.ELM_LOG)
                     .leaves(WoodColors.ELM_LEAVES).plankType(2)
-                    .feature(TreeMaker::makeBallTreeCross, TreeMaker.CROSS_TREE)
+                    .feature(TreeMaker::makeBallTreeCross, TreeWorldGenRegistry::getCrossTree)
                     .biome(new BiomeSettings.Builder().density(5)).build());
     public static final RegisteredTree rainbow_eucalyptus = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "rainbow_eucalyptus", "Rainbow Eucalyptus")
@@ -145,14 +146,14 @@ public class TreeRegistry {
                             (float) (Math.pow((blockPos.getX() % 32) / 32.0f, 2) + Math
                                     .pow((blockPos.getY() % 32) / 32.0f, 2) + Math
                                     .pow((blockPos.getZ() % 32) / 32.0f, 2)), 0.7f, 0.8f) : Color.HSBtoRGB(0, 1, 1))
-                    .feature(TreeMaker::makeBallTreeCross, TreeMaker.CROSS_TREE)
+                    .feature(TreeMaker::makeBallTreeCross, TreeWorldGenRegistry::getCrossTree)
                     .biome(new BiomeSettings.Builder().density(5)).build());
     public static final RegisteredTree juniper = registerTree(
             TreeBuilder.create(BLOCKS, ITEMS, BIOMES, "juniper", "Juniper").leaves(WoodColors.JUNIPER_LEAVES)
                     .wood(WoodColors.JUNIPER_WOOD).plankType(1).log(WoodColors.JUNIPER_LOG).feature(
                     (log, leaves, sapling) -> TreeMaker
                             .makePointyTree(log, leaves, sapling, FeatureSpread.create(42), FeatureSpread.create(100),
-                                    2, 8, 6), TreeMaker.CROSS_TREE)
+                                    2, 8, 6), TreeWorldGenRegistry::getCrossTree)
                     .biome(new BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {

@@ -79,7 +79,6 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         addLumberAxeItem(ExtraRegistry.IRON_LUMBER_AXE.get(), "item/iron_lumber_axe");
         addLumberAxeItem(ExtraRegistry.GOLDEN_LUMBER_AXE.get(), "item/golden_lumber_axe");
         addLumberAxeItem(ExtraRegistry.DIAMOND_LUMBER_AXE.get(), "item/diamond_lumber_axe");
-        // addLumberAxeItem(ExtraRegistry.NETHERITE_LUMBER_AXE.get(), "item/netherite_lumber_axe");
         addGenericItem(ExtraRegistry.POMEGRANATE.get());
 
         for (RegisteredTree tree : TreeRegistry.TREES) {

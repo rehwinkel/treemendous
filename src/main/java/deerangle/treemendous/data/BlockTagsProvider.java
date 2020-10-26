@@ -23,7 +23,6 @@ public class BlockTagsProvider extends net.minecraft.data.BlockTagsProvider {
                 getBuilder(BlockTags.WOODEN_DOORS).add(tree.door.get());
                 getBuilder(tree.logsBlockTag).add(tree.log.get()).add(tree.stripped_log.get()).add(tree.wood.get())
                         .add(tree.stripped_wood.get());
-                // getBuilder(BlockTags.FENCE_GATES).add(tree.fence_gate.get());
                 getBuilder(BlockTags.WOODEN_FENCES).add(tree.fence.get());
                 getBuilder(BlockTags.LOGS).add(tree.logsBlockTag);
                 getBuilder(BlockTags.PLANKS).add(tree.planks.get());

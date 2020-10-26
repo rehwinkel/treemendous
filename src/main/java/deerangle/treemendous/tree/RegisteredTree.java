@@ -1,5 +1,6 @@
 package deerangle.treemendous.tree;
 
+import com.google.common.collect.ImmutableList;
 import deerangle.treemendous.api.TreemendousBlocks;
 import deerangle.treemendous.api.WoodColors;
 import deerangle.treemendous.block.*;
@@ -7,6 +8,8 @@ import deerangle.treemendous.entity.CustomBoatType;
 import deerangle.treemendous.item.CustomBoatItem;
 import deerangle.treemendous.main.Treemendous;
 import deerangle.treemendous.world.BiomeSettings;
+import deerangle.treemendous.world.SingleTreeForestBiome;
+import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -18,12 +21,14 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.function.Supplier;
 
 public class RegisteredTree {
@@ -39,8 +44,8 @@ public class RegisteredTree {
     private final WoodType woodType;
     private final CustomBoatType boatType;
     private final Supplier<IItemProvider> apple;
-    // private final Collection<RegistryKey<Biome>> biomes;
-    // private final Collection<RegistryKey<Biome>> frostyBiomes;
+    private final Collection<RegistryObject<Biome>> biomes;
+    private final Collection<RegistryObject<Biome>> frostyBiomes;
     private final int treeDensity;
     private final int woodColor;
     private final int logColor;
@@ -62,10 +67,10 @@ public class RegisteredTree {
         this.configProvider = configProvider;
         this.feature = feature;
 
-        this.sapling = registerBlock(BLOCKS, name + "_sapling", () -> new CustomSaplingBlock(new CustomTree(
-                () -> ((Feature<TreeFeatureConfig>) this.feature.get()).withConfiguration(this.treeConfig)),
-                Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0)
-                        .sound(SoundType.PLANT)));
+        this.sapling = registerBlock(BLOCKS, name + "_sapling",
+                () -> new CustomSaplingBlock(new CustomTree(() -> this.getConfiguredFeature()),
+                        Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly()
+                                .hardnessAndResistance(0).sound(SoundType.PLANT)));
         this.leaves = registerBlock(BLOCKS, name + "_leaves", () -> new LeavesBlock(
                 Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly()
                         .sound(SoundType.PLANT).notSolid()));
@@ -79,41 +84,33 @@ public class RegisteredTree {
 
         Feature.NORMAL_TREE.withConfiguration(DefaultBiomeFeatures.BIRCH_TREE_CONFIG);
 
-        /*
-        BIOMES.register(name + "_forest", () -> {
+        this.biomes = ImmutableList.of(BIOMES.register(name + "_forest", () -> {
+            TreeWorldGenRegistry.registerFeatures();
             this.registerFeature();
-            return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
-                    new MobSpawnInfo.Builder(), this.treesFeature);
-        });
-
-        BIOMES.register(name + "_forest_hills", () -> {
+            return new SingleTreeForestBiome(biomeSettings.getTemperature(), false, false, biomeSettings.isDry(),
+                    this.getConfiguredFeature(), biomeSettings.getTreeDensity());
+        }), BIOMES.register(name + "_forest_hills", () -> {
+            TreeWorldGenRegistry.registerFeatures();
             this.registerFeature();
-            return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
-                    new MobSpawnInfo.Builder(), this.treesFeature);
-        });
-        */
+            return new SingleTreeForestBiome(biomeSettings.getTemperature(), true, false, biomeSettings.isDry(),
+                    this.getConfiguredFeature(), biomeSettings.getTreeDensity());
+        }));
 
-        // this.biomes = ImmutableList.of(BiomeMaker.makeBiomeKey(name + "_forest"), BiomeMaker.makeBiomeKey(name + "_forest_hills"));
-
-        /*
         if (biomeSettings.isSnowy()) {
-            BIOMES.register(name + "_forest_snow", () -> {
+            this.frostyBiomes = ImmutableList.of(BIOMES.register(name + "_forest_snow", () -> {
+                TreeWorldGenRegistry.registerFeatures();
                 this.registerFeature();
-                return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, false,
-                        new MobSpawnInfo.Builder(), this.treesFeature);
-            });
-
-            BIOMES.register(name + "_forest_hills_snow", () -> {
+                return new SingleTreeForestBiome(biomeSettings.getTemperature(), false, true, biomeSettings.isDry(),
+                        this.getConfiguredFeature(), biomeSettings.getTreeDensity());
+            }), BIOMES.register(name + "_forest_hills_snow", () -> {
+                TreeWorldGenRegistry.registerFeatures();
                 this.registerFeature();
-                return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false,
-                        new MobSpawnInfo.Builder(), this.treesFeature);
-            });
-            this.frostyBiomes = ImmutableList.of(BiomeMaker.makeBiomeKey(name + "_forest_snow"),
-                    BiomeMaker.makeBiomeKey(name + "_forest_hills_snow"));
+                return new SingleTreeForestBiome(biomeSettings.getTemperature(), true, true, biomeSettings.isDry(),
+                        this.getConfiguredFeature(), biomeSettings.getTreeDensity());
+            }));
         } else {
             this.frostyBiomes = ImmutableList.of();
         }
-        */
 
         if (inherit == null) {
             MaterialColor woodColor = WoodColors.getClosestMaterialColor(woodColorVal);
@@ -246,6 +243,10 @@ public class RegisteredTree {
         }
     }
 
+    public ConfiguredFeature<TreeFeatureConfig, ?> getConfiguredFeature() {
+        return ((Feature<TreeFeatureConfig>) this.feature.get()).withConfiguration(this.treeConfig);
+    }
+
     private RegistryObject<Block> registerBlock(DeferredRegister<Block> registry, String name, Supplier<Block> blockSupplier) {
         return registry.register(name, () -> {
             Block b = blockSupplier.get();
@@ -267,15 +268,13 @@ public class RegisteredTree {
         return this.name;
     }
 
-    /*
-    public Collection<? extends RegistryKey<Biome>> getBiomes() {
-        return this.biomes;
+    public Collection<RegistryObject<Biome>> getBiomes() {
+        return biomes;
     }
 
-    public Collection<? extends RegistryKey<Biome>> getFrostyBiomes() {
-        return this.frostyBiomes;
+    public Collection<RegistryObject<Biome>> getFrostyBiomes() {
+        return frostyBiomes;
     }
-    */
 
     public ILeavesColor getLeavesColor() {
         return this.leavesColor;
