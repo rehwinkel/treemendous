@@ -102,7 +102,6 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
         lumberAxe(reipceConsumer, ExtraRegistry.IRON_LUMBER_AXE.get(), Items.IRON_INGOT);
         lumberAxe(reipceConsumer, ExtraRegistry.GOLDEN_LUMBER_AXE.get(), Items.GOLD_INGOT);
         lumberAxe(reipceConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), Items.DIAMOND);
-        // smithingReinforce(reipceConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), ExtraRegistry.NETHERITE_LUMBER_AXE.get());
         for (RegisteredTree tree : TreeRegistry.TREES) {
             if (tree.isNotInherited()) {
                 shapelessPlanksNew(reipceConsumer, tree.planks.get(), tree.logsItemTag);

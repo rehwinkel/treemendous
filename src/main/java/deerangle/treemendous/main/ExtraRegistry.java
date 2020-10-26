@@ -30,7 +30,6 @@ public class ExtraRegistry {
             () -> new LumberAxeItem(ItemTier.GOLD, 6.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
     public static final RegistryObject<Item> DIAMOND_LUMBER_AXE = ITEMS.register("diamond_lumber_axe",
             () -> new LumberAxeItem(ItemTier.DIAMOND, 5.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
-    // public static final RegistryObject<Item> NETHERITE_LUMBER_AXE = ITEMS.register("netherite_lumber_axe", () -> new LumberAxeItem(ItemTier.NETHERITE, 5.0F, -3.0F, (new Item.Properties()).group(ItemGroup.TOOLS)));
     public static final RegistryObject<Item> POMEGRANATE = ITEMS
             .register("pomegranate", () -> new Item((new Item.Properties()).group(ItemGroup.FOOD).food(Foods.APPLE)));
 

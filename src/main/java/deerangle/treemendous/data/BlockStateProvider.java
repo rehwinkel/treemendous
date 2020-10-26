@@ -98,22 +98,6 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         simpleBlock(wallSign, model);
     }
 
-    /*
-    public void basicBlockItem(Block block) {
-        simpleBlockItem(block, models().getExistingFile(new ResourceLocation(this.modid, name(block))));
-    }
-
-    public void basicBlockItem(Block block, String suffix) {
-        simpleBlockItem(block, models().getExistingFile(new ResourceLocation(this.modid, name(block) + suffix)));
-    }
-
-    public void generatedItem(IItemProvider block, ResourceLocation texture) {
-        itemModels().getBuilder(block.asItem().getRegistryName().getPath())
-                .parent(itemModels().getExistingFile(new ResourceLocation("item/generated")))
-                .texture("layer0", texture);
-    }
-    */
-
     public ResourceLocation itemTexture(IItemProvider block) {
         ResourceLocation name = block.asItem().getRegistryName();
         return new ResourceLocation(name.getNamespace(), ModelProvider.ITEM_FOLDER + "/" + name.getPath());

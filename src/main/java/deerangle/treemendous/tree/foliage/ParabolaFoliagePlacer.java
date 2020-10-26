@@ -53,7 +53,7 @@ public class ParabolaFoliagePlacer extends FoliagePlacer {
         y = y - height;
         double dist = Math.sqrt(x * x + z * z);
         double realSize = getSize(1.5 - y);
-        return dist > realSize;//x == size && z == size && (random.nextInt(2) == 0 || y == 0);
+        return dist > realSize;
     }
 
     public int func_225570_a_(int p_225570_1_, int p_225570_2_, int p_225570_3_, int p_225570_4_) {
