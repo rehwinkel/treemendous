@@ -153,7 +153,7 @@ public class TreeRegistry {
                     .wood(WoodColors.JUNIPER_WOOD).plankType(1).log(WoodColors.JUNIPER_LOG).feature(
                     (log, leaves, sapling) -> TreeMaker
                             .makePointyTree(log, leaves, sapling, FeatureSpread.create(42), FeatureSpread.create(100),
-                                    2, 8, 6), TreeWorldGenRegistry::getCrossTree)
+                                    2, 8, 6), Feature.NORMAL_TREE)
                     .biome(new BiomeSettings.Builder().density(8).temperature(0.5f).snow()).build());
 
     private static RegisteredTree registerTree(RegisteredTree tree) {

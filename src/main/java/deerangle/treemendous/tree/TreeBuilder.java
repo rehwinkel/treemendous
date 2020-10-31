@@ -94,13 +94,13 @@ public class TreeBuilder {
         return this;
     }
 
-    public TreeBuilder feature(IConfigProvider config, Feature<? extends TreeFeatureConfig> feature) {
+    public <C extends TreeFeatureConfig> TreeBuilder feature(IConfigProvider<C> config, Feature<? extends C> feature) {
         this.configProvider = config;
         this.feature = () -> feature;
         return this;
     }
 
-    public TreeBuilder feature(IConfigProvider config, Supplier<? extends Feature<? extends TreeFeatureConfig>> feature) {
+    public <C extends TreeFeatureConfig> TreeBuilder feature(IConfigProvider<C> config, Supplier<? extends Feature<? extends C>> feature) {
         this.configProvider = config;
         this.feature = feature;
         return this;

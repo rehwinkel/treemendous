@@ -54,7 +54,7 @@ public class TreeMaker {
                 .setSapling((net.minecraftforge.common.IPlantable) sapling).build();
     }
 
-    public static TreeFeatureConfig makePlaneTreeCross(Block block, Block block1, Block sapling) {
+    public static CrossTreeFeatureConfig makePlaneTreeCross(Block block, Block block1, Block sapling) {
         return new CrossTreeFeatureConfig(block, block1, new BallFoliagePlacer(FeatureSpread.create(2, 1)),
                 FeatureSpread.create(7, 3), FeatureSpread.create(0), FeatureSpread.create(1, 2),
                 FeatureSpread.create(1, 1), FeatureSpread.create(0), true);
@@ -74,20 +74,20 @@ public class TreeMaker {
                 .setSapling((net.minecraftforge.common.IPlantable) sapling).build();
     }
 
-    public static TreeFeatureConfig makeWillowTreeCross(Block log, Block leaves, Block sapling) {
+    public static CrossTreeFeatureConfig makeWillowTreeCross(Block log, Block leaves, Block sapling) {
         return new CrossTreeFeatureConfig(log, leaves,
                 new WillowFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(2, 1)),
                 FeatureSpread.create(6, 2), FeatureSpread.create(0), FeatureSpread.create(1, 1),
                 FeatureSpread.create(1, 1), FeatureSpread.create(1), false);
     }
 
-    public static TreeFeatureConfig makeBlobTreeCross(Block log, Block leaves, Block sapling, int baseHeight, int extraHeight, int crownWidth) {
+    public static CrossTreeFeatureConfig makeBlobTreeCross(Block log, Block leaves, Block sapling, int baseHeight, int extraHeight, int crownWidth) {
         return new CrossTreeFeatureConfig(log, leaves, new BlobFoliagePlacer(crownWidth, 0),
                 FeatureSpread.create(baseHeight, extraHeight), FeatureSpread.create(3, 1), FeatureSpread.create(2, 1),
                 FeatureSpread.create(1, 1), FeatureSpread.create(1), true);
     }
 
-    public static TreeFeatureConfig makeRoundTreeCross(Block log, Block leaves, Block sapling, int baseHeight, int extraHeight, int crownWidth, FeatureSpread branchLength, int roundIndex) {
+    public static CrossTreeFeatureConfig makeRoundTreeCross(Block log, Block leaves, Block sapling, int baseHeight, int extraHeight, int crownWidth, FeatureSpread branchLength, int roundIndex) {
         return new CrossTreeFeatureConfig(log, leaves,
                 new RoundedFoliagePlacer(FeatureSpread.create(crownWidth), roundIndex),
                 FeatureSpread.create(baseHeight, extraHeight), FeatureSpread.create(0), branchLength,
@@ -103,7 +103,7 @@ public class TreeMaker {
                 .build();
     }
 
-    public static TreeFeatureConfig makeBallTreeCross(Block log, Block leaves, Block sapling) {
+    public static CrossTreeFeatureConfig makeBallTreeCross(Block log, Block leaves, Block sapling) {
         return new CrossTreeFeatureConfig(log, leaves, new BallFoliagePlacer(FeatureSpread.create(2, 2)),
                 FeatureSpread.create(7, 3), FeatureSpread.create(0), FeatureSpread.create(2, 2),
                 FeatureSpread.create(1, 2), FeatureSpread.create(0), true);

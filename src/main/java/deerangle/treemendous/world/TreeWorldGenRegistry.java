@@ -26,8 +26,8 @@ public class TreeWorldGenRegistry {
     public static final FoliagePlacerType<BallFoliagePlacer> BALL_FOLIAGE_PLACER = registerFoliagePlacerType(
             "ball_foliage_placer", BallFoliagePlacer::new);
 
-    public static boolean registered = false;
-    public static Feature<CrossTreeFeatureConfig> CROSS_TREE;
+    private static boolean registered = false;
+    private static Feature<CrossTreeFeatureConfig> CROSS_TREE;
 
     public static <P extends IFeatureConfig> Feature<P> registerFeature(String name, Feature<P> feature) {
         return Registry.register(Registry.FEATURE, Treemendous.MODID + ":" + name, feature);
