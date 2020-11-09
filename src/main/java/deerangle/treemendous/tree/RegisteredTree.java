@@ -26,7 +26,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Features;
@@ -96,13 +95,13 @@ public class RegisteredTree {
         BIOMES.register(name + "_forest", () -> {
             this.registerFeature();
             return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
-                    new MobSpawnInfo.Builder(), this.treesFeature);
+                    this.treesFeature);
         });
 
         BIOMES.register(name + "_forest_hills", () -> {
             this.registerFeature();
             return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), false, biomeSettings.isDry(),
-                    new MobSpawnInfo.Builder(), this.treesFeature);
+                    this.treesFeature);
         });
 
 
@@ -112,14 +111,14 @@ public class RegisteredTree {
         if (biomeSettings.isSnowy()) {
             BIOMES.register(name + "_forest_snow", () -> {
                 this.registerFeature();
-                return BiomeMaker.makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, false,
-                        new MobSpawnInfo.Builder(), this.treesFeature);
+                return BiomeMaker
+                        .makeForestBiome(0.1f, 0.2f, biomeSettings.getTemperature(), true, false, this.treesFeature);
             });
 
             BIOMES.register(name + "_forest_hills_snow", () -> {
                 this.registerFeature();
-                return BiomeMaker.makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false,
-                        new MobSpawnInfo.Builder(), this.treesFeature);
+                return BiomeMaker
+                        .makeForestBiome(0.55f, 0.4f, biomeSettings.getTemperature(), true, false, this.treesFeature);
             });
             this.frostyBiomes = ImmutableList.of(BiomeMaker.makeBiomeKey(name + "_forest_snow"),
                     BiomeMaker.makeBiomeKey(name + "_forest_hills_snow"));
@@ -315,7 +314,7 @@ public class RegisteredTree {
                     .registerConfiguredFeature(this.name, featureBiFunction.apply(this.log.get(), this.leaves.get()));
             this.treesFeature = BiomeMaker.registerConfiguredFeature("trees_" + this.name,
                     this.singleTreeFeature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
-                            Placement.field_242902_f.configure(
+                            Placement.COUNT_EXTRA.configure(
                                     new AtSurfaceWithExtraConfig(this.treeDensity, 0.1F, this.treeDensity / 4))));
         }
     }

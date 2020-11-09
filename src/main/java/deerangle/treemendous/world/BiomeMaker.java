@@ -46,9 +46,9 @@ public class BiomeMaker {
                             .of(TreeRegistry.red_maple.getSingleTreeFeature().withChance(0.3F),
                                     TreeRegistry.brown_maple.getSingleTreeFeature().withChance(0.3F)),
                             TreeRegistry.maple.getSingleTreeFeature()))
-                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(
-                            Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
-            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
+                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, treesFeature);
         });
 
         BIOMES.register("mixed_forest", () -> {
@@ -60,9 +60,8 @@ public class BiomeMaker {
                     Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(new SingleRandomFeature(TreeRegistry.TREES.stream()
                             .map(tree -> (Supplier<ConfiguredFeature<?, ?>>) tree::getSingleTreeFeature)
                             .collect(Collectors.toList()))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                            .withPlacement(
-                                    Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
-            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
+                            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, treesFeature);
         });
 
         BIOMES.register("mixed_forest_vanilla", () -> {
@@ -77,9 +76,8 @@ public class BiomeMaker {
                             ImmutableList.of(Features.OAK, Features.SPRUCE, Features.BIRCH, Features.JUNGLE_TREE,
                                     Features.ACACIA, Features.DARK_OAK).stream().map(tree -> () -> tree))
                             .collect(Collectors.toList()))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                            .withPlacement(
-                                    Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
-            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, new MobSpawnInfo.Builder(), treesFeature);
+                            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+            return makeForestBiome(0.2f, 0.4f, 0.6f, false, false, treesFeature);
         });
 
         BIOMES.register("needle_forest", () -> {
@@ -99,9 +97,9 @@ public class BiomeMaker {
                                         TreeRegistry.cedar::getSingleTreeFeature,
                                         TreeRegistry.pine::getSingleTreeFeature, () -> Features.SPRUCE,
                                         () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                        .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+                        .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
             }
-            return makeForestBiome(0.2f, 0.4f, 0.4f, false, false, new MobSpawnInfo.Builder(), needleTreesFeature);
+            return makeForestBiome(0.2f, 0.4f, 0.4f, false, false, needleTreesFeature);
         });
 
         BIOMES.register("needle_forest_snow", () -> {
@@ -121,9 +119,9 @@ public class BiomeMaker {
                                         TreeRegistry.cedar::getSingleTreeFeature,
                                         TreeRegistry.pine::getSingleTreeFeature, () -> Features.SPRUCE,
                                         () -> Features.PINE))).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                        .withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
+                        .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 2))));
             }
-            return makeForestBiome(0.2f, 0.4f, 0.4f, true, false, new MobSpawnInfo.Builder(), needleTreesFeature);
+            return makeForestBiome(0.2f, 0.4f, 0.4f, true, false, needleTreesFeature);
         });
     }
 
@@ -132,11 +130,14 @@ public class BiomeMaker {
                 .register(WorldGenRegistries.CONFIGURED_FEATURE, Treemendous.MODID + ":" + key, configuredFeature);
     }
 
-    public static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, boolean dry, MobSpawnInfo.Builder mobSpawnBuilder, ConfiguredFeature<?, ?> tree) {
+    public static Biome makeForestBiome(float depth, float scale, float temperature, boolean snowy, boolean dry, ConfiguredFeature<?, ?> tree) {
+        MobSpawnInfo.Builder mobSpawnInfo = new MobSpawnInfo.Builder();
+        DefaultBiomeFeatures.withPassiveMobs(mobSpawnInfo);
+        DefaultBiomeFeatures.withBatsAndHostiles(mobSpawnInfo);
         BiomeGenerationSettings.Builder genSettings = new BiomeGenerationSettings.Builder()
                 .withSurfaceBuilder(ConfiguredSurfaceBuilders.field_244178_j);
         DefaultBiomeFeatures.withStrongholdAndMineshaft(genSettings);
-        genSettings.withStructure(StructureFeatures.field_244159_y);
+        genSettings.withStructure(StructureFeatures.RUINED_PORTAL);
         DefaultBiomeFeatures.withCavesAndCanyons(genSettings);
         DefaultBiomeFeatures.withLavaAndWaterLakes(genSettings);
         DefaultBiomeFeatures.withMonsterRoom(genSettings);
@@ -159,7 +160,7 @@ public class BiomeMaker {
                         (new BiomeAmbience.Builder()).setWaterColor(snowy ? 4020182 : 4159204).setWaterFogColor(329011)
                                 .setFogColor(12638463).withSkyColor(MathHelper.hsvToRGB(0.6105556f, 0.5233333f, 1.0F))
                                 .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
-                .withMobSpawnSettings(mobSpawnBuilder.copy()).withGenerationSettings(genSettings.build()).build();
+                .withMobSpawnSettings(mobSpawnInfo.copy()).withGenerationSettings(genSettings.build()).build();
     }
 
     public static void addBiomesToOverworld() {

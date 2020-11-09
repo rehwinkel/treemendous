@@ -1,11 +1,11 @@
 modLoader="javafml"
-loaderVersion="[34.1.0,)"
+loaderVersion="[35,)"
 license="All rights reserved"
 
 [[mods]]
 
 modId="treemendous"
-version="0.4.2"
+version="0.4.3"
 displayName="Treemendous"
 logoFile="treemendous.png"
 authors="Ian Rehwinkel"
@@ -18,13 +18,13 @@ This mod is for the people who want more variation in Minecraft's forests.
 [[dependencies.treemendous]]
     modId="forge"
     mandatory=true
-    versionRange="[34.1.0,)"
+    versionRange="[35,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.treemendous]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.4]"
     ordering="NONE"
     side="BOTH"
