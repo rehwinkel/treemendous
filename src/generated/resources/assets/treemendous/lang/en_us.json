@@ -504,5 +504,6 @@
   "item.treemendous.rainbow_eucalyptus_boat": "Rainbow Eucalyptus Boat",
   "item.treemendous.robinia_boat": "Robinia Boat",
   "item.treemendous.walnut_boat": "Walnut Boat",
-  "item.treemendous.willow_boat": "Willow Boat"
+  "item.treemendous.willow_boat": "Willow Boat",
+  "itemGroup.treemendous": "Treemendous"
 }
