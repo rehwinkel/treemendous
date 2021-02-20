@@ -15,7 +15,10 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.SignItem;
+import net.minecraft.item.TallBlockItem;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
@@ -83,14 +86,9 @@ public class RegisteredTree {
                 AbstractBlock.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly()
                         .sound(SoundType.PLANT).notSolid().setAllowsSpawn(RegisteredTree::allowsSpawnOnLeaves)
                         .setSuffocates(RegisteredTree::isntSolid).setBlocksVision(RegisteredTree::isntSolid)));
-        this.potted_sapling = registerBlock(BLOCKS, "potted_" + name + "_sapling",
-                () -> new FlowerPotBlock(sapling.get(),
-                        AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance()
-                                .notSolid()));
-        this.sapling_item = ITEMS.register(name + "_sapling",
-                () -> new BlockItem(this.sapling.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
-        this.leaves_item = ITEMS.register(name + "_leaves",
-                () -> new BlockItem(this.leaves.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+        this.potted_sapling = registerBlock(BLOCKS, "potted_" + name + "_sapling", () -> new FlowerPotBlock(sapling.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
+        this.sapling_item = ITEMS.register(name + "_sapling", () -> new BlockItem(this.sapling.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+        this.leaves_item = ITEMS.register(name + "_leaves", () -> new BlockItem(this.leaves.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
 
         BIOMES.register(name + "_forest", () -> {
             this.registerFeature();
@@ -183,42 +181,23 @@ public class RegisteredTree {
                     AbstractBlock.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F)
                             .sound(SoundType.WOOD).notSolid()));
 
-            this.planks_item = ITEMS.register(name + "_planks",
-                    () -> new BlockItem(this.planks.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.log_item = ITEMS.register(name + "_log",
-                    () -> new BlockItem(this.log.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.stripped_log_item = ITEMS.register("stripped_" + name + "_log",
-                    () -> new BlockItem(this.stripped_log.get(),
-                            new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.stripped_wood_item = ITEMS.register("stripped_" + name + "_wood",
-                    () -> new BlockItem(this.stripped_wood.get(),
-                            new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.wood_item = ITEMS.register(name + "_wood",
-                    () -> new BlockItem(this.wood.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.slab_item = ITEMS.register(name + "_slab",
-                    () -> new BlockItem(this.slab.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.pressure_plate_item = ITEMS.register(name + "_pressure_plate",
-                    () -> new BlockItem(this.pressure_plate.get(), new Item.Properties().group(ItemGroup.REDSTONE)));
-            this.fence_item = ITEMS.register(name + "_fence",
-                    () -> new BlockItem(this.fence.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
-            this.trapdoor_item = ITEMS.register(name + "_trapdoor",
-                    () -> new BlockItem(this.trapdoor.get(), new Item.Properties().group(ItemGroup.REDSTONE)));
-            this.fence_gate_item = ITEMS.register(name + "_fence_gate",
-                    () -> new BlockItem(this.fence_gate.get(), new Item.Properties().group(ItemGroup.REDSTONE)));
-            this.button_item = ITEMS.register(name + "_button",
-                    () -> new BlockItem(this.button.get(), new Item.Properties().group(ItemGroup.REDSTONE)));
-            this.stairs_item = ITEMS.register(name + "_stairs",
-                    () -> new BlockItem(this.stairs.get(), new Item.Properties().group(ItemGroup.BUILDING_BLOCKS)));
-            this.door_item = ITEMS.register(name + "_door",
-                    () -> new TallBlockItem(this.door.get(), (new Item.Properties()).group(ItemGroup.REDSTONE)));
-            this.sign_item = ITEMS.register(name + "_sign",
-                    () -> new SignItem((new Item.Properties()).maxStackSize(16).group(ItemGroup.DECORATIONS),
-                            this.sign.get(), this.wall_sign.get()));
+            this.planks_item = ITEMS.register(name + "_planks", () -> new BlockItem(this.planks.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.log_item = ITEMS.register(name + "_log", () -> new BlockItem(this.log.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.stripped_log_item = ITEMS.register("stripped_" + name + "_log", () -> new BlockItem(this.stripped_log.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.stripped_wood_item = ITEMS.register("stripped_" + name + "_wood", () -> new BlockItem(this.stripped_wood.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.wood_item = ITEMS.register(name + "_wood", () -> new BlockItem(this.wood.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.slab_item = ITEMS.register(name + "_slab", () -> new BlockItem(this.slab.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.pressure_plate_item = ITEMS.register(name + "_pressure_plate", () -> new BlockItem(this.pressure_plate.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.fence_item = ITEMS.register(name + "_fence", () -> new BlockItem(this.fence.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.trapdoor_item = ITEMS.register(name + "_trapdoor", () -> new BlockItem(this.trapdoor.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.fence_gate_item = ITEMS.register(name + "_fence_gate", () -> new BlockItem(this.fence_gate.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.button_item = ITEMS.register(name + "_button", () -> new BlockItem(this.button.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.stairs_item = ITEMS.register(name + "_stairs", () -> new BlockItem(this.stairs.get(), new Item.Properties().group(Treemendous.ITEM_GROUP)));
+            this.door_item = ITEMS.register(name + "_door", () -> new TallBlockItem(this.door.get(), (new Item.Properties()).group(Treemendous.ITEM_GROUP)));
+            this.sign_item = ITEMS.register(name + "_sign", () -> new SignItem((new Item.Properties()).maxStackSize(16).group(Treemendous.ITEM_GROUP), this.sign.get(), this.wall_sign.get()));
 
-            this.boatType = CustomBoatType
-                    .register(name, new ResourceLocation(Treemendous.MODID, name), this.planks_item::get);
-            this.boat_item = ITEMS.register(name + "_boat", () -> new CustomBoatItem(this.boatType,
-                    (new Item.Properties()).maxStackSize(1).group(ItemGroup.TRANSPORTATION)));
+            this.boatType = CustomBoatType.register(name, new ResourceLocation(Treemendous.MODID, name), this.planks_item::get);
+            this.boat_item = ITEMS.register(name + "_boat", () -> new CustomBoatItem(this.boatType, (new Item.Properties()).maxStackSize(1).group(Treemendous.ITEM_GROUP)));
         } else {
             this.inherited = true;
             this.boatType = inherit.boatType;

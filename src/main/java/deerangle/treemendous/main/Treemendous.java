@@ -1,13 +1,18 @@
 package deerangle.treemendous.main;
 
+import deerangle.treemendous.config.TreemendousConfig;
 import deerangle.treemendous.data.*;
 import deerangle.treemendous.tree.TreeRegistry;
 import deerangle.treemendous.world.BiomeMaker;
 import deerangle.treemendous.world.TreeWorldGenRegistry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -21,9 +26,19 @@ public class Treemendous {
     public static final String MODID = "treemendous";
 
     public static final Logger LOGGER = LogManager.getLogger();
+
+    public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(TreeRegistry.rainbow_eucalyptus.sapling_item.get());
+        }
+    };
+
     private final Proxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public Treemendous() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TreemendousConfig.CONFIG_SPEC);
+
         ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());

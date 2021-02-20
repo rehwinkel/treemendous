@@ -1,6 +1,7 @@
 package deerangle.treemendous.world;
 
 import com.google.common.collect.ImmutableList;
+import deerangle.treemendous.config.TreemendousConfig;
 import deerangle.treemendous.main.Treemendous;
 import deerangle.treemendous.tree.RegisteredTree;
 import deerangle.treemendous.tree.TreeRegistry;
@@ -164,17 +165,18 @@ public class BiomeMaker {
     }
 
     public static void addBiomesToOverworld() {
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_MAPLE_FOREST, 8));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_FOREST, 8));
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_FOREST_VANILLA, 8));
-        BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(NEEDLE_FOREST, 8));
-        BiomeManager.addBiome(BiomeManager.BiomeType.ICY, new BiomeManager.BiomeEntry(NEEDLE_FOREST_SNOW, 8));
+        TreemendousConfig.BiomeSpawnRate spawnRateConfig = TreemendousConfig.biomeSpawnRateConfig;
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_MAPLE_FOREST, spawnRateConfig.mixedMapleForestWeight.get()));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_FOREST, spawnRateConfig.mixedForestWeight.get()));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MIXED_FOREST_VANILLA, spawnRateConfig.mixedForestVanillaWeight.get()));
+        BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(NEEDLE_FOREST, spawnRateConfig.needleForestWeight.get()));
+        BiomeManager.addBiome(BiomeManager.BiomeType.ICY, new BiomeManager.BiomeEntry(NEEDLE_FOREST_SNOW, spawnRateConfig.needleForestSnowWeight.get()));
         for (RegisteredTree tree : TreeRegistry.TREES) {
             for (RegistryKey<Biome> b : tree.getFrostyBiomes()) {
-                BiomeManager.addBiome(BiomeManager.BiomeType.ICY, new BiomeManager.BiomeEntry(b, 10));
+                BiomeManager.addBiome(BiomeManager.BiomeType.ICY, new BiomeManager.BiomeEntry(b, spawnRateConfig.treeWeights.get(b).get()));
             }
             for (RegistryKey<Biome> b : tree.getBiomes()) {
-                BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(b, 10));
+                BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(b, spawnRateConfig.treeWeights.get(b).get()));
             }
         }
     }

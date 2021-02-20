@@ -15,6 +15,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
 
     @Override
     protected void addTranslations() {
+        add("itemGroup." + this.modid, "Treemendous");
         add("entity." + this.modid + "." + "boat", "Boat");
         add("item." + this.modid + "." + "iron_lumber_axe", "Iron Lumberaxe");
         add("item." + this.modid + "." + "golden_lumber_axe", "Golden Lumberaxe");
