@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top",
-  "textures": {
-    "bottom": "treemendous:block/poplar_door_bottom",
-    "top": "treemendous:block/poplar_door_top"
-  }
-}

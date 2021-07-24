@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_rh",
-  "textures": {
-    "bottom": "treemendous:block/pine_door_bottom",
-    "top": "treemendous:block/pine_door_top"
-  }
-}

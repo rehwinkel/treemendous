@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "treemendous:block/willow_planks",
-    "bottom": "treemendous:block/willow_planks",
-    "top": "treemendous:block/willow_planks"
-  }
-}

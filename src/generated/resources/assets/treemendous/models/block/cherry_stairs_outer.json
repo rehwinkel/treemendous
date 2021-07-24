@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "side": "treemendous:block/cherry_planks",
-    "bottom": "treemendous:block/cherry_planks",
-    "top": "treemendous:block/cherry_planks"
-  }
-}

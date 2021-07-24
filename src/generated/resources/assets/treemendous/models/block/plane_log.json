@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "treemendous:block/plane_log",
-    "end": "treemendous:block/plane_log_top"
-  }
-}
