@@ -59,18 +59,34 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'treemendous', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
             mods {
                 treemendous {
                     source sourceSets.main
                 }
             }
         }
+
+        otherdata {
+            parent data
+            args '--mod', 'treemendous', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing', file('src/generated_textures/resources/')
+        }
+
+        texdata {
+            parent data
+            property 'textures', 'true'
+            args '--mod', 'treemendous', '--all', '--output', file('src/generated_textures/resources/'), '--existing', file('src/main/resources/')
+        }
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+    srcDir 'src/generated_textures/resources'
+    include '**/**'
+    exclude '**/*.xcf'
+    exclude '/.cache/'
+    exclude '/assets/base/'
+}
 
 repositories {
 
