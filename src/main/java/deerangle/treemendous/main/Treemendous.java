@@ -80,6 +80,7 @@ public class Treemendous {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         BiomeMaker.addBiomesToOverworld();
+        BiomeMaker.addBiomesToBiomeDictionary();
     }
 
 }

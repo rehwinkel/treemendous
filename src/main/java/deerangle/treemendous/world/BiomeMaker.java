@@ -17,6 +17,7 @@ import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,6 +25,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
 public class BiomeMaker {
 
@@ -181,8 +184,23 @@ public class BiomeMaker {
         }
     }
 
+    public static void addBiomesToBiomeDictionary() {
+        BiomeDictionary.addTypes(MIXED_MAPLE_FOREST, OVERWORLD, FOREST);
+        BiomeDictionary.addTypes(MIXED_FOREST, OVERWORLD, FOREST);
+        BiomeDictionary.addTypes(MIXED_FOREST_VANILLA, OVERWORLD, FOREST);
+        BiomeDictionary.addTypes(NEEDLE_FOREST, OVERWORLD, FOREST);
+        BiomeDictionary.addTypes(NEEDLE_FOREST_SNOW, OVERWORLD, FOREST);
+        for (RegisteredTree tree : TreeRegistry.TREES) {
+            for (RegistryKey<Biome> b : tree.getFrostyBiomes()) {
+                BiomeDictionary.addTypes(b, OVERWORLD, FOREST, COLD);
+            }
+            for (RegistryKey<Biome> b : tree.getBiomes()) {
+                BiomeDictionary.addTypes(b, OVERWORLD, FOREST);
+            }
+        }
+    }
+
     public static RegistryKey<Biome> makeBiomeKey(String name) {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(Treemendous.MODID, name));
     }
-
 }
