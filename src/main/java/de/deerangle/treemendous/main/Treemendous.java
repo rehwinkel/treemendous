@@ -1,7 +1,10 @@
 package de.deerangle.treemendous.main;
 
 import de.deerangle.treemendous.data.TreemendousBlockStateProvider;
+import de.deerangle.treemendous.data.TreemendousBlockTagsProvider;
+import de.deerangle.treemendous.data.TreemendousItemTagsProvider;
 import de.deerangle.treemendous.tree.TreeRegistry;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -25,6 +28,9 @@ public class Treemendous {
     @SubscribeEvent
     public void onGatherData(GatherDataEvent event) {
         event.getGenerator().addProvider(new TreemendousBlockStateProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
+        BlockTagsProvider blockTagsProvider = new TreemendousBlockTagsProvider(event.getGenerator(), MODID, event.getExistingFileHelper());
+        event.getGenerator().addProvider(blockTagsProvider);
+        event.getGenerator().addProvider(new TreemendousItemTagsProvider(event.getGenerator(), blockTagsProvider, MODID, event.getExistingFileHelper()));
     }
 
 }

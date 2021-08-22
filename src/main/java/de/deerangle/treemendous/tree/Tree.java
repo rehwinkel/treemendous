@@ -1,8 +1,14 @@
 package de.deerangle.treemendous.tree;
 
+import de.deerangle.treemendous.block.CustomStandingSignBlock;
+import de.deerangle.treemendous.block.CustomWallSignBlock;
 import de.deerangle.treemendous.block.StrippableBlock;
+import de.deerangle.treemendous.main.Treemendous;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.*;
@@ -33,12 +39,15 @@ public class Tree {
     private RegistryObject<DoorBlock> door;
     private RegistryObject<TrapDoorBlock> trapdoor;
     private RegistryObject<SaplingBlock> sapling;
+    private RegistryObject<FlowerPotBlock> pottedSapling;
     private RegistryObject<LeavesBlock> leaves;
     private RegistryObject<StandingSignBlock> sign;
     private RegistryObject<WallSignBlock> wallSign;
     private RegistryObject<BoatItem> boatItem;
     private RegistryObject<SignItem> signItem;
     private WoodType woodType;
+    private Tag.Named<Block> logsBlockTag;
+    private Tag.Named<Item> logsItemTag;
     //TODO: boat sign
 
     private Tree(TreeConfig config) {
@@ -47,6 +56,8 @@ public class Tree {
 
     public static Tree fromConfig(DeferredRegister<Block> blocks, DeferredRegister<Item> items, TreeConfig config) {
         Tree tree = new Tree(config);
+        tree.logsBlockTag = BlockTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
+        tree.logsItemTag = ItemTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.woodType = WoodType.register(WoodType.create(config.registryName()));
         BlockBehaviour.Properties logProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? config.appearance().woodMaterialColor() : config.appearance().barkMaterialColor()).strength(2.0F).sound(SoundType.WOOD);
         BlockBehaviour.Properties woodProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().barkMaterialColor()).strength(2.0F).sound(SoundType.WOOD);
@@ -66,9 +77,10 @@ public class Tree {
         tree.door = blocks.register(getNameForTree(config, "door"), () -> new DoorBlock(planksProperties.strength(3.0F).noOcclusion()));
         tree.trapdoor = blocks.register(getNameForTree(config, "trapdoor"), () -> new TrapDoorBlock(planksProperties.strength(3.0F).noOcclusion().isValidSpawn((state, world, pos, entityType) -> false)));
         tree.sapling = blocks.register(getNameForTree(config, "sapling"), () -> new SaplingBlock(new OakTreeGrower(/*TODO*/), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+        tree.pottedSapling = blocks.register(getNameForTree(config, "potted", "sapling"), () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, tree.sapling, BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
         tree.leaves = blocks.register(getNameForTree(config, "leaves"), () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Tree::ocelotOrParrot).isSuffocating((state, world, pos) -> false).isViewBlocking((state, world, pos) -> false)));
-        tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new StandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
-        tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new WallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
+        tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
+        tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
         tree.signItem = items.register(getNameForTree(config, "sign"), () -> new SignItem((new Item.Properties()).stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), tree.sign.get(), tree.wallSign.get()));
         tree.boatItem = items.register(getNameForTree(config, "boat"), () -> new BoatItem(Boat.Type.OAK /*TODO*/, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
         registerBlockItem(items, getNameForTree(config, "planks"), tree.planks, CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -173,6 +185,10 @@ public class Tree {
         return sapling.get();
     }
 
+    public FlowerPotBlock getPottedSapling() {
+        return pottedSapling.get();
+    }
+
     public BoatItem getBoatItem() {
         return boatItem.get();
     }
@@ -187,6 +203,14 @@ public class Tree {
 
     public WoodType getWoodType() {
         return woodType;
+    }
+
+    public Tag.Named<Block> getLogsBlockTag() {
+        return logsBlockTag;
+    }
+
+    public Tag.Named<Item> getLogsItemTag() {
+        return logsItemTag;
     }
 
 }

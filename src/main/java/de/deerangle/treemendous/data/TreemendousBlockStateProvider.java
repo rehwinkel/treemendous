@@ -41,12 +41,28 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
         trapdoorItemBlock(TreeRegistry.JUNIPER_TREE.getTrapdoor());
         leavesItemBlock(TreeRegistry.JUNIPER_TREE.getLeaves());
         saplingItemBlock(TreeRegistry.JUNIPER_TREE.getSapling());
+        pottedSaplingItemBlock(TreeRegistry.JUNIPER_TREE.getPottedSapling(), TreeRegistry.JUNIPER_TREE.getSapling());
         generatedItem(TreeRegistry.JUNIPER_TREE.getBoatItem());
+        generatedItem(TreeRegistry.JUNIPER_TREE.getSignItem());
+        signItemBlock(TreeRegistry.JUNIPER_TREE.getSign(), TreeRegistry.JUNIPER_TREE.getPlanks());
+        signItemBlock(TreeRegistry.JUNIPER_TREE.getWallSign(), TreeRegistry.JUNIPER_TREE.getPlanks());
+    }
+
+    private void pottedSaplingItemBlock(FlowerPotBlock pottedSapling, SaplingBlock saplingBlock) {
+        String name = pottedSapling.getRegistryName().getPath();
+        ModelFile model = models().singleTexture(name, new ResourceLocation("block/flower_pot_cross"), "plant", blockTexture(saplingBlock));
+        getVariantBuilder(pottedSapling).partialState().modelForState().modelFile(model).addModel();
     }
 
     private void generatedItem(Item item) {
         String name = item.getRegistryName().getPath();
         itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Treemendous.MODID, "item/" + name));
+    }
+
+    private void signItemBlock(SignBlock sign, Block planks) {
+        String name = sign.getRegistryName().getPath();
+        ModelFile signModel = models().getBuilder(name).texture("particle", blockTexture(planks));
+        getVariantBuilder(sign).partialState().modelForState().modelFile(signModel).addModel();
     }
 
     private void saplingItemBlock(SaplingBlock sapling) {
