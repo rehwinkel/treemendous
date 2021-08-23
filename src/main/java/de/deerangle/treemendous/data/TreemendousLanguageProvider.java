@@ -24,8 +24,10 @@ public class TreemendousLanguageProvider extends LanguageProvider {
 
     private void addTree(Tree tree, String english, String german) {
         if (this.locale.equals("en_us")) {
+            add("entity.treemendous.boat", "Boat");
             addTreeEnglish(tree, english);
         } else if (this.locale.equals("de_de")) {
+            add("entity.treemendous.boat", "Boot");
             addTreeGerman(tree, german);
         }
     }

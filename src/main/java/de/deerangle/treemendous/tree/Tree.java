@@ -4,6 +4,7 @@ import de.deerangle.treemendous.block.CustomCraftingTableBlock;
 import de.deerangle.treemendous.block.CustomStandingSignBlock;
 import de.deerangle.treemendous.block.CustomWallSignBlock;
 import de.deerangle.treemendous.block.StrippableBlock;
+import de.deerangle.treemendous.item.CustomBoatItem;
 import de.deerangle.treemendous.main.Treemendous;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,8 +12,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.OakTreeGrower;
@@ -44,12 +47,13 @@ public class Tree {
     private RegistryObject<LeavesBlock> leaves;
     private RegistryObject<StandingSignBlock> sign;
     private RegistryObject<WallSignBlock> wallSign;
-    private RegistryObject<BoatItem> boatItem;
+    private RegistryObject<CustomBoatItem> boatItem;
     private RegistryObject<SignItem> signItem;
     private RegistryObject<CraftingTableBlock> craftingTable;
     private WoodType woodType;
     private Tag.Named<Block> logsBlockTag;
     private Tag.Named<Item> logsItemTag;
+    private BoatType boatType;
 
     private Tree(TreeConfig config) {
         this.config = config;
@@ -90,7 +94,8 @@ public class Tree {
         tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(signProperties, tree.woodType));
         tree.craftingTable = blocks.register(getNameForTree(config, "crafting_table"), () -> new CustomCraftingTableBlock(craftingTableProperties));
         tree.signItem = items.register(getNameForTree(config, "sign"), () -> new SignItem((new Item.Properties()).stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), tree.sign.get(), tree.wallSign.get()));
-        tree.boatItem = items.register(getNameForTree(config, "boat"), () -> new BoatItem(Boat.Type.OAK /*TODO*/, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
+        tree.boatType = BoatType.createAndRegister(config.registryName(), () -> tree.boatItem::get);
+        tree.boatItem = items.register(getNameForTree(config, "boat"), () -> new CustomBoatItem(tree.boatType, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
         registerBlockItem(items, getNameForTree(config, "planks"), tree.planks, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlockItem(items, getNameForTree(config, "log"), tree.log, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlockItem(items, getNameForTree(config, "stripped", "log"), tree.strippedLog, CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -203,7 +208,7 @@ public class Tree {
         return craftingTable.get();
     }
 
-    public BoatItem getBoatItem() {
+    public CustomBoatItem getBoatItem() {
         return boatItem.get();
     }
 

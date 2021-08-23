@@ -23,6 +23,7 @@ public class Treemendous {
         TreeRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TreeRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
     }
 
