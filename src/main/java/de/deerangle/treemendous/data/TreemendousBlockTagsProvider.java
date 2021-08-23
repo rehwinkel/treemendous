@@ -32,6 +32,7 @@ public class TreemendousBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.STANDING_SIGNS).add(TreeRegistry.JUNIPER_TREE.getSign());
         this.tag(BlockTags.WALL_SIGNS).add(TreeRegistry.JUNIPER_TREE.getWallSign());
         this.tag(BlockTags.FENCE_GATES).add(TreeRegistry.JUNIPER_TREE.getFenceGate());
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(TreeRegistry.JUNIPER_TREE.getCraftingTable());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(TreeRegistry.JUNIPER_TREE.getLeaves());
     }
 }

@@ -23,6 +23,7 @@ public class ClientHandler {
         ItemBlockRenderTypes.setRenderLayer(TreeRegistry.JUNIPER_TREE.getLeaves(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(TreeRegistry.JUNIPER_TREE.getSapling(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(TreeRegistry.JUNIPER_TREE.getPottedSapling(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(TreeRegistry.JUNIPER_TREE.getCraftingTable(), RenderType.cutout());
     }
 
 }

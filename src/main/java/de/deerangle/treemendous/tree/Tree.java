@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.tree;
 
+import de.deerangle.treemendous.block.CustomCraftingTableBlock;
 import de.deerangle.treemendous.block.CustomStandingSignBlock;
 import de.deerangle.treemendous.block.CustomWallSignBlock;
 import de.deerangle.treemendous.block.StrippableBlock;
@@ -45,6 +46,7 @@ public class Tree {
     private RegistryObject<WallSignBlock> wallSign;
     private RegistryObject<BoatItem> boatItem;
     private RegistryObject<SignItem> signItem;
+    private RegistryObject<CraftingTableBlock> craftingTable;
     private WoodType woodType;
     private Tag.Named<Block> logsBlockTag;
     private Tag.Named<Item> logsItemTag;
@@ -62,6 +64,11 @@ public class Tree {
         BlockBehaviour.Properties woodProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().barkMaterialColor()).strength(2.0F).sound(SoundType.WOOD);
         BlockBehaviour.Properties strippedProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(2.0F).sound(SoundType.WOOD);
         BlockBehaviour.Properties planksProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD);
+        BlockBehaviour.Properties craftingTableProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(2.5F).sound(SoundType.WOOD);
+        BlockBehaviour.Properties doorProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(3.0F).noOcclusion().sound(SoundType.WOOD);
+        BlockBehaviour.Properties trapdoorProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(3.0F).noOcclusion().sound(SoundType.WOOD).isValidSpawn((state, world, pos, entityType) -> false);
+        BlockBehaviour.Properties signProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD);
+
         tree.planks = blocks.register(getNameForTree(config, "planks"), () -> new Block(planksProperties));
         tree.strippedLog = blocks.register(getNameForTree(config, "stripped", "log"), () -> new RotatedPillarBlock(strippedProperties));
         tree.log = blocks.register(getNameForTree(config, "log"), () -> new StrippableBlock(logProperties, tree.strippedLog::get));
@@ -73,14 +80,15 @@ public class Tree {
         tree.button = blocks.register(getNameForTree(config, "button"), () -> new WoodButtonBlock(planksProperties));
         tree.fence = blocks.register(getNameForTree(config, "fence"), () -> new FenceBlock(planksProperties));
         tree.fenceGate = blocks.register(getNameForTree(config, "fence_gate"), () -> new FenceGateBlock(planksProperties));
-        tree.door = blocks.register(getNameForTree(config, "door"), () -> new DoorBlock(planksProperties.strength(3.0F).noOcclusion()));
-        tree.trapdoor = blocks.register(getNameForTree(config, "trapdoor"), () -> new TrapDoorBlock(planksProperties.strength(3.0F).noOcclusion().isValidSpawn((state, world, pos, entityType) -> false)));
+        tree.door = blocks.register(getNameForTree(config, "door"), () -> new DoorBlock(doorProperties));
+        tree.trapdoor = blocks.register(getNameForTree(config, "trapdoor"), () -> new TrapDoorBlock(trapdoorProperties));
         tree.sapling = blocks.register(getNameForTree(config, "sapling"), () -> new SaplingBlock(new OakTreeGrower(/*TODO*/), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
         //noinspection deprecation
         tree.pottedSapling = blocks.register(getNameForTree(config, "potted", "sapling"), () -> new FlowerPotBlock(tree.sapling.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
         tree.leaves = blocks.register(getNameForTree(config, "leaves"), () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Tree::ocelotOrParrot).isSuffocating((state, world, pos) -> false).isViewBlocking((state, world, pos) -> false)));
-        tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
-        tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
+        tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(signProperties, tree.woodType));
+        tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(signProperties, tree.woodType));
+        tree.craftingTable = blocks.register(getNameForTree(config, "crafting_table"), () -> new CustomCraftingTableBlock(craftingTableProperties));
         tree.signItem = items.register(getNameForTree(config, "sign"), () -> new SignItem((new Item.Properties()).stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), tree.sign.get(), tree.wallSign.get()));
         tree.boatItem = items.register(getNameForTree(config, "boat"), () -> new BoatItem(Boat.Type.OAK /*TODO*/, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
         registerBlockItem(items, getNameForTree(config, "planks"), tree.planks, CreativeModeTab.TAB_BUILDING_BLOCKS);
@@ -98,6 +106,7 @@ public class Tree {
         registerBlockItem(items, getNameForTree(config, "trapdoor"), tree.trapdoor, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "sapling"), tree.sapling, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "leaves"), tree.leaves, CreativeModeTab.TAB_DECORATIONS);
+        registerBlockItem(items, getNameForTree(config, "crafting_table"), tree.craftingTable, CreativeModeTab.TAB_DECORATIONS);
         return tree;
     }
 
@@ -188,6 +197,10 @@ public class Tree {
 
     public FlowerPotBlock getPottedSapling() {
         return pottedSapling.get();
+    }
+
+    public CraftingTableBlock getCraftingTable() {
+        return craftingTable.get();
     }
 
     public BoatItem getBoatItem() {

@@ -1,0 +1,67 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#planks",
+    "front": "treemendous:block/crafting_table_front",
+    "side": "treemendous:block/crafting_table_side",
+    "top": "treemendous:block/crafting_table_top"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": {
+          "texture": "#planks",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#planks",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#planks",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#planks",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#planks",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#planks",
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "up": {
+          "texture": "#top",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#front",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#side",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#front",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#side",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}
