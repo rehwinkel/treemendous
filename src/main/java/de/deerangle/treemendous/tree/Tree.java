@@ -48,7 +48,6 @@ public class Tree {
     private WoodType woodType;
     private Tag.Named<Block> logsBlockTag;
     private Tag.Named<Item> logsItemTag;
-    //TODO: boat sign
 
     private Tree(TreeConfig config) {
         this.config = config;
@@ -77,7 +76,8 @@ public class Tree {
         tree.door = blocks.register(getNameForTree(config, "door"), () -> new DoorBlock(planksProperties.strength(3.0F).noOcclusion()));
         tree.trapdoor = blocks.register(getNameForTree(config, "trapdoor"), () -> new TrapDoorBlock(planksProperties.strength(3.0F).noOcclusion().isValidSpawn((state, world, pos, entityType) -> false)));
         tree.sapling = blocks.register(getNameForTree(config, "sapling"), () -> new SaplingBlock(new OakTreeGrower(/*TODO*/), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
-        tree.pottedSapling = blocks.register(getNameForTree(config, "potted", "sapling"), () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, tree.sapling, BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
+        //noinspection deprecation
+        tree.pottedSapling = blocks.register(getNameForTree(config, "potted", "sapling"), () -> new FlowerPotBlock(tree.sapling.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
         tree.leaves = blocks.register(getNameForTree(config, "leaves"), () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Tree::ocelotOrParrot).isSuffocating((state, world, pos) -> false).isViewBlocking((state, world, pos) -> false)));
         tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
         tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD), tree.woodType));
@@ -92,7 +92,7 @@ public class Tree {
         registerBlockItem(items, getNameForTree(config, "slab"), tree.slab, CreativeModeTab.TAB_BUILDING_BLOCKS);
         registerBlockItem(items, getNameForTree(config, "pressure_plate"), tree.pressurePlate, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "button"), tree.button, CreativeModeTab.TAB_REDSTONE);
-        registerBlockItem(items, getNameForTree(config, "fence"), tree.fence, CreativeModeTab.TAB_BUILDING_BLOCKS);
+        registerBlockItem(items, getNameForTree(config, "fence"), tree.fence, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "fence_gate"), tree.fenceGate, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "door"), tree.door, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "trapdoor"), tree.trapdoor, CreativeModeTab.TAB_REDSTONE);
@@ -106,6 +106,7 @@ public class Tree {
     }
 
     private static void registerBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block, CreativeModeTab tab) {
+        //noinspection unchecked
         items.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     }
 

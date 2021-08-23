@@ -1,0 +1,19 @@
+{
+  "block.treemendous.juniper_button": "Wacholderholzknopf",
+  "block.treemendous.juniper_door": "Wacholderholzt\u00FCr",
+  "block.treemendous.juniper_fence": "Wacholderholzzaun",
+  "block.treemendous.juniper_fence_gate": "Wacholderholzzauntor",
+  "block.treemendous.juniper_leaves": "Wacholderlaub",
+  "block.treemendous.juniper_log": "Wacholderstamm",
+  "block.treemendous.juniper_planks": "Wacholderholzbretter",
+  "block.treemendous.juniper_pressure_plate": "Wacholderholzdruckplatte",
+  "block.treemendous.juniper_sapling": "Wacholdersetzling",
+  "block.treemendous.juniper_sign": "Wacholderholzschild",
+  "block.treemendous.juniper_slab": "Wacholderholzstufe",
+  "block.treemendous.juniper_stairs": "Wacholderholztreppe",
+  "block.treemendous.juniper_trapdoor": "Wacholderholzfallt\u00FCr",
+  "block.treemendous.juniper_wood": "Wacholderholz",
+  "block.treemendous.stripped_juniper_log": "Entrindeter Wacholderstamm",
+  "block.treemendous.stripped_juniper_wood": "Entrindetes Wacholderholz",
+  "item.treemendous.juniper_boat": "Wacholderholzboot"
+}

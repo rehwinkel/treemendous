@@ -3,6 +3,7 @@ package de.deerangle.treemendous.main;
 import de.deerangle.treemendous.data.TreemendousBlockStateProvider;
 import de.deerangle.treemendous.data.TreemendousBlockTagsProvider;
 import de.deerangle.treemendous.data.TreemendousItemTagsProvider;
+import de.deerangle.treemendous.data.TreemendousLanguageProvider;
 import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -31,6 +32,8 @@ public class Treemendous {
         BlockTagsProvider blockTagsProvider = new TreemendousBlockTagsProvider(event.getGenerator(), MODID, event.getExistingFileHelper());
         event.getGenerator().addProvider(blockTagsProvider);
         event.getGenerator().addProvider(new TreemendousItemTagsProvider(event.getGenerator(), blockTagsProvider, MODID, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MODID, "en_us"));
+        event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MODID, "de_de"));
     }
 
 }
