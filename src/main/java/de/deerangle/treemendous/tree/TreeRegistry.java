@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.tree;
 
+import de.deerangle.treemendous.blockentity.CustomChestBlockEntity;
 import de.deerangle.treemendous.data.WoodColors;
 import de.deerangle.treemendous.entity.CustomBoat;
 import de.deerangle.treemendous.main.Treemendous;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
@@ -27,6 +29,7 @@ public class TreeRegistry {
 
     // Extra
     public static final RegistryObject<BlockEntityType<SignBlockEntity>> SIGN = BLOCK_ENTITIES.register("sign", () -> BlockEntityType.Builder.of(SignBlockEntity::new, Objects.requireNonNull(getSignBlocks())).build(Objects.requireNonNull(Util.fetchChoiceType(References.BLOCK_ENTITY, "sign"))));
+    public static final RegistryObject<BlockEntityType<CustomChestBlockEntity>> CHEST = BLOCK_ENTITIES.register("chest", () -> BlockEntityType.Builder.of(CustomChestBlockEntity::new, Objects.requireNonNull(getChestBlocks())).build(Objects.requireNonNull(Util.fetchChoiceType(References.BLOCK_ENTITY, "chest"))));
     public static final RegistryObject<EntityType<CustomBoat>> BOAT = ENTITIES.register("boat", () -> EntityType.Builder.<CustomBoat>of(CustomBoat::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10).build("boat"));
 
     // Tree Configs
@@ -39,4 +42,7 @@ public class TreeRegistry {
         return new SignBlock[]{JUNIPER_TREE.getSign(), JUNIPER_TREE.getWallSign()};
     }
 
+    private static ChestBlock[] getChestBlocks() {
+        return new ChestBlock[]{JUNIPER_TREE.getChest()};
+    }
 }

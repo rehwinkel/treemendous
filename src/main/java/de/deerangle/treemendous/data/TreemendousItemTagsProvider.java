@@ -1,13 +1,15 @@
 package de.deerangle.treemendous.data;
 
 
-import de.deerangle.treemendous.tree.TreeRegistry;
+import de.deerangle.treemendous.tree.RegisteredTree;
+import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
 
@@ -22,6 +24,12 @@ public class TreemendousItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
+            Tree tree = regTree.getTree();
+            this.copy(tree.getLogsBlockTag(), tree.getLogsItemTag());
+            this.tag(ItemTags.BOATS).add(tree.getBoatItem());
+        }
+
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
         this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
         this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
@@ -32,8 +40,5 @@ public class TreemendousItemTagsProvider extends ItemTagsProvider {
         this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
         this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
-
-        this.copy(TreeRegistry.JUNIPER_TREE.getLogsBlockTag(), TreeRegistry.JUNIPER_TREE.getLogsItemTag());
-        this.tag(ItemTags.BOATS).add(TreeRegistry.JUNIPER_TREE.getBoatItem());
     }
 }

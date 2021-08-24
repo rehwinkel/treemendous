@@ -1,6 +1,8 @@
 package de.deerangle.treemendous.data;
 
-import de.deerangle.treemendous.tree.TreeRegistry;
+import de.deerangle.treemendous.main.Treemendous;
+import de.deerangle.treemendous.tree.RegisteredTree;
+import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +17,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryManager;
 
 import java.util.Objects;
 
@@ -30,27 +33,38 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        planksItemBlock(TreeRegistry.JUNIPER_TREE.getPlanks());
-        logItemBlock(TreeRegistry.JUNIPER_TREE.getLog());
-        logItemBlock(TreeRegistry.JUNIPER_TREE.getStrippedLog());
-        woodItemBlock(TreeRegistry.JUNIPER_TREE.getWood(), TreeRegistry.JUNIPER_TREE.getLog());
-        woodItemBlock(TreeRegistry.JUNIPER_TREE.getStrippedWood(), TreeRegistry.JUNIPER_TREE.getStrippedLog());
-        buttonItemBlock(TreeRegistry.JUNIPER_TREE.getButton(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        stairsItemBlock(TreeRegistry.JUNIPER_TREE.getStairs(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        slabItemBlock(TreeRegistry.JUNIPER_TREE.getSlab(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        pressurePlateItemBlock(TreeRegistry.JUNIPER_TREE.getPressurePlate(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        fenceItemBlock(TreeRegistry.JUNIPER_TREE.getFence(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        fenceGateItemBlock(TreeRegistry.JUNIPER_TREE.getFenceGate(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        doorItemBlock(TreeRegistry.JUNIPER_TREE.getDoor());
-        trapdoorItemBlock(TreeRegistry.JUNIPER_TREE.getTrapdoor());
-        leavesItemBlock(TreeRegistry.JUNIPER_TREE.getLeaves());
-        saplingItemBlock(TreeRegistry.JUNIPER_TREE.getSapling());
-        pottedSaplingItemBlock(TreeRegistry.JUNIPER_TREE.getPottedSapling(), TreeRegistry.JUNIPER_TREE.getSapling());
-        craftingTableBlock(TreeRegistry.JUNIPER_TREE.getCraftingTable(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        generatedItem(TreeRegistry.JUNIPER_TREE.getBoatItem());
-        generatedItem(TreeRegistry.JUNIPER_TREE.getSignItem());
-        signItemBlock(TreeRegistry.JUNIPER_TREE.getSign(), TreeRegistry.JUNIPER_TREE.getPlanks());
-        signItemBlock(TreeRegistry.JUNIPER_TREE.getWallSign(), TreeRegistry.JUNIPER_TREE.getPlanks());
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
+            Tree tree = regTree.getTree();
+            planksItemBlock(tree.getPlanks());
+            logItemBlock(tree.getLog());
+            logItemBlock(tree.getStrippedLog());
+            woodItemBlock(tree.getWood(), tree.getLog());
+            woodItemBlock(tree.getStrippedWood(), tree.getStrippedLog());
+            buttonItemBlock(tree.getButton(), tree.getPlanks());
+            stairsItemBlock(tree.getStairs(), tree.getPlanks());
+            slabItemBlock(tree.getSlab(), tree.getPlanks());
+            pressurePlateItemBlock(tree.getPressurePlate(), tree.getPlanks());
+            fenceItemBlock(tree.getFence(), tree.getPlanks());
+            fenceGateItemBlock(tree.getFenceGate(), tree.getPlanks());
+            doorItemBlock(tree.getDoor());
+            trapdoorItemBlock(tree.getTrapdoor());
+            leavesItemBlock(tree.getLeaves());
+            saplingItemBlock(tree.getSapling());
+            pottedSaplingItemBlock(tree.getPottedSapling(), tree.getSapling());
+            craftingTableBlock(tree.getCraftingTable(), tree.getPlanks());
+            chestBlock(tree.getChest(), tree.getPlanks());
+            generatedItem(tree.getBoatItem());
+            generatedItem(tree.getSignItem());
+            signItemBlock(tree.getSign(), tree.getPlanks());
+            signItemBlock(tree.getWallSign(), tree.getPlanks());
+        }
+    }
+
+    private void chestBlock(ChestBlock chest, Block planks) {
+        String name = Objects.requireNonNull(chest.getRegistryName()).getPath();
+        ModelFile model = models().getBuilder(name).texture("particle", blockTexture(planks));
+        getVariantBuilder(chest).partialState().modelForState().modelFile(model).addModel();
+        itemModels().getBuilder(name).parent(new ModelFile.ExistingModelFile(new ResourceLocation(Treemendous.MODID, "block/chest"), models().existingFileHelper)).texture("particle", blockTexture(planks));
     }
 
     private void craftingTableBlock(CraftingTableBlock craftingTable, Block planks) {

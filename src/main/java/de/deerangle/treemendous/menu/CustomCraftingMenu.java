@@ -1,10 +1,12 @@
 package de.deerangle.treemendous.menu;
 
-import de.deerangle.treemendous.tree.TreeRegistry;
+import de.deerangle.treemendous.tree.RegisteredTree;
+import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.CraftingMenu;
+import net.minecraftforge.registries.RegistryManager;
 
 public class CustomCraftingMenu extends CraftingMenu {
 
@@ -18,7 +20,13 @@ public class CustomCraftingMenu extends CraftingMenu {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, TreeRegistry.JUNIPER_TREE.getCraftingTable()); //TODO: for all TREES
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
+            Tree tree = regTree.getTree();
+            if (stillValid(this.access, player, tree.getCraftingTable())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

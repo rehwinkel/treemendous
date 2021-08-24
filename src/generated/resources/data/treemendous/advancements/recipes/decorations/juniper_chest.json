@@ -2,30 +2,30 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:crafting_table"
+      "treemendous:juniper_chest"
     ]
   },
   "criteria": {
-    "has_planks": {
+    "has_lots_of_items": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [
-          {
-            "tag": "minecraft:planks"
+        "slots": {
+          "occupied": {
+            "min": 10
           }
-        ]
+        }
       }
     },
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:crafting_table"
+        "recipe": "treemendous:juniper_chest"
       }
     }
   },
   "requirements": [
     [
-      "has_planks",
+      "has_lots_of_items",
       "has_the_recipe"
     ]
   ]

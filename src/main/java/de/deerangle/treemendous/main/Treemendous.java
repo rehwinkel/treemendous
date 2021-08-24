@@ -1,12 +1,16 @@
 package de.deerangle.treemendous.main;
 
 import de.deerangle.treemendous.data.*;
+import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +26,12 @@ public class Treemendous {
         TreeRegistry.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
+    }
+
+
+    @SubscribeEvent
+    public void createRegistries(RegistryEvent.NewRegistry event) {
+        new RegistryBuilder<RegisteredTree>().setName(new ResourceLocation(Treemendous.MODID, "trees")).setType(RegisteredTree.class).create();
     }
 
     @SubscribeEvent

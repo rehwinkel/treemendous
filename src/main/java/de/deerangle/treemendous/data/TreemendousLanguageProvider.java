@@ -51,6 +51,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
         add(tree.getBoatItem(), "%sholzboot", woodName);
         add(tree.getSign(), "%sholzschild", woodName);
         add(tree.getCraftingTable(), "%sholzwerkbank", woodName);
+        add(tree.getChest(), "%sholztruhe", woodName);
     }
 
     private void addTreeEnglish(Tree tree, String woodName) {
@@ -72,6 +73,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
         add(tree.getBoatItem(), "%s Boat", woodName);
         add(tree.getSign(), "%s Sign", woodName);
         add(tree.getCraftingTable(), "%s Crafting Table", woodName);
+        add(tree.getChest(), "%s Chest", woodName);
     }
 
     private void add(Item item, String name, String woodName) {

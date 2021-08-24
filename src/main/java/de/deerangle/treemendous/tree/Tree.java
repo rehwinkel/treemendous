@@ -2,9 +2,11 @@ package de.deerangle.treemendous.tree;
 
 import de.deerangle.treemendous.block.*;
 import de.deerangle.treemendous.item.CustomBoatItem;
+import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.main.Treemendous;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
@@ -26,6 +28,7 @@ import net.minecraftforge.registries.DeferredRegister;
 public class Tree {
 
     private final TreeConfig config;
+    private ResourceLocation registryName;
     private RegistryObject<Block> planks;
     private RegistryObject<RotatedPillarBlock> strippedLog;
     private RegistryObject<StrippableBlock> log;
@@ -51,6 +54,7 @@ public class Tree {
     private Tag.Named<Block> logsBlockTag;
     private Tag.Named<Item> logsItemTag;
     private BoatType boatType;
+    private RegistryObject<ChestBlock> chest;
 
     private Tree(TreeConfig config) {
         this.config = config;
@@ -90,6 +94,7 @@ public class Tree {
         tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(signProperties, tree.woodType));
         tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(signProperties, tree.woodType));
         tree.craftingTable = blocks.register(getNameForTree(config, "crafting_table"), () -> new CustomCraftingTableBlock(craftingTableProperties));
+        tree.chest = blocks.register(getNameForTree(config, "chest"), () -> new CustomChestBlock(craftingTableProperties, config.registryName()));
         tree.signItem = items.register(getNameForTree(config, "sign"), () -> new SignItem((new Item.Properties()).stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), tree.sign.get(), tree.wallSign.get()));
         tree.boatType = BoatType.createAndRegister(config.registryName(), () -> tree.boatItem::get);
         tree.boatItem = items.register(getNameForTree(config, "boat"), () -> new CustomBoatItem(tree.boatType, (new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION)));
@@ -109,7 +114,13 @@ public class Tree {
         registerBlockItem(items, getNameForTree(config, "sapling"), tree.sapling, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "leaves"), tree.leaves, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "crafting_table"), tree.craftingTable, CreativeModeTab.TAB_DECORATIONS);
+        registerChestBlockItem(items, getNameForTree(config, "chest"), tree.chest, CreativeModeTab.TAB_DECORATIONS);
         return tree;
+    }
+
+    private static void registerChestBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block, CreativeModeTab tab) {
+        //noinspection unchecked
+        items.register(name, () -> new CustomChestBlockItem(block.get(), new Item.Properties().tab(tab)));
     }
 
     private static boolean ocelotOrParrot(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> entityType) {
@@ -203,6 +214,10 @@ public class Tree {
 
     public CraftingTableBlock getCraftingTable() {
         return craftingTable.get();
+    }
+
+    public ChestBlock getChest() {
+        return chest.get();
     }
 
     public CustomBoatItem getBoatItem() {
