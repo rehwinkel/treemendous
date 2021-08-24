@@ -6,7 +6,6 @@ import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.main.Treemendous;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
@@ -22,13 +21,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
 public class Tree {
 
     private final TreeConfig config;
-    private ResourceLocation registryName;
     private RegistryObject<Block> planks;
     private RegistryObject<RotatedPillarBlock> strippedLog;
     private RegistryObject<StrippableBlock> log;
@@ -54,7 +53,7 @@ public class Tree {
     private Tag.Named<Block> logsBlockTag;
     private Tag.Named<Item> logsItemTag;
     private BoatType boatType;
-    private RegistryObject<ChestBlock> chest;
+    private RegistryObject<CustomChestBlock> chest;
 
     private Tree(TreeConfig config) {
         this.config = config;
@@ -65,14 +64,16 @@ public class Tree {
         tree.logsBlockTag = BlockTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.logsItemTag = ItemTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.woodType = WoodType.register(WoodType.create(config.registryName()));
-        BlockBehaviour.Properties logProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? config.appearance().woodMaterialColor() : config.appearance().barkMaterialColor()).strength(2.0F).sound(SoundType.WOOD);
-        BlockBehaviour.Properties woodProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().barkMaterialColor()).strength(2.0F).sound(SoundType.WOOD);
-        BlockBehaviour.Properties strippedProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(2.0F).sound(SoundType.WOOD);
-        BlockBehaviour.Properties planksProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(2.0F, 3.0F).sound(SoundType.WOOD);
-        BlockBehaviour.Properties craftingTableProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(2.5F).sound(SoundType.WOOD);
-        BlockBehaviour.Properties doorProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(3.0F).noOcclusion().sound(SoundType.WOOD);
-        BlockBehaviour.Properties trapdoorProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(3.0F).noOcclusion().sound(SoundType.WOOD).isValidSpawn((state, world, pos, entityType) -> false);
-        BlockBehaviour.Properties signProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD);
+        MaterialColor woodColor = config.appearance().woodMaterialColor();
+        MaterialColor barkColor = config.appearance().barkMaterialColor();
+        BlockBehaviour.Properties logProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? woodColor : barkColor).strength(2.0F).sound(SoundType.WOOD);
+        BlockBehaviour.Properties woodProperties = BlockBehaviour.Properties.of(Material.WOOD, barkColor).strength(2.0F).sound(SoundType.WOOD);
+        BlockBehaviour.Properties strippedProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).strength(2.0F).sound(SoundType.WOOD);
+        BlockBehaviour.Properties planksProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD);
+        BlockBehaviour.Properties craftingTableProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).strength(2.5F).sound(SoundType.WOOD);
+        BlockBehaviour.Properties doorProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).strength(3.0F).noOcclusion().sound(SoundType.WOOD);
+        BlockBehaviour.Properties trapdoorProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).strength(3.0F).noOcclusion().sound(SoundType.WOOD).isValidSpawn((state, world, pos, entityType) -> false);
+        BlockBehaviour.Properties signProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).noCollission().strength(1.0F).sound(SoundType.WOOD);
 
         tree.planks = blocks.register(getNameForTree(config, "planks"), () -> new FlammableBlock(planksProperties));
         tree.strippedLog = blocks.register(getNameForTree(config, "stripped", "log"), () -> new FlammableRotatedPillarBlock(strippedProperties));
@@ -114,13 +115,13 @@ public class Tree {
         registerBlockItem(items, getNameForTree(config, "sapling"), tree.sapling, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "leaves"), tree.leaves, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "crafting_table"), tree.craftingTable, CreativeModeTab.TAB_DECORATIONS);
-        registerChestBlockItem(items, getNameForTree(config, "chest"), tree.chest, CreativeModeTab.TAB_DECORATIONS);
+        registerChestBlockItem(items, getNameForTree(config, "chest"), tree.chest);
         return tree;
     }
 
-    private static void registerChestBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block, CreativeModeTab tab) {
+    private static void registerChestBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block) {
         //noinspection unchecked
-        items.register(name, () -> new CustomChestBlockItem(block.get(), new Item.Properties().tab(tab)));
+        items.register(name, () -> new CustomChestBlockItem(block.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
     private static boolean ocelotOrParrot(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> entityType) {
@@ -216,7 +217,7 @@ public class Tree {
         return craftingTable.get();
     }
 
-    public ChestBlock getChest() {
+    public CustomChestBlock getChest() {
         return chest.get();
     }
 

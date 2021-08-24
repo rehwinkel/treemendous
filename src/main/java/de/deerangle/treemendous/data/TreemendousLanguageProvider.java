@@ -1,7 +1,8 @@
 package de.deerangle.treemendous.data;
 
+import de.deerangle.treemendous.main.ExtraRegistry;
+import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.tree.Tree;
-import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -19,15 +20,46 @@ public class TreemendousLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        if (this.locale.equals("en_us")) {
+            add("entity.treemendous.boat", "Boat");
+            add(ExtraRegistry.BIRCH_CHEST.get(), "Birch Chest");
+            add(ExtraRegistry.SPRUCE_CHEST.get(), "Spruce Chest");
+            add(ExtraRegistry.JUNGLE_CHEST.get(), "Jungle Chest");
+            add(ExtraRegistry.ACACIA_CHEST.get(), "Acacia Chest");
+            add(ExtraRegistry.DARK_OAK_CHEST.get(), "Dark Oak Chest");
+            add(ExtraRegistry.CRIMSON_CHEST.get(), "Crimson Chest");
+            add(ExtraRegistry.WARPED_CHEST.get(), "Warped Chest");
+            add(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), "Birch Crafting Table");
+            add(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), "Spruce Crafting Table");
+            add(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), "Jungle Crafting Table");
+            add(ExtraRegistry.ACACIA_CRAFTING_TABLE.get(), "Acacia Crafting Table");
+            add(ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), "Dark Oak Crafting Table");
+            add(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), "Crimson Crafting Table");
+            add(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), "Warped Crafting Table");
+        } else if (this.locale.equals("de_de")) {
+            add("entity.treemendous.boat", "Boot");
+            add(ExtraRegistry.BIRCH_CHEST.get(), "Birkenholztruhe");
+            add(ExtraRegistry.SPRUCE_CHEST.get(), "Fichtenholztruhe");
+            add(ExtraRegistry.JUNGLE_CHEST.get(), "Tropenholztruhe");
+            add(ExtraRegistry.ACACIA_CHEST.get(), "Akazienholztruhe");
+            add(ExtraRegistry.DARK_OAK_CHEST.get(), "Schwarzeichenholztruhe");
+            add(ExtraRegistry.CRIMSON_CHEST.get(), "Karmesintruhe");
+            add(ExtraRegistry.WARPED_CHEST.get(), "Wirrtruhe");
+            add(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), "Birkenholzwerkbank");
+            add(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), "Fichtenholzwerkbank");
+            add(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), "Tropenholzwerkbank");
+            add(ExtraRegistry.ACACIA_CRAFTING_TABLE.get(), "Akazienholzwerkbank");
+            add(ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), "Schwarzeichenholzwerkbank");
+            add(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), "Karmesinwerkbank");
+            add(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), "Wirrwerkbank");
+        }
         addTree(TreeRegistry.JUNIPER_TREE, "Juniper", "Wacholder");
     }
 
     private void addTree(Tree tree, String english, String german) {
         if (this.locale.equals("en_us")) {
-            add("entity.treemendous.boat", "Boat");
             addTreeEnglish(tree, english);
         } else if (this.locale.equals("de_de")) {
-            add("entity.treemendous.boat", "Boot");
             addTreeGerman(tree, german);
         }
     }

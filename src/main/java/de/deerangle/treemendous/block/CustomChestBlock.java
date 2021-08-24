@@ -1,7 +1,7 @@
 package de.deerangle.treemendous.block;
 
 import de.deerangle.treemendous.blockentity.CustomChestBlockEntity;
-import de.deerangle.treemendous.tree.TreeRegistry;
+import de.deerangle.treemendous.main.ExtraRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -12,7 +12,7 @@ public class CustomChestBlock extends ChestBlock {
     private final String woodType;
 
     public CustomChestBlock(Properties properties, String woodType) {
-        super(properties, TreeRegistry.CHEST::get);
+        super(properties, ExtraRegistry.CHEST::get);
         this.woodType = woodType;
     }
 

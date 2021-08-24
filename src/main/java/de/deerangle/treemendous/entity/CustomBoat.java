@@ -1,7 +1,7 @@
 package de.deerangle.treemendous.entity;
 
+import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.tree.BoatType;
-import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,7 +16,7 @@ public class CustomBoat extends Boat {
     private static final EntityDataAccessor<Integer> DATA_ID_BOAT_TYPE = SynchedEntityData.defineId(CustomBoat.class, EntityDataSerializers.INT);
 
     public CustomBoat(Level world, double x, double y, double z) {
-        this(TreeRegistry.BOAT.get(), world);
+        this(ExtraRegistry.BOAT.get(), world);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;

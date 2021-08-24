@@ -4,7 +4,6 @@ import de.deerangle.treemendous.blockentity.render.CustomChestRenderer;
 import de.deerangle.treemendous.entity.render.CustomBoatRenderer;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
-import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -35,9 +34,17 @@ public class ClientHandler {
             ItemBlockRenderTypes.setRenderLayer(tree.getCraftingTable(), RenderType.cutout());
         }
 
-        BlockEntityRenderers.register(TreeRegistry.SIGN.get(), SignRenderer::new);
-        BlockEntityRenderers.register(TreeRegistry.CHEST.get(), CustomChestRenderer::new);
-        EntityRenderers.register(TreeRegistry.BOAT.get(), CustomBoatRenderer::new);
+        ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.ACACIA_CRAFTING_TABLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), RenderType.cutout());
+
+        BlockEntityRenderers.register(ExtraRegistry.SIGN.get(), SignRenderer::new);
+        BlockEntityRenderers.register(ExtraRegistry.CHEST.get(), CustomChestRenderer::new);
+        EntityRenderers.register(ExtraRegistry.BOAT.get(), CustomBoatRenderer::new);
     }
 
     @SubscribeEvent
@@ -46,12 +53,24 @@ public class ClientHandler {
             return;
         }
 
+        addChestSprites(event, "birch");
+        addChestSprites(event, "spruce");
+        addChestSprites(event, "jungle");
+        addChestSprites(event, "acacia");
+        addChestSprites(event, "dark_oak");
+        addChestSprites(event, "crimson");
+        addChestSprites(event, "warped");
+
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
-            event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + tree.getConfig().registryName()));
-            event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + tree.getConfig().registryName() + "_left"));
-            event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + tree.getConfig().registryName() + "_right"));
+            addChestSprites(event, tree.getConfig().registryName());
         }
+    }
+
+    private static void addChestSprites(TextureStitchEvent.Pre event, String woodName) {
+        event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName));
+        event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_left"));
+        event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_right"));
     }
 
 }

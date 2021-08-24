@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.data;
 
+import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
@@ -33,6 +34,21 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        craftingTableBlock(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
+        craftingTableBlock(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);
+        craftingTableBlock(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), Blocks.JUNGLE_PLANKS);
+        craftingTableBlock(ExtraRegistry.ACACIA_CRAFTING_TABLE.get(), Blocks.ACACIA_PLANKS);
+        craftingTableBlock(ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), Blocks.DARK_OAK_PLANKS);
+        craftingTableBlock(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), Blocks.CRIMSON_PLANKS);
+        craftingTableBlock(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), Blocks.WARPED_PLANKS);
+        chestBlock(ExtraRegistry.BIRCH_CHEST.get(), Blocks.BIRCH_PLANKS);
+        chestBlock(ExtraRegistry.SPRUCE_CHEST.get(), Blocks.SPRUCE_PLANKS);
+        chestBlock(ExtraRegistry.JUNGLE_CHEST.get(), Blocks.JUNGLE_PLANKS);
+        chestBlock(ExtraRegistry.ACACIA_CHEST.get(), Blocks.ACACIA_PLANKS);
+        chestBlock(ExtraRegistry.DARK_OAK_CHEST.get(), Blocks.DARK_OAK_PLANKS);
+        chestBlock(ExtraRegistry.CRIMSON_CHEST.get(), Blocks.CRIMSON_PLANKS);
+        chestBlock(ExtraRegistry.WARPED_CHEST.get(), Blocks.WARPED_PLANKS);
+
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
             planksItemBlock(tree.getPlanks());

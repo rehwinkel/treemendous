@@ -1,6 +1,6 @@
 package de.deerangle.treemendous.blockentity;
 
-import de.deerangle.treemendous.tree.TreeRegistry;
+import de.deerangle.treemendous.main.ExtraRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -13,7 +13,7 @@ public class CustomChestBlockEntity extends ChestBlockEntity {
     }
 
     public CustomChestBlockEntity(BlockPos pos, BlockState state) {
-        this(TreeRegistry.CHEST.get(), pos, state);
+        this(ExtraRegistry.CHEST.get(), pos, state);
     }
 
 }

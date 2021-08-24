@@ -33,16 +33,27 @@ public class CustomChestRenderer extends ChestRenderer<CustomChestBlockEntity> {
         Map<String, Material> defaultMaterials = new HashMap<>();
         Map<String, Material> leftMaterials = new HashMap<>();
         Map<String, Material> rightMaterials = new HashMap<>();
+        addChestMaterials("birch", defaultMaterials, leftMaterials, rightMaterials);
+        addChestMaterials("spruce", defaultMaterials, leftMaterials, rightMaterials);
+        addChestMaterials("jungle", defaultMaterials, leftMaterials, rightMaterials);
+        addChestMaterials("acacia", defaultMaterials, leftMaterials, rightMaterials);
+        addChestMaterials("dark_oak", defaultMaterials, leftMaterials, rightMaterials);
+        addChestMaterials("crimson", defaultMaterials, leftMaterials, rightMaterials);
+        addChestMaterials("warped", defaultMaterials, leftMaterials, rightMaterials);
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
             String woodName = tree.getConfig().registryName();
-            defaultMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName)));
-            leftMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_left")));
-            rightMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_right")));
+            addChestMaterials(woodName, defaultMaterials, leftMaterials, rightMaterials);
         }
         this.defaultMaterials = ImmutableMap.copyOf(defaultMaterials);
         this.leftMaterials = ImmutableMap.copyOf(leftMaterials);
         this.rightMaterials = ImmutableMap.copyOf(rightMaterials);
+    }
+
+    private void addChestMaterials(String woodName, Map<String, Material> defaultMaterials, Map<String, Material> leftMaterials, Map<String, Material> rightMaterials) {
+        defaultMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName)));
+        leftMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_left")));
+        rightMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_right")));
     }
 
     @SuppressWarnings("NullableProblems")

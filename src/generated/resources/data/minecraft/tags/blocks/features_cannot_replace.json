@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:birch_chest",
+    "treemendous:spruce_chest",
+    "treemendous:jungle_chest",
+    "treemendous:acacia_chest",
+    "treemendous:dark_oak_chest",
+    "treemendous:crimson_chest",
+    "treemendous:warped_chest",
+    "treemendous:juniper_chest"
+  ]
+}

@@ -15,11 +15,8 @@ import javax.annotation.Nullable;
 
 public class TreemendousItemTagsProvider extends ItemTagsProvider {
 
-    private final BlockTagsProvider blockTagsProvider;
-
     public TreemendousItemTagsProvider(DataGenerator generator, BlockTagsProvider provider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(generator, provider, modId, existingFileHelper);
-        this.blockTagsProvider = provider;
     }
 
     @Override

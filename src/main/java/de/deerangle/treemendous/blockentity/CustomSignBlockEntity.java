@@ -1,6 +1,6 @@
 package de.deerangle.treemendous.blockentity;
 
-import de.deerangle.treemendous.tree.TreeRegistry;
+import de.deerangle.treemendous.main.ExtraRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
@@ -12,8 +12,9 @@ public class CustomSignBlockEntity extends SignBlockEntity {
         super(pos, state);
     }
 
+    @SuppressWarnings("NullableProblems")
     public BlockEntityType<?> getType() {
-        return TreeRegistry.SIGN.get();
+        return ExtraRegistry.SIGN.get();
     }
 
 }

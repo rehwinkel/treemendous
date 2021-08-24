@@ -1,4 +1,14 @@
 {
+  "block.treemendous.acacia_chest": "Acacia Chest",
+  "block.treemendous.acacia_crafting_table": "Acacia Crafting Table",
+  "block.treemendous.birch_chest": "Birch Chest",
+  "block.treemendous.birch_crafting_table": "Birch Crafting Table",
+  "block.treemendous.crimson_chest": "Crimson Chest",
+  "block.treemendous.crimson_crafting_table": "Crimson Crafting Table",
+  "block.treemendous.dark_oak_chest": "Dark Oak Chest",
+  "block.treemendous.dark_oak_crafting_table": "Dark Oak Crafting Table",
+  "block.treemendous.jungle_chest": "Jungle Chest",
+  "block.treemendous.jungle_crafting_table": "Jungle Crafting Table",
   "block.treemendous.juniper_button": "Juniper Button",
   "block.treemendous.juniper_chest": "Juniper Chest",
   "block.treemendous.juniper_crafting_table": "Juniper Crafting Table",
@@ -15,8 +25,12 @@
   "block.treemendous.juniper_stairs": "Juniper Stairs",
   "block.treemendous.juniper_trapdoor": "Juniper Trapdoor",
   "block.treemendous.juniper_wood": "Juniper Wood",
+  "block.treemendous.spruce_chest": "Spruce Chest",
+  "block.treemendous.spruce_crafting_table": "Spruce Crafting Table",
   "block.treemendous.stripped_juniper_log": "Stripped Juniper Log",
   "block.treemendous.stripped_juniper_wood": "Stripped Juniper Wood",
+  "block.treemendous.warped_chest": "Warped Chest",
+  "block.treemendous.warped_crafting_table": "Warped Crafting Table",
   "entity.treemendous.boat": "Boat",
   "item.treemendous.juniper_boat": "Juniper Boat"
 }

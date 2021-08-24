@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.data;
 
+import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -16,6 +17,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.RegistryManager;
 
@@ -42,8 +44,23 @@ public class TreemendousRecipeProvider extends RecipeProvider {
     @SuppressWarnings("NullableProblems")
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer) {
-        ShapedRecipeBuilder.shaped(Blocks.CRAFTING_TABLE).define('#', Blocks.OAK_PLANKS).pattern("##").pattern("##").unlockedBy("has_planks", has(ItemTags.PLANKS)).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(Blocks.CHEST).define('#', Blocks.OAK_PLANKS).pattern("###").pattern("# #").pattern("###").group("wooden_chest").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
+        craftingTable(recipeConsumer, Blocks.CRAFTING_TABLE, Blocks.OAK_PLANKS);
+        chest(recipeConsumer, Blocks.CHEST, Blocks.OAK_PLANKS);
+
+        craftingTable(recipeConsumer, ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
+        craftingTable(recipeConsumer, ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);
+        craftingTable(recipeConsumer, ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), Blocks.JUNGLE_PLANKS);
+        craftingTable(recipeConsumer, ExtraRegistry.ACACIA_CRAFTING_TABLE.get(), Blocks.ACACIA_PLANKS);
+        craftingTable(recipeConsumer, ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), Blocks.DARK_OAK_PLANKS);
+        craftingTable(recipeConsumer, ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), Blocks.CRIMSON_PLANKS);
+        craftingTable(recipeConsumer, ExtraRegistry.WARPED_CRAFTING_TABLE.get(), Blocks.WARPED_PLANKS);
+        chest(recipeConsumer, ExtraRegistry.BIRCH_CHEST.get(), Blocks.BIRCH_PLANKS);
+        chest(recipeConsumer, ExtraRegistry.SPRUCE_CHEST.get(), Blocks.SPRUCE_PLANKS);
+        chest(recipeConsumer, ExtraRegistry.JUNGLE_CHEST.get(), Blocks.JUNGLE_PLANKS);
+        chest(recipeConsumer, ExtraRegistry.ACACIA_CHEST.get(), Blocks.ACACIA_PLANKS);
+        chest(recipeConsumer, ExtraRegistry.DARK_OAK_CHEST.get(), Blocks.DARK_OAK_PLANKS);
+        chest(recipeConsumer, ExtraRegistry.CRIMSON_CHEST.get(), Blocks.CRIMSON_PLANKS);
+        chest(recipeConsumer, ExtraRegistry.WARPED_CHEST.get(), Blocks.WARPED_PLANKS);
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
@@ -60,9 +77,17 @@ public class TreemendousRecipeProvider extends RecipeProvider {
             ShapedRecipeBuilder.shaped(tree.getStairs(), 4).define('#', tree.getPlanks()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_stairs").save(recipeConsumer);
             ShapedRecipeBuilder.shaped(tree.getDoor(), 3).define('#', tree.getPlanks()).pattern("##").pattern("##").pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_door").save(recipeConsumer);
             ShapedRecipeBuilder.shaped(tree.getTrapdoor(), 2).define('#', tree.getPlanks()).pattern("###").pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_trapdoor").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getCraftingTable()).define('#', tree.getPlanks()).pattern("##").pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_crafting_table").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getChest()).define('#', tree.getPlanks()).pattern("###").pattern("# #").pattern("###").group("wooden_chest").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
+            craftingTable(recipeConsumer, tree.getCraftingTable(), tree.getPlanks());
+            chest(recipeConsumer, tree.getChest(), tree.getPlanks());
         }
+    }
+
+    private void chest(Consumer<FinishedRecipe> recipeConsumer, Block chest, Block planks) {
+        ShapedRecipeBuilder.shaped(chest).define('#', planks).pattern("###").pattern("# #").pattern("###").group("wooden_chest").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
+    }
+
+    private void craftingTable(Consumer<FinishedRecipe> recipeConsumer, Block craftingTable, Block planks) {
+        ShapedRecipeBuilder.shaped(craftingTable).define('#', planks).pattern("##").pattern("##").unlockedBy("has_planks", has(ItemTags.PLANKS)).save(recipeConsumer);
     }
 
 }

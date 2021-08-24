@@ -1,0 +1,6 @@
+{
+  "parent": "treemendous:block/chest",
+  "textures": {
+    "particle": "minecraft:block/dark_oak_planks"
+  }
+}

@@ -1,7 +1,6 @@
 package de.deerangle.treemendous.main;
 
 import de.deerangle.treemendous.tree.RegisteredTree;
-import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -1,4 +1,14 @@
 {
+  "block.treemendous.acacia_chest": "Akazienholztruhe",
+  "block.treemendous.acacia_crafting_table": "Akazienholzwerkbank",
+  "block.treemendous.birch_chest": "Birkenholztruhe",
+  "block.treemendous.birch_crafting_table": "Birkenholzwerkbank",
+  "block.treemendous.crimson_chest": "Karmesintruhe",
+  "block.treemendous.crimson_crafting_table": "Karmesinwerkbank",
+  "block.treemendous.dark_oak_chest": "Schwarzeichenholztruhe",
+  "block.treemendous.dark_oak_crafting_table": "Schwarzeichenholzwerkbank",
+  "block.treemendous.jungle_chest": "Tropenholztruhe",
+  "block.treemendous.jungle_crafting_table": "Tropenholzwerkbank",
   "block.treemendous.juniper_button": "Wacholderholzknopf",
   "block.treemendous.juniper_chest": "Wacholderholztruhe",
   "block.treemendous.juniper_crafting_table": "Wacholderholzwerkbank",
@@ -15,8 +25,12 @@
   "block.treemendous.juniper_stairs": "Wacholderholztreppe",
   "block.treemendous.juniper_trapdoor": "Wacholderholzfallt\u00FCr",
   "block.treemendous.juniper_wood": "Wacholderholz",
+  "block.treemendous.spruce_chest": "Fichtenholztruhe",
+  "block.treemendous.spruce_crafting_table": "Fichtenholzwerkbank",
   "block.treemendous.stripped_juniper_log": "Entrindeter Wacholderstamm",
   "block.treemendous.stripped_juniper_wood": "Entrindetes Wacholderholz",
+  "block.treemendous.warped_chest": "Wirrtruhe",
+  "block.treemendous.warped_crafting_table": "Wirrwerkbank",
   "entity.treemendous.boat": "Boot",
   "item.treemendous.juniper_boat": "Wacholderholzboot"
 }

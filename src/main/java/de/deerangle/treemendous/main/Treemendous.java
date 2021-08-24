@@ -2,7 +2,6 @@ package de.deerangle.treemendous.main;
 
 import de.deerangle.treemendous.data.*;
 import de.deerangle.treemendous.tree.RegisteredTree;
-import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -23,8 +22,10 @@ public class Treemendous {
     public Treemendous() {
         TreeRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TreeRegistry.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TreeRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
     }
 
