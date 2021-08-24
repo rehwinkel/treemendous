@@ -43,7 +43,7 @@ public class TreemendousRecipeProvider extends RecipeProvider {
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer) {
         ShapedRecipeBuilder.shaped(Blocks.CRAFTING_TABLE).define('#', Blocks.OAK_PLANKS).pattern("##").pattern("##").unlockedBy("has_planks", has(ItemTags.PLANKS)).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(Blocks.CHEST).define('#', Blocks.OAK_PLANKS).pattern("###").pattern("# #").pattern("###").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
+        ShapedRecipeBuilder.shaped(Blocks.CHEST).define('#', Blocks.OAK_PLANKS).pattern("###").pattern("# #").pattern("###").group("wooden_chest").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
@@ -61,7 +61,7 @@ public class TreemendousRecipeProvider extends RecipeProvider {
             ShapedRecipeBuilder.shaped(tree.getDoor(), 3).define('#', tree.getPlanks()).pattern("##").pattern("##").pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_door").save(recipeConsumer);
             ShapedRecipeBuilder.shaped(tree.getTrapdoor(), 2).define('#', tree.getPlanks()).pattern("###").pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_trapdoor").save(recipeConsumer);
             ShapedRecipeBuilder.shaped(tree.getCraftingTable()).define('#', tree.getPlanks()).pattern("##").pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_crafting_table").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getChest()).define('#', tree.getPlanks()).pattern("###").pattern("# #").pattern("###").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
+            ShapedRecipeBuilder.shaped(tree.getChest()).define('#', tree.getPlanks()).pattern("###").pattern("# #").pattern("###").group("wooden_chest").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
         }
     }
 
