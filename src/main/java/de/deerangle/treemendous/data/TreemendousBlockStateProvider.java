@@ -1,6 +1,5 @@
 package de.deerangle.treemendous.data;
 
-import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.TreeRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
@@ -22,8 +21,11 @@ import java.util.Objects;
 
 public class TreemendousBlockStateProvider extends BlockStateProvider {
 
+    private final String modid;
+
     public TreemendousBlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
         super(gen, modid, exFileHelper);
+        this.modid = modid;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
 
     private void craftingTableBlock(CraftingTableBlock craftingTable, Block planks) {
         String name = Objects.requireNonNull(craftingTable.getRegistryName()).getPath();
-        ModelFile model = models().singleTexture(name, new ResourceLocation(Treemendous.MODID, "block/crafting_table"), "planks", blockTexture(planks));
+        ModelFile model = models().singleTexture(name, new ResourceLocation(this.modid, "block/crafting_table"), "planks", blockTexture(planks));
         getVariantBuilder(craftingTable).partialState().modelForState().modelFile(model).addModel();
         itemModels().getBuilder(name).parent(model);
     }
@@ -66,7 +68,7 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
 
     private void generatedItem(Item item) {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
-        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Treemendous.MODID, "item/" + name));
+        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modid, "item/" + name));
     }
 
     private void signItemBlock(SignBlock sign, Block planks) {
@@ -79,7 +81,7 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
         String name = Objects.requireNonNull(sapling.getRegistryName()).getPath();
         ModelFile leavesModel = models().singleTexture(name, new ResourceLocation("block/cross"), "cross", blockTexture(sapling));
         getVariantBuilder(sapling).partialState().modelForState().modelFile(leavesModel).addModel();
-        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(Treemendous.MODID, "block/" + name));
+        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modid, "block/" + name));
     }
 
     private void leavesItemBlock(LeavesBlock leaves) {
@@ -91,21 +93,21 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
 
     private void trapdoorItemBlock(TrapDoorBlock trapdoor) {
         String name = Objects.requireNonNull(trapdoor.getRegistryName()).getPath();
-        trapdoorBlock(trapdoor, new ResourceLocation(Treemendous.MODID, "block/" + name), true);
-        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(Treemendous.MODID, "block/" + name + "_bottom"), models().existingFileHelper);
+        trapdoorBlock(trapdoor, new ResourceLocation(this.modid, "block/" + name), true);
+        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modid, "block/" + name + "_bottom"), models().existingFileHelper);
         itemModels().getBuilder(name).parent(inventoryModel);
     }
 
     private void doorItemBlock(DoorBlock door) {
         String name = Objects.requireNonNull(door.getRegistryName()).getPath();
-        doorBlock(door, new ResourceLocation(Treemendous.MODID, "block/" + name + "_bottom"), new ResourceLocation(Treemendous.MODID, "block/" + name + "_top"));
+        doorBlock(door, new ResourceLocation(this.modid, "block/" + name + "_bottom"), new ResourceLocation(this.modid, "block/" + name + "_top"));
         itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(door.getRegistryName().getNamespace(), "item/" + name));
     }
 
     private void fenceGateItemBlock(FenceGateBlock fence, Block planks) {
         String name = Objects.requireNonNull(fence.getRegistryName()).getPath();
         fenceGateBlock(fence, blockTexture(planks));
-        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(Treemendous.MODID, "block/" + name), this.models().existingFileHelper);
+        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modid, "block/" + name), this.models().existingFileHelper);
         itemModels().getBuilder(name).parent(inventoryModel);
     }
 

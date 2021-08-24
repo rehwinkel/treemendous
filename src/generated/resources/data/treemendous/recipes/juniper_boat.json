@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:juniper_planks"
+    }
+  },
+  "result": {
+    "item": "treemendous:juniper_boat"
+  }
+}

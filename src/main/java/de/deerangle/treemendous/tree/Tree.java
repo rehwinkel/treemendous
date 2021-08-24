@@ -1,9 +1,6 @@
 package de.deerangle.treemendous.tree;
 
-import de.deerangle.treemendous.block.CustomCraftingTableBlock;
-import de.deerangle.treemendous.block.CustomStandingSignBlock;
-import de.deerangle.treemendous.block.CustomWallSignBlock;
-import de.deerangle.treemendous.block.StrippableBlock;
+import de.deerangle.treemendous.block.*;
 import de.deerangle.treemendous.item.CustomBoatItem;
 import de.deerangle.treemendous.main.Treemendous;
 import net.minecraft.core.BlockPos;
@@ -73,17 +70,17 @@ public class Tree {
         BlockBehaviour.Properties trapdoorProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).strength(3.0F).noOcclusion().sound(SoundType.WOOD).isValidSpawn((state, world, pos, entityType) -> false);
         BlockBehaviour.Properties signProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> config.appearance().woodMaterialColor()).noCollission().strength(1.0F).sound(SoundType.WOOD);
 
-        tree.planks = blocks.register(getNameForTree(config, "planks"), () -> new Block(planksProperties));
-        tree.strippedLog = blocks.register(getNameForTree(config, "stripped", "log"), () -> new RotatedPillarBlock(strippedProperties));
+        tree.planks = blocks.register(getNameForTree(config, "planks"), () -> new FlammableBlock(planksProperties));
+        tree.strippedLog = blocks.register(getNameForTree(config, "stripped", "log"), () -> new FlammableRotatedPillarBlock(strippedProperties));
         tree.log = blocks.register(getNameForTree(config, "log"), () -> new StrippableBlock(logProperties, tree.strippedLog::get));
-        tree.strippedWood = blocks.register(getNameForTree(config, "stripped", "wood"), () -> new RotatedPillarBlock(strippedProperties));
+        tree.strippedWood = blocks.register(getNameForTree(config, "stripped", "wood"), () -> new FlammableRotatedPillarBlock(strippedProperties));
         tree.wood = blocks.register(getNameForTree(config, "wood"), () -> new StrippableBlock(woodProperties, tree.strippedWood::get));
-        tree.stairs = blocks.register(getNameForTree(config, "stairs"), () -> new StairBlock(() -> tree.planks.get().defaultBlockState(), planksProperties));
-        tree.slab = blocks.register(getNameForTree(config, "slab"), () -> new SlabBlock(planksProperties));
+        tree.stairs = blocks.register(getNameForTree(config, "stairs"), () -> new FlammableStairBlock(() -> tree.planks.get().defaultBlockState(), planksProperties));
+        tree.slab = blocks.register(getNameForTree(config, "slab"), () -> new FlammableSlabBlock(planksProperties));
         tree.pressurePlate = blocks.register(getNameForTree(config, "pressure_plate"), () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, planksProperties));
         tree.button = blocks.register(getNameForTree(config, "button"), () -> new WoodButtonBlock(planksProperties));
-        tree.fence = blocks.register(getNameForTree(config, "fence"), () -> new FenceBlock(planksProperties));
-        tree.fenceGate = blocks.register(getNameForTree(config, "fence_gate"), () -> new FenceGateBlock(planksProperties));
+        tree.fence = blocks.register(getNameForTree(config, "fence"), () -> new FlammableFenceBlock(planksProperties));
+        tree.fenceGate = blocks.register(getNameForTree(config, "fence_gate"), () -> new FlammableFenceGateBlock(planksProperties));
         tree.door = blocks.register(getNameForTree(config, "door"), () -> new DoorBlock(doorProperties));
         tree.trapdoor = blocks.register(getNameForTree(config, "trapdoor"), () -> new TrapDoorBlock(trapdoorProperties));
         tree.sapling = blocks.register(getNameForTree(config, "sapling"), () -> new SaplingBlock(new OakTreeGrower(/*TODO*/), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
