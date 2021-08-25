@@ -54,6 +54,7 @@ public class Tree {
     private Tag.Named<Item> logsItemTag;
     private BoatType boatType;
     private RegistryObject<CustomChestBlock> chest;
+    private ILeavesColor leavesColor;
 
     private Tree(TreeConfig config) {
         this.config = config;
@@ -64,8 +65,8 @@ public class Tree {
         tree.logsBlockTag = BlockTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.logsItemTag = ItemTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.woodType = WoodType.register(WoodType.create(config.registryName()));
-        MaterialColor woodColor = config.appearance().woodMaterialColor();
-        MaterialColor barkColor = config.appearance().barkMaterialColor();
+        MaterialColor woodColor = config.woodMaterialColor();
+        MaterialColor barkColor = config.barkMaterialColor();
         BlockBehaviour.Properties logProperties = BlockBehaviour.Properties.of(Material.WOOD, (state) -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? woodColor : barkColor).strength(2.0F).sound(SoundType.WOOD);
         BlockBehaviour.Properties woodProperties = BlockBehaviour.Properties.of(Material.WOOD, barkColor).strength(2.0F).sound(SoundType.WOOD);
         BlockBehaviour.Properties strippedProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).strength(2.0F).sound(SoundType.WOOD);
@@ -75,6 +76,7 @@ public class Tree {
         BlockBehaviour.Properties trapdoorProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).strength(3.0F).noOcclusion().sound(SoundType.WOOD).isValidSpawn((state, world, pos, entityType) -> false);
         BlockBehaviour.Properties signProperties = BlockBehaviour.Properties.of(Material.WOOD, woodColor).noCollission().strength(1.0F).sound(SoundType.WOOD);
 
+        tree.leavesColor = config.leavesColor();
         tree.planks = blocks.register(getNameForTree(config, "planks"), () -> new FlammableBlock(planksProperties));
         tree.strippedLog = blocks.register(getNameForTree(config, "stripped", "log"), () -> new FlammableRotatedPillarBlock(strippedProperties));
         tree.log = blocks.register(getNameForTree(config, "log"), () -> new StrippableBlock(logProperties, tree.strippedLog::get));
@@ -243,6 +245,10 @@ public class Tree {
 
     public Tag.Named<Item> getLogsItemTag() {
         return logsItemTag;
+    }
+
+    public ILeavesColor getLeavesColor() {
+        return this.leavesColor;
     }
 
 }

@@ -4,12 +4,16 @@ import de.deerangle.treemendous.blockentity.render.CustomChestRenderer;
 import de.deerangle.treemendous.entity.render.CustomBoatRenderer;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -23,9 +27,13 @@ public class ClientHandler {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        BlockColors blockColors = Minecraft.getInstance().getBlockColors();
+        ItemColors itemColors = Minecraft.getInstance().getItemColors();
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
             event.enqueueWork(() -> Sheets.addWoodType(tree.getWoodType()));
+            blockColors.register((state, blockAndTintGetter, pos, tindId) -> tree.getLeavesColor().getColor(pos), tree.getLeaves());
+            itemColors.register((stack, tintId) -> tree.getLeavesColor().getColor(BlockPos.ZERO), tree.getLeaves());
             ItemBlockRenderTypes.setRenderLayer(tree.getTrapdoor(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(tree.getDoor(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(tree.getLeaves(), RenderType.cutout());

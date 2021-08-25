@@ -1,35 +1,32 @@
 package de.deerangle.treemendous.tree;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.MaterialColor;
 
 import java.util.function.Supplier;
 
 public class TreeConfigBuilder {
+
     private final String registryName;
-    private TreeTexture appearance;
-    private ILeavesColor leavesColor;
+    private final ILeavesColor leavesColor;
+    private final MaterialColor woodColor;
+    private final MaterialColor barkColor;
     private Supplier<Item> appleItem;
 
-    public TreeConfigBuilder(String registryName) {
+    public TreeConfigBuilder(String registryName, ILeavesColor leavesColor, MaterialColor woodColor, MaterialColor barkColor) {
         this.registryName = registryName;
-        this.appleItem = () -> null;
-        this.appearance = new TreeTexture(0x00ff00, 0xff0000, 0);
-    }
-
-    public TreeConfigBuilder setAppearance(TreeTexture appearance) {
-        this.appearance = appearance;
-        return this;
-    }
-
-    public TreeConfigBuilder setLeavesColor(ILeavesColor leavesColor) {
         this.leavesColor = leavesColor;
-        return this;
+        this.woodColor = woodColor;
+        this.barkColor = barkColor;
+        this.appleItem = () -> null;
     }
 
-    public TreeConfigBuilder setLeavesColor(int leavesColor) {
-        this.leavesColor = (BlockPos pos) -> leavesColor;
-        return this;
+    public TreeConfigBuilder(String registryName, int leavesColor, int woodColor, int barkColor) {
+        this.registryName = registryName;
+        this.leavesColor = new FixedLeavesColor(leavesColor);
+        this.woodColor = Util.getMaterialColor(woodColor);
+        this.barkColor = Util.getMaterialColor(barkColor);
+        this.appleItem = () -> null;
     }
 
     public TreeConfigBuilder setAppleItem(Supplier<Item> appleItem) {
@@ -38,7 +35,7 @@ public class TreeConfigBuilder {
     }
 
     public TreeConfig createTreeConfig() {
-        return new TreeConfig(registryName, appearance, leavesColor, appleItem);
+        return new TreeConfig(registryName, leavesColor, appleItem, woodColor, barkColor);
     }
 
 }
