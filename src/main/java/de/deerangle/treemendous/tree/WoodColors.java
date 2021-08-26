@@ -52,8 +52,9 @@ public class WoodColors {
     public static final int POMEGRANATE_LOG = 0xb78e80;
     public static final int POMEGRANATE_LEAVES = 0x7dab48;
     public static final int MAGNOLIA_LEAVES = 0xFFFFFF;
-    public static final int WALNUT_WOOD = 0xd18e4f;
     public static final int WALNUT_LEAVES = 0x6ba147;
+    public static final int WALNUT_WOOD = 0xd18e4f;
+    public static final int WALNUT_LOG = 0xa8734d;
     public static final int CEDAR_LEAVES = 0x5ea148;
     public static final int CEDAR_WOOD = 0xf8747d;
     public static final int CEDAR_LOG = 0x3b1910;

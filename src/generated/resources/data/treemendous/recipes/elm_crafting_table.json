@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:elm_planks"
+    }
+  },
+  "result": {
+    "item": "treemendous:elm_crafting_table"
+  }
+}

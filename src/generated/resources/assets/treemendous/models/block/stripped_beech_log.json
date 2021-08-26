@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "treemendous:block/stripped_beech_log",
+    "end": "treemendous:block/stripped_beech_log_top"
+  }
+}

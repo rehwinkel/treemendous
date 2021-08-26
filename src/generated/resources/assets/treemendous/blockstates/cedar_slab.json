@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "treemendous:block/cedar_slab_top"
+    },
+    "type=bottom": {
+      "model": "treemendous:block/cedar_slab"
+    },
+    "type=double": {
+      "model": "treemendous:block/cedar_planks"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:japanese_planks"
+    }
+  },
+  "result": {
+    "item": "treemendous:japanese_crafting_table"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "bottom": "treemendous:block/alder_door_bottom",
+    "top": "treemendous:block/alder_door_top"
+  }
+}

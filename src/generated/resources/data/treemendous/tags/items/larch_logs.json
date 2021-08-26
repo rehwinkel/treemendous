@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:larch_log",
+    "treemendous:larch_wood",
+    "treemendous:stripped_larch_log",
+    "treemendous:stripped_larch_wood"
+  ]
+}

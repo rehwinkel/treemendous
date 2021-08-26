@@ -1,0 +1,6 @@
+{
+  "parent": "treemendous:block/crafting_table",
+  "textures": {
+    "planks": "treemendous:block/japanese_planks"
+  }
+}

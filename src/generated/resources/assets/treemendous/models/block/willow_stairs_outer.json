@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "treemendous:block/willow_planks",
+    "bottom": "treemendous:block/willow_planks",
+    "top": "treemendous:block/willow_planks"
+  }
+}

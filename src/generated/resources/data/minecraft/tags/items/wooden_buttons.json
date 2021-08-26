@@ -1,6 +1,26 @@
 {
   "replace": false,
   "values": [
+    "treemendous:douglas_button",
+    "treemendous:pine_button",
+    "treemendous:larch_button",
+    "treemendous:fir_button",
+    "treemendous:maple_button",
+    "treemendous:japanese_button",
+    "treemendous:beech_button",
+    "treemendous:cherry_button",
+    "treemendous:alder_button",
+    "treemendous:chestnut_button",
+    "treemendous:plane_button",
+    "treemendous:ash_button",
+    "treemendous:linden_button",
+    "treemendous:robinia_button",
+    "treemendous:willow_button",
+    "treemendous:pomegranate_button",
+    "treemendous:walnut_button",
+    "treemendous:cedar_button",
+    "treemendous:poplar_button",
+    "treemendous:elm_button",
     "treemendous:juniper_button"
   ]
 }

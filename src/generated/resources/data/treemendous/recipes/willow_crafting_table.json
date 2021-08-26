@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:willow_planks"
+    }
+  },
+  "result": {
+    "item": "treemendous:willow_crafting_table"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "treemendous:block/walnut_leaves"
+  }
+}

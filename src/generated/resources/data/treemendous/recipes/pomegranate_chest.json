@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_chest",
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "treemendous:pomegranate_planks"
+    }
+  },
+  "result": {
+    "item": "treemendous:pomegranate_chest"
+  }
+}

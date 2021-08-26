@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "treemendous:block/larch_planks",
+    "bottom": "treemendous:block/larch_planks",
+    "top": "treemendous:block/larch_planks"
+  }
+}

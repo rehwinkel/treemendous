@@ -1,6 +1,26 @@
 {
   "replace": false,
   "values": [
+    "treemendous:douglas_fence_gate",
+    "treemendous:pine_fence_gate",
+    "treemendous:larch_fence_gate",
+    "treemendous:fir_fence_gate",
+    "treemendous:maple_fence_gate",
+    "treemendous:japanese_fence_gate",
+    "treemendous:beech_fence_gate",
+    "treemendous:cherry_fence_gate",
+    "treemendous:alder_fence_gate",
+    "treemendous:chestnut_fence_gate",
+    "treemendous:plane_fence_gate",
+    "treemendous:ash_fence_gate",
+    "treemendous:linden_fence_gate",
+    "treemendous:robinia_fence_gate",
+    "treemendous:willow_fence_gate",
+    "treemendous:pomegranate_fence_gate",
+    "treemendous:walnut_fence_gate",
+    "treemendous:cedar_fence_gate",
+    "treemendous:poplar_fence_gate",
+    "treemendous:elm_fence_gate",
     "treemendous:juniper_fence_gate"
   ]
 }

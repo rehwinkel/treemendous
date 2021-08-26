@@ -6,6 +6,7 @@ import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.LanguageProvider;
 
 
@@ -22,6 +23,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         if (this.locale.equals("en_us")) {
             add("entity.treemendous.boat", "Boat");
+            add(Blocks.CHEST, "Oak Chest");
             add(ExtraRegistry.BIRCH_CHEST.get(), "Birch Chest");
             add(ExtraRegistry.SPRUCE_CHEST.get(), "Spruce Chest");
             add(ExtraRegistry.JUNGLE_CHEST.get(), "Jungle Chest");
@@ -29,6 +31,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add(ExtraRegistry.DARK_OAK_CHEST.get(), "Dark Oak Chest");
             add(ExtraRegistry.CRIMSON_CHEST.get(), "Crimson Chest");
             add(ExtraRegistry.WARPED_CHEST.get(), "Warped Chest");
+            add(Blocks.CRAFTING_TABLE, "Oak Crafting Table");
             add(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), "Birch Crafting Table");
             add(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), "Spruce Crafting Table");
             add(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), "Jungle Crafting Table");
@@ -38,6 +41,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), "Warped Crafting Table");
         } else if (this.locale.equals("de_de")) {
             add("entity.treemendous.boat", "Boot");
+            add(Blocks.CHEST, "Eichenholztruhe");
             add(ExtraRegistry.BIRCH_CHEST.get(), "Birkenholztruhe");
             add(ExtraRegistry.SPRUCE_CHEST.get(), "Fichtenholztruhe");
             add(ExtraRegistry.JUNGLE_CHEST.get(), "Tropenholztruhe");
@@ -45,6 +49,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add(ExtraRegistry.DARK_OAK_CHEST.get(), "Schwarzeichenholztruhe");
             add(ExtraRegistry.CRIMSON_CHEST.get(), "Karmesintruhe");
             add(ExtraRegistry.WARPED_CHEST.get(), "Wirrtruhe");
+            add(Blocks.CRAFTING_TABLE, "Eichenholzwerkbank");
             add(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), "Birkenholzwerkbank");
             add(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), "Fichtenholzwerkbank");
             add(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), "Tropenholzwerkbank");
@@ -53,6 +58,26 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), "Karmesinwerkbank");
             add(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), "Wirrwerkbank");
         }
+        addTree(TreeRegistry.DOUGLAS_TREE, "Douglas Fir", "Douglasien");
+        addTree(TreeRegistry.PINE_TREE, "Pine", "Kiefern");
+        addTree(TreeRegistry.LARCH_TREE, "Larch", "Lärchen");
+        addTree(TreeRegistry.FIR_TREE, "Fir", "Tannen");
+        addTree(TreeRegistry.MAPLE_TREE, "Maple", "Ahorn");
+        addTree(TreeRegistry.JAPANESE_TREE, "Japanese Maple", "Fächer-Ahorn");
+        addTree(TreeRegistry.BEECH_TREE, "Beech", "Buchen");
+        addTree(TreeRegistry.CHERRY_TREE, "Chery", "Kirsch");
+        addTree(TreeRegistry.ALDER_TREE, "Alder", "Erlen");
+        addTree(TreeRegistry.CHESTNUT_TREE, "Chestnut", "Kastanien");
+        addTree(TreeRegistry.PLANE_TREE, "Plane", "Platanen");
+        addTree(TreeRegistry.ASH_TREE, "Ash", "Eschen");
+        addTree(TreeRegistry.LINDEN_TREE, "Linden", "Linden");
+        addTree(TreeRegistry.ROBINIA_TREE, "Robinia", "Robinien");
+        addTree(TreeRegistry.WILLOW_TREE, "Willow", "Weiden");
+        addTree(TreeRegistry.POMEGRANATE_TREE, "Pomegranate", "Granatapfel");
+        addTree(TreeRegistry.WALNUT_TREE, "Walnut", "Walnuss");
+        addTree(TreeRegistry.CEDAR_TREE, "Cedar", "Zedern");
+        addTree(TreeRegistry.POPLAR_TREE, "Poplar", "Pappel");
+        addTree(TreeRegistry.ELM_TREE, "Elm", "Ulmen");
         addTree(TreeRegistry.JUNIPER_TREE, "Juniper", "Wacholder");
     }
 

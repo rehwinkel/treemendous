@@ -1,6 +1,26 @@
 {
   "replace": false,
   "values": [
+    "treemendous:douglas_sapling",
+    "treemendous:pine_sapling",
+    "treemendous:larch_sapling",
+    "treemendous:fir_sapling",
+    "treemendous:maple_sapling",
+    "treemendous:japanese_sapling",
+    "treemendous:beech_sapling",
+    "treemendous:cherry_sapling",
+    "treemendous:alder_sapling",
+    "treemendous:chestnut_sapling",
+    "treemendous:plane_sapling",
+    "treemendous:ash_sapling",
+    "treemendous:linden_sapling",
+    "treemendous:robinia_sapling",
+    "treemendous:willow_sapling",
+    "treemendous:pomegranate_sapling",
+    "treemendous:walnut_sapling",
+    "treemendous:cedar_sapling",
+    "treemendous:poplar_sapling",
+    "treemendous:elm_sapling",
     "treemendous:juniper_sapling"
   ]
 }
