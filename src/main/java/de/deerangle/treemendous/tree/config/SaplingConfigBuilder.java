@@ -39,13 +39,13 @@ public class SaplingConfigBuilder {
         return this;
     }
 
-    public SaplingConfigBuilder addTree(int weight, ITreeMaker treeMaker) {
-        this.trees.add(new WeightedTreeMaker(weight, treeMaker));
+    public SaplingConfigBuilder addTree(int weight, boolean isMega, ITreeMaker treeMaker) {
+        this.trees.add(new WeightedTreeMaker(weight, isMega, treeMaker));
         return this;
     }
 
     public SaplingConfigBuilder addTree(ITreeMaker treeMaker) {
-        return this.addTree(1, treeMaker);
+        return this.addTree(1, false, treeMaker);
     }
 
     public TreeConfigBuilder add() {
