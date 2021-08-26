@@ -6,6 +6,7 @@ import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryManager;
 
@@ -32,11 +33,15 @@ public class TreemendousBlockTagsProvider extends BlockTagsProvider {
             this.tag(BlockTags.WOODEN_STAIRS).add(tree.getStairs());
             this.tag(BlockTags.WOODEN_SLABS).add(tree.getSlab());
             this.tag(BlockTags.WOODEN_FENCES).add(tree.getFence());
-            this.tag(BlockTags.SAPLINGS).add(tree.getSapling());
+            TagAppender<Block> saplingsTag = this.tag(BlockTags.SAPLINGS);
+            TagAppender<Block> pottedSaplingsTag = this.tag(BlockTags.FLOWER_POTS);
+            for (int i = 0; i < tree.getSaplings(); i++) {
+                saplingsTag.add(tree.getSapling(i));
+                pottedSaplingsTag.add(tree.getPottedSapling(i));
+            }
             this.tag(BlockTags.GUARDED_BY_PIGLINS).add(tree.getChest());
             this.tag(tree.getLogsBlockTag()).add(tree.getLog(), tree.getWood(), tree.getStrippedLog(), tree.getStrippedWood());
             this.tag(BlockTags.LOGS_THAT_BURN).addTag(tree.getLogsBlockTag());
-            this.tag(BlockTags.FLOWER_POTS).add(tree.getPottedSapling());
             this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(tree.getPressurePlate());
             this.tag(BlockTags.LEAVES).add(tree.getLeaves());
             this.tag(BlockTags.WOODEN_TRAPDOORS).add(tree.getTrapdoor());

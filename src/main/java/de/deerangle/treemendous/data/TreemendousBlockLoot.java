@@ -45,14 +45,16 @@ public class TreemendousBlockLoot extends BlockLoot {
             this.dropSelf(tree.getStrippedWood());
             this.dropSelf(tree.getPlanks());
             this.dropSelf(tree.getPressurePlate());
-            this.dropSelf(tree.getSapling());
+            for (int i = 0; i < tree.getSaplings(); i++) {
+                this.dropSelf(tree.getSapling(i));
+                this.dropPottedContents(tree.getPottedSapling(i));
+            }
             this.dropSelf(tree.getSign());
             this.dropSelf(tree.getStairs());
             this.dropSelf(tree.getSlab());
             this.dropSelf(tree.getTrapdoor());
             this.dropSelf(tree.getWallSign());
-            this.dropPottedContents(tree.getPottedSapling());
-            this.add(tree.getLeaves(), (drops) -> createLeavesDrops(drops, tree.getSapling(), NORMAL_LEAVES_SAPLING_CHANCES));
+            this.add(tree.getLeaves(), (drops) -> createLeavesDrops(drops, tree.getDefaultSapling(), NORMAL_LEAVES_SAPLING_CHANCES));
         }
     }
 

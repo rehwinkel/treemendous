@@ -65,8 +65,10 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
             doorItemBlock(tree.getDoor());
             trapdoorItemBlock(tree.getTrapdoor());
             leavesItemBlock(tree.getLeaves());
-            saplingItemBlock(tree.getSapling());
-            pottedSaplingItemBlock(tree.getPottedSapling(), tree.getSapling());
+            for (int i = 0; i < tree.getSaplings(); i++) {
+                saplingItemBlock(tree.getSapling(i));
+                pottedSaplingItemBlock(tree.getPottedSapling(i), tree.getSapling(i));
+            }
             craftingTableBlock(tree.getCraftingTable(), tree.getPlanks());
             chestBlock(tree.getChest(), tree.getPlanks());
             generatedItem(tree.getBoatItem());

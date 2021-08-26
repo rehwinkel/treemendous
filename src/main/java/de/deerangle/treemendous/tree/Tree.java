@@ -4,6 +4,7 @@ import de.deerangle.treemendous.block.*;
 import de.deerangle.treemendous.item.CustomBoatItem;
 import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.main.Treemendous;
+import de.deerangle.treemendous.world.TreemendousTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -16,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.OakTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -24,6 +24,9 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tree {
 
@@ -41,13 +44,13 @@ public class Tree {
     private RegistryObject<FenceGateBlock> fenceGate;
     private RegistryObject<DoorBlock> door;
     private RegistryObject<TrapDoorBlock> trapdoor;
-    private RegistryObject<SaplingBlock> sapling;
-    private RegistryObject<FlowerPotBlock> pottedSapling;
     private RegistryObject<LeavesBlock> leaves;
     private RegistryObject<StandingSignBlock> sign;
     private RegistryObject<WallSignBlock> wallSign;
     private RegistryObject<CustomChestBlock> chest;
     private RegistryObject<CraftingTableBlock> craftingTable;
+    private List<RegistryObject<SaplingBlock>> saplings;
+    private List<RegistryObject<FlowerPotBlock>> pottedSaplings;
     private RegistryObject<CustomBoatItem> boatItem;
     private RegistryObject<SignItem> signItem;
     private WoodType woodType;
@@ -62,6 +65,8 @@ public class Tree {
 
     public static Tree fromConfig(DeferredRegister<Block> blocks, DeferredRegister<Item> items, TreeConfig config) {
         Tree tree = new Tree(config);
+        tree.saplings = new ArrayList<>();
+        tree.pottedSaplings = new ArrayList<>();
         tree.logsBlockTag = BlockTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.logsItemTag = ItemTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.woodType = WoodType.register(WoodType.create(config.registryName()));
@@ -90,9 +95,19 @@ public class Tree {
         tree.fenceGate = blocks.register(getNameForTree(config, "fence_gate"), () -> new FlammableFenceGateBlock(planksProperties));
         tree.door = blocks.register(getNameForTree(config, "door"), () -> new DoorBlock(doorProperties));
         tree.trapdoor = blocks.register(getNameForTree(config, "trapdoor"), () -> new TrapDoorBlock(trapdoorProperties));
-        tree.sapling = blocks.register(getNameForTree(config, "sapling"), () -> new SaplingBlock(new OakTreeGrower(/*TODO*/), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
-        //noinspection deprecation
-        tree.pottedSapling = blocks.register(getNameForTree(config, "potted", "sapling"), () -> new FlowerPotBlock(tree.sapling.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion()));
+        for (SaplingConfig saplingConfig : config.saplingConfigs()) {
+            String saplingName = saplingConfig.variantName();
+            String name;
+            if (saplingName == null) {
+                name = "sapling";
+            } else {
+                name = saplingName + "_sapling";
+            }
+            RegistryObject<SaplingBlock> registeredSapling = blocks.register(getNameForTree(config, name), () -> new SaplingBlock(new TreemendousTreeGrower(saplingConfig, tree), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+            tree.saplings.add(registeredSapling);
+            //noinspection deprecation
+            tree.pottedSaplings.add(blocks.register(getNameForTree(config, "potted", name), () -> new FlowerPotBlock(registeredSapling.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion())));
+        }
         tree.leaves = blocks.register(getNameForTree(config, "leaves"), () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Tree::ocelotOrParrot).isSuffocating((state, world, pos) -> false).isViewBlocking((state, world, pos) -> false)));
         tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(signProperties, tree.woodType));
         tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(signProperties, tree.woodType));
@@ -114,7 +129,17 @@ public class Tree {
         registerBlockItem(items, getNameForTree(config, "fence_gate"), tree.fenceGate, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "door"), tree.door, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "trapdoor"), tree.trapdoor, CreativeModeTab.TAB_REDSTONE);
-        registerBlockItem(items, getNameForTree(config, "sapling"), tree.sapling, CreativeModeTab.TAB_DECORATIONS);
+        for (int i = 0; i < config.saplingConfigs().size(); i++) {
+            SaplingConfig saplingConfig = config.saplingConfigs().get(i);
+            String saplingName = saplingConfig.variantName();
+            String name;
+            if (saplingName == null) {
+                name = "sapling";
+            } else {
+                name = saplingName + "_sapling";
+            }
+            registerBlockItem(items, getNameForTree(config, name), tree.saplings.get(i), CreativeModeTab.TAB_DECORATIONS);
+        }
         registerBlockItem(items, getNameForTree(config, "leaves"), tree.leaves, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "crafting_table"), tree.craftingTable, CreativeModeTab.TAB_DECORATIONS);
         registerChestBlockItem(items, getNameForTree(config, "chest"), tree.chest);
@@ -207,12 +232,8 @@ public class Tree {
         return wallSign.get();
     }
 
-    public SaplingBlock getSapling() {
-        return sapling.get();
-    }
-
-    public FlowerPotBlock getPottedSapling() {
-        return pottedSapling.get();
+    public SaplingBlock getDefaultSapling() {
+        return saplings.get(0).get();
     }
 
     public CraftingTableBlock getCraftingTable() {
@@ -249,6 +270,18 @@ public class Tree {
 
     public ILeavesColor getLeavesColor() {
         return this.leavesColor;
+    }
+
+    public SaplingBlock getSapling(int index) {
+        return this.saplings.get(index).get();
+    }
+
+    public FlowerPotBlock getPottedSapling(int index) {
+        return pottedSaplings.get(index).get();
+    }
+
+    public int getSaplings() {
+        return this.saplings.size();
     }
 
 }

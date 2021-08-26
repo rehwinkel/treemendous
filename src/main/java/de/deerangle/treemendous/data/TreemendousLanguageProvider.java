@@ -91,7 +91,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
 
     private void addTreeGerman(Tree tree, String woodName) {
         add(tree.getPlanks(), "%sholzbretter", woodName);
-        add(tree.getSapling(), "%ssetzling", woodName);
+        add(tree.getDefaultSapling(), "%ssetzling", woodName);
         add(tree.getLog(), "%sstamm", woodName);
         add(tree.getStrippedLog(), "Entrindeter %sstamm", woodName);
         add(tree.getWood(), "%sholz", woodName);
@@ -113,7 +113,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
 
     private void addTreeEnglish(Tree tree, String woodName) {
         add(tree.getPlanks(), "%s Planks", woodName);
-        add(tree.getSapling(), "%s Sapling", woodName);
+        add(tree.getDefaultSapling(), "%s Sapling", woodName);
         add(tree.getLog(), "%s Log", woodName);
         add(tree.getStrippedLog(), "Stripped %s Log", woodName);
         add(tree.getWood(), "%s Wood", woodName);

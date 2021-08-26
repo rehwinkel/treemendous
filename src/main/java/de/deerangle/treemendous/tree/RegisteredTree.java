@@ -6,7 +6,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
 
@@ -40,7 +42,7 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
     }
 
     public Collection<Block> getAllBlocks() {
-        return ImmutableList.of(this.getTree().getPlanks(),
+        List<Block> mostTreeBlocks = ImmutableList.of(this.getTree().getPlanks(),
                 this.getTree().getStrippedLog(),
                 this.getTree().getLog(),
                 this.getTree().getStrippedWood(),
@@ -53,13 +55,17 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
                 this.getTree().getFenceGate(),
                 this.getTree().getDoor(),
                 this.getTree().getTrapdoor(),
-                this.getTree().getSapling(),
-                this.getTree().getPottedSapling(),
                 this.getTree().getLeaves(),
                 this.getTree().getSign(),
                 this.getTree().getWallSign(),
                 this.getTree().getChest(),
                 this.getTree().getCraftingTable());
+        List<Block> blocks = new ArrayList<>(mostTreeBlocks);
+        for (int i = 0; i < this.getTree().getSaplings(); i++) {
+            blocks.add(this.getTree().getSapling(i));
+            blocks.add(this.getTree().getPottedSapling(i));
+        }
+        return blocks;
     }
 
 }

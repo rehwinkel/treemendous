@@ -37,8 +37,10 @@ public class ClientHandler {
             ItemBlockRenderTypes.setRenderLayer(tree.getTrapdoor(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(tree.getDoor(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(tree.getLeaves(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(tree.getSapling(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(tree.getPottedSapling(), RenderType.cutout());
+            for (int i = 0; i < tree.getSaplings(); i++) {
+                ItemBlockRenderTypes.setRenderLayer(tree.getSapling(i), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(tree.getPottedSapling(i), RenderType.cutout());
+            }
             ItemBlockRenderTypes.setRenderLayer(tree.getCraftingTable(), RenderType.cutout());
         }
 
