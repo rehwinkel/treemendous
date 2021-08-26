@@ -1,4 +1,4 @@
-package de.deerangle.treemendous.tree;
+package de.deerangle.treemendous.util;
 
 public class WoodColors {
     public static final int DOUGLAS_WOOD = 0xc18879;
@@ -16,8 +16,8 @@ public class WoodColors {
     public static final int MAPLE_WOOD = 0xdc9971;
     public static final int MAPLE_LOG = 0x50302d;
     public static final int MAPLE_LEAVES = 0x9bd95d;
-    public static final int MAPLE_LEAVES_RED = 0xcc764e;
-    public static final int MAPLE_LEAVES_BROWN = 0xd9c25d;
+    public static final int MAPLE_RED_LEAVES = 0xcc764e;
+    public static final int MAPLE_BROWN_LEAVES = 0xd9c25d;
     public static final int JAPANESE_WOOD = 0xef9085;
     public static final int JAPANESE_LOG = 0x533432;
     public static final int JAPANESE_LEAVES = 0xb54c36;

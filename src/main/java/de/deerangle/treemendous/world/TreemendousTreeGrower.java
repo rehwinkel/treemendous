@@ -1,9 +1,9 @@
 package de.deerangle.treemendous.world;
 
 import com.google.common.collect.ImmutableList;
-import de.deerangle.treemendous.tree.SaplingConfig;
 import de.deerangle.treemendous.tree.Tree;
-import de.deerangle.treemendous.tree.WeightedTreeMaker;
+import de.deerangle.treemendous.tree.config.SaplingConfig;
+import de.deerangle.treemendous.tree.util.WeightedTreeMaker;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;

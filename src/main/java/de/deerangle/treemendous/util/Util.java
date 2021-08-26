@@ -1,4 +1,4 @@
-package de.deerangle.treemendous.tree;
+package de.deerangle.treemendous.util;
 
 import net.minecraft.world.level.material.MaterialColor;
 

@@ -1,7 +1,7 @@
 package de.deerangle.treemendous.item;
 
+import de.deerangle.treemendous.entity.BoatType;
 import de.deerangle.treemendous.entity.CustomBoat;
-import de.deerangle.treemendous.tree.BoatType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;

@@ -1,6 +1,7 @@
 package de.deerangle.treemendous.data;
 
 import de.deerangle.treemendous.main.ExtraRegistry;
+import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.data.loot.BlockLoot;
@@ -16,6 +17,9 @@ public class TreemendousBlockLoot extends BlockLoot {
 
     @Override
     protected void addTables() {
+        this.add(ExtraRegistry.MAPLE_RED_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling(1), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ExtraRegistry.MAPLE_BROWN_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling(2), NORMAL_LEAVES_SAPLING_CHANCES));
+
         this.dropSelf(ExtraRegistry.BIRCH_CHEST.get());
         this.dropSelf(ExtraRegistry.JUNGLE_CHEST.get());
         this.dropSelf(ExtraRegistry.SPRUCE_CHEST.get());
@@ -76,6 +80,8 @@ public class TreemendousBlockLoot extends BlockLoot {
         treeBlocks.add(ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.WARPED_CRAFTING_TABLE.get());
+        treeBlocks.add(ExtraRegistry.MAPLE_RED_LEAVES.get());
+        treeBlocks.add(ExtraRegistry.MAPLE_BROWN_LEAVES.get());
         return treeBlocks;
     }
 

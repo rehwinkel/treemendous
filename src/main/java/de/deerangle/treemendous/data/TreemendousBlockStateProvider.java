@@ -34,6 +34,9 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        leavesItemBlock(ExtraRegistry.MAPLE_RED_LEAVES.get());
+        leavesItemBlock(ExtraRegistry.MAPLE_BROWN_LEAVES.get());
+
         craftingTableBlock(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
         craftingTableBlock(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);
         craftingTableBlock(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), Blocks.JUNGLE_PLANKS);

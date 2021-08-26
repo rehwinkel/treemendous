@@ -1,9 +1,13 @@
 package de.deerangle.treemendous.tree;
 
 import de.deerangle.treemendous.block.*;
+import de.deerangle.treemendous.entity.BoatType;
 import de.deerangle.treemendous.item.CustomBoatItem;
 import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.main.Treemendous;
+import de.deerangle.treemendous.tree.config.SaplingConfig;
+import de.deerangle.treemendous.tree.config.TreeConfig;
+import de.deerangle.treemendous.tree.util.ILeavesColor;
 import de.deerangle.treemendous.world.TreemendousTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -151,7 +155,7 @@ public class Tree {
         items.register(name, () -> new CustomChestBlockItem(block.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
-    private static boolean ocelotOrParrot(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> entityType) {
+    public static boolean ocelotOrParrot(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> entityType) {
         return entityType == EntityType.OCELOT || entityType == EntityType.PARROT;
     }
 
@@ -273,6 +277,7 @@ public class Tree {
     }
 
     public SaplingBlock getSapling(int index) {
+        //TODO: keys instead of saplings (variantName)
         return this.saplings.get(index).get();
     }
 

@@ -1,4 +1,4 @@
-package de.deerangle.treemendous.tree;
+package de.deerangle.treemendous.entity;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;

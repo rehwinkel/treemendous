@@ -1,13 +1,12 @@
 package de.deerangle.treemendous.main;
 
 import de.deerangle.treemendous.tree.Tree;
-import de.deerangle.treemendous.tree.TreeConfig;
-import de.deerangle.treemendous.tree.TreeConfigBuilder;
-import de.deerangle.treemendous.tree.WoodColors;
+import de.deerangle.treemendous.tree.config.TreeConfig;
+import de.deerangle.treemendous.tree.config.TreeConfigBuilder;
+import de.deerangle.treemendous.util.WoodColors;
 import de.deerangle.treemendous.world.TreeMaker;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -22,8 +21,8 @@ public class TreeRegistry {
     private static final TreeConfig FIR_CONFIG = new TreeConfigBuilder("fir", WoodColors.FIR_LEAVES, WoodColors.FIR_WOOD, WoodColors.FIR_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
     private static final TreeConfig MAPLE_CONFIG = new TreeConfigBuilder("maple", WoodColors.MAPLE_LEAVES, WoodColors.MAPLE_WOOD, WoodColors.MAPLE_LOG)
             .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
-            .extraSapling("red").setLeaves(tree -> Blocks.RED_WOOL).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling)).add()
-            .extraSapling("brown").setLeaves(tree -> Blocks.BROWN_WOOL).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling)).add().createTreeConfig();
+            .extraSapling("red").setLeaves(tree -> ExtraRegistry.MAPLE_RED_LEAVES.get()).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling)).add()
+            .extraSapling("brown").setLeaves(tree -> ExtraRegistry.MAPLE_BROWN_LEAVES.get()).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling)).add().createTreeConfig();
     private static final TreeConfig JAPANESE_CONFIG = new TreeConfigBuilder("japanese", WoodColors.JAPANESE_LEAVES, WoodColors.JAPANESE_WOOD, WoodColors.JAPANESE_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
     private static final TreeConfig BEECH_CONFIG = new TreeConfigBuilder("beech", WoodColors.BEECH_LEAVES, WoodColors.BEECH_WOOD, WoodColors.BEECH_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
     private static final TreeConfig CHERRY_CONFIG = new TreeConfigBuilder("cherry", WoodColors.CHERRY_LEAVES, WoodColors.CHERRY_WOOD, WoodColors.CHERRY_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();

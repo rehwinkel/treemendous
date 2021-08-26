@@ -4,6 +4,7 @@ import de.deerangle.treemendous.blockentity.render.CustomChestRenderer;
 import de.deerangle.treemendous.entity.render.CustomBoatRenderer;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
+import de.deerangle.treemendous.util.WoodColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
@@ -29,6 +30,12 @@ public class ClientHandler {
     public static void onClientSetup(FMLClientSetupEvent event) {
         BlockColors blockColors = Minecraft.getInstance().getBlockColors();
         ItemColors itemColors = Minecraft.getInstance().getItemColors();
+
+        blockColors.register((state, blockAndTintGetter, pos, tindId) -> WoodColors.MAPLE_RED_LEAVES, ExtraRegistry.MAPLE_RED_LEAVES.get());
+        blockColors.register((state, blockAndTintGetter, pos, tindId) -> WoodColors.MAPLE_BROWN_LEAVES, ExtraRegistry.MAPLE_BROWN_LEAVES.get());
+        itemColors.register((stack, tintId) -> WoodColors.MAPLE_RED_LEAVES, ExtraRegistry.MAPLE_RED_LEAVES.get());
+        itemColors.register((stack, tintId) -> WoodColors.MAPLE_BROWN_LEAVES, ExtraRegistry.MAPLE_BROWN_LEAVES.get());
+
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
             event.enqueueWork(() -> Sheets.addWoodType(tree.getWoodType()));

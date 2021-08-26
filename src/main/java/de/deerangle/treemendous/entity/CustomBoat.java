@@ -1,7 +1,6 @@
 package de.deerangle.treemendous.entity;
 
 import de.deerangle.treemendous.main.ExtraRegistry;
-import de.deerangle.treemendous.tree.BoatType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;

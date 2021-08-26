@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "treemendous:maple_red_leaves",
+    "treemendous:maple_brown_leaves",
     "treemendous:douglas_leaves",
     "treemendous:pine_leaves",
     "treemendous:larch_leaves",

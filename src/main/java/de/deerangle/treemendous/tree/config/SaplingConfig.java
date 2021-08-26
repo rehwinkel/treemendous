@@ -1,5 +1,8 @@
-package de.deerangle.treemendous.tree;
+package de.deerangle.treemendous.tree.config;
 
+import de.deerangle.treemendous.tree.Tree;
+import de.deerangle.treemendous.tree.util.ITreeMaker;
+import de.deerangle.treemendous.tree.util.WeightedTreeMaker;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;

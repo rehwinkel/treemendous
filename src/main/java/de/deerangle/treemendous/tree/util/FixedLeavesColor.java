@@ -1,4 +1,4 @@
-package de.deerangle.treemendous.tree;
+package de.deerangle.treemendous.tree.util;
 
 import net.minecraft.core.BlockPos;
 
