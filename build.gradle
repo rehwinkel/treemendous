@@ -59,7 +59,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'treemendous', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/generated_textures/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'treemendous', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/trees/resources/'), '--existing', file('src/trees_generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 treemendous {
@@ -72,7 +72,8 @@ minecraft {
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
-    srcDir 'src/generated_textures/resources'
+    srcDir 'src/trees/resources'
+    srcDir 'src/trees_generated/resources'
     include '**/**'
     exclude '**/*.xcf'
     exclude '/.cache/'

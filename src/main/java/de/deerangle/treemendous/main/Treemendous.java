@@ -42,6 +42,7 @@ public class Treemendous {
         event.getGenerator().addProvider(blockTagsProvider);
         event.getGenerator().addProvider(new TreemendousItemTagsProvider(event.getGenerator(), blockTagsProvider, MODID, event.getExistingFileHelper()));
         event.getGenerator().addProvider(new TreemendousRecipeProvider(event.getGenerator()));
+        event.getGenerator().addProvider(new TreemendousLootTableProvider(event.getGenerator()));
         event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MODID, "en_us"));
         event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MODID, "de_de"));
     }

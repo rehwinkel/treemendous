@@ -1,9 +1,12 @@
 package de.deerangle.treemendous.tree;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 
 public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
 
@@ -15,16 +18,16 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
         this.registryName = null;
     }
 
-    @Override
-    public RegisteredTree setRegistryName(ResourceLocation name) {
-        this.registryName = name;
-        return this;
-    }
-
     @Nullable
     @Override
     public ResourceLocation getRegistryName() {
         return this.registryName;
+    }
+
+    @Override
+    public RegisteredTree setRegistryName(ResourceLocation name) {
+        this.registryName = name;
+        return this;
     }
 
     @Override
@@ -34,6 +37,29 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
 
     public Tree getTree() {
         return tree;
+    }
+
+    public Collection<Block> getAllBlocks() {
+        return ImmutableList.of(this.getTree().getPlanks(),
+                this.getTree().getStrippedLog(),
+                this.getTree().getLog(),
+                this.getTree().getStrippedWood(),
+                this.getTree().getWood(),
+                this.getTree().getStairs(),
+                this.getTree().getSlab(),
+                this.getTree().getPressurePlate(),
+                this.getTree().getButton(),
+                this.getTree().getFence(),
+                this.getTree().getFenceGate(),
+                this.getTree().getDoor(),
+                this.getTree().getTrapdoor(),
+                this.getTree().getSapling(),
+                this.getTree().getPottedSapling(),
+                this.getTree().getLeaves(),
+                this.getTree().getSign(),
+                this.getTree().getWallSign(),
+                this.getTree().getChest(),
+                this.getTree().getCraftingTable());
     }
 
 }

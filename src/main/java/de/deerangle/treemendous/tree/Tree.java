@@ -46,14 +46,14 @@ public class Tree {
     private RegistryObject<LeavesBlock> leaves;
     private RegistryObject<StandingSignBlock> sign;
     private RegistryObject<WallSignBlock> wallSign;
+    private RegistryObject<CustomChestBlock> chest;
+    private RegistryObject<CraftingTableBlock> craftingTable;
     private RegistryObject<CustomBoatItem> boatItem;
     private RegistryObject<SignItem> signItem;
-    private RegistryObject<CraftingTableBlock> craftingTable;
     private WoodType woodType;
     private Tag.Named<Block> logsBlockTag;
     private Tag.Named<Item> logsItemTag;
     private BoatType boatType;
-    private RegistryObject<CustomChestBlock> chest;
     private ILeavesColor leavesColor;
 
     private Tree(TreeConfig config) {
