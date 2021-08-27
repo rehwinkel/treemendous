@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "treemendous:block/magnolia_slab_top"
+    },
+    "type=bottom": {
+      "model": "treemendous:block/magnolia_slab"
+    },
+    "type=double": {
+      "model": "treemendous:block/magnolia_planks"
+    }
+  }
+}

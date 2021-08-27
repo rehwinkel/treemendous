@@ -56,6 +56,10 @@
     "treemendous:elm_crafting_table",
     "treemendous:elm_chest",
     "treemendous:juniper_crafting_table",
-    "treemendous:juniper_chest"
+    "treemendous:juniper_chest",
+    "treemendous:magnolia_crafting_table",
+    "treemendous:magnolia_chest",
+    "treemendous:rainbow_eucalyptus_crafting_table",
+    "treemendous:rainbow_eucalyptus_chest"
   ]
 }

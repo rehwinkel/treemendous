@@ -87,6 +87,8 @@ public class TreemendousLanguageProvider extends LanguageProvider {
         addTree(TreeRegistry.POPLAR_TREE, "Poplar", "Pappel");
         addTree(TreeRegistry.ELM_TREE, "Elm", "Ulmen");
         addTree(TreeRegistry.JUNIPER_TREE, "Juniper", "Wacholder");
+        addTree(TreeRegistry.MAGNOLIA_TREE, "Magnolia", "Magnolien");
+        addTree(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, "Rainbow Eucalyptus", "Regenbogen-Eukalyptus");
     }
 
     private void addTree(Tree tree, String english, String german) {

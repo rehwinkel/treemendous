@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "treemendous:block/maple_brown_leaves"
+  }
+}

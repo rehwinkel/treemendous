@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "treemendous:magnolia_log",
+    "treemendous:magnolia_wood",
+    "treemendous:stripped_magnolia_log",
+    "treemendous:stripped_magnolia_wood"
+  ]
+}

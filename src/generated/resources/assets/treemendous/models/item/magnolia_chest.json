@@ -1,0 +1,6 @@
+{
+  "parent": "treemendous:block/chest",
+  "textures": {
+    "particle": "treemendous:block/magnolia_planks"
+  }
+}

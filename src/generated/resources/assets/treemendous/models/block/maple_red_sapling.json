@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "treemendous:block/maple_red_sapling"
+  }
+}

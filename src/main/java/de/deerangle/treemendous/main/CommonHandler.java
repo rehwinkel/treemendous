@@ -32,6 +32,8 @@ public class CommonHandler {
     public static RegisteredTree POPLAR_TREE;
     public static RegisteredTree ELM_TREE;
     public static RegisteredTree JUNIPER_TREE;
+    public static RegisteredTree MAGNOLIA_TREE;
+    public static RegisteredTree RAINBOW_EUCALYPTUS_TREE;
 
     @SubscribeEvent
     public static void registerTrees(RegistryEvent.Register<RegisteredTree> event) {
@@ -57,7 +59,9 @@ public class CommonHandler {
         POPLAR_TREE = register(TreeRegistry.POPLAR_TREE);
         ELM_TREE = register(TreeRegistry.ELM_TREE);
         JUNIPER_TREE = register(TreeRegistry.JUNIPER_TREE);
-        registry.registerAll(DOUGLAS_TREE, PINE_TREE, LARCH_TREE, FIR_TREE, MAPLE_TREE, JAPANESE_TREE, BEECH_TREE, CHERRY_TREE, ALDER_TREE, CHESTNUT_TREE, PLANE_TREE, ASH_TREE, LINDEN_TREE, ROBINIA_TREE, WILLOW_TREE, POMEGRANATE_TREE, WALNUT_TREE, CEDAR_TREE, POPLAR_TREE, ELM_TREE, JUNIPER_TREE);
+        MAGNOLIA_TREE = register(TreeRegistry.MAGNOLIA_TREE);
+        RAINBOW_EUCALYPTUS_TREE = register(TreeRegistry.RAINBOW_EUCALYPTUS_TREE);
+        registry.registerAll(DOUGLAS_TREE, PINE_TREE, LARCH_TREE, FIR_TREE, MAPLE_TREE, JAPANESE_TREE, BEECH_TREE, CHERRY_TREE, ALDER_TREE, CHESTNUT_TREE, PLANE_TREE, ASH_TREE, LINDEN_TREE, ROBINIA_TREE, WILLOW_TREE, POMEGRANATE_TREE, WALNUT_TREE, CEDAR_TREE, POPLAR_TREE, ELM_TREE, JUNIPER_TREE, MAGNOLIA_TREE, RAINBOW_EUCALYPTUS_TREE);
     }
 
     private static RegisteredTree register(Tree tree) {

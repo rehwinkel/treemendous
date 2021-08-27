@@ -112,7 +112,7 @@ public class Tree {
             //noinspection deprecation
             tree.pottedSaplings.add(blocks.register(getNameForTree(config, "potted", name), () -> new FlowerPotBlock(registeredSapling.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion())));
         }
-        tree.leaves = blocks.register(getNameForTree(config, "leaves"), () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Tree::ocelotOrParrot).isSuffocating((state, world, pos) -> false).isViewBlocking((state, world, pos) -> false)));
+        tree.leaves = blocks.register(getNameForTree(config, "leaves"), () -> new FlammableLeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Tree::ocelotOrParrot).isSuffocating((state, world, pos) -> false).isViewBlocking((state, world, pos) -> false)));
         tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(signProperties, tree.woodType));
         tree.wallSign = blocks.register(getNameForTree(config, "wall_sign"), () -> new CustomWallSignBlock(signProperties, tree.woodType));
         tree.craftingTable = blocks.register(getNameForTree(config, "crafting_table"), () -> new CustomCraftingTableBlock(craftingTableProperties));

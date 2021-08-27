@@ -5,10 +5,14 @@ import de.deerangle.treemendous.tree.config.TreeConfig;
 import de.deerangle.treemendous.tree.config.TreeConfigBuilder;
 import de.deerangle.treemendous.util.WoodColors;
 import de.deerangle.treemendous.world.TreeMaker;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.awt.*;
 
 public class TreeRegistry {
 
@@ -39,8 +43,19 @@ public class TreeRegistry {
     private static final TreeConfig POPLAR_CONFIG = new TreeConfigBuilder("poplar", WoodColors.POPLAR_LEAVES, WoodColors.POPLAR_WOOD, WoodColors.POPLAR_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
     private static final TreeConfig ELM_CONFIG = new TreeConfigBuilder("elm", WoodColors.ELM_LEAVES, WoodColors.ELM_WOOD, WoodColors.ELM_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
     private static final TreeConfig JUNIPER_CONFIG = new TreeConfigBuilder("juniper", WoodColors.JUNIPER_LEAVES, WoodColors.JUNIPER_WOOD, WoodColors.JUNIPER_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
-    //private static final TreeConfig RAINBOW_EUCALYPTUS_CONFIG = new TreeConfigBuilder("rainbow_eucalyptus", WoodColors.JUNIPER_LEAVES, WoodColors.JUNIPER_WOOD, WoodColors.JUNIPER_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
-    //private static final TreeConfig MAGNOLIA_CONFIG = new TreeConfigBuilder("magnolia", WoodColors.MAGNOLIA_LEAVES, WoodColors.MAGNOLIA_WOOD, WoodColors.MAGNOLIA_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
+    private static final TreeConfig MAGNOLIA_CONFIG = new TreeConfigBuilder("magnolia", WoodColors.MAGNOLIA_LEAVES, WoodColors.MAGNOLIA_WOOD, WoodColors.MAGNOLIA_LOG).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
+    private static final TreeConfig RAINBOW_EUCALYPTUS_CONFIG = new TreeConfigBuilder("rainbow_eucalyptus", TreeRegistry::getEucalyptusColor, MaterialColor.WOOD, MaterialColor.TERRACOTTA_BLACK).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add().createTreeConfig();
+
+    private static int getEucalyptusColor(BlockPos blockPos) {
+        if(blockPos == BlockPos.ZERO) {
+            return Color.HSBtoRGB(0, 1, 1);
+        }
+        float x = (blockPos.getX() % 32) / 32.0f + (float) Math.sin(blockPos.getX() / 3.2f) * 0.03f;
+        float y = (blockPos.getY() % 32) / 32.0f + (float) Math.sin(blockPos.getY() / 3.2f) * 0.03f;
+        float z = (blockPos.getZ() % 32) / 32.0f + (float) Math.sin(blockPos.getZ() / 3.2f) * 0.03f;
+        return Color.HSBtoRGB(x + y + z, 0.7f, 0.8f);
+    }
+
 
     public static final Tree DOUGLAS_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, DOUGLAS_CONFIG));
     public static final Tree PINE_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, PINE_CONFIG));
@@ -63,5 +78,7 @@ public class TreeRegistry {
     public static final Tree POPLAR_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, POPLAR_CONFIG));
     public static final Tree ELM_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, ELM_CONFIG));
     public static final Tree JUNIPER_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, JUNIPER_CONFIG));
+    public static final Tree MAGNOLIA_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, MAGNOLIA_CONFIG));
+    public static final Tree RAINBOW_EUCALYPTUS_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, RAINBOW_EUCALYPTUS_CONFIG));
 
 }
