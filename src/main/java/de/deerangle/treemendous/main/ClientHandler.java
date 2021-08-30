@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.main;
 
+import de.deerangle.treemendous.blockentity.render.ChoppingBlockRenderer;
 import de.deerangle.treemendous.blockentity.render.CustomChestRenderer;
 import de.deerangle.treemendous.entity.render.CustomBoatRenderer;
 import de.deerangle.treemendous.tree.RegisteredTree;
@@ -61,6 +62,7 @@ public class ClientHandler {
 
         BlockEntityRenderers.register(ExtraRegistry.SIGN.get(), SignRenderer::new);
         BlockEntityRenderers.register(ExtraRegistry.CHEST.get(), CustomChestRenderer::new);
+        BlockEntityRenderers.register(ExtraRegistry.CHOPPING_BLOCK_BE.get(), ChoppingBlockRenderer::new);
         EntityRenderers.register(ExtraRegistry.BOAT.get(), CustomBoatRenderer::new);
     }
 

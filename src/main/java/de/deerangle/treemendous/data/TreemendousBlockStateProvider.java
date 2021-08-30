@@ -36,6 +36,7 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         leavesItemBlock(ExtraRegistry.MAPLE_RED_LEAVES.get());
         leavesItemBlock(ExtraRegistry.MAPLE_BROWN_LEAVES.get());
+        existingModelBlock(ExtraRegistry.CHOPPING_BLOCK.get());
 
         craftingTableBlock(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
         craftingTableBlock(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);
@@ -70,7 +71,7 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
             leavesItemBlock(tree.getLeaves());
             for (int i = 0; i < tree.getSaplings(); i++) {
                 saplingItemBlock(tree.getSapling(i));
-                pottedSaplingItemBlock(tree.getPottedSapling(i), tree.getSapling(i));
+                pottedSaplingBlock(tree.getPottedSapling(i), tree.getSapling(i));
             }
             craftingTableBlock(tree.getCraftingTable(), tree.getPlanks());
             chestBlock(tree.getChest(), tree.getPlanks());
@@ -79,6 +80,12 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
             signItemBlock(tree.getSign(), tree.getPlanks());
             signItemBlock(tree.getWallSign(), tree.getPlanks());
         }
+    }
+
+    private void existingModelBlock(Block block) {
+        ModelFile model = new ModelFile.ExistingModelFile(new ResourceLocation(Objects.requireNonNull(block.getRegistryName()).getNamespace(), "block/" + block.getRegistryName().getPath()), models().existingFileHelper);
+        getVariantBuilder(block).partialState().modelForState().modelFile(model).addModel();
+        itemModels().getBuilder(block.getRegistryName().getPath()).parent(model);
     }
 
     private void chestBlock(ChestBlock chest, Block planks) {
@@ -95,7 +102,7 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
         itemModels().getBuilder(name).parent(model);
     }
 
-    private void pottedSaplingItemBlock(FlowerPotBlock pottedSapling, SaplingBlock saplingBlock) {
+    private void pottedSaplingBlock(FlowerPotBlock pottedSapling, SaplingBlock saplingBlock) {
         String name = Objects.requireNonNull(pottedSapling.getRegistryName()).getPath();
         ModelFile model = models().singleTexture(name, new ResourceLocation("block/flower_pot_cross"), "plant", blockTexture(saplingBlock));
         getVariantBuilder(pottedSapling).partialState().modelForState().modelFile(model).addModel();

@@ -1,6 +1,7 @@
 package de.deerangle.treemendous.data;
 
 
+import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.data.DataGenerator;
@@ -8,12 +9,17 @@ import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
 
 public class TreemendousItemTagsProvider extends ItemTagsProvider {
+
+    public static final Tag.Named<Item> FITS_IN_CHOPPING_BLOCK = ItemTags.bind(Treemendous.MODID + ":fits_in_chopping_block");
 
     public TreemendousItemTagsProvider(DataGenerator generator, BlockTagsProvider provider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(generator, provider, modId, existingFileHelper);
@@ -27,6 +33,7 @@ public class TreemendousItemTagsProvider extends ItemTagsProvider {
             this.tag(ItemTags.BOATS).add(tree.getBoatItem());
         }
 
+        this.tag(FITS_IN_CHOPPING_BLOCK).add(Items.IRON_AXE, Items.WOODEN_AXE, Items.STONE_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE);
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
         this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
         this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);

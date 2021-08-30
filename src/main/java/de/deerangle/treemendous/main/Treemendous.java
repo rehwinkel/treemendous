@@ -1,12 +1,14 @@
 package de.deerangle.treemendous.main;
 
 import de.deerangle.treemendous.data.*;
+import de.deerangle.treemendous.network.NetworkHandler;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -29,6 +31,10 @@ public class Treemendous {
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
     }
 
+    @SubscribeEvent
+    public void onCommonInitSetup(FMLCommonSetupEvent event) {
+        NetworkHandler.register();
+    }
 
     @SubscribeEvent
     public void createRegistries(RegistryEvent.NewRegistry event) {
