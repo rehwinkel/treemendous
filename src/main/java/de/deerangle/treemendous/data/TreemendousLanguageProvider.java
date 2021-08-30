@@ -26,6 +26,10 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add("entity.treemendous.boat", "Boat");
             add(ExtraRegistry.MAPLE_RED_LEAVES.get(), "Red Maple Leaves");
             add(ExtraRegistry.MAPLE_BROWN_LEAVES.get(), "Brown Maple Leaves");
+            add(ExtraRegistry.IRON_LUMBER_AXE.get(), "Iron Lumber Axe");
+            add(ExtraRegistry.GOLDEN_LUMBER_AXE.get(), "Golden Lumber Axe");
+            add(ExtraRegistry.DIAMOND_LUMBER_AXE.get(), "Diamond Lumber Axe");
+            add(ExtraRegistry.NETHERITE_LUMBER_AXE.get(), "Netherite Lumber Axe");
             add("block.treemendous.maple_red_sapling", "Red Maple Sapling");
             add("block.treemendous.maple_brown_sapling", "Brown Maple Sapling");
             add(Blocks.CHEST, "Oak Chest");
@@ -49,6 +53,10 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add("entity.treemendous.boat", "Boot");
             add(ExtraRegistry.MAPLE_RED_LEAVES.get(), "Rotes Ahornlaub");
             add(ExtraRegistry.MAPLE_BROWN_LEAVES.get(), "Braunes Ahornlaub");
+            add(ExtraRegistry.IRON_LUMBER_AXE.get(), "Eisen-Holzfälleraxt");
+            add(ExtraRegistry.GOLDEN_LUMBER_AXE.get(), "Gold-Holzfälleraxt");
+            add(ExtraRegistry.DIAMOND_LUMBER_AXE.get(), "Diamant-Holzfälleraxt");
+            add(ExtraRegistry.NETHERITE_LUMBER_AXE.get(), "Netherit-Holzfälleraxt");
             add("block.treemendous.maple_red_sapling", "Roter Ahornsetzling");
             add("block.treemendous.maple_brown_sapling", "Brauner Ahornsetzling");
             add(Blocks.CHEST, "Eichenholztruhe");

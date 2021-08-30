@@ -43,7 +43,7 @@ public class Treemendous {
 
     @SubscribeEvent
     public void onGatherData(GatherDataEvent event) {
-        event.getGenerator().addProvider(new TreemendousBlockStateProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new TreemendousModelProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
         BlockTagsProvider blockTagsProvider = new TreemendousBlockTagsProvider(event.getGenerator(), MODID, event.getExistingFileHelper());
         event.getGenerator().addProvider(blockTagsProvider);
         event.getGenerator().addProvider(new TreemendousItemTagsProvider(event.getGenerator(), blockTagsProvider, MODID, event.getExistingFileHelper()));

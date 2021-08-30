@@ -24,6 +24,7 @@ public class TreemendousBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.GUARDED_BY_PIGLINS).add(ExtraRegistry.BIRCH_CHEST.get(), ExtraRegistry.SPRUCE_CHEST.get(), ExtraRegistry.JUNGLE_CHEST.get(), ExtraRegistry.ACACIA_CHEST.get(), ExtraRegistry.DARK_OAK_CHEST.get(), ExtraRegistry.CRIMSON_CHEST.get(), ExtraRegistry.WARPED_CHEST.get());
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), ExtraRegistry.ACACIA_CRAFTING_TABLE.get(), ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), ExtraRegistry.WARPED_CRAFTING_TABLE.get());
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(ExtraRegistry.BIRCH_CHEST.get(), ExtraRegistry.SPRUCE_CHEST.get(), ExtraRegistry.JUNGLE_CHEST.get(), ExtraRegistry.ACACIA_CHEST.get(), ExtraRegistry.DARK_OAK_CHEST.get(), ExtraRegistry.CRIMSON_CHEST.get(), ExtraRegistry.WARPED_CHEST.get());
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(ExtraRegistry.CHOPPING_BLOCK.get());
         this.tag(BlockTags.FEATURES_CANNOT_REPLACE).add(ExtraRegistry.BIRCH_CHEST.get(), ExtraRegistry.SPRUCE_CHEST.get(), ExtraRegistry.JUNGLE_CHEST.get(), ExtraRegistry.ACACIA_CHEST.get(), ExtraRegistry.DARK_OAK_CHEST.get(), ExtraRegistry.CRIMSON_CHEST.get(), ExtraRegistry.WARPED_CHEST.get());
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {

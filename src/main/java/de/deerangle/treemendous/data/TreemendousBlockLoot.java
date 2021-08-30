@@ -35,6 +35,8 @@ public class TreemendousBlockLoot extends BlockLoot {
         this.dropSelf(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get());
         this.dropSelf(ExtraRegistry.WARPED_CRAFTING_TABLE.get());
 
+        this.dropSelf(ExtraRegistry.CHOPPING_BLOCK.get());
+
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
             Tree tree = regTree.getTree();
             this.dropSelf(tree.getButton());
@@ -82,6 +84,7 @@ public class TreemendousBlockLoot extends BlockLoot {
         treeBlocks.add(ExtraRegistry.WARPED_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.MAPLE_RED_LEAVES.get());
         treeBlocks.add(ExtraRegistry.MAPLE_BROWN_LEAVES.get());
+        treeBlocks.add(ExtraRegistry.CHOPPING_BLOCK.get());
         return treeBlocks;
     }
 

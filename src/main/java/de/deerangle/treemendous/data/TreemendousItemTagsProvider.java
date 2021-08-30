@@ -1,6 +1,7 @@
 package de.deerangle.treemendous.data;
 
 
+import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
@@ -34,6 +35,8 @@ public class TreemendousItemTagsProvider extends ItemTagsProvider {
         }
 
         this.tag(FITS_IN_CHOPPING_BLOCK).add(Items.IRON_AXE, Items.WOODEN_AXE, Items.STONE_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE);
+        this.tag(FITS_IN_CHOPPING_BLOCK).add(ExtraRegistry.IRON_LUMBER_AXE.get(), ExtraRegistry.GOLDEN_LUMBER_AXE.get(), ExtraRegistry.DIAMOND_LUMBER_AXE.get(), ExtraRegistry.NETHERITE_LUMBER_AXE.get());
+
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
         this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
         this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);

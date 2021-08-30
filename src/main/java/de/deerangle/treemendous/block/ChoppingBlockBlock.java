@@ -4,6 +4,8 @@ import de.deerangle.treemendous.blockentity.ChoppingBlockBlockEntity;
 import de.deerangle.treemendous.data.TreemendousItemTagsProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -49,10 +51,14 @@ public class ChoppingBlockBlock extends Block implements EntityBlock {
             if (!heldItem.isEmpty()) {
                 if (heldItem.is(TreemendousItemTagsProvider.FITS_IN_CHOPPING_BLOCK)) {
                     ItemStack remainder = blockEntity.getInventory().insertItem(0, heldItem, false);
+                    if (remainder.isEmpty()) {
+                        world.playSound(player, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    }
                     player.setItemInHand(hand, remainder);
                     return InteractionResult.sidedSuccess(world.isClientSide());
                 }
             } else {
+                world.playSound(player, pos, SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 1.0f, 1.0f);
                 ItemStack extractedItem = blockEntity.getInventory().extractItem(0, 1, false);
                 player.setItemInHand(hand, extractedItem);
                 return InteractionResult.sidedSuccess(world.isClientSide());

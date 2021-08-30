@@ -7,6 +7,8 @@ import de.deerangle.treemendous.blockentity.ChoppingBlockBlockEntity;
 import de.deerangle.treemendous.blockentity.CustomChestBlockEntity;
 import de.deerangle.treemendous.entity.CustomBoat;
 import de.deerangle.treemendous.item.CustomChestBlockItem;
+import de.deerangle.treemendous.item.LumberAxeItem;
+import de.deerangle.treemendous.item.LumberTiers;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -64,6 +66,11 @@ public class ExtraRegistry {
     public static final RegistryObject<CustomCraftingTableBlock> DARK_OAK_CRAFTING_TABLE = BLOCKS.register("dark_oak_crafting_table", () -> new CustomCraftingTableBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_BROWN).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<CustomCraftingTableBlock> CRIMSON_CRAFTING_TABLE = BLOCKS.register("crimson_crafting_table", () -> new CustomCraftingTableBlock(BlockBehaviour.Properties.of(Material.NETHER_WOOD, MaterialColor.CRIMSON_STEM).strength(2.5F).sound(SoundType.WOOD)));
     public static final RegistryObject<CustomCraftingTableBlock> WARPED_CRAFTING_TABLE = BLOCKS.register("warped_crafting_table", () -> new CustomCraftingTableBlock(BlockBehaviour.Properties.of(Material.NETHER_WOOD, MaterialColor.WARPED_STEM).strength(2.5F).sound(SoundType.WOOD)));
+
+    public static final RegistryObject<LumberAxeItem> IRON_LUMBER_AXE = ITEMS.register("iron_lumber_axe", () -> new LumberAxeItem(LumberTiers.IRON, 6.0F, -3.1F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+    public static final RegistryObject<LumberAxeItem> GOLDEN_LUMBER_AXE = ITEMS.register("golden_lumber_axe", () -> new LumberAxeItem(LumberTiers.GOLD, 6.0F, -3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+    public static final RegistryObject<LumberAxeItem> DIAMOND_LUMBER_AXE = ITEMS.register("diamond_lumber_axe", () -> new LumberAxeItem(LumberTiers.DIAMOND, 5.0F, -3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+    public static final RegistryObject<LumberAxeItem> NETHERITE_LUMBER_AXE = ITEMS.register("netherite_lumber_axe", () -> new LumberAxeItem(LumberTiers.NETHERITE, 5.0F, -3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
     static {
         CHEST_BLOCK_LIST.add(BIRCH_CHEST);

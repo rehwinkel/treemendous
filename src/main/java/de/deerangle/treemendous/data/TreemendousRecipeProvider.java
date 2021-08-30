@@ -1,21 +1,22 @@
 package de.deerangle.treemendous.data;
 
 import de.deerangle.treemendous.main.ExtraRegistry;
+import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -41,11 +42,33 @@ public class TreemendousRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(p_126023_).define('#', p_126024_).pattern("# #").pattern("###").group("boat").unlockedBy("in_water", insideOf(Blocks.WATER)).save(p_126022_);
     }
 
+    private static void choppingBlock(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, Tag.Named<Item> planks, Tag.Named<Item> logs) {
+        ShapedRecipeBuilder.shaped(result).define('#', planks).define('L', logs).pattern("LL").pattern("##").pattern("##").unlockedBy("has_log", has(logs)).save(recipeConsumer);
+    }
+
+    private static void lumberAxe(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, ItemLike ingredient, String hasConditionName) {
+        ShapedRecipeBuilder.shaped(result).define('#', Items.STICK).define('X', ingredient).pattern("XXX").pattern("X# ").pattern("X# ").unlockedBy(hasConditionName, has(ingredient)).save(recipeConsumer);
+    }
+
+    private static String getItemName(ItemLike p_176633_) {
+        //noinspection deprecation
+        return Registry.ITEM.getKey(p_176633_.asItem()).getPath();
+    }
+
+    private static void netheriteSmithing(Consumer<FinishedRecipe> recipeConsumer, Item ingredient, Item result) {
+        UpgradeRecipeBuilder.smithing(Ingredient.of(ingredient), Ingredient.of(Items.NETHERITE_INGOT), result).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(recipeConsumer, new ResourceLocation(Treemendous.MODID, getItemName(result) + "_smithing"));
+    }
+
     @SuppressWarnings("NullableProblems")
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer) {
         craftingTable(recipeConsumer, Blocks.CRAFTING_TABLE, Blocks.OAK_PLANKS);
         chest(recipeConsumer, Blocks.CHEST, Blocks.OAK_PLANKS);
+        choppingBlock(recipeConsumer, ExtraRegistry.CHOPPING_BLOCK.get(), ItemTags.PLANKS, ItemTags.LOGS);
+        lumberAxe(recipeConsumer, ExtraRegistry.IRON_LUMBER_AXE.get(), Items.IRON_INGOT, "has_iron_ingot");
+        lumberAxe(recipeConsumer, ExtraRegistry.GOLDEN_LUMBER_AXE.get(), Items.GOLD_INGOT, "has_gold_ingot");
+        lumberAxe(recipeConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), Items.DIAMOND, "has_diamond");
+        netheriteSmithing(recipeConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), ExtraRegistry.NETHERITE_LUMBER_AXE.get());
 
         craftingTable(recipeConsumer, ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
         craftingTable(recipeConsumer, ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);

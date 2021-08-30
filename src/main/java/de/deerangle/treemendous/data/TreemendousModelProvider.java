@@ -23,11 +23,11 @@ import net.minecraftforge.registries.RegistryManager;
 import java.util.Objects;
 
 
-public class TreemendousBlockStateProvider extends BlockStateProvider {
+public class TreemendousModelProvider extends BlockStateProvider {
 
     private final String modid;
 
-    public TreemendousBlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
+    public TreemendousModelProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
         super(gen, modid, exFileHelper);
         this.modid = modid;
     }
@@ -37,6 +37,10 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
         leavesItemBlock(ExtraRegistry.MAPLE_RED_LEAVES.get());
         leavesItemBlock(ExtraRegistry.MAPLE_BROWN_LEAVES.get());
         existingModelBlock(ExtraRegistry.CHOPPING_BLOCK.get());
+        handheldItem(ExtraRegistry.IRON_LUMBER_AXE.get());
+        handheldItem(ExtraRegistry.GOLDEN_LUMBER_AXE.get());
+        handheldItem(ExtraRegistry.DIAMOND_LUMBER_AXE.get());
+        handheldItem(ExtraRegistry.NETHERITE_LUMBER_AXE.get());
 
         craftingTableBlock(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
         craftingTableBlock(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);
@@ -111,6 +115,11 @@ public class TreemendousBlockStateProvider extends BlockStateProvider {
     private void generatedItem(Item item) {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
         itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modid, "item/" + name));
+    }
+
+    private void handheldItem(Item item) {
+        String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+        itemModels().singleTexture(name, new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(this.modid, "item/" + name));
     }
 
     private void signItemBlock(SignBlock sign, Block planks) {
