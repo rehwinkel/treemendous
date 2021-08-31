@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.main;
 
+import com.google.common.collect.ImmutableSet;
 import de.deerangle.treemendous.block.ChoppingBlockBlock;
 import de.deerangle.treemendous.block.CustomChestBlock;
 import de.deerangle.treemendous.block.CustomCraftingTableBlock;
@@ -10,8 +11,11 @@ import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.item.LumberAxeItem;
 import de.deerangle.treemendous.item.LumberTiers;
 import de.deerangle.treemendous.tree.Tree;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -29,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static net.minecraft.world.entity.ai.village.poi.PoiType.getBlockStates;
+
 public class ExtraRegistry {
 
     private static final List<Supplier<SignBlock>> SIGN_BLOCK_LIST = new ArrayList<>();
@@ -38,6 +44,8 @@ public class ExtraRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Treemendous.MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Treemendous.MODID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Treemendous.MODID);
+    public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.PROFESSIONS, Treemendous.MODID);
+    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, Treemendous.MODID);
 
     // Treemendous Extras
     @SuppressWarnings("ConstantConditions")
@@ -50,6 +58,10 @@ public class ExtraRegistry {
     public static final RegistryObject<ChoppingBlockBlock> CHOPPING_BLOCK = BLOCKS.register("chopping_block", () -> new ChoppingBlockBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD)));
     @SuppressWarnings("ConstantConditions")
     public static final RegistryObject<BlockEntityType<ChoppingBlockBlockEntity>> CHOPPING_BLOCK_BE = BLOCK_ENTITIES.register("chopping_block", () -> BlockEntityType.Builder.of(ChoppingBlockBlockEntity::new, CHOPPING_BLOCK.get()).build(null));
+
+    // Village
+    public static final RegistryObject<PoiType> FOREST_RANGER_POI = POI_TYPES.register("forest_ranger", () -> new PoiType("forest_ranger", getBlockStates(CHOPPING_BLOCK.get()), 1, 1));
+    public static final RegistryObject<VillagerProfession> FOREST_RANGER_PROFESSION = PROFESSIONS.register("forest_ranger", () -> new VillagerProfession("forest_ranger", FOREST_RANGER_POI.get(), ImmutableSet.of(), ImmutableSet.of(), /*TODO*/ SoundEvents.AMETHYST_BLOCK_BREAK));
 
     // Vanilla Extras
     public static final RegistryObject<CustomChestBlock> BIRCH_CHEST = BLOCKS.register("birch_chest", () -> new CustomChestBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.SAND).strength(2.5F).sound(SoundType.WOOD), "birch"));

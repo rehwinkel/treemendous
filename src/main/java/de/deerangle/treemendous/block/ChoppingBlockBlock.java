@@ -58,8 +58,10 @@ public class ChoppingBlockBlock extends Block implements EntityBlock {
                     return InteractionResult.sidedSuccess(world.isClientSide());
                 }
             } else {
-                world.playSound(player, pos, SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 1.0f, 1.0f);
                 ItemStack extractedItem = blockEntity.getInventory().extractItem(0, 1, false);
+                if (!extractedItem.isEmpty()) {
+                    world.playSound(player, pos, SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 1.0f, 1.0f);
+                }
                 player.setItemInHand(hand, extractedItem);
                 return InteractionResult.sidedSuccess(world.isClientSide());
             }

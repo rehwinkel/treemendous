@@ -63,7 +63,7 @@ public class Tree {
     private BoatType boatType;
     private ILeavesColor leavesColor;
 
-    private Tree(TreeConfig config) {
+    protected Tree(TreeConfig config) {
         this.config = config;
     }
 
@@ -176,7 +176,7 @@ public class Tree {
         return this.planks.get();
     }
 
-    public StrippableBlock getLog() {
+    public RotatedPillarBlock getLog() {
         return this.log.get();
     }
 
@@ -184,7 +184,7 @@ public class Tree {
         return this.strippedLog.get();
     }
 
-    public StrippableBlock getWood() {
+    public RotatedPillarBlock getWood() {
         return this.wood.get();
     }
 

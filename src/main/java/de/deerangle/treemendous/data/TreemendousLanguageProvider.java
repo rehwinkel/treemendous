@@ -22,6 +22,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         if (this.locale.equals("en_us")) {
+            add("entity.minecraft.villager.treemendous.forest_ranger", "Forest Ranger");
             add("block.treemendous.chopping_block", "Chopping Block");
             add("entity.treemendous.boat", "Boat");
             add(ExtraRegistry.MAPLE_RED_LEAVES.get(), "Red Maple Leaves");
@@ -49,6 +50,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), "Crimson Crafting Table");
             add(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), "Warped Crafting Table");
         } else if (this.locale.equals("de_de")) {
+            add("entity.minecraft.villager.treemendous.forest_ranger", "Förster");
             add("block.treemendous.chopping_block", "Hackklotz");
             add("entity.treemendous.boat", "Boot");
             add(ExtraRegistry.MAPLE_RED_LEAVES.get(), "Rotes Ahornlaub");

@@ -28,6 +28,8 @@ public class Treemendous {
         ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.PROFESSIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.POI_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
     }
 

@@ -25,7 +25,7 @@ public class LumberAxeItem extends AxeItem {
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         float base = super.getDestroySpeed(stack, state);
         if (this.logs.contains(state.getBlock())) {
-            return base * 0.1F;
+            return base * 0.1F; //TODO: actually calculate and chop entire tree
         } else {
             return base;
         }
