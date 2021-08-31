@@ -16,12 +16,14 @@ import java.util.Set;
 public class FakeTree extends Tree {
 
     private final RotatedPillarBlock log;
+    private final RotatedPillarBlock strippedWood;
     private final SaplingBlock sapling;
 
-    public FakeTree(Block log, Block sapling) {
+    public FakeTree(Block log, Block sapling, Block strippedWood) {
         super(null);
         this.log = (RotatedPillarBlock) log;
         this.sapling = (SaplingBlock) sapling;
+        this.strippedWood = (RotatedPillarBlock) strippedWood;
     }
 
     @Override
@@ -121,7 +123,7 @@ public class FakeTree extends Tree {
 
     @Override
     public RotatedPillarBlock getStrippedWood() {
-        throw new UnsupportedOperationException();
+        return this.strippedWood;
     }
 
     @Override

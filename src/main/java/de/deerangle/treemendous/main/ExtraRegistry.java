@@ -61,7 +61,7 @@ public class ExtraRegistry {
 
     // Village
     public static final RegistryObject<PoiType> FOREST_RANGER_POI = POI_TYPES.register("forest_ranger", () -> new PoiType("forest_ranger", getBlockStates(CHOPPING_BLOCK.get()), 1, 1));
-    public static final RegistryObject<VillagerProfession> FOREST_RANGER_PROFESSION = PROFESSIONS.register("forest_ranger", () -> new VillagerProfession("forest_ranger", FOREST_RANGER_POI.get(), ImmutableSet.of(), ImmutableSet.of(), /*TODO*/ SoundEvents.AMETHYST_BLOCK_BREAK));
+    public static final RegistryObject<VillagerProfession> FOREST_RANGER_PROFESSION = PROFESSIONS.register("forest_ranger", () -> new VillagerProfession("forest_ranger", FOREST_RANGER_POI.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.WOOD_PLACE));
 
     // Vanilla Extras
     public static final RegistryObject<CustomChestBlock> BIRCH_CHEST = BLOCKS.register("birch_chest", () -> new CustomChestBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.SAND).strength(2.5F).sound(SoundType.WOOD), "birch"));
