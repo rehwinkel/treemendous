@@ -50,8 +50,7 @@ public class TreeConfigBuilder {
         SaplingConfigBuilder builder = new SaplingConfigBuilder(this, null);
         builder.setLeaves(Tree::getLeaves);
         builder.setWood(Tree::getLog);
-        int saplingId = saplingConfigs.size();
-        builder.setSapling(tree -> tree.getSapling(saplingId));
+        builder.setSapling(tree -> tree.getSapling(null));
         return builder;
     }
 
@@ -59,8 +58,7 @@ public class TreeConfigBuilder {
         SaplingConfigBuilder builder = new SaplingConfigBuilder(this, variantName);
         builder.setLeaves(Tree::getLeaves);
         builder.setWood(Tree::getLog);
-        int saplingId = saplingConfigs.size();
-        builder.setSapling(tree -> tree.getSapling(saplingId));
+        builder.setSapling(tree -> tree.getSapling(variantName));
         return builder;
     }
 

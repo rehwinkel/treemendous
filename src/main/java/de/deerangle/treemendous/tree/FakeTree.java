@@ -10,6 +10,9 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
+import java.util.Random;
+import java.util.Set;
+
 public class FakeTree extends Tree {
 
     private final RotatedPillarBlock log;
@@ -27,8 +30,23 @@ public class FakeTree extends Tree {
     }
 
     @Override
-    public SaplingBlock getSapling(int index) {
-        return this.sapling;
+    public SaplingBlock getRandomSapling(Random rand) {
+        return sapling;
+    }
+
+    @Override
+    public SaplingBlock getSapling(String key) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<String> getSaplingNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public FlowerPotBlock getPottedSapling(String key) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -72,17 +90,7 @@ public class FakeTree extends Tree {
     }
 
     @Override
-    public FlowerPotBlock getPottedSapling(int index) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public ILeavesColor getLeavesColor() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int getSaplings() {
         throw new UnsupportedOperationException();
     }
 

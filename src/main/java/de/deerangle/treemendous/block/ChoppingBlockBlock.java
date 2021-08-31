@@ -44,7 +44,6 @@ public class ChoppingBlockBlock extends Block implements EntityBlock {
     @SuppressWarnings({"NullableProblems", "deprecation"})
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
-        //TODO sound
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof ChoppingBlockBlockEntity blockEntity) {
             ItemStack heldItem = player.getItemInHand(hand);

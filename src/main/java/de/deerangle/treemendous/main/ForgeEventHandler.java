@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.main;
 
+import de.deerangle.treemendous.tree.Tree;
 import de.deerangle.treemendous.village.TreemendousTrades;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -20,7 +21,7 @@ public class ForgeEventHandler {
             List<VillagerTrades.ItemListing> tradesLevel4 = event.getTrades().get(4);
             List<VillagerTrades.ItemListing> tradesLevel5 = event.getTrades().get(5);
             tradesLevel1.add(new TreemendousTrades.EmeraldForTreeItems((tree, rand) -> tree.getLog(), 4, 16, 1));
-            tradesLevel1.add(new TreemendousTrades.TreeItemForEmeralds((tree, rand) -> tree.getSapling(rand.nextInt(tree.getSaplings())), 1, 1, 12, 1, 0.05f));
+            tradesLevel1.add(new TreemendousTrades.TreeItemForEmeralds(Tree::getRandomSapling, 1, 1, 12, 1, 0.05f));
         }
     }
 

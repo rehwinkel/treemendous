@@ -37,9 +37,9 @@ public class TreemendousBlockTagsProvider extends BlockTagsProvider {
             this.tag(BlockTags.WOODEN_FENCES).add(tree.getFence());
             TagAppender<Block> saplingsTag = this.tag(BlockTags.SAPLINGS);
             TagAppender<Block> pottedSaplingsTag = this.tag(BlockTags.FLOWER_POTS);
-            for (int i = 0; i < tree.getSaplings(); i++) {
-                saplingsTag.add(tree.getSapling(i));
-                pottedSaplingsTag.add(tree.getPottedSapling(i));
+            for (String saplingName : tree.getSaplingNames()) {
+                saplingsTag.add(tree.getSapling(saplingName));
+                pottedSaplingsTag.add(tree.getPottedSapling(saplingName));
             }
             this.tag(BlockTags.GUARDED_BY_PIGLINS).add(tree.getChest());
             this.tag(tree.getLogsBlockTag()).add(tree.getLog(), tree.getWood(), tree.getStrippedLog(), tree.getStrippedWood());

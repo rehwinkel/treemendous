@@ -17,8 +17,8 @@ public class TreemendousBlockLoot extends BlockLoot {
 
     @Override
     protected void addTables() {
-        this.add(ExtraRegistry.MAPLE_RED_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling(1), NORMAL_LEAVES_SAPLING_CHANCES));
-        this.add(ExtraRegistry.MAPLE_BROWN_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling(2), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ExtraRegistry.MAPLE_RED_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling("red"), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ExtraRegistry.MAPLE_BROWN_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling("brown"), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ExtraRegistry.BIRCH_CHEST.get());
         this.dropSelf(ExtraRegistry.JUNGLE_CHEST.get());
@@ -51,9 +51,9 @@ public class TreemendousBlockLoot extends BlockLoot {
             this.dropSelf(tree.getStrippedWood());
             this.dropSelf(tree.getPlanks());
             this.dropSelf(tree.getPressurePlate());
-            for (int i = 0; i < tree.getSaplings(); i++) {
-                this.dropSelf(tree.getSapling(i));
-                this.dropPottedContents(tree.getPottedSapling(i));
+            for (String saplingName : tree.getSaplingNames()) {
+                this.dropSelf(tree.getSapling(saplingName));
+                this.dropPottedContents(tree.getPottedSapling(saplingName));
             }
             this.dropSelf(tree.getSign());
             this.dropSelf(tree.getStairs());

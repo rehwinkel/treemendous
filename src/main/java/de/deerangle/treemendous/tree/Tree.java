@@ -29,8 +29,7 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Tree {
 
@@ -53,8 +52,8 @@ public class Tree {
     private RegistryObject<WallSignBlock> wallSign;
     private RegistryObject<CustomChestBlock> chest;
     private RegistryObject<CraftingTableBlock> craftingTable;
-    private List<RegistryObject<SaplingBlock>> saplings;
-    private List<RegistryObject<FlowerPotBlock>> pottedSaplings;
+    private Map<String, RegistryObject<SaplingBlock>> saplings;
+    private Map<String, RegistryObject<FlowerPotBlock>> pottedSaplings;
     private RegistryObject<CustomBoatItem> boatItem;
     private RegistryObject<SignItem> signItem;
     private WoodType woodType;
@@ -69,8 +68,8 @@ public class Tree {
 
     public static Tree fromConfig(DeferredRegister<Block> blocks, DeferredRegister<Item> items, TreeConfig config) {
         Tree tree = new Tree(config);
-        tree.saplings = new ArrayList<>();
-        tree.pottedSaplings = new ArrayList<>();
+        tree.saplings = new HashMap<>();
+        tree.pottedSaplings = new HashMap<>();
         tree.logsBlockTag = BlockTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.logsItemTag = ItemTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
         tree.woodType = WoodType.register(WoodType.create(config.registryName()));
@@ -108,9 +107,9 @@ public class Tree {
                 name = saplingName + "_sapling";
             }
             RegistryObject<SaplingBlock> registeredSapling = blocks.register(getNameForTree(config, name), () -> new SaplingBlock(new TreemendousTreeGrower(saplingConfig, tree), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
-            tree.saplings.add(registeredSapling);
+            tree.saplings.put(saplingName, registeredSapling);
             //noinspection deprecation
-            tree.pottedSaplings.add(blocks.register(getNameForTree(config, "potted", name), () -> new FlowerPotBlock(registeredSapling.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion())));
+            tree.pottedSaplings.put(saplingName, blocks.register(getNameForTree(config, "potted", name), () -> new FlowerPotBlock(registeredSapling.get(), BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion())));
         }
         tree.leaves = blocks.register(getNameForTree(config, "leaves"), () -> new FlammableLeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(Tree::ocelotOrParrot).isSuffocating((state, world, pos) -> false).isViewBlocking((state, world, pos) -> false)));
         tree.sign = blocks.register(getNameForTree(config, "sign"), () -> new CustomStandingSignBlock(signProperties, tree.woodType));
@@ -142,7 +141,7 @@ public class Tree {
             } else {
                 name = saplingName + "_sapling";
             }
-            registerBlockItem(items, getNameForTree(config, name), tree.saplings.get(i), CreativeModeTab.TAB_DECORATIONS);
+            registerBlockItem(items, getNameForTree(config, name), tree.saplings.get(saplingName), CreativeModeTab.TAB_DECORATIONS);
         }
         registerBlockItem(items, getNameForTree(config, "leaves"), tree.leaves, CreativeModeTab.TAB_DECORATIONS);
         registerBlockItem(items, getNameForTree(config, "crafting_table"), tree.craftingTable, CreativeModeTab.TAB_DECORATIONS);
@@ -237,7 +236,7 @@ public class Tree {
     }
 
     public SaplingBlock getDefaultSapling() {
-        return saplings.get(0).get();
+        return saplings.get(null).get();
     }
 
     public CraftingTableBlock getCraftingTable() {
@@ -276,17 +275,22 @@ public class Tree {
         return this.leavesColor;
     }
 
-    public SaplingBlock getSapling(int index) {
-        //TODO: keys instead of saplings (variantName)
-        return this.saplings.get(index).get();
+    public SaplingBlock getSapling(String key) {
+        return this.saplings.get(key).get();
     }
 
-    public FlowerPotBlock getPottedSapling(int index) {
-        return pottedSaplings.get(index).get();
+    public SaplingBlock getRandomSapling(Random rand) {
+        Collection<RegistryObject<SaplingBlock>> saplings = this.saplings.values();
+        RegistryObject<SaplingBlock> sapling = saplings.stream().skip(rand.nextInt(saplings.size())).findFirst().orElseThrow();
+        return sapling.get();
     }
 
-    public int getSaplings() {
-        return this.saplings.size();
+    public FlowerPotBlock getPottedSapling(String key) {
+        return pottedSaplings.get(key).get();
+    }
+
+    public Set<String> getSaplingNames() {
+        return this.saplings.keySet();
     }
 
 }

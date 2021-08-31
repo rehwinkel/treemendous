@@ -61,9 +61,9 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
                 this.getTree().getChest(),
                 this.getTree().getCraftingTable());
         List<Block> blocks = new ArrayList<>(mostTreeBlocks);
-        for (int i = 0; i < this.getTree().getSaplings(); i++) {
-            blocks.add(this.getTree().getSapling(i));
-            blocks.add(this.getTree().getPottedSapling(i));
+        for (String saplingName : tree.getSaplingNames()) {
+            blocks.add(this.getTree().getSapling(saplingName));
+            blocks.add(this.getTree().getPottedSapling(saplingName));
         }
         return blocks;
     }
