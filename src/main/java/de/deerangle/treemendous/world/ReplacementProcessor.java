@@ -7,6 +7,7 @@ import com.mojang.serialization.Keyable;
 import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -63,6 +64,29 @@ public class ReplacementProcessor extends StructureProcessor {
 
     private static Codec<Block> blockStringCodec() {
         return Codec.STRING.xmap(name -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name)), block -> Objects.requireNonNull(block.getRegistryName()).toString());
+    }
+
+    public static StructureProcessor fromNBT(CompoundTag tag) {
+        CompoundTag blockMapNbt = tag.getCompound("BlockMap");
+        HashMap<Block, Block> map = new HashMap<>();
+        for (String key : blockMapNbt.getAllKeys()) {
+            String value = blockMapNbt.getString(key);
+            Block from = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(key));
+            Block to = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(value));
+            map.put(from, to);
+        }
+        return new ReplacementProcessor(ImmutableMap.copyOf(map));
+    }
+
+    public CompoundTag toNBT() {
+        CompoundTag blockMap = new CompoundTag();
+        for (Block key : this.blockReplacementMap.keySet()) {
+            Block value = this.blockReplacementMap.get(key);
+            blockMap.putString(key.getRegistryName().toString(), value.getRegistryName().toString());
+        }
+        CompoundTag result = new CompoundTag();
+        result.put("BlockMap", blockMap);
+        return result;
     }
 
     @SuppressWarnings("NullableProblems")

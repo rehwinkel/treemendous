@@ -2,7 +2,7 @@ package de.deerangle.treemendous.world;
 
 import de.deerangle.treemendous.data.TreemendousChestLoot;
 import de.deerangle.treemendous.main.ExtraRegistry;
-import de.deerangle.treemendous.main.TreeRegistry;
+import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureFeatureManager;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -33,20 +34,19 @@ import java.util.Random;
 
 public class RangerHouseStructurePiece extends StructurePiece {
 
-    private static final StructureProcessor REPLACE_WOODS = ReplacementProcessor.rangerHouseReplacer(TreeRegistry.PINE_TREE, Blocks.DANDELION, Blocks.POPPY);
-
     protected final ResourceLocation templateLocation;
     protected StructureTemplate template;
     protected StructurePlaceSettings placeSettings;
     protected BlockPos templatePosition;
 
-    public RangerHouseStructurePiece(StructureManager structureManager, ResourceLocation template, BlockPos position, Rotation rotation) {
+    public RangerHouseStructurePiece(StructureManager structureManager, ResourceLocation template, BlockPos position, Rotation rotation, Tree tree, Block flowerOne, Block flowerTwo) {
         super(ExtraRegistry.RANGER_HOUSE_PIECE_TYPE, 0, structureManager.getOrCreate(template).getBoundingBox(makeSettings(rotation), position));
         this.setOrientation(Direction.NORTH);
         this.templateLocation = template;
         this.templatePosition = position;
         this.template = structureManager.getOrCreate(template);
-        this.placeSettings = makeSettings(rotation);
+        StructureProcessor replacer = ReplacementProcessor.rangerHouseReplacer(tree, flowerOne, flowerTwo);
+        this.placeSettings = makeSettings(rotation, replacer);
     }
 
     public RangerHouseStructurePiece(ServerLevel world, CompoundTag tag) {
@@ -55,12 +55,17 @@ public class RangerHouseStructurePiece extends StructurePiece {
         this.templateLocation = new ResourceLocation(tag.getString("Template"));
         this.templatePosition = new BlockPos(tag.getInt("TPX"), tag.getInt("TPY"), tag.getInt("TPZ"));
         this.template = world.getStructureManager().getOrCreate(this.templateLocation);
-        this.placeSettings = makeSettings(Rotation.valueOf(tag.getString("Rot")));
+        StructureProcessor replacer = ReplacementProcessor.fromNBT(tag.getCompound("WoodReplacer"));//rangerHouseReplacer(tree, flowerOne, flowerTwo);
+        this.placeSettings = makeSettings(Rotation.valueOf(tag.getString("Rot")), replacer);
         this.boundingBox = this.template.getBoundingBox(this.placeSettings, this.templatePosition);
     }
 
     private static StructurePlaceSettings makeSettings(Rotation rotation) {
-        return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK).addProcessor(RangerHouseStructurePiece.REPLACE_WOODS);
+        return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
+    }
+
+    private static StructurePlaceSettings makeSettings(Rotation rotation, StructureProcessor replacer) {
+        return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK).addProcessor(replacer);
     }
 
     @SuppressWarnings("NullableProblems")
@@ -71,6 +76,11 @@ public class RangerHouseStructurePiece extends StructurePiece {
         tag.putInt("TPZ", this.templatePosition.getZ());
         tag.putString("Template", this.templateLocation.toString());
         tag.putString("Rot", this.placeSettings.getRotation().name());
+        for (StructureProcessor processor : this.placeSettings.getProcessors()) {
+            if (processor instanceof ReplacementProcessor woodReplacer) {
+                tag.put("WoodReplacer", woodReplacer.toNBT());
+            }
+        }
     }
 
     @SuppressWarnings("NullableProblems")

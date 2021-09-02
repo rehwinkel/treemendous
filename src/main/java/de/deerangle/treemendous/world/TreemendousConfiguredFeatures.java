@@ -1,16 +1,16 @@
 package de.deerangle.treemendous.world;
 
 import de.deerangle.treemendous.main.ExtraRegistry;
+import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.main.Treemendous;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class TreemendousConfiguredFeatures {
 
-    public static ConfiguredStructureFeature<NoneFeatureConfiguration, ? extends StructureFeature<NoneFeatureConfiguration>> CONFIGURED_RANGER_HOUSE = ExtraRegistry.RANGER_HOUSE_FEATURE.get().configured(NoneFeatureConfiguration.NONE);
+    public static ConfiguredStructureFeature<RangerHouseConfiguration, ? extends StructureFeature<RangerHouseConfiguration>> CONFIGURED_RANGER_HOUSE = ExtraRegistry.RANGER_HOUSE_FEATURE.get().configured(new RangerHouseConfiguration(TreeRegistry.JUNIPER_TREE));
 
     public static void registerConfiguredStructures() {
         BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(Treemendous.MODID, "configured_ranger_house"), CONFIGURED_RANGER_HOUSE);

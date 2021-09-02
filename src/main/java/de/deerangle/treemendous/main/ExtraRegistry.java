@@ -13,6 +13,7 @@ import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.item.LumberAxeItem;
 import de.deerangle.treemendous.item.LumberTiers;
 import de.deerangle.treemendous.tree.Tree;
+import de.deerangle.treemendous.world.RangerHouseConfiguration;
 import de.deerangle.treemendous.world.RangerHouseFeature;
 import de.deerangle.treemendous.world.RangerHouseStructurePiece;
 import de.deerangle.treemendous.world.ReplacementProcessor;
@@ -35,7 +36,6 @@ import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
@@ -80,7 +80,7 @@ public class ExtraRegistry {
     public static final RegistryObject<VillagerProfession> FOREST_RANGER_PROFESSION = PROFESSIONS.register("forest_ranger", () -> new VillagerProfession("forest_ranger", FOREST_RANGER_POI.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.WOOD_PLACE));
 
     // Houses
-    public static final RegistryObject<RangerHouseFeature> RANGER_HOUSE_FEATURE = STRUCTURE_FEATURES.register("ranger_house", () -> new RangerHouseFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<RangerHouseFeature> RANGER_HOUSE_FEATURE = STRUCTURE_FEATURES.register("ranger_house", () -> new RangerHouseFeature(RangerHouseConfiguration.CODEC));
     public static final StructurePieceType RANGER_HOUSE_PIECE_TYPE = StructurePieceType.setPieceId(RangerHouseStructurePiece::new, "RangerHouse");
     public static final StructureProcessorType<ReplacementProcessor> REPLACEMENT_PROCESSOR = registerStructureProcessor("replacement", ReplacementProcessor.CODEC);
 
@@ -139,7 +139,7 @@ public class ExtraRegistry {
     }
 
     public static void setupStructures() {
-        setupStructure(RANGER_HOUSE_FEATURE.get(), new StructureFeatureConfiguration(5, 1, 1357695016));
+        setupStructure(RANGER_HOUSE_FEATURE.get(), new StructureFeatureConfiguration(40, 8, 835769016));
     }
 
     private static void setupStructure(StructureFeature<? extends FeatureConfiguration> feature, StructureFeatureConfiguration spawnConfig) {
