@@ -58,31 +58,33 @@ public class TreemendousModelProvider extends BlockStateProvider {
         chestBlock(ExtraRegistry.WARPED_CHEST.get(), Blocks.WARPED_PLANKS);
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            planksItemBlock(tree.getPlanks());
-            logItemBlock(tree.getLog());
-            logItemBlock(tree.getStrippedLog());
-            woodItemBlock(tree.getWood(), tree.getLog());
-            woodItemBlock(tree.getStrippedWood(), tree.getStrippedLog());
-            buttonItemBlock(tree.getButton(), tree.getPlanks());
-            stairsItemBlock(tree.getStairs(), tree.getPlanks());
-            slabItemBlock(tree.getSlab(), tree.getPlanks());
-            pressurePlateItemBlock(tree.getPressurePlate(), tree.getPlanks());
-            fenceItemBlock(tree.getFence(), tree.getPlanks());
-            fenceGateItemBlock(tree.getFenceGate(), tree.getPlanks());
-            doorItemBlock(tree.getDoor());
-            trapdoorItemBlock(tree.getTrapdoor());
-            leavesItemBlock(tree.getLeaves());
-            for (String saplingName : tree.getSaplingNames()) {
-                saplingItemBlock(tree.getSapling(saplingName));
-                pottedSaplingBlock(tree.getPottedSapling(saplingName), tree.getSapling(saplingName));
+            if (!regTree.isFake()) {
+                Tree tree = regTree.getTree();
+                planksItemBlock(tree.getPlanks());
+                logItemBlock(tree.getLog());
+                logItemBlock(tree.getStrippedLog());
+                woodItemBlock(tree.getWood(), tree.getLog());
+                woodItemBlock(tree.getStrippedWood(), tree.getStrippedLog());
+                buttonItemBlock(tree.getButton(), tree.getPlanks());
+                stairsItemBlock(tree.getStairs(), tree.getPlanks());
+                slabItemBlock(tree.getSlab(), tree.getPlanks());
+                pressurePlateItemBlock(tree.getPressurePlate(), tree.getPlanks());
+                fenceItemBlock(tree.getFence(), tree.getPlanks());
+                fenceGateItemBlock(tree.getFenceGate(), tree.getPlanks());
+                doorItemBlock(tree.getDoor());
+                trapdoorItemBlock(tree.getTrapdoor());
+                leavesItemBlock(tree.getLeaves());
+                for (String saplingName : tree.getSaplingNames()) {
+                    saplingItemBlock(tree.getSapling(saplingName));
+                    pottedSaplingBlock(tree.getPottedSapling(saplingName), tree.getSapling(saplingName));
+                }
+                craftingTableBlock(tree.getCraftingTable(), tree.getPlanks());
+                chestBlock(tree.getChest(), tree.getPlanks());
+                generatedItem(tree.getBoatItem());
+                generatedItem(tree.getSignItem());
+                signItemBlock(tree.getSign(), tree.getPlanks());
+                signItemBlock(tree.getWallSign(), tree.getPlanks());
             }
-            craftingTableBlock(tree.getCraftingTable(), tree.getPlanks());
-            chestBlock(tree.getChest(), tree.getPlanks());
-            generatedItem(tree.getBoatItem());
-            generatedItem(tree.getSignItem());
-            signItemBlock(tree.getSign(), tree.getPlanks());
-            signItemBlock(tree.getWallSign(), tree.getPlanks());
         }
     }
 

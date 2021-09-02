@@ -13,10 +13,12 @@ import java.util.List;
 public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
 
     private final Tree tree;
+    private final boolean isFake;
     private ResourceLocation registryName;
 
-    public RegisteredTree(Tree tree) {
+    public RegisteredTree(Tree tree, boolean isFake) {
         this.tree = tree;
+        this.isFake = isFake;
         this.registryName = null;
     }
 
@@ -41,31 +43,39 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
         return tree;
     }
 
+    public boolean isFake() {
+        return isFake;
+    }
+
     public Collection<Block> getAllBlocks() {
-        List<Block> mostTreeBlocks = ImmutableList.of(this.getTree().getPlanks(),
-                this.getTree().getStrippedLog(),
-                this.getTree().getLog(),
-                this.getTree().getStrippedWood(),
-                this.getTree().getWood(),
-                this.getTree().getStairs(),
-                this.getTree().getSlab(),
-                this.getTree().getPressurePlate(),
-                this.getTree().getButton(),
-                this.getTree().getFence(),
-                this.getTree().getFenceGate(),
-                this.getTree().getDoor(),
-                this.getTree().getTrapdoor(),
-                this.getTree().getLeaves(),
-                this.getTree().getSign(),
-                this.getTree().getWallSign(),
-                this.getTree().getChest(),
-                this.getTree().getCraftingTable());
-        List<Block> blocks = new ArrayList<>(mostTreeBlocks);
-        for (String saplingName : tree.getSaplingNames()) {
-            blocks.add(this.getTree().getSapling(saplingName));
-            blocks.add(this.getTree().getPottedSapling(saplingName));
+        if (!this.isFake()) {
+            List<Block> mostTreeBlocks = ImmutableList.of(this.getTree().getPlanks(),
+                    this.getTree().getStrippedLog(),
+                    this.getTree().getLog(),
+                    this.getTree().getStrippedWood(),
+                    this.getTree().getWood(),
+                    this.getTree().getStairs(),
+                    this.getTree().getSlab(),
+                    this.getTree().getPressurePlate(),
+                    this.getTree().getButton(),
+                    this.getTree().getFence(),
+                    this.getTree().getFenceGate(),
+                    this.getTree().getDoor(),
+                    this.getTree().getTrapdoor(),
+                    this.getTree().getLeaves(),
+                    this.getTree().getSign(),
+                    this.getTree().getWallSign(),
+                    this.getTree().getChest(),
+                    this.getTree().getCraftingTable());
+            List<Block> blocks = new ArrayList<>(mostTreeBlocks);
+            for (String saplingName : tree.getSaplingNames()) {
+                blocks.add(this.getTree().getSapling(saplingName));
+                blocks.add(this.getTree().getPottedSapling(saplingName));
+            }
+            return blocks;
+        } else {
+            return ImmutableList.of();
         }
-        return blocks;
     }
 
 }

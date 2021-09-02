@@ -1,7 +1,7 @@
 package de.deerangle.treemendous.world;
 
+import de.deerangle.treemendous.main.CommonHandler;
 import de.deerangle.treemendous.main.ExtraRegistry;
-import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.main.Treemendous;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -10,10 +10,10 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
 public class TreemendousConfiguredFeatures {
 
-    public static ConfiguredStructureFeature<RangerHouseConfiguration, ? extends StructureFeature<RangerHouseConfiguration>> CONFIGURED_RANGER_HOUSE = ExtraRegistry.RANGER_HOUSE_FEATURE.get().configured(new RangerHouseConfiguration(TreeRegistry.JUNIPER_TREE));
+    public static ConfiguredStructureFeature<RangerHouseConfiguration, ? extends StructureFeature<RangerHouseConfiguration>> SPRUCE_RANGER_HOUSE = ExtraRegistry.RANGER_HOUSE_FEATURE.get().configured(new RangerHouseConfiguration(CommonHandler.SPRUCE_TREE));
 
     public static void registerConfiguredStructures() {
-        BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(Treemendous.MODID, "configured_ranger_house"), CONFIGURED_RANGER_HOUSE);
+        BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(Treemendous.MODID, "spruce_ranger_house"), SPRUCE_RANGER_HOUSE);
 
         /* Ok so, this part may be hard to grasp but basically, just add your structure to this to
          * prevent any sort of crash or issue with other mod's custom ChunkGenerators. If they use

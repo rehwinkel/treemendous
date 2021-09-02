@@ -62,13 +62,14 @@ public class TreemendousRecipeProvider extends RecipeProvider {
     @SuppressWarnings("NullableProblems")
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer) {
-        craftingTable(recipeConsumer, Blocks.CRAFTING_TABLE, Blocks.OAK_PLANKS);
-        chest(recipeConsumer, Blocks.CHEST, Blocks.OAK_PLANKS);
         choppingBlock(recipeConsumer, ExtraRegistry.CHOPPING_BLOCK.get(), ItemTags.PLANKS, ItemTags.LOGS);
         lumberAxe(recipeConsumer, ExtraRegistry.IRON_LUMBER_AXE.get(), Items.IRON_INGOT, "has_iron_ingot");
         lumberAxe(recipeConsumer, ExtraRegistry.GOLDEN_LUMBER_AXE.get(), Items.GOLD_INGOT, "has_gold_ingot");
         lumberAxe(recipeConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), Items.DIAMOND, "has_diamond");
         netheriteSmithing(recipeConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), ExtraRegistry.NETHERITE_LUMBER_AXE.get());
+
+        craftingTable(recipeConsumer, Blocks.CRAFTING_TABLE, Blocks.OAK_PLANKS);
+        chest(recipeConsumer, Blocks.CHEST, Blocks.OAK_PLANKS);
 
         craftingTable(recipeConsumer, ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
         craftingTable(recipeConsumer, ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);
@@ -86,22 +87,24 @@ public class TreemendousRecipeProvider extends RecipeProvider {
         chest(recipeConsumer, ExtraRegistry.WARPED_CHEST.get(), Blocks.WARPED_PLANKS);
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            planksFromLog(recipeConsumer, tree.getPlanks(), tree.getLogsItemTag());
-            woodFromLogs(recipeConsumer, tree.getWood(), tree.getLog());
-            woodFromLogs(recipeConsumer, tree.getStrippedWood(), tree.getStrippedLog());
-            woodenBoat(recipeConsumer, tree.getBoatItem(), tree.getPlanks());
-            ShapelessRecipeBuilder.shapeless(tree.getButton()).requires(tree.getPlanks()).unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_button").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getFence(), 3).define('W', tree.getPlanks()).define('#', Items.STICK).pattern("W#W").pattern("W#W").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_fence").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getFenceGate()).define('#', Items.STICK).define('W', tree.getPlanks()).pattern("#W#").pattern("#W#").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_fence_gate").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getPressurePlate()).define('#', tree.getPlanks()).pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_pressure_plate").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getSignItem(), 3).define('#', tree.getPlanks()).define('X', Items.STICK).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_planks", has(tree.getPlanks())).group("sign").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getSlab(), 6).define('#', tree.getPlanks()).pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_slab").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getStairs(), 4).define('#', tree.getPlanks()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_stairs").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getDoor(), 3).define('#', tree.getPlanks()).pattern("##").pattern("##").pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_door").save(recipeConsumer);
-            ShapedRecipeBuilder.shaped(tree.getTrapdoor(), 2).define('#', tree.getPlanks()).pattern("###").pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_trapdoor").save(recipeConsumer);
-            craftingTable(recipeConsumer, tree.getCraftingTable(), tree.getPlanks());
-            chest(recipeConsumer, tree.getChest(), tree.getPlanks());
+            if (!regTree.isFake()) {
+                Tree tree = regTree.getTree();
+                planksFromLog(recipeConsumer, tree.getPlanks(), tree.getLogsItemTag());
+                woodFromLogs(recipeConsumer, tree.getWood(), tree.getLog());
+                woodFromLogs(recipeConsumer, tree.getStrippedWood(), tree.getStrippedLog());
+                woodenBoat(recipeConsumer, tree.getBoatItem(), tree.getPlanks());
+                ShapelessRecipeBuilder.shapeless(tree.getButton()).requires(tree.getPlanks()).unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_button").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getFence(), 3).define('W', tree.getPlanks()).define('#', Items.STICK).pattern("W#W").pattern("W#W").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_fence").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getFenceGate()).define('#', Items.STICK).define('W', tree.getPlanks()).pattern("#W#").pattern("#W#").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_fence_gate").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getPressurePlate()).define('#', tree.getPlanks()).pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_pressure_plate").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getSignItem(), 3).define('#', tree.getPlanks()).define('X', Items.STICK).pattern("###").pattern("###").pattern(" X ").unlockedBy("has_planks", has(tree.getPlanks())).group("sign").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getSlab(), 6).define('#', tree.getPlanks()).pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_slab").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getStairs(), 4).define('#', tree.getPlanks()).pattern("#  ").pattern("## ").pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_stairs").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getDoor(), 3).define('#', tree.getPlanks()).pattern("##").pattern("##").pattern("##").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_door").save(recipeConsumer);
+                ShapedRecipeBuilder.shaped(tree.getTrapdoor(), 2).define('#', tree.getPlanks()).pattern("###").pattern("###").unlockedBy("has_planks", has(tree.getPlanks())).group("wooden_trapdoor").save(recipeConsumer);
+                craftingTable(recipeConsumer, tree.getCraftingTable(), tree.getPlanks());
+                chest(recipeConsumer, tree.getChest(), tree.getPlanks());
+            }
         }
     }
 

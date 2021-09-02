@@ -2,7 +2,7 @@ package de.deerangle.treemendous.world;
 
 import de.deerangle.treemendous.data.TreemendousChestLoot;
 import de.deerangle.treemendous.main.ExtraRegistry;
-import de.deerangle.treemendous.tree.Tree;
+import de.deerangle.treemendous.tree.RegisteredTree;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -39,13 +39,13 @@ public class RangerHouseStructurePiece extends StructurePiece {
     protected StructurePlaceSettings placeSettings;
     protected BlockPos templatePosition;
 
-    public RangerHouseStructurePiece(StructureManager structureManager, ResourceLocation template, BlockPos position, Rotation rotation, Tree tree, Block flowerOne, Block flowerTwo) {
+    public RangerHouseStructurePiece(StructureManager structureManager, ResourceLocation template, BlockPos position, Rotation rotation, RegisteredTree tree, Block flowerOne, Block flowerTwo) {
         super(ExtraRegistry.RANGER_HOUSE_PIECE_TYPE, 0, structureManager.getOrCreate(template).getBoundingBox(makeSettings(rotation), position));
         this.setOrientation(Direction.NORTH);
         this.templateLocation = template;
         this.templatePosition = position;
         this.template = structureManager.getOrCreate(template);
-        StructureProcessor replacer = ReplacementProcessor.rangerHouseReplacer(tree, flowerOne, flowerTwo);
+        StructureProcessor replacer = ReplacementProcessor.rangerHouseReplacer(tree.getTree(), flowerOne, flowerTwo);
         this.placeSettings = makeSettings(rotation, replacer);
     }
 
@@ -55,7 +55,7 @@ public class RangerHouseStructurePiece extends StructurePiece {
         this.templateLocation = new ResourceLocation(tag.getString("Template"));
         this.templatePosition = new BlockPos(tag.getInt("TPX"), tag.getInt("TPY"), tag.getInt("TPZ"));
         this.template = world.getStructureManager().getOrCreate(this.templateLocation);
-        StructureProcessor replacer = ReplacementProcessor.fromNBT(tag.getCompound("WoodReplacer"));//rangerHouseReplacer(tree, flowerOne, flowerTwo);
+        StructureProcessor replacer = ReplacementProcessor.fromNBT(tag.getCompound("WoodReplacer"));
         this.placeSettings = makeSettings(Rotation.valueOf(tag.getString("Rot")), replacer);
         this.boundingBox = this.template.getBoundingBox(this.placeSettings, this.templatePosition);
     }
@@ -121,13 +121,12 @@ public class RangerHouseStructurePiece extends StructurePiece {
                 ((ChestBlockEntity) blockentity).setLootTable(TreemendousChestLoot.RANGER_HOUSE, random.nextLong());
             }
         } else if ("monster".equals(name)) {
-            BlockPos summonPos = blockPos.below(2);
             ZombieVillager monster = EntityType.ZOMBIE_VILLAGER.create(world.getLevel());
             assert monster != null;
             monster.setPersistenceRequired();
             monster.setVillagerData(new VillagerData(VillagerType.PLAINS, ExtraRegistry.FOREST_RANGER_PROFESSION.get(), 1));
             monster.setCustomName(new TextComponent("Jordan"));
-            monster.moveTo(summonPos, 0.0f, 0.0f);
+            monster.moveTo(blockPos, 0.0f, 0.0f);
             monster.finalizeSpawn(world, world.getCurrentDifficultyAt(monster.blockPosition()), MobSpawnType.STRUCTURE, null, null);
             world.addFreshEntityWithPassengers(monster);
         }

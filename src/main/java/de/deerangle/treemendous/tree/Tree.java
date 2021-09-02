@@ -33,7 +33,6 @@ import java.util.*;
 
 public class Tree {
 
-    private final TreeConfig config;
     private RegistryObject<Block> planks;
     private RegistryObject<RotatedPillarBlock> strippedLog;
     private RegistryObject<StrippableBlock> log;
@@ -62,12 +61,8 @@ public class Tree {
     private BoatType boatType;
     private ILeavesColor leavesColor;
 
-    protected Tree(TreeConfig config) {
-        this.config = config;
-    }
-
     public static Tree fromConfig(DeferredRegister<Block> blocks, DeferredRegister<Item> items, TreeConfig config) {
-        Tree tree = new Tree(config);
+        Tree tree = new Tree();
         tree.saplings = new HashMap<>();
         tree.pottedSaplings = new HashMap<>();
         tree.logsBlockTag = BlockTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
@@ -247,7 +242,7 @@ public class Tree {
         return craftingTable.get();
     }
 
-    public CustomChestBlock getChest() {
+    public ChestBlock getChest() {
         return chest.get();
     }
 
@@ -257,10 +252,6 @@ public class Tree {
 
     public SignItem getSignItem() {
         return signItem.get();
-    }
-
-    public TreeConfig getConfig() {
-        return this.config;
     }
 
     public WoodType getWoodType() {

@@ -105,7 +105,7 @@ public class TreemendousTreeGrower extends AbstractMegaTreeGrower {
     @Override
     protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredMegaFeature(Random random) {
         if (madeMegaTrees == null) {
-            this.makeAllTrees(); //TODO: can I do this earlier?
+            this.makeAllTrees();
         }
         return madeMegaTrees.get(random.nextInt(madeMegaTrees.size()));
     }

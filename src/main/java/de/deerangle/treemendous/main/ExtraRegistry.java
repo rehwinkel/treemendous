@@ -53,7 +53,7 @@ import static net.minecraft.world.entity.ai.village.poi.PoiType.getBlockStates;
 public class ExtraRegistry {
 
     private static final List<Supplier<SignBlock>> SIGN_BLOCK_LIST = new ArrayList<>();
-    private static final List<Supplier<CustomChestBlock>> CHEST_BLOCK_LIST = new ArrayList<>();
+    private static final List<Supplier<ChestBlock>> CHEST_BLOCK_LIST = new ArrayList<>();
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Treemendous.MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Treemendous.MODID);
@@ -110,13 +110,13 @@ public class ExtraRegistry {
     public static final RegistryObject<LumberAxeItem> NETHERITE_LUMBER_AXE = ITEMS.register("netherite_lumber_axe", () -> new LumberAxeItem(LumberTiers.NETHERITE, 5.0F, -3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
     static {
-        CHEST_BLOCK_LIST.add(BIRCH_CHEST);
-        CHEST_BLOCK_LIST.add(SPRUCE_CHEST);
-        CHEST_BLOCK_LIST.add(JUNGLE_CHEST);
-        CHEST_BLOCK_LIST.add(ACACIA_CHEST);
-        CHEST_BLOCK_LIST.add(DARK_OAK_CHEST);
-        CHEST_BLOCK_LIST.add(CRIMSON_CHEST);
-        CHEST_BLOCK_LIST.add(WARPED_CHEST);
+        CHEST_BLOCK_LIST.add(BIRCH_CHEST::get);
+        CHEST_BLOCK_LIST.add(SPRUCE_CHEST::get);
+        CHEST_BLOCK_LIST.add(JUNGLE_CHEST::get);
+        CHEST_BLOCK_LIST.add(ACACIA_CHEST::get);
+        CHEST_BLOCK_LIST.add(DARK_OAK_CHEST::get);
+        CHEST_BLOCK_LIST.add(CRIMSON_CHEST::get);
+        CHEST_BLOCK_LIST.add(WARPED_CHEST::get);
 
         ITEMS.register("maple_red_leaves", () -> new BlockItem(MAPLE_RED_LEAVES.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         ITEMS.register("maple_brown_leaves", () -> new BlockItem(MAPLE_BROWN_LEAVES.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));

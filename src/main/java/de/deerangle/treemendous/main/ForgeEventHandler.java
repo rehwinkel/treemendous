@@ -9,7 +9,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -41,14 +40,14 @@ public class ForgeEventHandler {
             tradesLevel4.add(new TreemendousTrades.EmeraldForItems(Items.APPLE, 5, 16, 3));
             tradesLevel4.add(new TreemendousTrades.ItemsForEmeralds(ExtraRegistry.DIAMOND_LUMBER_AXE.get(), UniformInt.of(16, 24), 1, 8, 18));
 
-            tradesLevel5.add(new TreemendousTrades.TreasureMapForEmeralds(13, /*TODO: custom structures*/StructureFeature.DESERT_PYRAMID, MapDecoration.Type.RED_X, 12, 5));
+            tradesLevel5.add(new TreemendousTrades.TreasureMapForEmeralds(13, ExtraRegistry.RANGER_HOUSE_FEATURE.get(), MapDecoration.Type.RED_X, 12, 5));
         }
     }
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         if (event.getCategory() == Biome.BiomeCategory.FOREST) {
-            event.getGeneration().addStructureStart(TreemendousConfiguredFeatures.CONFIGURED_RANGER_HOUSE);
+            event.getGeneration().addStructureStart(TreemendousConfiguredFeatures.SPRUCE_RANGER_HOUSE);
         }
     }
 

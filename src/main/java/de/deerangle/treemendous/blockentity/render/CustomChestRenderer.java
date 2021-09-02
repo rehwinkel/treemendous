@@ -5,7 +5,6 @@ import de.deerangle.treemendous.block.CustomChestBlock;
 import de.deerangle.treemendous.blockentity.CustomChestBlockEntity;
 import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.RegisteredTree;
-import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.ChestRenderer;
@@ -33,17 +32,13 @@ public class CustomChestRenderer extends ChestRenderer<CustomChestBlockEntity> {
         Map<String, Material> defaultMaterials = new HashMap<>();
         Map<String, Material> leftMaterials = new HashMap<>();
         Map<String, Material> rightMaterials = new HashMap<>();
-        addChestMaterials("birch", defaultMaterials, leftMaterials, rightMaterials);
-        addChestMaterials("spruce", defaultMaterials, leftMaterials, rightMaterials);
-        addChestMaterials("jungle", defaultMaterials, leftMaterials, rightMaterials);
-        addChestMaterials("acacia", defaultMaterials, leftMaterials, rightMaterials);
-        addChestMaterials("dark_oak", defaultMaterials, leftMaterials, rightMaterials);
         addChestMaterials("crimson", defaultMaterials, leftMaterials, rightMaterials);
         addChestMaterials("warped", defaultMaterials, leftMaterials, rightMaterials);
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            String woodName = tree.getConfig().registryName();
-            addChestMaterials(woodName, defaultMaterials, leftMaterials, rightMaterials);
+            String woodName = regTree.getRegistryName().getPath();
+            if (!"oak".equals(woodName)) {
+                addChestMaterials(woodName, defaultMaterials, leftMaterials, rightMaterials);
+            }
         }
         this.defaultMaterials = ImmutableMap.copyOf(defaultMaterials);
         this.leftMaterials = ImmutableMap.copyOf(leftMaterials);

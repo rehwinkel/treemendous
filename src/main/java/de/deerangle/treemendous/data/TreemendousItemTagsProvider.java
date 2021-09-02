@@ -29,9 +29,11 @@ public class TreemendousItemTagsProvider extends ItemTagsProvider {
     @Override
     protected void addTags() {
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            this.copy(tree.getLogsBlockTag(), tree.getLogsItemTag());
-            this.tag(ItemTags.BOATS).add(tree.getBoatItem());
+            if (!regTree.isFake()) {
+                Tree tree = regTree.getTree();
+                this.copy(tree.getLogsBlockTag(), tree.getLogsItemTag());
+                this.tag(ItemTags.BOATS).add(tree.getBoatItem());
+            }
         }
 
         this.tag(FITS_IN_CHOPPING_BLOCK).add(Items.IRON_AXE, Items.WOODEN_AXE, Items.STONE_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE);

@@ -49,7 +49,7 @@ public class RangerHouseFeature extends StructureFeature<RangerHouseConfiguratio
             int height = generator.getBaseHeight(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), Heightmap.Types.WORLD_SURFACE_WG, heightAccessor);
             BlockPos blockpos = new BlockPos(chunkPos.getMinBlockX(), height, chunkPos.getMinBlockZ());
             Rotation rotation = Rotation.getRandom(this.random);
-            RangerHouseStructurePiece piece = new RangerHouseStructurePiece(structureManager, STRUCTURE_LOCATION, blockpos, rotation, config.getTree(), BlockTags.FLOWERS.getRandomElement(random), BlockTags.FLOWERS.getRandomElement(random));
+            RangerHouseStructurePiece piece = new RangerHouseStructurePiece(structureManager, STRUCTURE_LOCATION, blockpos, rotation, config.getTree(), BlockTags.SMALL_FLOWERS.getRandomElement(random), BlockTags.SMALL_FLOWERS.getRandomElement(random));
             this.addPiece(piece);
         }
 

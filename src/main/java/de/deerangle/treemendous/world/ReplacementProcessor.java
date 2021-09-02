@@ -41,20 +41,17 @@ public class ReplacementProcessor extends StructureProcessor {
         map.put(Blocks.OAK_DOOR, tree.getDoor());
         map.put(Blocks.OAK_FENCE, tree.getFence());
         map.put(Blocks.OAK_FENCE_GATE, tree.getFenceGate());
-        map.put(Blocks.OAK_LEAVES, tree.getLeaves());
         map.put(Blocks.OAK_SAPLING, tree.getDefaultSapling());
         map.put(Blocks.OAK_LOG, tree.getLog());
         map.put(Blocks.STRIPPED_OAK_LOG, tree.getStrippedLog());
         map.put(Blocks.OAK_WOOD, tree.getWood());
         map.put(Blocks.STRIPPED_OAK_WOOD, tree.getStrippedWood());
         map.put(Blocks.OAK_PRESSURE_PLATE, tree.getPressurePlate());
-        map.put(Blocks.OAK_SIGN, tree.getSign());
         map.put(Blocks.OAK_SLAB, tree.getSlab());
         map.put(Blocks.OAK_STAIRS, tree.getStairs());
         map.put(Blocks.OAK_TRAPDOOR, tree.getTrapdoor());
         map.put(Blocks.OAK_WALL_SIGN, tree.getWallSign());
         map.put(Blocks.OAK_PLANKS, tree.getPlanks());
-        map.put(Blocks.POTTED_OAK_SAPLING, tree.getDefaultPottedSapling());
         map.put(Blocks.CHEST, tree.getChest());
         map.put(Blocks.CRAFTING_TABLE, tree.getCraftingTable());
         map.put(Blocks.CORNFLOWER, flowerOne);
@@ -82,7 +79,7 @@ public class ReplacementProcessor extends StructureProcessor {
         CompoundTag blockMap = new CompoundTag();
         for (Block key : this.blockReplacementMap.keySet()) {
             Block value = this.blockReplacementMap.get(key);
-            blockMap.putString(key.getRegistryName().toString(), value.getRegistryName().toString());
+            blockMap.putString(Objects.requireNonNull(key.getRegistryName()).toString(), Objects.requireNonNull(value.getRegistryName()).toString());
         }
         CompoundTag result = new CompoundTag();
         result.put("BlockMap", blockMap);

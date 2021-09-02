@@ -1,6 +1,5 @@
 package de.deerangle.treemendous.village;
 
-import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.core.BlockPos;
@@ -31,14 +30,7 @@ import java.util.stream.Collectors;
 public class TreemendousTrades {
 
     private static List<Tree> getAllTrees() {
-        ArrayList<Tree> trees = RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues().stream().map(RegisteredTree::getTree).collect(Collectors.toCollection(ArrayList::new));
-        trees.add(TreeRegistry.OAK_TREE);
-        trees.add(TreeRegistry.BIRCH_TREE);
-        trees.add(TreeRegistry.SPRUCE_TREE);
-        trees.add(TreeRegistry.JUNGLE_TREE);
-        trees.add(TreeRegistry.DARK_OAK_TREE);
-        trees.add(TreeRegistry.ACACIA_TREE);
-        return trees;
+        return RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues().stream().map(RegisteredTree::getTree).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public static class EmeraldForItems implements VillagerTrades.ItemListing {

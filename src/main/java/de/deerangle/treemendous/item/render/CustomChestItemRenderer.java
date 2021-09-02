@@ -34,16 +34,14 @@ public class CustomChestItemRenderer extends BlockEntityWithoutLevelRenderer {
         this.blockEntityRenderDispatcher = renderDispatcher;
 
         Map<String, CustomChestBlockEntity> chestMap = new HashMap<>();
-        chestMap.put("birch", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.BIRCH_CHEST.get().defaultBlockState()));
-        chestMap.put("spruce", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.SPRUCE_CHEST.get().defaultBlockState()));
-        chestMap.put("jungle", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.JUNGLE_CHEST.get().defaultBlockState()));
-        chestMap.put("acacia", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.ACACIA_CHEST.get().defaultBlockState()));
-        chestMap.put("dark_oak", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.DARK_OAK_CHEST.get().defaultBlockState()));
         chestMap.put("crimson", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.CRIMSON_CHEST.get().defaultBlockState()));
         chestMap.put("warped", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.WARPED_CHEST.get().defaultBlockState()));
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            chestMap.put(tree.getConfig().registryName(), new CustomChestBlockEntity(BlockPos.ZERO, tree.getChest().defaultBlockState()));
+            String woodName = regTree.getRegistryName().getPath();
+            if (!"oak".equals(woodName)) {
+                Tree tree = regTree.getTree();
+                chestMap.put(woodName, new CustomChestBlockEntity(BlockPos.ZERO, tree.getChest().defaultBlockState()));
+            }
         }
         chests = ImmutableMap.copyOf(chestMap);
     }

@@ -38,29 +38,31 @@ public class TreemendousBlockLoot extends BlockLoot {
         this.dropSelf(ExtraRegistry.CHOPPING_BLOCK.get());
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            this.dropSelf(tree.getButton());
-            this.dropSelf(tree.getChest());
-            this.dropSelf(tree.getCraftingTable());
-            this.dropSelf(tree.getDoor());
-            this.dropSelf(tree.getFence());
-            this.dropSelf(tree.getFenceGate());
-            this.dropSelf(tree.getLog());
-            this.dropSelf(tree.getStrippedLog());
-            this.dropSelf(tree.getWood());
-            this.dropSelf(tree.getStrippedWood());
-            this.dropSelf(tree.getPlanks());
-            this.dropSelf(tree.getPressurePlate());
-            for (String saplingName : tree.getSaplingNames()) {
-                this.dropSelf(tree.getSapling(saplingName));
-                this.dropPottedContents(tree.getPottedSapling(saplingName));
+            if (!regTree.isFake()) {
+                Tree tree = regTree.getTree();
+                this.dropSelf(tree.getButton());
+                this.dropSelf(tree.getChest());
+                this.dropSelf(tree.getCraftingTable());
+                this.dropSelf(tree.getDoor());
+                this.dropSelf(tree.getFence());
+                this.dropSelf(tree.getFenceGate());
+                this.dropSelf(tree.getLog());
+                this.dropSelf(tree.getStrippedLog());
+                this.dropSelf(tree.getWood());
+                this.dropSelf(tree.getStrippedWood());
+                this.dropSelf(tree.getPlanks());
+                this.dropSelf(tree.getPressurePlate());
+                for (String saplingName : tree.getSaplingNames()) {
+                    this.dropSelf(tree.getSapling(saplingName));
+                    this.dropPottedContents(tree.getPottedSapling(saplingName));
+                }
+                this.dropSelf(tree.getSign());
+                this.dropSelf(tree.getStairs());
+                this.dropSelf(tree.getSlab());
+                this.dropSelf(tree.getTrapdoor());
+                this.dropSelf(tree.getWallSign());
+                this.add(tree.getLeaves(), (drops) -> createLeavesDrops(drops, tree.getDefaultSapling(), NORMAL_LEAVES_SAPLING_CHANCES));
             }
-            this.dropSelf(tree.getSign());
-            this.dropSelf(tree.getStairs());
-            this.dropSelf(tree.getSlab());
-            this.dropSelf(tree.getTrapdoor());
-            this.dropSelf(tree.getWallSign());
-            this.add(tree.getLeaves(), (drops) -> createLeavesDrops(drops, tree.getDefaultSapling(), NORMAL_LEAVES_SAPLING_CHANCES));
         }
     }
 
@@ -73,13 +75,13 @@ public class TreemendousBlockLoot extends BlockLoot {
         treeBlocks.add(ExtraRegistry.SPRUCE_CHEST.get());
         treeBlocks.add(ExtraRegistry.ACACIA_CHEST.get());
         treeBlocks.add(ExtraRegistry.DARK_OAK_CHEST.get());
-        treeBlocks.add(ExtraRegistry.CRIMSON_CHEST.get());
-        treeBlocks.add(ExtraRegistry.WARPED_CHEST.get());
         treeBlocks.add(ExtraRegistry.BIRCH_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.JUNGLE_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.ACACIA_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get());
+        treeBlocks.add(ExtraRegistry.CRIMSON_CHEST.get());
+        treeBlocks.add(ExtraRegistry.WARPED_CHEST.get());
         treeBlocks.add(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.WARPED_CRAFTING_TABLE.get());
         treeBlocks.add(ExtraRegistry.MAPLE_RED_LEAVES.get());

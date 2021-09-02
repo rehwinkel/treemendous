@@ -38,18 +38,20 @@ public class ClientHandler {
         itemColors.register((stack, tintId) -> WoodColors.MAPLE_BROWN_LEAVES, ExtraRegistry.MAPLE_BROWN_LEAVES.get());
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            event.enqueueWork(() -> Sheets.addWoodType(tree.getWoodType()));
-            blockColors.register((state, blockAndTintGetter, pos, tindId) -> tree.getLeavesColor().getColor(pos), tree.getLeaves());
-            itemColors.register((stack, tintId) -> tree.getLeavesColor().getColor(BlockPos.ZERO), tree.getLeaves());
-            ItemBlockRenderTypes.setRenderLayer(tree.getTrapdoor(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(tree.getDoor(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(tree.getLeaves(), RenderType.cutout());
-            for (String saplingName : tree.getSaplingNames()) {
-                ItemBlockRenderTypes.setRenderLayer(tree.getSapling(saplingName), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(tree.getPottedSapling(saplingName), RenderType.cutout());
+            if (!regTree.isFake()) {
+                Tree tree = regTree.getTree();
+                event.enqueueWork(() -> Sheets.addWoodType(tree.getWoodType()));
+                blockColors.register((state, blockAndTintGetter, pos, tindId) -> tree.getLeavesColor().getColor(pos), tree.getLeaves());
+                itemColors.register((stack, tintId) -> tree.getLeavesColor().getColor(BlockPos.ZERO), tree.getLeaves());
+                ItemBlockRenderTypes.setRenderLayer(tree.getTrapdoor(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(tree.getDoor(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(tree.getLeaves(), RenderType.cutout());
+                for (String saplingName : tree.getSaplingNames()) {
+                    ItemBlockRenderTypes.setRenderLayer(tree.getSapling(saplingName), RenderType.cutout());
+                    ItemBlockRenderTypes.setRenderLayer(tree.getPottedSapling(saplingName), RenderType.cutout());
+                }
+                ItemBlockRenderTypes.setRenderLayer(tree.getCraftingTable(), RenderType.cutout());
             }
-            ItemBlockRenderTypes.setRenderLayer(tree.getCraftingTable(), RenderType.cutout());
         }
 
         ItemBlockRenderTypes.setRenderLayer(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), RenderType.cutout());
@@ -72,17 +74,14 @@ public class ClientHandler {
             return;
         }
 
-        addChestSprites(event, "birch");
-        addChestSprites(event, "spruce");
-        addChestSprites(event, "jungle");
-        addChestSprites(event, "acacia");
-        addChestSprites(event, "dark_oak");
         addChestSprites(event, "crimson");
         addChestSprites(event, "warped");
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            Tree tree = regTree.getTree();
-            addChestSprites(event, tree.getConfig().registryName());
+            String woodName = regTree.getRegistryName().getPath();
+            if (!"oak".equals(woodName)) {
+                addChestSprites(event, woodName);
+            }
         }
     }
 

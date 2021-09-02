@@ -10,6 +10,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.CraftingTableBlock;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -83,11 +85,23 @@ public class TreeRegistry {
     public static final Tree MAGNOLIA_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, MAGNOLIA_CONFIG));
     public static final Tree RAINBOW_EUCALYPTUS_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, RAINBOW_EUCALYPTUS_CONFIG));
 
-    public static final Tree OAK_TREE = new FakeTree(Blocks.OAK_LOG, Blocks.OAK_SAPLING, Blocks.STRIPPED_OAK_WOOD);
-    public static final Tree BIRCH_TREE = new FakeTree(Blocks.BIRCH_LOG, Blocks.BIRCH_SAPLING, Blocks.STRIPPED_BIRCH_WOOD);
-    public static final Tree SPRUCE_TREE = new FakeTree(Blocks.SPRUCE_LOG, Blocks.SPRUCE_SAPLING, Blocks.STRIPPED_SPRUCE_WOOD);
-    public static final Tree JUNGLE_TREE = new FakeTree(Blocks.JUNGLE_LOG, Blocks.JUNGLE_SAPLING, Blocks.STRIPPED_JUNGLE_WOOD);
-    public static final Tree ACACIA_TREE = new FakeTree(Blocks.ACACIA_LOG, Blocks.ACACIA_SAPLING, Blocks.STRIPPED_ACACIA_WOOD);
-    public static final Tree DARK_OAK_TREE = new FakeTree(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_SAPLING, Blocks.STRIPPED_DARK_OAK_WOOD);
+    public static final FakeTree OAK_TREE = new FakeTree(
+            Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG, Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD, Blocks.OAK_SAPLING, () -> (ChestBlock) Blocks.CHEST, () -> (CraftingTableBlock) Blocks.CRAFTING_TABLE, Blocks.OAK_BUTTON, Blocks.OAK_DOOR, Blocks.OAK_FENCE, Blocks.OAK_FENCE_GATE, Blocks.OAK_PRESSURE_PLATE, Blocks.OAK_SLAB, Blocks.OAK_STAIRS, Blocks.OAK_TRAPDOOR, Blocks.OAK_WALL_SIGN, Blocks.OAK_PLANKS
+    );
+    public static final FakeTree BIRCH_TREE = new FakeTree(
+            Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG, Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD, Blocks.BIRCH_SAPLING, ExtraRegistry.BIRCH_CHEST::get, ExtraRegistry.BIRCH_CRAFTING_TABLE::get, Blocks.BIRCH_BUTTON, Blocks.BIRCH_DOOR, Blocks.BIRCH_FENCE, Blocks.BIRCH_FENCE_GATE, Blocks.BIRCH_PRESSURE_PLATE, Blocks.BIRCH_SLAB, Blocks.BIRCH_STAIRS, Blocks.BIRCH_TRAPDOOR, Blocks.BIRCH_WALL_SIGN, Blocks.BIRCH_PLANKS
+    );
+    public static final FakeTree SPRUCE_TREE = new FakeTree(
+            Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG, Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD, Blocks.SPRUCE_SAPLING, ExtraRegistry.SPRUCE_CHEST::get, ExtraRegistry.SPRUCE_CRAFTING_TABLE::get, Blocks.SPRUCE_BUTTON, Blocks.SPRUCE_DOOR, Blocks.SPRUCE_FENCE, Blocks.SPRUCE_FENCE_GATE, Blocks.SPRUCE_PRESSURE_PLATE, Blocks.SPRUCE_SLAB, Blocks.SPRUCE_STAIRS, Blocks.SPRUCE_TRAPDOOR, Blocks.SPRUCE_WALL_SIGN, Blocks.SPRUCE_PLANKS
+    );
+    public static final FakeTree JUNGLE_TREE = new FakeTree(
+            Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG, Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD, Blocks.JUNGLE_SAPLING, ExtraRegistry.JUNGLE_CHEST::get, ExtraRegistry.JUNGLE_CRAFTING_TABLE::get, Blocks.JUNGLE_BUTTON, Blocks.JUNGLE_DOOR, Blocks.JUNGLE_FENCE, Blocks.JUNGLE_FENCE_GATE, Blocks.JUNGLE_PRESSURE_PLATE, Blocks.JUNGLE_SLAB, Blocks.JUNGLE_STAIRS, Blocks.JUNGLE_TRAPDOOR, Blocks.JUNGLE_WALL_SIGN, Blocks.JUNGLE_PLANKS
+    );
+    public static final FakeTree ACACIA_TREE = new FakeTree(
+            Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG, Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD, Blocks.ACACIA_SAPLING, ExtraRegistry.ACACIA_CHEST::get, ExtraRegistry.ACACIA_CRAFTING_TABLE::get, Blocks.ACACIA_BUTTON, Blocks.ACACIA_DOOR, Blocks.ACACIA_FENCE, Blocks.ACACIA_FENCE_GATE, Blocks.ACACIA_PRESSURE_PLATE, Blocks.ACACIA_SLAB, Blocks.ACACIA_STAIRS, Blocks.ACACIA_TRAPDOOR, Blocks.ACACIA_WALL_SIGN, Blocks.ACACIA_PLANKS
+    );
+    public static final FakeTree DARK_OAK_TREE = new FakeTree(
+            Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG, Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD, Blocks.DARK_OAK_SAPLING, ExtraRegistry.DARK_OAK_CHEST::get, ExtraRegistry.DARK_OAK_CRAFTING_TABLE::get, Blocks.DARK_OAK_BUTTON, Blocks.DARK_OAK_DOOR, Blocks.DARK_OAK_FENCE, Blocks.DARK_OAK_FENCE_GATE, Blocks.DARK_OAK_PRESSURE_PLATE, Blocks.DARK_OAK_SLAB, Blocks.DARK_OAK_STAIRS, Blocks.DARK_OAK_TRAPDOOR, Blocks.DARK_OAK_WALL_SIGN, Blocks.DARK_OAK_PLANKS
+    );
 
 }
