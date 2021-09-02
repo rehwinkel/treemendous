@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 
 public class TreemendousLootTableProvider extends LootTableProvider {
 
-    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> subProviders = ImmutableList.of(Pair.of(TreemendousBlockLoot::new, LootContextParamSets.BLOCK));
+    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> subProviders = ImmutableList.of(Pair.of(TreemendousBlockLoot::new, LootContextParamSets.BLOCK), Pair.of(TreemendousChestLoot::new, LootContextParamSets.CHEST));
 
     public TreemendousLootTableProvider(DataGenerator generator) {
         super(generator);

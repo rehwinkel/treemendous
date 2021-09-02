@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.world;
 
+import de.deerangle.treemendous.data.TreemendousChestLoot;
 import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.main.TreeRegistry;
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,6 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
 import java.util.Random;
 
@@ -108,7 +108,7 @@ public class RangerHouseStructurePiece extends StructurePiece {
         if ("chest".equals(name)) {
             BlockEntity blockentity = world.getBlockEntity(blockPos.below(2));
             if (blockentity instanceof ChestBlockEntity) {
-                ((ChestBlockEntity) blockentity).setLootTable(/*TODO*/BuiltInLootTables.IGLOO_CHEST, random.nextLong());
+                ((ChestBlockEntity) blockentity).setLootTable(TreemendousChestLoot.RANGER_HOUSE, random.nextLong());
             }
         } else if ("monster".equals(name)) {
             BlockPos summonPos = blockPos.below(2);
