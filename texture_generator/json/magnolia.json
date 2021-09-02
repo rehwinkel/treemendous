@@ -1,0 +1,220 @@
+{
+  "magnolia": {
+    "variables": {
+      "wood_color": "#5e472a",
+      "bark_color": "#757883"
+    },
+    "textures": {
+      "planks": [
+        {
+          "type": "img",
+          "src": "templates/planks_base2.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        }
+      ],
+      "wood": [
+        {
+          "type": "img",
+          "src": "templates/log_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$bark_color"
+        }
+      ],
+      "sign_item": [
+        {
+          "type": "img",
+          "src": "templates/sign_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        }
+      ],
+      "sign_entity": [
+        {
+          "type": "img",
+          "src": "templates/sign_entity_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        }
+      ],
+      "boat_entity": [
+        {
+          "type": "img",
+          "src": "templates/boat_entity_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        }
+      ],
+      "boat_item": [
+        {
+          "type": "img",
+          "src": "templates/boat_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/boat_base_overlay1.png"
+        }
+      ],
+      "log_top": [
+        {
+          "type": "img",
+          "src": "templates/log_top_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color",
+          "img_mask": "templates/mask1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$bark_color",
+          "img_mask": "templates/mask2.png"
+        }
+      ],
+      "stripped_wood": [
+        {
+          "type": "img",
+          "src": "templates/stripped_log_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        }
+      ],
+      "stripped_log_top": [
+        {
+          "type": "img",
+          "src": "templates/stripped_log_top_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        }
+      ],
+      "trapdoor": [
+        {
+          "type": "img",
+          "src": "templates/trapdoor_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/trapdoor_overlay3.png"
+        },
+        {
+          "type": "mask_cutout",
+          "img_mask": "templates/mask4.png"
+        }
+      ],
+      "door_item": [
+        {
+          "type": "img",
+          "src": "templates/door_item_base1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/door_item_overlay1.png"
+        }
+      ],
+      "door_top": [
+        {
+          "type": "img",
+          "src": "templates/door_top1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/door_top_overlay1.png"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/trapdoor_overlay3.png"
+        },
+        {
+          "type": "mask_cutout",
+          "img_mask": "templates/mask4.png"
+        }
+      ],
+      "door_bottom": [
+        {
+          "type": "img",
+          "src": "templates/door_bottom1.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/door_bottom_overlay1.png"
+        }
+      ],
+      "chest": [
+        {
+          "type": "img",
+          "src": "templates/chest.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/chest_overlay.png"
+        }
+      ],
+      "chest_left": [
+        {
+          "type": "img",
+          "src": "templates/chest_left.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/chest_left_overlay.png"
+        }
+      ],
+      "chest_right": [
+        {
+          "type": "img",
+          "src": "templates/chest_right.png"
+        },
+        {
+          "type": "colorize",
+          "color": "$wood_color"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/chest_right_overlay.png"
+        }
+      ]
+    }
+  }
+}
