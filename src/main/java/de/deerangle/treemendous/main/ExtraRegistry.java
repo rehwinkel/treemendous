@@ -1,6 +1,8 @@
 package de.deerangle.treemendous.main;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.mojang.serialization.Codec;
 import de.deerangle.treemendous.block.ChoppingBlockBlock;
 import de.deerangle.treemendous.block.CustomChestBlock;
 import de.deerangle.treemendous.block.CustomCraftingTableBlock;
@@ -11,6 +13,12 @@ import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.item.LumberAxeItem;
 import de.deerangle.treemendous.item.LumberTiers;
 import de.deerangle.treemendous.tree.Tree;
+import de.deerangle.treemendous.world.RangerHouseFeature;
+import de.deerangle.treemendous.world.RangerHouseStructurePiece;
+import de.deerangle.treemendous.world.ReplacementProcessor;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -23,14 +31,21 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructurePieceType;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static net.minecraft.world.entity.ai.village.poi.PoiType.getBlockStates;
@@ -46,6 +61,7 @@ public class ExtraRegistry {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Treemendous.MODID);
     public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.PROFESSIONS, Treemendous.MODID);
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, Treemendous.MODID);
+    public static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, Treemendous.MODID);
 
     // Treemendous Extras
     @SuppressWarnings("ConstantConditions")
@@ -62,6 +78,15 @@ public class ExtraRegistry {
     // Village
     public static final RegistryObject<PoiType> FOREST_RANGER_POI = POI_TYPES.register("forest_ranger", () -> new PoiType("forest_ranger", getBlockStates(CHOPPING_BLOCK.get()), 1, 1));
     public static final RegistryObject<VillagerProfession> FOREST_RANGER_PROFESSION = PROFESSIONS.register("forest_ranger", () -> new VillagerProfession("forest_ranger", FOREST_RANGER_POI.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.WOOD_PLACE));
+
+    // Houses
+    public static final RegistryObject<RangerHouseFeature> RANGER_HOUSE_FEATURE = STRUCTURE_FEATURES.register("ranger_house", () -> new RangerHouseFeature(NoneFeatureConfiguration.CODEC));
+    public static final StructurePieceType RANGER_HOUSE_PIECE_TYPE = StructurePieceType.setPieceId(RangerHouseStructurePiece::new, "RangerHouse");
+    public static final StructureProcessorType<ReplacementProcessor> REPLACEMENT_PROCESSOR = registerStructureProcessor("replacement", ReplacementProcessor.CODEC);
+
+    static <P extends StructureProcessor> StructureProcessorType<P> registerStructureProcessor(String name, Codec<P> codec) {
+        return Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(Treemendous.MODID, name), () -> codec);
+    }
 
     // Vanilla Extras
     public static final RegistryObject<CustomChestBlock> BIRCH_CHEST = BLOCKS.register("birch_chest", () -> new CustomChestBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.SAND).strength(2.5F).sound(SoundType.WOOD), "birch"));
@@ -111,6 +136,36 @@ public class ExtraRegistry {
         ITEMS.register("crimson_crafting_table", () -> new BlockItem(CRIMSON_CRAFTING_TABLE.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         ITEMS.register("warped_crafting_table", () -> new BlockItem(WARPED_CRAFTING_TABLE.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
         ITEMS.register("chopping_block", () -> new BlockItem(CHOPPING_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
+    }
+
+    public static void setupStructures() {
+        setupStructure(RANGER_HOUSE_FEATURE.get(), new StructureFeatureConfiguration(5, 1, 1357695016));
+    }
+
+    private static void setupStructure(StructureFeature<? extends FeatureConfiguration> feature, StructureFeatureConfiguration spawnConfig) {
+        if (!(StructureFeature.NOISE_AFFECTING_FEATURES instanceof ArrayList)) {
+            StructureFeature.NOISE_AFFECTING_FEATURES = new ArrayList<>(StructureFeature.NOISE_AFFECTING_FEATURES);
+        }
+        StructureFeature.NOISE_AFFECTING_FEATURES.add(feature);
+
+        StructureFeature.STRUCTURES_REGISTRY.put(Objects.requireNonNull(feature.getRegistryName()).toString(), feature);
+
+        StructureSettings.DEFAULTS = ImmutableMap.<StructureFeature<?>, StructureFeatureConfiguration>builder()
+                .putAll(StructureSettings.DEFAULTS)
+                .put(feature, spawnConfig)
+                .build();
+
+        BuiltinRegistries.NOISE_GENERATOR_SETTINGS.entrySet().forEach(settings -> {
+            Map<StructureFeature<?>, StructureFeatureConfiguration> structureMap = settings.getValue().structureSettings().structureConfig();
+
+            if (structureMap instanceof ImmutableMap) {
+                Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(structureMap);
+                tempMap.put(feature, spawnConfig);
+                settings.getValue().structureSettings().structureConfig = tempMap;
+            } else {
+                structureMap.put(feature, spawnConfig);
+            }
+        });
     }
 
     public static Tree registerTree(Tree tree) {

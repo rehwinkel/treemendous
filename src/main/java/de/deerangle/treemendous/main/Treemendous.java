@@ -3,6 +3,7 @@ package de.deerangle.treemendous.main;
 import de.deerangle.treemendous.data.*;
 import de.deerangle.treemendous.network.NetworkHandler;
 import de.deerangle.treemendous.tree.RegisteredTree;
+import de.deerangle.treemendous.world.TreemendousConfiguredFeatures;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -30,12 +31,17 @@ public class Treemendous {
         ExtraRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.PROFESSIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.POI_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ExtraRegistry.STRUCTURE_FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
     }
 
     @SubscribeEvent
-    public void onCommonInitSetup(FMLCommonSetupEvent event) {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         NetworkHandler.register();
+        event.enqueueWork(() -> {
+            ExtraRegistry.setupStructures();
+            TreemendousConfiguredFeatures.registerConfiguredStructures();
+        });
     }
 
     @SubscribeEvent

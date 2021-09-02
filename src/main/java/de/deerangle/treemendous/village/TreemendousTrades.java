@@ -1,6 +1,6 @@
 package de.deerangle.treemendous.village;
 
-import de.deerangle.treemendous.tree.FakeTree;
+import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.core.BlockPos;
@@ -15,7 +15,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
@@ -33,12 +32,12 @@ public class TreemendousTrades {
 
     private static List<Tree> getAllTrees() {
         ArrayList<Tree> trees = RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues().stream().map(RegisteredTree::getTree).collect(Collectors.toCollection(ArrayList::new));
-        trees.add(new FakeTree(Blocks.OAK_LOG, Blocks.OAK_SAPLING, Blocks.STRIPPED_OAK_WOOD));
-        trees.add(new FakeTree(Blocks.BIRCH_LOG, Blocks.BIRCH_SAPLING, Blocks.STRIPPED_BIRCH_WOOD));
-        trees.add(new FakeTree(Blocks.SPRUCE_LOG, Blocks.SPRUCE_SAPLING, Blocks.STRIPPED_SPRUCE_WOOD));
-        trees.add(new FakeTree(Blocks.JUNGLE_LOG, Blocks.JUNGLE_SAPLING, Blocks.STRIPPED_JUNGLE_WOOD));
-        trees.add(new FakeTree(Blocks.ACACIA_LOG, Blocks.ACACIA_SAPLING, Blocks.STRIPPED_ACACIA_WOOD));
-        trees.add(new FakeTree(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_SAPLING, Blocks.STRIPPED_DARK_OAK_WOOD));
+        trees.add(TreeRegistry.OAK_TREE);
+        trees.add(TreeRegistry.BIRCH_TREE);
+        trees.add(TreeRegistry.SPRUCE_TREE);
+        trees.add(TreeRegistry.JUNGLE_TREE);
+        trees.add(TreeRegistry.DARK_OAK_TREE);
+        trees.add(TreeRegistry.ACACIA_TREE);
         return trees;
     }
 

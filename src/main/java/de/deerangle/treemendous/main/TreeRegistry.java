@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.main;
 
+import de.deerangle.treemendous.tree.FakeTree;
 import de.deerangle.treemendous.tree.Tree;
 import de.deerangle.treemendous.tree.config.TreeConfig;
 import de.deerangle.treemendous.tree.config.TreeConfigBuilder;
@@ -8,6 +9,7 @@ import de.deerangle.treemendous.world.TreeMaker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -80,5 +82,12 @@ public class TreeRegistry {
     public static final Tree JUNIPER_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, JUNIPER_CONFIG));
     public static final Tree MAGNOLIA_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, MAGNOLIA_CONFIG));
     public static final Tree RAINBOW_EUCALYPTUS_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, RAINBOW_EUCALYPTUS_CONFIG));
+
+    public static final Tree OAK_TREE = new FakeTree(Blocks.OAK_LOG, Blocks.OAK_SAPLING, Blocks.STRIPPED_OAK_WOOD);
+    public static final Tree BIRCH_TREE = new FakeTree(Blocks.BIRCH_LOG, Blocks.BIRCH_SAPLING, Blocks.STRIPPED_BIRCH_WOOD);
+    public static final Tree SPRUCE_TREE = new FakeTree(Blocks.SPRUCE_LOG, Blocks.SPRUCE_SAPLING, Blocks.STRIPPED_SPRUCE_WOOD);
+    public static final Tree JUNGLE_TREE = new FakeTree(Blocks.JUNGLE_LOG, Blocks.JUNGLE_SAPLING, Blocks.STRIPPED_JUNGLE_WOOD);
+    public static final Tree ACACIA_TREE = new FakeTree(Blocks.ACACIA_LOG, Blocks.ACACIA_SAPLING, Blocks.STRIPPED_ACACIA_WOOD);
+    public static final Tree DARK_OAK_TREE = new FakeTree(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_SAPLING, Blocks.STRIPPED_DARK_OAK_WOOD);
 
 }

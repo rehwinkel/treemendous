@@ -239,6 +239,10 @@ public class Tree {
         return saplings.get(null).get();
     }
 
+    public FlowerPotBlock getDefaultPottedSapling() {
+        return pottedSaplings.get(null).get();
+    }
+
     public CraftingTableBlock getCraftingTable() {
         return craftingTable.get();
     }
