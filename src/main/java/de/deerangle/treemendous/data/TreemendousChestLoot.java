@@ -22,6 +22,7 @@ public class TreemendousChestLoot extends ChestLoot {
 
     @Override
     public void accept(BiConsumer<ResourceLocation, LootTable.Builder> tables) {
+        //TODO: customize loot
         tables.accept(RANGER_HOUSE, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.GOLDEN_APPLE).setWeight(20))
