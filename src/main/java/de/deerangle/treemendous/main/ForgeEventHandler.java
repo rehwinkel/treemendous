@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.main;
 
+import de.deerangle.treemendous.item.LumberAxeItem;
 import de.deerangle.treemendous.tree.Tree;
 import de.deerangle.treemendous.village.TreemendousTrades;
 import de.deerangle.treemendous.world.TreemendousConfiguredFeatures;
@@ -7,9 +8,12 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,6 +52,17 @@ public class ForgeEventHandler {
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         if (event.getCategory() == Biome.BiomeCategory.FOREST) {
             event.getGeneration().addStructureStart(TreemendousConfiguredFeatures.SPRUCE_RANGER_HOUSE);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onGetBreakSpeed(PlayerEvent.BreakSpeed event) {
+        if (event.getEntityLiving() instanceof Player player) {
+            ItemStack toolItem = player.getInventory().getSelected();
+            if (toolItem.getItem() instanceof LumberAxeItem lumberAxeItem) {
+                float speed = lumberAxeItem.calculateSpeed(event.getOriginalSpeed(), player.level, event.getState(), event.getPos());
+                event.setNewSpeed(speed);
+            }
         }
     }
 
