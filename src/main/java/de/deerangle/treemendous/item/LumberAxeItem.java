@@ -25,6 +25,17 @@ public class LumberAxeItem extends AxeItem {
         this.logs = BlockTags.LOGS;
     }
 
+    /**
+     * I would go about it like this:
+     * - have a class "WorkEntry" which maintains a list of BlockPos to process, an index into that list, and a tick() method
+     * - have another class "WorkList" which maintains a list of "WorkEntry"
+     * - finally, have a top-level class which maintains a per-dimension collection of "WorkList"
+     * - then use a server tick event to iterate over the dimensions, and each work list in each dimension, and each entry in each list
+     * - for each entry, in the tick() method, modify a limited number of blocks, mark the entry for removal from the list when done
+     * - take care to only work on loaded worlds, and loaded chunks within each world
+     * - and maybe validate that the block at each blockpos is what you expect it to be before removing it
+     * - and you probably also want to consider some kind of serialization so in-progress changes don't get lost on server restart (SavedData might be useful for this) (edited)
+     */
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean mineBlock(ItemStack stack, Level world, BlockState state, BlockPos pos, LivingEntity miner) {

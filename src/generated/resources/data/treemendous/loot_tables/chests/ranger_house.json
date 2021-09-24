@@ -2,50 +2,270 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 1.0,
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 1.0,
+        "max": 2.0
+      },
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 20,
-          "name": "minecraft:golden_apple"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:enchanted_golden_apple"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 30,
-          "name": "minecraft:name_tag"
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:stone_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:iron_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:golden_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:diamond_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:iron_lumber_axe"
         },
         {
           "type": "minecraft:item",
           "weight": 10,
           "functions": [
             {
-              "function": "minecraft:enchant_randomly"
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
             }
           ],
-          "name": "minecraft:book"
+          "name": "treemendous:golden_lumber_axe"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "minecraft:iron_pickaxe"
-        },
-        {
-          "type": "minecraft:empty",
-          "weight": 5
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:diamond_lumber_axe"
         }
       ]
     },
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 2.0,
-        "max": 4.0
+        "min": 0.0,
+        "max": 1.0
       },
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "minecraft:stone_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "minecraft:iron_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "minecraft:golden_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "minecraft:diamond_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "treemendous:iron_lumber_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "treemendous:golden_lumber_axe"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.15,
+                "max": 0.75
+              },
+              "add": false
+            },
+            {
+              "function": "minecraft:enchant_randomly"
+            }
+          ],
+          "name": "treemendous:diamond_lumber_axe"
+        }
+      ]
+    },
+    {
+      "rolls": 2.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -57,16 +277,61 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1.0,
-                "max": 5.0
+                "max": 8.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:iron_ingot"
+          "name": "minecraft:bone"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 8.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:rotten_flesh"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 8.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:string"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_apple"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 1.0,
+        "max": 2.0
+      },
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -78,39 +343,498 @@
               "add": false
             }
           ],
-          "name": "minecraft:gold_ingot"
+          "name": "treemendous:douglas_sapling"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4.0,
-                "max": 9.0
+                "min": 1.0,
+                "max": 3.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:redstone"
+          "name": "treemendous:pine_sapling"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4.0,
-                "max": 9.0
+                "min": 1.0,
+                "max": 3.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:lapis_lazuli"
+          "name": "treemendous:larch_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:fir_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:maple_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:maple_red_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:maple_brown_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:japanese_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:beech_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:cherry_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:alder_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:chestnut_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:plane_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:ash_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:linden_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:robinia_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:willow_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:pomegranate_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:walnut_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:cedar_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:poplar_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:elm_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:juniper_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:magnolia_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:rainbow_eucalyptus_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:oak_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:birch_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:spruce_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:jungle_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:acacia_sapling"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 3.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:dark_oak_sapling"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 2.0,
+        "max": 3.0
+      },
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:douglas_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_douglas_log"
         },
         {
           "type": "minecraft:item",
@@ -120,135 +844,109 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1.0,
-                "max": 2.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:diamond"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 3.0,
-                "max": 8.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:coal"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1.0,
-                "max": 3.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:bread"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 3.0,
+                "min": 2.0,
                 "max": 6.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:glow_berries"
+          "name": "treemendous:pine_log"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_pine_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:larch_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
                 "max": 4.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:melon_seeds"
+          "name": "treemendous:stripped_larch_log"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:fir_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
                 "max": 4.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:pumpkin_seeds"
+          "name": "treemendous:stripped_fir_log"
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2.0,
-                "max": 4.0
+                "max": 6.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:beetroot_seeds"
-        }
-      ]
-    },
-    {
-      "rolls": 3.0,
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 4.0,
-                "max": 8.0
-              },
-              "add": false
-            }
-          ],
-          "name": "minecraft:rail"
+          "name": "treemendous:maple_log"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -260,11 +958,26 @@
               "add": false
             }
           ],
-          "name": "minecraft:powered_rail"
+          "name": "treemendous:stripped_maple_log"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:japanese_log"
+        },
+        {
+          "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -276,11 +989,26 @@
               "add": false
             }
           ],
-          "name": "minecraft:detector_rail"
+          "name": "treemendous:stripped_japanese_log"
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:beech_log"
+        },
+        {
+          "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -292,23 +1020,689 @@
               "add": false
             }
           ],
-          "name": "minecraft:activator_rail"
+          "name": "treemendous:stripped_beech_log"
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:cherry_log"
+        },
+        {
+          "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1.0,
-                "max": 16.0
+                "max": 4.0
               },
               "add": false
             }
           ],
-          "name": "minecraft:torch"
+          "name": "treemendous:stripped_cherry_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:alder_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_alder_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:chestnut_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_chestnut_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:plane_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_plane_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:ash_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_ash_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:linden_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_linden_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:robinia_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_robinia_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:willow_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_willow_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:pomegranate_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_pomegranate_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:walnut_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_walnut_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:cedar_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_cedar_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:poplar_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_poplar_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:elm_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_elm_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:juniper_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_juniper_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:magnolia_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_magnolia_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:rainbow_eucalyptus_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "treemendous:stripped_rainbow_eucalyptus_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:oak_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:stripped_oak_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:birch_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:stripped_birch_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:spruce_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:stripped_spruce_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:jungle_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:stripped_jungle_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:acacia_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:stripped_acacia_log"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 6.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:dark_oak_log"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:stripped_dark_oak_log"
         }
       ]
     }

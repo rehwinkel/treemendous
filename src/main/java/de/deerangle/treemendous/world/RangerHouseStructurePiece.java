@@ -61,11 +61,11 @@ public class RangerHouseStructurePiece extends StructurePiece {
     }
 
     private static StructurePlaceSettings makeSettings(Rotation rotation) {
-        return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
+        return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK).addProcessor(new BlockRotProcessor(0.95f));
     }
 
     private static StructurePlaceSettings makeSettings(Rotation rotation, StructureProcessor replacer) {
-        return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK).addProcessor(replacer);
+        return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK).addProcessor(new BlockRotProcessor(0.95f)).addProcessor(replacer);
     }
 
     @SuppressWarnings("NullableProblems")

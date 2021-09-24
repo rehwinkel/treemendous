@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.tree;
 
+import com.google.common.collect.ImmutableSet;
 import de.deerangle.treemendous.item.CustomBoatItem;
 import de.deerangle.treemendous.tree.util.ILeavesColor;
 import net.minecraft.tags.Tag;
@@ -59,12 +60,12 @@ public class FakeTree extends Tree {
 
     @Override
     public SaplingBlock getSapling(String key) {
-        throw new UnsupportedOperationException();
+        return this.sapling;
     }
 
     @Override
     public Set<String> getSaplingNames() {
-        throw new UnsupportedOperationException();
+        return ImmutableSet.of("dummy");
     }
 
     @Override
