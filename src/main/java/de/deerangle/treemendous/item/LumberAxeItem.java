@@ -51,7 +51,7 @@ public class LumberAxeItem extends AxeItem {
         if (logs.contains(state.getBlock())) {
             TreeIterator blocks = new TreeIterator(level, pos, s -> logs.contains(s.getBlock()));
             int i = 0;
-            while (blocks.hasNext() && i < 100) {
+            while (blocks.hasNext() && i < 100) { // limit to 100 to reduce lag
                 blocks.next();
                 i++;
             }
