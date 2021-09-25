@@ -11,7 +11,7 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -50,8 +50,9 @@ public class ForgeEventHandler {
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event) {
-        if (event.getCategory() == Biome.BiomeCategory.FOREST) {
-            event.getGeneration().addStructureStart(TreemendousConfiguredFeatures.SPRUCE_RANGER_HOUSE);
+        ConfiguredStructureFeature<?, ?> rangerHouse = TreemendousConfiguredFeatures.getRangerHouseForBiome(event.getName());
+        if (rangerHouse != null) {
+            event.getGeneration().addStructureStart(rangerHouse);
         }
     }
 

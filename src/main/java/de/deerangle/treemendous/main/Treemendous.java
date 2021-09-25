@@ -3,6 +3,7 @@ package de.deerangle.treemendous.main;
 import de.deerangle.treemendous.data.*;
 import de.deerangle.treemendous.network.NetworkHandler;
 import de.deerangle.treemendous.tree.RegisteredTree;
+import de.deerangle.treemendous.world.Biomes;
 import de.deerangle.treemendous.world.TreemendousConfiguredFeatures;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,6 +26,7 @@ public class Treemendous {
     public Treemendous() {
         TreeRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Biomes.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.BLOCK_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -42,6 +44,8 @@ public class Treemendous {
             ExtraRegistry.setupStructures();
             TreemendousConfiguredFeatures.registerConfiguredStructures();
         });
+        Biomes.addBiomesToOverworld();
+        Biomes.addBiomesToDictionary();
     }
 
     @SubscribeEvent

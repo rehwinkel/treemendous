@@ -29,8 +29,8 @@ public class TreeConfigBuilder {
         this.appleItem = () -> null;
     }
 
-    public TreeConfigBuilder(String registryName, int leavesColor, int woodColor, int barkColor) {
-        this(registryName, new FixedLeavesColor(leavesColor), Util.getMaterialColor(woodColor), Util.getMaterialColor(barkColor));
+    public TreeConfigBuilder(String registryName, int leavesColor, boolean evergreen, int woodColor, int barkColor) {
+        this(registryName, new FixedLeavesColor(leavesColor, !evergreen), Util.getMaterialColor(woodColor), Util.getMaterialColor(barkColor));
     }
 
     public TreeConfigBuilder setAppleItem(Supplier<Item> appleItem) {

@@ -6,4 +6,6 @@ public interface ILeavesColor {
 
     int getColor(BlockPos pos);
 
+    boolean isBiomeDependent();
+
 }

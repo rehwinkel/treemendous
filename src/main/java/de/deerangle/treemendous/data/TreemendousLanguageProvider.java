@@ -21,6 +21,7 @@ public class TreemendousLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        //TODO: biomes
         if (this.locale.equals("en_us")) {
             add("entity.minecraft.villager.treemendous.forest_ranger", "Forest Ranger");
             add("block.treemendous.chopping_block", "Chopping Block");

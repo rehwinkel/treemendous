@@ -34,6 +34,7 @@ public class FakeTree extends Tree {
     private final Block planks;
 
     public FakeTree(Block log, Block strippedLog, Block wood, Block strippedWood, Block sapling, Supplier<ChestBlock> chest, Supplier<CraftingTableBlock> craftingTable, Block button, Block door, Block fence, Block fenceGate, Block pressurePlate, Block slab, Block stairs, Block trapdoor, Block wallSign, Block planks) {
+        super(null);
         this.log = (RotatedPillarBlock) log;
         this.strippedLog = (RotatedPillarBlock) strippedLog;
         this.wood = (RotatedPillarBlock) wood;

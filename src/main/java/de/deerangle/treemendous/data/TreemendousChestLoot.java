@@ -39,7 +39,7 @@ public class TreemendousChestLoot extends ChestLoot {
             logPool.add(LootItem.lootTableItem(strippedLog).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 4.0f))));
         }
         tables.accept(RANGER_HOUSE, LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 2.0F))
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(0.0F, 1.75F))
                         .add(LootItem.lootTableItem(Items.STONE_AXE).setWeight(30).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)))
                         .add(LootItem.lootTableItem(Items.IRON_AXE).setWeight(20).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)))
                         .add(LootItem.lootTableItem(Items.GOLDEN_AXE).setWeight(15).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)))
@@ -48,7 +48,7 @@ public class TreemendousChestLoot extends ChestLoot {
                         .add(LootItem.lootTableItem(ExtraRegistry.GOLDEN_LUMBER_AXE.get()).setWeight(10).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)))
                         .add(LootItem.lootTableItem(ExtraRegistry.DIAMOND_LUMBER_AXE.get()).setWeight(1).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)))
                 )
-                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(0.0F, 1.0F))
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(0.0F, 0.75F))
                         .add(LootItem.lootTableItem(Items.STONE_AXE).setWeight(30).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)).apply(EnchantRandomlyFunction.randomApplicableEnchantment()))
                         .add(LootItem.lootTableItem(Items.IRON_AXE).setWeight(20).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)).apply(EnchantRandomlyFunction.randomApplicableEnchantment()))
                         .add(LootItem.lootTableItem(Items.GOLDEN_AXE).setWeight(15).apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.15f, 0.75f), false)).apply(EnchantRandomlyFunction.randomApplicableEnchantment()))

@@ -6,7 +6,6 @@ import de.deerangle.treemendous.tree.RegisteredTree;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -93,7 +92,7 @@ public class RangerHouseStructurePiece extends StructurePiece {
                 if (structureBlockInfo.nbt != null) {
                     StructureMode structuremode = StructureMode.valueOf(structureBlockInfo.nbt.getString("mode"));
                     if (structuremode == StructureMode.DATA) {
-                        this.handleDataMarker(structureBlockInfo.nbt.getString("metadata"), structureBlockInfo.pos, world, rand, bounds);
+                        this.handleDataMarker(structureBlockInfo.nbt.getString("metadata"), structureBlockInfo.pos, world, rand);
                     }
                 }
             }
@@ -114,7 +113,7 @@ public class RangerHouseStructurePiece extends StructurePiece {
         return this.placeSettings.getRotation();
     }
 
-    protected void handleDataMarker(String name, BlockPos blockPos, ServerLevelAccessor world, Random random, BoundingBox bounds) {
+    protected void handleDataMarker(String name, BlockPos blockPos, ServerLevelAccessor world, Random random) {
         if ("chest".equals(name)) {
             BlockEntity blockentity = world.getBlockEntity(blockPos.below(2));
             if (blockentity instanceof ChestBlockEntity) {
@@ -125,7 +124,6 @@ public class RangerHouseStructurePiece extends StructurePiece {
             assert monster != null;
             monster.setPersistenceRequired();
             monster.setVillagerData(new VillagerData(VillagerType.PLAINS, ExtraRegistry.FOREST_RANGER_PROFESSION.get(), 1));
-            monster.setCustomName(new TextComponent("Jordan"));
             monster.moveTo(blockPos, 0.0f, 0.0f);
             monster.finalizeSpawn(world, world.getCurrentDifficultyAt(monster.blockPosition()), MobSpawnType.STRUCTURE, null, null);
             world.addFreshEntityWithPassengers(monster);
