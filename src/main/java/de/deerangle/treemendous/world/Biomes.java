@@ -4,6 +4,7 @@ import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -57,26 +58,33 @@ public class Biomes {
 
     public static void addBiomesToOverworld() {
         for (TreemendousBiomes.RegisteredBiome biome : ALL_BIOMES) {
-            BiomeManager.addBiome(biome.getKind(), new BiomeManager.BiomeEntry(biome.getBiomeKey(), 1));
+            BiomeManager.addBiome(biome.getBiomeType(), new BiomeManager.BiomeEntry(biome.getBiomeKey(), 1));
         }
     }
 
     public static void addBiomesToDictionary() {
-        //TODO
-        /*
         for (TreemendousBiomes.RegisteredBiome biome : ALL_BIOMES) {
             BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.OVERWORLD);
-            //TODO: add HILLS if biome is hilly
-            if (biome.getKind() == BiomeManager.BiomeType.ICY) {
-                BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.COLD);
-            } else if (biome.getKind() == BiomeManager.BiomeType.DESERT) {
+            switch (biome.getTerrain()) {
+                case FLAT -> {
+                    if (biome.getBiomeType() == BiomeManager.BiomeType.ICY) {
+                        BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.SNOWY);
+                    } else if (biome.getBiomeType() == BiomeManager.BiomeType.COOL) {
+                        BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.FOREST);
+                    }
+                }
+                case HILLS -> BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.HILLS);
+                case MOUNTAINS -> BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.MOUNTAIN);
+            }
+            if (biome.getBiomeType() == BiomeManager.BiomeType.ICY) {
+                BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.COLD);
+            } else if (biome.getBiomeType() == BiomeManager.BiomeType.DESERT) {
                 BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.HOT, BiomeDictionary.Type.SPARSE);
-            } else if (biome.getKind() == BiomeManager.BiomeType.COOL) {
-                BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.FOREST, BiomeDictionary.Type.CONIFEROUS);
-            } else if (biome.getKind() == BiomeManager.BiomeType.WARM) {
+            } else if (biome.getBiomeType() == BiomeManager.BiomeType.COOL) {
+                BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.CONIFEROUS);
+            } else if (biome.getBiomeType() == BiomeManager.BiomeType.WARM) {
                 BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.FOREST);
             }
         }
-        */
     }
 }

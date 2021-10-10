@@ -1,35 +1,101 @@
 package de.deerangle.treemendous.world;
 
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
-import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaPineFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
 
-public class TreeMaker {
+public class TreeMaker extends BaseTreeMaker {
 
-    public static ConfiguredFeature<TreeConfiguration, ?> makeSomeTree(Block leaves, Block wood, Block sapling) {
-        return TreeMaker.makeSomeTree(new SimpleStateProvider(leaves.defaultBlockState()), new SimpleStateProvider(wood.defaultBlockState()), new SimpleStateProvider(sapling.defaultBlockState()));
+    public static ConfiguredFeature<TreeConfiguration, ?> makeCherryTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
     }
 
-    public static ConfiguredFeature<TreeConfiguration, ?> makeSomeTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling) {
-        return Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(wood, new ForkingTrunkPlacer(5, 2, 2), leaves, sapling, new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build());
+    public static ConfiguredFeature<TreeConfiguration, ?> makeDouglasTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
     }
 
-    public static ConfiguredFeature<TreeConfiguration, ?> makeMegaTree(Block leaves, Block wood, Block sapling) {
-        return TreeMaker.makeMegaTree(new SimpleStateProvider(leaves.defaultBlockState()), new SimpleStateProvider(wood.defaultBlockState()), new SimpleStateProvider(sapling.defaultBlockState()));
+    public static ConfiguredFeature<TreeConfiguration, ?> makeMegaPineTree(Block leaves, Block wood, Block sapling) {
+        return makeMegaTree(leaves, wood, sapling);
     }
 
-    public static ConfiguredFeature<TreeConfiguration, ?> makeMegaTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling) {
-        return Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(wood, new GiantTrunkPlacer(13, 2, 14), leaves, sapling, new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(13, 17)), new TwoLayersFeatureSize(1, 1, 2))).build());
+    public static ConfiguredFeature<TreeConfiguration, ?> makeMapleTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makePineTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeLarchTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeFirTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeBeechTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeAlderTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeChestnutTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makePlaneTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeAshTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeLindenTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeRobiniaTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeWillowTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makePomegranateTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeWalnutTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeCedarTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makePoplarTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeElmTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeJuniperTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeMagnoliaTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
+    }
+
+    public static ConfiguredFeature<TreeConfiguration, ?> makeRainbowEucalyptusTree(Block leaves, Block wood, Block sapling) {
+        return makeSomeTree(leaves, wood, sapling);
     }
 
 }

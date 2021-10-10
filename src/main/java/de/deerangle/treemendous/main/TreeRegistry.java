@@ -22,75 +22,75 @@ public class TreeRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Treemendous.MODID);
 
     private static final TreeConfig DOUGLAS_CONFIG = new TreeConfigBuilder("douglas", WoodColors.DOUGLAS_LEAVES, true, WoodColors.DOUGLAS_WOOD, WoodColors.DOUGLAS_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeDouglasTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig PINE_CONFIG = new TreeConfigBuilder("pine", WoodColors.PINE_LEAVES, true, WoodColors.PINE_WOOD, WoodColors.PINE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).addTree(1, true, ((leaves, wood, sapling, tree) -> TreeMaker.makeMegaTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makePineTree(leaves, wood, sapling))).addTree(1, true, ((leaves, wood, sapling, tree) -> TreeMaker.makeMegaPineTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig LARCH_CONFIG = new TreeConfigBuilder("larch", WoodColors.LARCH_LEAVES, true, WoodColors.LARCH_WOOD, WoodColors.LARCH_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeLarchTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig FIR_CONFIG = new TreeConfigBuilder("fir", WoodColors.FIR_LEAVES, true, WoodColors.FIR_WOOD, WoodColors.FIR_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeFirTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig MAPLE_CONFIG = new TreeConfigBuilder("maple", WoodColors.MAPLE_LEAVES, false, WoodColors.MAPLE_WOOD, WoodColors.MAPLE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
-            .extraSapling("red").setLeaves(tree -> ExtraRegistry.MAPLE_RED_LEAVES.get()).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling)).add()
-            .extraSapling("brown").setLeaves(tree -> ExtraRegistry.MAPLE_BROWN_LEAVES.get()).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling)).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeMapleTree(leaves, wood, sapling))).add()
+            .extraSapling("red").setLeaves(tree -> ExtraRegistry.MAPLE_RED_LEAVES.get()).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeMapleTree(leaves, wood, sapling)).add()
+            .extraSapling("brown").setLeaves(tree -> ExtraRegistry.MAPLE_BROWN_LEAVES.get()).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeMapleTree(leaves, wood, sapling)).add()
             .createTreeConfig();
     private static final TreeConfig JAPANESE_CONFIG = new TreeConfigBuilder("japanese", WoodColors.JAPANESE_LEAVES, true, WoodColors.JAPANESE_WOOD, WoodColors.JAPANESE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeMapleTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig BEECH_CONFIG = new TreeConfigBuilder("beech", WoodColors.BEECH_LEAVES, false, WoodColors.BEECH_WOOD, WoodColors.BEECH_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeBeechTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig CHERRY_CONFIG = new TreeConfigBuilder("cherry", WoodColors.CHERRY_LEAVES, false, WoodColors.CHERRY_WOOD, WoodColors.CHERRY_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeCherryTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig ALDER_CONFIG = new TreeConfigBuilder("alder", WoodColors.ALDER_LEAVES, false, WoodColors.ALDER_WOOD, WoodColors.ALDER_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeAlderTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig CHESTNUT_CONFIG = new TreeConfigBuilder("chestnut", WoodColors.CHESTNUT_LEAVES, false, WoodColors.CHESTNUT_WOOD, WoodColors.CHESTNUT_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeChestnutTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig PLANE_CONFIG = new TreeConfigBuilder("plane", WoodColors.PLANE_LEAVES, false, WoodColors.PLANE_WOOD, WoodColors.PLANE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makePlaneTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig ASH_CONFIG = new TreeConfigBuilder("ash", WoodColors.ASH_LEAVES, false, WoodColors.ASH_WOOD, WoodColors.ASH_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeAshTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig LINDEN_CONFIG = new TreeConfigBuilder("linden", WoodColors.LINDEN_LEAVES, false, WoodColors.LINDEN_WOOD, WoodColors.LINDEN_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeLindenTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig ROBINIA_CONFIG = new TreeConfigBuilder("robinia", WoodColors.ROBINIA_LEAVES, false, WoodColors.ROBINIA_WOOD, WoodColors.ROBINIA_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeRobiniaTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig WILLOW_CONFIG = new TreeConfigBuilder("willow", WoodColors.WILLOW_LEAVES, false, WoodColors.WILLOW_WOOD, WoodColors.WILLOW_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeWillowTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig POMEGRANATE_CONFIG = new TreeConfigBuilder("pomegranate", WoodColors.POMEGRANATE_LEAVES, false, WoodColors.POMEGRANATE_WOOD, WoodColors.POMEGRANATE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makePomegranateTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig WALNUT_CONFIG = new TreeConfigBuilder("walnut", WoodColors.WALNUT_LEAVES, false, WoodColors.WALNUT_WOOD, WoodColors.WALNUT_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeWalnutTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig CEDAR_CONFIG = new TreeConfigBuilder("cedar", WoodColors.CEDAR_LEAVES, true, WoodColors.CEDAR_WOOD, WoodColors.CEDAR_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeCedarTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig POPLAR_CONFIG = new TreeConfigBuilder("poplar", WoodColors.POPLAR_LEAVES, false, WoodColors.POPLAR_WOOD, WoodColors.POPLAR_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makePoplarTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig ELM_CONFIG = new TreeConfigBuilder("elm", WoodColors.ELM_LEAVES, false, WoodColors.ELM_WOOD, WoodColors.ELM_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeElmTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig JUNIPER_CONFIG = new TreeConfigBuilder("juniper", WoodColors.JUNIPER_LEAVES, true, WoodColors.JUNIPER_WOOD, WoodColors.JUNIPER_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeJuniperTree(leaves, wood, sapling))).add()
             .createTreeConfig();
-    private static final TreeConfig MAGNOLIA_CONFIG = new TreeConfigBuilder("magnolia", WoodColors.MAGNOLIA_LEAVES, false, WoodColors.MAGNOLIA_WOOD, WoodColors.MAGNOLIA_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+    private static final TreeConfig MAGNOLIA_CONFIG = new TreeConfigBuilder("magnolia", WoodColors.MAGNOLIA_LEAVES, true, WoodColors.MAGNOLIA_WOOD, WoodColors.MAGNOLIA_LOG)
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeMagnoliaTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig RAINBOW_EUCALYPTUS_CONFIG = new TreeConfigBuilder("rainbow_eucalyptus", new RainbowLeavesColor(), MaterialColor.WOOD, MaterialColor.TERRACOTTA_BLACK)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeSomeTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeRainbowEucalyptusTree(leaves, wood, sapling))).add()
             .createTreeConfig();
 
     public static final Tree DOUGLAS_TREE = ExtraRegistry.registerTree(Tree.fromConfig(BLOCKS, ITEMS, DOUGLAS_CONFIG));
