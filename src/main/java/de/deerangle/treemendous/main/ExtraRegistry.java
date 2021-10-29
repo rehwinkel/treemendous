@@ -28,7 +28,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SignBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -45,12 +49,17 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static net.minecraft.world.entity.ai.village.poi.PoiType.getBlockStates;
 
-public class ExtraRegistry {
+public class ExtraRegistry
+{
 
     private static final List<Supplier<SignBlock>> SIGN_BLOCK_LIST = new ArrayList<>();
     private static final List<Supplier<ChestBlock>> CHEST_BLOCK_LIST = new ArrayList<>();
@@ -84,7 +93,8 @@ public class ExtraRegistry {
     public static final StructurePieceType RANGER_HOUSE_PIECE_TYPE = StructurePieceType.setPieceId(RangerHouseStructurePiece::new, "RangerHouse");
     public static final StructureProcessorType<ReplacementProcessor> REPLACEMENT_PROCESSOR = registerStructureProcessor("replacement", ReplacementProcessor.CODEC);
 
-    static <P extends StructureProcessor> StructureProcessorType<P> registerStructureProcessor(String name, Codec<P> codec) {
+    static <P extends StructureProcessor> StructureProcessorType<P> registerStructureProcessor(String name, Codec<P> codec)
+    {
         return Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(Treemendous.MODID, name), () -> codec);
     }
 
@@ -109,7 +119,8 @@ public class ExtraRegistry {
     public static final RegistryObject<LumberAxeItem> DIAMOND_LUMBER_AXE = ITEMS.register("diamond_lumber_axe", () -> new LumberAxeItem(LumberTiers.DIAMOND, 5.0F, -3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
     public static final RegistryObject<LumberAxeItem> NETHERITE_LUMBER_AXE = ITEMS.register("netherite_lumber_axe", () -> new LumberAxeItem(LumberTiers.NETHERITE, 5.0F, -3.0F, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
-    static {
+    static
+    {
         CHEST_BLOCK_LIST.add(BIRCH_CHEST::get);
         CHEST_BLOCK_LIST.add(SPRUCE_CHEST::get);
         CHEST_BLOCK_LIST.add(JUNGLE_CHEST::get);
@@ -138,12 +149,15 @@ public class ExtraRegistry {
         ITEMS.register("chopping_block", () -> new BlockItem(CHOPPING_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
-    public static void setupStructures() {
+    public static void setupStructures()
+    {
         setupStructure(RANGER_HOUSE_FEATURE.get(), new StructureFeatureConfiguration(40, 8, 835769016));
     }
 
-    private static void setupStructure(StructureFeature<? extends FeatureConfiguration> feature, StructureFeatureConfiguration spawnConfig) {
-        if (!(StructureFeature.NOISE_AFFECTING_FEATURES instanceof ArrayList)) {
+    private static void setupStructure(StructureFeature<? extends FeatureConfiguration> feature, StructureFeatureConfiguration spawnConfig)
+    {
+        if (!(StructureFeature.NOISE_AFFECTING_FEATURES instanceof ArrayList))
+        {
             StructureFeature.NOISE_AFFECTING_FEATURES = new ArrayList<>(StructureFeature.NOISE_AFFECTING_FEATURES);
         }
         StructureFeature.NOISE_AFFECTING_FEATURES.add(feature);
@@ -158,17 +172,20 @@ public class ExtraRegistry {
         BuiltinRegistries.NOISE_GENERATOR_SETTINGS.entrySet().forEach(settings -> {
             Map<StructureFeature<?>, StructureFeatureConfiguration> structureMap = settings.getValue().structureSettings().structureConfig();
 
-            if (structureMap instanceof ImmutableMap) {
+            if (structureMap instanceof ImmutableMap)
+            {
                 Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(structureMap);
                 tempMap.put(feature, spawnConfig);
                 settings.getValue().structureSettings().structureConfig = tempMap;
-            } else {
+            } else
+            {
                 structureMap.put(feature, spawnConfig);
             }
         });
     }
 
-    public static Tree registerTree(Tree tree) {
+    public static Tree registerTree(Tree tree)
+    {
         SIGN_BLOCK_LIST.add(tree::getSign);
         SIGN_BLOCK_LIST.add(tree::getWallSign);
         CHEST_BLOCK_LIST.add(tree::getChest);

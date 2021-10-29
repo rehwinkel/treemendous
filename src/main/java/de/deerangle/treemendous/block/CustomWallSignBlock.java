@@ -8,14 +8,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 
-public class CustomWallSignBlock extends WallSignBlock {
+public class CustomWallSignBlock extends WallSignBlock
+{
 
-    public CustomWallSignBlock(Properties sound, WoodType woodType) {
+    public CustomWallSignBlock(Properties sound, WoodType woodType)
+    {
         super(sound, woodType);
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state)
+    {
         return new CustomSignBlockEntity(pos, state);
     }
 

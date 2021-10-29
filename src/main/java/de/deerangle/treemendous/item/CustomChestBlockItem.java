@@ -8,17 +8,22 @@ import net.minecraftforge.client.IItemRenderProperties;
 
 import java.util.function.Consumer;
 
-public class CustomChestBlockItem extends BlockItem {
+public class CustomChestBlockItem extends BlockItem
+{
 
-    public CustomChestBlockItem(Block block, Properties properties) {
+    public CustomChestBlockItem(Block block, Properties properties)
+    {
         super(block, properties);
     }
 
     @Override
-    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-        consumer.accept(new IItemRenderProperties() {
+    public void initializeClient(Consumer<IItemRenderProperties> consumer)
+    {
+        consumer.accept(new IItemRenderProperties()
+        {
             @Override
-            public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+            public BlockEntityWithoutLevelRenderer getItemStackRenderer()
+            {
                 return new CustomChestItemRenderer();
             }
         });

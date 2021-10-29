@@ -1,6 +1,7 @@
 package de.deerangle.treemendous.util;
 
-public class WoodColors {
+public class WoodColors
+{
     public static final int DOUGLAS_WOOD = 0xc18879;
     public static final int DOUGLAS_LOG = 0x9f9390;
     public static final int DOUGLAS_LEAVES = 0x78a65d;

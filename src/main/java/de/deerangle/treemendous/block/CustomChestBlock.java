@@ -7,22 +7,26 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CustomChestBlock extends ChestBlock {
+public class CustomChestBlock extends ChestBlock
+{
 
     private final String woodType;
 
-    public CustomChestBlock(Properties properties, String woodType) {
+    public CustomChestBlock(Properties properties, String woodType)
+    {
         super(properties, ExtraRegistry.CHEST::get);
         this.woodType = woodType;
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state)
+    {
         return new CustomChestBlockEntity(pos, state);
     }
 
-    public String getWoodType() {
+    public String getWoodType()
+    {
         return this.woodType;
     }
 

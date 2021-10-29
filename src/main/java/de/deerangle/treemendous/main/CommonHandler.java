@@ -10,7 +10,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Treemendous.MODID)
-public class CommonHandler {
+public class CommonHandler
+{
 
     public static RegisteredTree DOUGLAS_TREE;
     public static RegisteredTree PINE_TREE;
@@ -44,7 +45,8 @@ public class CommonHandler {
     public static RegisteredTree DARK_OAK_TREE;
 
     @SubscribeEvent
-    public static void registerTrees(RegistryEvent.Register<RegisteredTree> event) {
+    public static void registerTrees(RegistryEvent.Register<RegisteredTree> event)
+    {
         IForgeRegistry<RegisteredTree> registry = event.getRegistry();
         DOUGLAS_TREE = register("douglas", TreeRegistry.DOUGLAS_TREE);
         PINE_TREE = register("pine", TreeRegistry.PINE_TREE);
@@ -80,13 +82,15 @@ public class CommonHandler {
         registry.registerAll(OAK_TREE, BIRCH_TREE, SPRUCE_TREE, JUNGLE_TREE, ACACIA_TREE, DARK_OAK_TREE);
     }
 
-    private static RegisteredTree register(String name, Tree tree) {
+    private static RegisteredTree register(String name, Tree tree)
+    {
         RegisteredTree newTree = new RegisteredTree(tree, false);
         newTree.setRegistryName(new ResourceLocation(Treemendous.MODID, name));
         return newTree;
     }
 
-    private static RegisteredTree registerFake(String name, FakeTree tree) {
+    private static RegisteredTree registerFake(String name, FakeTree tree)
+    {
         RegisteredTree newTree = new RegisteredTree(tree, true);
         newTree.setRegistryName(new ResourceLocation(Treemendous.MODID, name));
         return newTree;

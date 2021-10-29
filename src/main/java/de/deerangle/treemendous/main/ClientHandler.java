@@ -35,42 +35,54 @@ import net.minecraftforge.registries.RegistryManager;
 import java.awt.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT, modid = Treemendous.MODID)
-public class ClientHandler {
+public class ClientHandler
+{
 
     private static final ColorResolverWithBase FOLIAGE_COLOR_RESOLVER = new ColorResolverWithBase();
 
-    public static int getAverageFoliageColor(BlockAndTintGetter tintGetter, BlockPos pos, int baseColor) {
+    public static int getAverageFoliageColor(BlockAndTintGetter tintGetter, BlockPos pos, int baseColor)
+    {
         ClientLevel level;
-        if (tintGetter instanceof ClientLevel) {
+        if (tintGetter instanceof ClientLevel)
+        {
             level = (ClientLevel) tintGetter;
-        } else if (tintGetter instanceof RenderChunkRegion region) {
+        } else if (tintGetter instanceof RenderChunkRegion region)
+        {
             level = (ClientLevel) region.level;
-        } else {
+        } else
+        {
             level = null;
         }
-        if (level != null) {
+        if (level != null)
+        {
             BlockTintCache blockTintCache = level.tintCaches.get(FOLIAGE_COLOR_RESOLVER);
-            if (blockTintCache == null) {
+            if (blockTintCache == null)
+            {
                 level.tintCaches.put(FOLIAGE_COLOR_RESOLVER, new BlockTintCache());
                 blockTintCache = level.tintCaches.get(FOLIAGE_COLOR_RESOLVER);
             }
             return blockTintCache.getColor(pos, () -> level.calculateBlockTint(pos, (biome, x, y) -> FOLIAGE_COLOR_RESOLVER.getColorWithBase(biome, baseColor)));
-        } else {
+        } else
+        {
             return tintGetter.getBlockTint(pos, BiomeColors.FOLIAGE_COLOR_RESOLVER);
         }
     }
 
-    private static int getLeavesColor(Tree tree, BlockAndTintGetter blockAndTintGetter, BlockPos pos) {
+    private static int getLeavesColor(Tree tree, BlockAndTintGetter blockAndTintGetter, BlockPos pos)
+    {
         int baseColor = tree.getLeavesColor().getColor(pos);
-        if (tree.getLeavesColor().isBiomeDependent()) {
+        if (tree.getLeavesColor().isBiomeDependent())
+        {
             return blockAndTintGetter != null && pos != null ? getAverageFoliageColor(blockAndTintGetter, pos, baseColor) : baseColor;
-        } else {
+        } else
+        {
             return baseColor;
         }
     }
 
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent event)
+    {
         BlockColors blockColors = Minecraft.getInstance().getBlockColors();
         ItemColors itemColors = Minecraft.getInstance().getItemColors();
 
@@ -79,8 +91,10 @@ public class ClientHandler {
         itemColors.register((stack, tintId) -> WoodColors.MAPLE_RED_LEAVES, ExtraRegistry.MAPLE_RED_LEAVES.get());
         itemColors.register((stack, tintId) -> WoodColors.MAPLE_BROWN_LEAVES, ExtraRegistry.MAPLE_BROWN_LEAVES.get());
 
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            if (!regTree.isFake()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
+            if (!regTree.isFake())
+            {
                 Tree tree = regTree.getTree();
                 event.enqueueWork(() -> Sheets.addWoodType(tree.getWoodType()));
                 blockColors.register((state, blockAndTintGetter, pos, tindId) -> getLeavesColor(tree, blockAndTintGetter, pos), tree.getLeaves());
@@ -88,7 +102,8 @@ public class ClientHandler {
                 ItemBlockRenderTypes.setRenderLayer(tree.getTrapdoor(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(tree.getDoor(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(tree.getLeaves(), RenderType.cutout());
-                for (String saplingName : tree.getSaplingNames()) {
+                for (String saplingName : tree.getSaplingNames())
+                {
                     ItemBlockRenderTypes.setRenderLayer(tree.getSapling(saplingName), RenderType.cutout());
                     ItemBlockRenderTypes.setRenderLayer(tree.getPottedSapling(saplingName), RenderType.cutout());
                 }
@@ -111,31 +126,38 @@ public class ClientHandler {
     }
 
     @SubscribeEvent
-    public static void onTextureStitch(TextureStitchEvent.Pre event) {
-        if (!event.getMap().location().equals(Sheets.CHEST_SHEET)) {
+    public static void onTextureStitch(TextureStitchEvent.Pre event)
+    {
+        if (!event.getMap().location().equals(Sheets.CHEST_SHEET))
+        {
             return;
         }
 
         addChestSprites(event, "crimson");
         addChestSprites(event, "warped");
 
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
             String woodName = regTree.getRegistryName().getPath();
-            if (!"oak".equals(woodName)) {
+            if (!"oak".equals(woodName))
+            {
                 addChestSprites(event, woodName);
             }
         }
     }
 
-    private static void addChestSprites(TextureStitchEvent.Pre event, String woodName) {
+    private static void addChestSprites(TextureStitchEvent.Pre event, String woodName)
+    {
         event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName));
         event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_left"));
         event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_right"));
     }
 
-    private static class ColorResolverWithBase implements ColorResolver {
+    private static class ColorResolverWithBase implements ColorResolver
+    {
 
-        private static int getFoliageColor(Biome biome, int baseColor) {
+        private static int getFoliageColor(Biome biome, int baseColor)
+        {
             return biome.getSpecialEffects().getFoliageColorOverride().orElseGet(() -> {
                 double temperature = Mth.clamp(biome.climateSettings.temperature, 0.0F, 1.0F);
                 double downfall = Mth.clamp(biome.climateSettings.downfall, 0.0F, 1.0F);
@@ -156,11 +178,13 @@ public class ClientHandler {
         }
 
         @Override
-        public int getColor(Biome biome, double x, double y) {
+        public int getColor(Biome biome, double x, double y)
+        {
             return 0;
         }
 
-        public int getColorWithBase(Biome biome, int baseColor) {
+        public int getColorWithBase(Biome biome, int baseColor)
+        {
             return getFoliageColor(biome, baseColor);
         }
 

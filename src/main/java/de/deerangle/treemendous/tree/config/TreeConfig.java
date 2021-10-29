@@ -9,5 +9,6 @@ import java.util.function.Supplier;
 
 public record TreeConfig(String registryName, ILeavesColor leavesColor, Supplier<Item> appleItem,
                          MaterialColor woodMaterialColor, MaterialColor barkMaterialColor,
-                         List<SaplingConfig> saplingConfigs) {
+                         List<SaplingConfig> saplingConfigs)
+{
 }

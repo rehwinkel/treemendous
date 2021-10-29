@@ -8,7 +8,23 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.CraftingTableBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SignBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -23,17 +39,20 @@ import net.minecraftforge.registries.RegistryManager;
 import java.util.Objects;
 
 
-public class TreemendousModelProvider extends BlockStateProvider {
+public class TreemendousModelProvider extends BlockStateProvider
+{
 
     private final String modid;
 
-    public TreemendousModelProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
+    public TreemendousModelProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper)
+    {
         super(gen, modid, exFileHelper);
         this.modid = modid;
     }
 
     @Override
-    protected void registerStatesAndModels() {
+    protected void registerStatesAndModels()
+    {
         leavesItemBlock(ExtraRegistry.MAPLE_RED_LEAVES.get());
         leavesItemBlock(ExtraRegistry.MAPLE_BROWN_LEAVES.get());
         existingModelBlock(ExtraRegistry.CHOPPING_BLOCK.get());
@@ -57,8 +76,10 @@ public class TreemendousModelProvider extends BlockStateProvider {
         chestBlock(ExtraRegistry.CRIMSON_CHEST.get(), Blocks.CRIMSON_PLANKS);
         chestBlock(ExtraRegistry.WARPED_CHEST.get(), Blocks.WARPED_PLANKS);
 
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            if (!regTree.isFake()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
+            if (!regTree.isFake())
+            {
                 Tree tree = regTree.getTree();
                 planksItemBlock(tree.getPlanks());
                 logItemBlock(tree.getLog());
@@ -74,7 +95,8 @@ public class TreemendousModelProvider extends BlockStateProvider {
                 doorItemBlock(tree.getDoor());
                 trapdoorItemBlock(tree.getTrapdoor());
                 leavesItemBlock(tree.getLeaves());
-                for (String saplingName : tree.getSaplingNames()) {
+                for (String saplingName : tree.getSaplingNames())
+                {
                     saplingItemBlock(tree.getSapling(saplingName));
                     pottedSaplingBlock(tree.getPottedSapling(saplingName), tree.getSapling(saplingName));
                 }
@@ -88,90 +110,104 @@ public class TreemendousModelProvider extends BlockStateProvider {
         }
     }
 
-    private void existingModelBlock(Block block) {
+    private void existingModelBlock(Block block)
+    {
         ModelFile model = new ModelFile.ExistingModelFile(new ResourceLocation(Objects.requireNonNull(block.getRegistryName()).getNamespace(), "block/" + block.getRegistryName().getPath()), models().existingFileHelper);
         getVariantBuilder(block).partialState().modelForState().modelFile(model).addModel();
         itemModels().getBuilder(block.getRegistryName().getPath()).parent(model);
     }
 
-    private void chestBlock(ChestBlock chest, Block planks) {
+    private void chestBlock(ChestBlock chest, Block planks)
+    {
         String name = Objects.requireNonNull(chest.getRegistryName()).getPath();
         ModelFile model = models().getBuilder(name).texture("particle", blockTexture(planks));
         getVariantBuilder(chest).partialState().modelForState().modelFile(model).addModel();
         itemModels().getBuilder(name).parent(new ModelFile.ExistingModelFile(new ResourceLocation(Treemendous.MODID, "block/chest"), models().existingFileHelper)).texture("particle", blockTexture(planks));
     }
 
-    private void craftingTableBlock(CraftingTableBlock craftingTable, Block planks) {
+    private void craftingTableBlock(CraftingTableBlock craftingTable, Block planks)
+    {
         String name = Objects.requireNonNull(craftingTable.getRegistryName()).getPath();
         ModelFile model = models().singleTexture(name, new ResourceLocation(this.modid, "block/crafting_table"), "planks", blockTexture(planks));
         getVariantBuilder(craftingTable).partialState().modelForState().modelFile(model).addModel();
         itemModels().getBuilder(name).parent(model);
     }
 
-    private void pottedSaplingBlock(FlowerPotBlock pottedSapling, SaplingBlock saplingBlock) {
+    private void pottedSaplingBlock(FlowerPotBlock pottedSapling, SaplingBlock saplingBlock)
+    {
         String name = Objects.requireNonNull(pottedSapling.getRegistryName()).getPath();
         ModelFile model = models().singleTexture(name, new ResourceLocation("block/flower_pot_cross"), "plant", blockTexture(saplingBlock));
         getVariantBuilder(pottedSapling).partialState().modelForState().modelFile(model).addModel();
     }
 
-    private void generatedItem(Item item) {
+    private void generatedItem(Item item)
+    {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
         itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modid, "item/" + name));
     }
 
-    private void handheldItem(Item item) {
+    private void handheldItem(Item item)
+    {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
         itemModels().singleTexture(name, new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(this.modid, "item/" + name));
     }
 
-    private void signItemBlock(SignBlock sign, Block planks) {
+    private void signItemBlock(SignBlock sign, Block planks)
+    {
         String name = Objects.requireNonNull(sign.getRegistryName()).getPath();
         ModelFile signModel = models().getBuilder(name).texture("particle", blockTexture(planks));
         getVariantBuilder(sign).partialState().modelForState().modelFile(signModel).addModel();
     }
 
-    private void saplingItemBlock(SaplingBlock sapling) {
+    private void saplingItemBlock(SaplingBlock sapling)
+    {
         String name = Objects.requireNonNull(sapling.getRegistryName()).getPath();
         ModelFile leavesModel = models().singleTexture(name, new ResourceLocation("block/cross"), "cross", blockTexture(sapling));
         getVariantBuilder(sapling).partialState().modelForState().modelFile(leavesModel).addModel();
         itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modid, "block/" + name));
     }
 
-    private void leavesItemBlock(LeavesBlock leaves) {
+    private void leavesItemBlock(LeavesBlock leaves)
+    {
         String name = Objects.requireNonNull(leaves.getRegistryName()).getPath();
         ModelFile leavesModel = models().singleTexture(name, new ResourceLocation("block/leaves"), "all", blockTexture(leaves));
         getVariantBuilder(leaves).partialState().modelForState().modelFile(leavesModel).addModel();
         itemModels().getBuilder(name).parent(leavesModel);
     }
 
-    private void trapdoorItemBlock(TrapDoorBlock trapdoor) {
+    private void trapdoorItemBlock(TrapDoorBlock trapdoor)
+    {
         String name = Objects.requireNonNull(trapdoor.getRegistryName()).getPath();
         trapdoorBlock(trapdoor, new ResourceLocation(this.modid, "block/" + name), true);
         ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modid, "block/" + name + "_bottom"), models().existingFileHelper);
         itemModels().getBuilder(name).parent(inventoryModel);
     }
 
-    private void doorItemBlock(DoorBlock door) {
+    private void doorItemBlock(DoorBlock door)
+    {
         String name = Objects.requireNonNull(door.getRegistryName()).getPath();
         doorBlock(door, new ResourceLocation(this.modid, "block/" + name + "_bottom"), new ResourceLocation(this.modid, "block/" + name + "_top"));
         itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(door.getRegistryName().getNamespace(), "item/" + name));
     }
 
-    private void fenceGateItemBlock(FenceGateBlock fence, Block planks) {
+    private void fenceGateItemBlock(FenceGateBlock fence, Block planks)
+    {
         String name = Objects.requireNonNull(fence.getRegistryName()).getPath();
         fenceGateBlock(fence, blockTexture(planks));
         ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modid, "block/" + name), this.models().existingFileHelper);
         itemModels().getBuilder(name).parent(inventoryModel);
     }
 
-    private void fenceItemBlock(FenceBlock fence, Block planks) {
+    private void fenceItemBlock(FenceBlock fence, Block planks)
+    {
         String name = Objects.requireNonNull(fence.getRegistryName()).getPath();
         fenceBlock(fence, blockTexture(planks));
         ModelFile inventoryModel = models().singleTexture(name + "_inventory", new ResourceLocation("block/fence_inventory"), "texture", blockTexture(planks));
         itemModels().getBuilder(name).parent(inventoryModel);
     }
 
-    private void pressurePlateItemBlock(PressurePlateBlock block, Block planks) {
+    private void pressurePlateItemBlock(PressurePlateBlock block, Block planks)
+    {
         String name = Objects.requireNonNull(block.getRegistryName()).getPath();
         ModelFile model = models().singleTexture(name, new ResourceLocation("block/pressure_plate_up"), "texture", blockTexture(planks));
         ModelFile modelPressed = models().singleTexture(name + "_down", new ResourceLocation("block/pressure_plate_down"), "texture", blockTexture(planks));
@@ -181,25 +217,30 @@ public class TreemendousModelProvider extends BlockStateProvider {
         itemModels().getBuilder(name).parent(model);
     }
 
-    private void buttonItemBlock(ButtonBlock button, Block planks) {
+    private void buttonItemBlock(ButtonBlock button, Block planks)
+    {
         String name = Objects.requireNonNull(button.getRegistryName()).getPath();
         ModelFile model = models().singleTexture(name, new ResourceLocation("block/button"), "texture", blockTexture(planks));
         ModelFile pressed = models().singleTexture(name + "_pressed", new ResourceLocation("block/button_pressed"), "texture", blockTexture(planks));
         ModelFile inventory = models().singleTexture(name + "_inventory", new ResourceLocation("block/button_inventory"), "texture", blockTexture(planks));
         VariantBlockStateBuilder builder = getVariantBuilder(button);
-        for (Direction d : Direction.Plane.HORIZONTAL) {
-            for (AttachFace f : AttachFace.values()) {
-                int rotX = switch (f) {
-                    case CEILING -> 180;
-                    case WALL -> 90;
-                    default -> 0;
-                };
-                int rotY = switch (d) {
-                    case EAST -> 90;
-                    case WEST -> 270;
-                    case NORTH -> 0;
-                    default -> 180;
-                };
+        for (Direction d : Direction.Plane.HORIZONTAL)
+        {
+            for (AttachFace f : AttachFace.values())
+            {
+                int rotX = switch (f)
+                        {
+                            case CEILING -> 180;
+                            case WALL -> 90;
+                            default -> 0;
+                        };
+                int rotY = switch (d)
+                        {
+                            case EAST -> 90;
+                            case WEST -> 270;
+                            case NORTH -> 0;
+                            default -> 180;
+                        };
                 builder.partialState().with(ButtonBlock.FACE, f).with(ButtonBlock.FACING, d)
                         .with(ButtonBlock.POWERED, true).modelForState().rotationX(rotX).rotationY(rotY).modelFile(pressed).addModel();
                 builder.partialState().with(ButtonBlock.FACE, f).with(ButtonBlock.FACING, d)
@@ -209,7 +250,8 @@ public class TreemendousModelProvider extends BlockStateProvider {
         itemModels().getBuilder(name).parent(inventory);
     }
 
-    public void stairsItemBlock(StairBlock block, Block planks) {
+    public void stairsItemBlock(StairBlock block, Block planks)
+    {
         String name = Objects.requireNonNull(block.getRegistryName()).getPath();
         ResourceLocation texture = blockTexture(planks);
         ModelFile stairs = models().stairs(name, texture, texture, texture);
@@ -221,10 +263,12 @@ public class TreemendousModelProvider extends BlockStateProvider {
                     Half half = state.getValue(StairBlock.HALF);
                     StairsShape shape = state.getValue(StairBlock.SHAPE);
                     int yRot = (int) facing.getClockWise().toYRot(); // Stairs model is rotated 90 degrees clockwise for some reason
-                    if (shape == StairsShape.INNER_LEFT || shape == StairsShape.OUTER_LEFT) {
+                    if (shape == StairsShape.INNER_LEFT || shape == StairsShape.OUTER_LEFT)
+                    {
                         yRot += 270; // Left facing stairs are rotated 90 degrees clockwise
                     }
-                    if (shape != StairsShape.STRAIGHT && half == Half.TOP) {
+                    if (shape != StairsShape.STRAIGHT && half == Half.TOP)
+                    {
                         yRot += 90; // Top stairs are rotated 90 degrees clockwise
                     }
                     yRot %= 360;
@@ -239,7 +283,8 @@ public class TreemendousModelProvider extends BlockStateProvider {
         itemModels().getBuilder(name).parent(stairs);
     }
 
-    public void slabItemBlock(SlabBlock block, Block planks) {
+    public void slabItemBlock(SlabBlock block, Block planks)
+    {
         String name = Objects.requireNonNull(block.getRegistryName()).getPath();
         ResourceLocation texture = blockTexture(planks);
         ModelFile bottom = models().slab(name, texture, texture, texture);
@@ -252,7 +297,8 @@ public class TreemendousModelProvider extends BlockStateProvider {
         itemModels().getBuilder(name).parent(bottom);
     }
 
-    private void woodItemBlock(RotatedPillarBlock block, RotatedPillarBlock log) {
+    private void woodItemBlock(RotatedPillarBlock block, RotatedPillarBlock log)
+    {
         String name = Objects.requireNonNull(block.getRegistryName()).getPath();
         ResourceLocation texture = blockTexture(log);
         ModelFile model = models().cubeColumn(name, texture, texture);
@@ -261,7 +307,8 @@ public class TreemendousModelProvider extends BlockStateProvider {
         itemModels().getBuilder(name).parent(model);
     }
 
-    private void logItemBlock(RotatedPillarBlock block) {
+    private void logItemBlock(RotatedPillarBlock block)
+    {
         String name = Objects.requireNonNull(block.getRegistryName()).getPath();
         ResourceLocation texture = blockTexture(block);
         ResourceLocation textureTop = new ResourceLocation(texture.getNamespace(), texture.getPath() + "_top");
@@ -271,7 +318,8 @@ public class TreemendousModelProvider extends BlockStateProvider {
         itemModels().getBuilder(name).parent(model);
     }
 
-    private void planksItemBlock(Block planks) {
+    private void planksItemBlock(Block planks)
+    {
         String name = Objects.requireNonNull(planks.getRegistryName()).getPath();
         ModelFile model = models().cubeAll(name, blockTexture(planks));
         getVariantBuilder(planks).partialState().setModels(new ConfiguredModel(model));

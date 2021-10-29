@@ -12,17 +12,21 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
-public class ChoppingBlockRenderer implements BlockEntityRenderer<ChoppingBlockBlockEntity> {
+public class ChoppingBlockRenderer implements BlockEntityRenderer<ChoppingBlockBlockEntity>
+{
 
-    public ChoppingBlockRenderer(BlockEntityRendererProvider.Context context) {
+    public ChoppingBlockRenderer(BlockEntityRendererProvider.Context context)
+    {
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public void render(ChoppingBlockBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int i, int j) {
+    public void render(ChoppingBlockBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int i, int j)
+    {
         ItemStack currentItem = blockEntity.getInventory().getStackInSlot(0);
         Direction direction = blockEntity.getBlockState().getValue(ChoppingBlockBlock.FACING);
-        if (!currentItem.isEmpty()) {
+        if (!currentItem.isEmpty())
+        {
             poseStack.pushPose();
             poseStack.translate(0.5D, 12.0D / 16.0D, 0.5D);
             Direction direction1 = Direction.from2DDataValue((j + direction.get2DDataValue()) % 4);

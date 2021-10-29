@@ -24,21 +24,25 @@ import net.minecraftforge.registries.RegistryManager;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomChestItemRenderer extends BlockEntityWithoutLevelRenderer {
+public class CustomChestItemRenderer extends BlockEntityWithoutLevelRenderer
+{
 
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     private final Map<String, CustomChestBlockEntity> chests;
 
-    public CustomChestItemRenderer(BlockEntityRenderDispatcher renderDispatcher, EntityModelSet entityModelSet) {
+    public CustomChestItemRenderer(BlockEntityRenderDispatcher renderDispatcher, EntityModelSet entityModelSet)
+    {
         super(renderDispatcher, entityModelSet);
         this.blockEntityRenderDispatcher = renderDispatcher;
 
         Map<String, CustomChestBlockEntity> chestMap = new HashMap<>();
         chestMap.put("crimson", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.CRIMSON_CHEST.get().defaultBlockState()));
         chestMap.put("warped", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.WARPED_CHEST.get().defaultBlockState()));
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
             String woodName = regTree.getRegistryName().getPath();
-            if (!"oak".equals(woodName)) {
+            if (!"oak".equals(woodName))
+            {
                 Tree tree = regTree.getTree();
                 chestMap.put(woodName, new CustomChestBlockEntity(BlockPos.ZERO, tree.getChest().defaultBlockState()));
             }
@@ -46,16 +50,20 @@ public class CustomChestItemRenderer extends BlockEntityWithoutLevelRenderer {
         chests = ImmutableMap.copyOf(chestMap);
     }
 
-    public CustomChestItemRenderer() {
+    public CustomChestItemRenderer()
+    {
         this(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     }
 
     @SuppressWarnings("NullableProblems")
-    public void renderByItem(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource bufferSource, int i, int j) {
+    public void renderByItem(ItemStack itemStack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource bufferSource, int i, int j)
+    {
         Item item = itemStack.getItem();
-        if (item instanceof BlockItem) {
+        if (item instanceof BlockItem)
+        {
             Block block = ((BlockItem) item).getBlock();
-            if (block instanceof CustomChestBlock) {
+            if (block instanceof CustomChestBlock)
+            {
                 String woodType = ((CustomChestBlock) block).getWoodType();
                 BlockEntity blockentity = this.chests.get(woodType);
                 this.blockEntityRenderDispatcher.renderItem(blockentity, poseStack, bufferSource, i, j);

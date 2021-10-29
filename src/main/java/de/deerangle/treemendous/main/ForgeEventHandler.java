@@ -22,11 +22,14 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Treemendous.MODID)
-public class ForgeEventHandler {
+public class ForgeEventHandler
+{
 
     @SubscribeEvent
-    public static void onVillagerTrade(VillagerTradesEvent event) {
-        if (event.getType() == ExtraRegistry.FOREST_RANGER_PROFESSION.get()) {
+    public static void onVillagerTrade(VillagerTradesEvent event)
+    {
+        if (event.getType() == ExtraRegistry.FOREST_RANGER_PROFESSION.get())
+        {
             List<VillagerTrades.ItemListing> tradesLevel1 = event.getTrades().get(1);
             List<VillagerTrades.ItemListing> tradesLevel2 = event.getTrades().get(2);
             List<VillagerTrades.ItemListing> tradesLevel3 = event.getTrades().get(3);
@@ -49,18 +52,23 @@ public class ForgeEventHandler {
     }
 
     @SubscribeEvent
-    public static void onBiomeLoad(BiomeLoadingEvent event) {
+    public static void onBiomeLoad(BiomeLoadingEvent event)
+    {
         ConfiguredStructureFeature<?, ?> rangerHouse = TreemendousConfiguredFeatures.getRangerHouseForBiome(event.getName());
-        if (rangerHouse != null) {
+        if (rangerHouse != null)
+        {
             event.getGeneration().addStructureStart(rangerHouse);
         }
     }
 
     @SubscribeEvent
-    public static void onGetBreakSpeed(PlayerEvent.BreakSpeed event) {
-        if (event.getEntityLiving() instanceof Player player) {
+    public static void onGetBreakSpeed(PlayerEvent.BreakSpeed event)
+    {
+        if (event.getEntityLiving() instanceof Player player)
+        {
             ItemStack toolItem = player.getInventory().getSelected();
-            if (toolItem.getItem() instanceof LumberAxeItem lumberAxeItem) {
+            if (toolItem.getItem() instanceof LumberAxeItem lumberAxeItem)
+            {
                 float speed = lumberAxeItem.calculateSpeed(event.getOriginalSpeed(), player.level, event.getState(), event.getPos());
                 event.setNewSpeed(speed);
             }

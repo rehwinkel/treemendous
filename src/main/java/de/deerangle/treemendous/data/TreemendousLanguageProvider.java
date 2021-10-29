@@ -2,6 +2,7 @@ package de.deerangle.treemendous.data;
 
 import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.main.TreeRegistry;
+import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
@@ -10,19 +11,25 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.LanguageProvider;
 
 
-public class TreemendousLanguageProvider extends LanguageProvider {
+public class TreemendousLanguageProvider extends LanguageProvider
+{
 
     private final String locale;
 
-    public TreemendousLanguageProvider(DataGenerator gen, String modid, String locale) {
+    public TreemendousLanguageProvider(DataGenerator gen, String modid, String locale)
+    {
         super(gen, modid, locale);
         this.locale = locale;
     }
 
     @Override
-    protected void addTranslations() {
+    protected void addTranslations()
+    {
         //TODO: biomes
-        if (this.locale.equals("en_us")) {
+        if (this.locale.equals("en_us"))
+        {
+            add("advancements." + Treemendous.MODID + ".explore_forests.title", "Green Tourist Destinations");
+            add("advancements." + Treemendous.MODID + ".explore_forests.description", "Explore all forest types");
             add("entity.minecraft.villager.treemendous.forest_ranger", "Forest Ranger");
             add("block.treemendous.chopping_block", "Chopping Block");
             add("entity.treemendous.boat", "Boat");
@@ -50,7 +57,10 @@ public class TreemendousLanguageProvider extends LanguageProvider {
             add(ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), "Dark Oak Crafting Table");
             add(ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), "Crimson Crafting Table");
             add(ExtraRegistry.WARPED_CRAFTING_TABLE.get(), "Warped Crafting Table");
-        } else if (this.locale.equals("de_de")) {
+        } else if (this.locale.equals("de_de"))
+        {
+            add("advancements." + Treemendous.MODID + ".explore_forests.title", "Grüne Reiseziele");
+            add("advancements." + Treemendous.MODID + ".explore_forests.description", "Entdecke alle Waldarten");
             add("entity.minecraft.villager.treemendous.forest_ranger", "Förster");
             add("block.treemendous.chopping_block", "Hackklotz");
             add("entity.treemendous.boat", "Boot");
@@ -104,15 +114,19 @@ public class TreemendousLanguageProvider extends LanguageProvider {
         addTree(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, "Rainbow Eucalyptus", "Regenbogen-Eukalyptus");
     }
 
-    private void addTree(Tree tree, String english, String german) {
-        if (this.locale.equals("en_us")) {
+    private void addTree(Tree tree, String english, String german)
+    {
+        if (this.locale.equals("en_us"))
+        {
             addTreeEnglish(tree, english);
-        } else if (this.locale.equals("de_de")) {
+        } else if (this.locale.equals("de_de"))
+        {
             addTreeGerman(tree, german);
         }
     }
 
-    private void addTreeGerman(Tree tree, String woodName) {
+    private void addTreeGerman(Tree tree, String woodName)
+    {
         add(tree.getPlanks(), "%sholzbretter", woodName);
         add(tree.getDefaultSapling(), "%ssetzling", woodName);
         add(tree.getLog(), "%sstamm", woodName);
@@ -134,7 +148,8 @@ public class TreemendousLanguageProvider extends LanguageProvider {
         add(tree.getChest(), "%sholztruhe", woodName);
     }
 
-    private void addTreeEnglish(Tree tree, String woodName) {
+    private void addTreeEnglish(Tree tree, String woodName)
+    {
         add(tree.getPlanks(), "%s Planks", woodName);
         add(tree.getDefaultSapling(), "%s Sapling", woodName);
         add(tree.getLog(), "%s Log", woodName);
@@ -156,11 +171,13 @@ public class TreemendousLanguageProvider extends LanguageProvider {
         add(tree.getChest(), "%s Chest", woodName);
     }
 
-    private void add(Item item, String name, String woodName) {
+    private void add(Item item, String name, String woodName)
+    {
         add(item, String.format(name, woodName));
     }
 
-    private void add(Block block, String name, String woodName) {
+    private void add(Block block, String name, String woodName)
+    {
         add(block, String.format(name, woodName));
     }
 

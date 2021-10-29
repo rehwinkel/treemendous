@@ -14,12 +14,14 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class Biomes {
+public class Biomes
+{
 
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Treemendous.MODID);
     private static final List<TreemendousBiomes.RegisteredBiome> ALL_BIOMES = new ArrayList<>();
 
-    static {
+    static
+    {
         registerBiomes(TreeRegistry.DOUGLAS_TREE, TreemendousBiomes.BiomeKind.TAIGA);
         registerBiomes(TreeRegistry.PINE_TREE, TreemendousBiomes.BiomeKind.TAIGA);
         registerBiomes(TreeRegistry.LARCH_TREE, TreemendousBiomes.BiomeKind.TAIGA);
@@ -47,44 +49,63 @@ public class Biomes {
         registerBiomes(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, TreemendousBiomes.BiomeKind.FOREST);
     }
 
-    private static void registerBiomes(Tree tree, TreemendousBiomes.BiomeKind kind) {
+    private static void registerBiomes(Tree tree, TreemendousBiomes.BiomeKind kind)
+    {
         registerBiomes(tree, null, kind);
     }
 
-    private static void registerBiomes(Tree tree, String saplingName, TreemendousBiomes.BiomeKind kind) {
+    private static void registerBiomes(Tree tree, String saplingName, TreemendousBiomes.BiomeKind kind)
+    {
         Collection<TreemendousBiomes.RegisteredBiome> registeredBiomes = TreemendousBiomes.registerBiomes(BIOMES, tree, saplingName, kind);
         ALL_BIOMES.addAll(registeredBiomes);
     }
 
-    public static void addBiomesToOverworld() {
-        for (TreemendousBiomes.RegisteredBiome biome : ALL_BIOMES) {
+    public static void addBiomesToOverworld()
+    {
+        for (TreemendousBiomes.RegisteredBiome biome : ALL_BIOMES)
+        {
             BiomeManager.addBiome(biome.getBiomeType(), new BiomeManager.BiomeEntry(biome.getBiomeKey(), 1));
         }
     }
 
-    public static void addBiomesToDictionary() {
-        for (TreemendousBiomes.RegisteredBiome biome : ALL_BIOMES) {
+    public static void addBiomesToDictionary()
+    {
+        for (TreemendousBiomes.RegisteredBiome biome : ALL_BIOMES)
+        {
             BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.OVERWORLD);
-            switch (biome.getTerrain()) {
+            switch (biome.getTerrain())
+            {
                 case FLAT -> {
-                    if (biome.getBiomeType() == BiomeManager.BiomeType.ICY) {
+                    if (biome.getBiomeType() == BiomeManager.BiomeType.ICY)
+                    {
                         BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.SNOWY);
-                    } else if (biome.getBiomeType() == BiomeManager.BiomeType.COOL) {
+                    } else if (biome.getBiomeType() == BiomeManager.BiomeType.COOL)
+                    {
                         BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.FOREST);
                     }
                 }
                 case HILLS -> BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.HILLS);
                 case MOUNTAINS -> BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.MOUNTAIN);
             }
-            if (biome.getBiomeType() == BiomeManager.BiomeType.ICY) {
+            if (biome.getBiomeType() == BiomeManager.BiomeType.ICY)
+            {
                 BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.COLD);
-            } else if (biome.getBiomeType() == BiomeManager.BiomeType.DESERT) {
+            } else if (biome.getBiomeType() == BiomeManager.BiomeType.DESERT)
+            {
                 BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.HOT, BiomeDictionary.Type.SPARSE);
-            } else if (biome.getBiomeType() == BiomeManager.BiomeType.COOL) {
+            } else if (biome.getBiomeType() == BiomeManager.BiomeType.COOL)
+            {
                 BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.CONIFEROUS);
-            } else if (biome.getBiomeType() == BiomeManager.BiomeType.WARM) {
+            } else if (biome.getBiomeType() == BiomeManager.BiomeType.WARM)
+            {
                 BiomeDictionary.addTypes(biome.getBiomeKey(), BiomeDictionary.Type.FOREST);
             }
         }
     }
+
+    public static List<TreemendousBiomes.RegisteredBiome> getAllBiomes()
+    {
+        return ALL_BIOMES;
+    }
+
 }

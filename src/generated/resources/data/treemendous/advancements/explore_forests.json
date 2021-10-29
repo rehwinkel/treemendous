@@ -1,0 +1,756 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "treemendous:iron_lumber_axe",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.treemendous.explore_forests.title"
+    },
+    "description": {
+      "translate": "advancements.treemendous.explore_forests.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 500
+  },
+  "criteria": {
+    "treemendous:douglas_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:douglas_taiga"
+        }
+      }
+    },
+    "treemendous:douglas_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:douglas_taiga_hills"
+        }
+      }
+    },
+    "treemendous:douglas_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:douglas_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:douglas_snowy_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:douglas_snowy_taiga"
+        }
+      }
+    },
+    "treemendous:douglas_snowy_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:douglas_snowy_taiga_hills"
+        }
+      }
+    },
+    "treemendous:douglas_snowy_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:douglas_snowy_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:pine_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pine_taiga"
+        }
+      }
+    },
+    "treemendous:pine_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pine_taiga_hills"
+        }
+      }
+    },
+    "treemendous:pine_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pine_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:pine_snowy_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pine_snowy_taiga"
+        }
+      }
+    },
+    "treemendous:pine_snowy_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pine_snowy_taiga_hills"
+        }
+      }
+    },
+    "treemendous:pine_snowy_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pine_snowy_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:larch_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:larch_taiga"
+        }
+      }
+    },
+    "treemendous:larch_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:larch_taiga_hills"
+        }
+      }
+    },
+    "treemendous:larch_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:larch_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:larch_snowy_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:larch_snowy_taiga"
+        }
+      }
+    },
+    "treemendous:larch_snowy_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:larch_snowy_taiga_hills"
+        }
+      }
+    },
+    "treemendous:larch_snowy_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:larch_snowy_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:fir_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:fir_taiga"
+        }
+      }
+    },
+    "treemendous:fir_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:fir_taiga_hills"
+        }
+      }
+    },
+    "treemendous:fir_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:fir_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:fir_snowy_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:fir_snowy_taiga"
+        }
+      }
+    },
+    "treemendous:fir_snowy_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:fir_snowy_taiga_hills"
+        }
+      }
+    },
+    "treemendous:fir_snowy_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:fir_snowy_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:maple_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:maple_forest"
+        }
+      }
+    },
+    "treemendous:maple_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:maple_forest_hills"
+        }
+      }
+    },
+    "treemendous:maple_red_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:maple_red_forest"
+        }
+      }
+    },
+    "treemendous:maple_red_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:maple_red_forest_hills"
+        }
+      }
+    },
+    "treemendous:maple_brown_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:maple_brown_forest"
+        }
+      }
+    },
+    "treemendous:maple_brown_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:maple_brown_forest_hills"
+        }
+      }
+    },
+    "treemendous:japanese_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:japanese_forest"
+        }
+      }
+    },
+    "treemendous:japanese_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:japanese_forest_hills"
+        }
+      }
+    },
+    "treemendous:beech_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:beech_forest"
+        }
+      }
+    },
+    "treemendous:beech_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:beech_forest_hills"
+        }
+      }
+    },
+    "treemendous:cherry_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cherry_forest"
+        }
+      }
+    },
+    "treemendous:cherry_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cherry_forest_hills"
+        }
+      }
+    },
+    "treemendous:alder_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:alder_forest"
+        }
+      }
+    },
+    "treemendous:alder_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:alder_forest_hills"
+        }
+      }
+    },
+    "treemendous:chestnut_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:chestnut_forest"
+        }
+      }
+    },
+    "treemendous:chestnut_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:chestnut_forest_hills"
+        }
+      }
+    },
+    "treemendous:plane_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:plane_forest"
+        }
+      }
+    },
+    "treemendous:plane_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:plane_forest_hills"
+        }
+      }
+    },
+    "treemendous:ash_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:ash_forest"
+        }
+      }
+    },
+    "treemendous:ash_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:ash_forest_hills"
+        }
+      }
+    },
+    "treemendous:linden_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:linden_forest"
+        }
+      }
+    },
+    "treemendous:linden_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:linden_forest_hills"
+        }
+      }
+    },
+    "treemendous:robinia_savanna": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:robinia_savanna"
+        }
+      }
+    },
+    "treemendous:robinia_savanna_plateau": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:robinia_savanna_plateau"
+        }
+      }
+    },
+    "treemendous:robinia_shattered_savanna": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:robinia_shattered_savanna"
+        }
+      }
+    },
+    "treemendous:willow_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:willow_forest"
+        }
+      }
+    },
+    "treemendous:willow_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:willow_forest_hills"
+        }
+      }
+    },
+    "treemendous:pomegranate_savanna": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pomegranate_savanna"
+        }
+      }
+    },
+    "treemendous:pomegranate_savanna_plateau": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pomegranate_savanna_plateau"
+        }
+      }
+    },
+    "treemendous:pomegranate_shattered_savanna": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:pomegranate_shattered_savanna"
+        }
+      }
+    },
+    "treemendous:walnut_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:walnut_forest"
+        }
+      }
+    },
+    "treemendous:walnut_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:walnut_forest_hills"
+        }
+      }
+    },
+    "treemendous:cedar_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cedar_taiga"
+        }
+      }
+    },
+    "treemendous:cedar_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cedar_taiga_hills"
+        }
+      }
+    },
+    "treemendous:cedar_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cedar_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:cedar_snowy_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cedar_snowy_taiga"
+        }
+      }
+    },
+    "treemendous:cedar_snowy_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cedar_snowy_taiga_hills"
+        }
+      }
+    },
+    "treemendous:cedar_snowy_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:cedar_snowy_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:poplar_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:poplar_forest"
+        }
+      }
+    },
+    "treemendous:poplar_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:poplar_forest_hills"
+        }
+      }
+    },
+    "treemendous:elm_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:elm_forest"
+        }
+      }
+    },
+    "treemendous:elm_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:elm_forest_hills"
+        }
+      }
+    },
+    "treemendous:juniper_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:juniper_taiga"
+        }
+      }
+    },
+    "treemendous:juniper_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:juniper_taiga_hills"
+        }
+      }
+    },
+    "treemendous:juniper_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:juniper_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:juniper_snowy_taiga": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:juniper_snowy_taiga"
+        }
+      }
+    },
+    "treemendous:juniper_snowy_taiga_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:juniper_snowy_taiga_hills"
+        }
+      }
+    },
+    "treemendous:juniper_snowy_taiga_mountains": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:juniper_snowy_taiga_mountains"
+        }
+      }
+    },
+    "treemendous:magnolia_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:magnolia_forest"
+        }
+      }
+    },
+    "treemendous:magnolia_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:magnolia_forest_hills"
+        }
+      }
+    },
+    "treemendous:rainbow_eucalyptus_forest": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:rainbow_eucalyptus_forest"
+        }
+      }
+    },
+    "treemendous:rainbow_eucalyptus_forest_hills": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "treemendous:rainbow_eucalyptus_forest_hills"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "treemendous:plane_forest",
+      "treemendous:plane_forest_hills"
+    ],
+    [
+      "treemendous:cherry_forest",
+      "treemendous:cherry_forest_hills"
+    ],
+    [
+      "treemendous:poplar_forest",
+      "treemendous:poplar_forest_hills"
+    ],
+    [
+      "treemendous:pine_taiga",
+      "treemendous:pine_taiga_hills",
+      "treemendous:pine_taiga_mountains",
+      "treemendous:pine_snowy_taiga",
+      "treemendous:pine_snowy_taiga_hills",
+      "treemendous:pine_snowy_taiga_mountains"
+    ],
+    [
+      "treemendous:robinia_savanna",
+      "treemendous:robinia_savanna_plateau",
+      "treemendous:robinia_shattered_savanna"
+    ],
+    [
+      "treemendous:elm_forest",
+      "treemendous:elm_forest_hills"
+    ],
+    [
+      "treemendous:chestnut_forest",
+      "treemendous:chestnut_forest_hills"
+    ],
+    [
+      "treemendous:juniper_taiga",
+      "treemendous:juniper_taiga_hills",
+      "treemendous:juniper_taiga_mountains",
+      "treemendous:juniper_snowy_taiga",
+      "treemendous:juniper_snowy_taiga_hills",
+      "treemendous:juniper_snowy_taiga_mountains"
+    ],
+    [
+      "treemendous:fir_taiga",
+      "treemendous:fir_taiga_hills",
+      "treemendous:fir_taiga_mountains",
+      "treemendous:fir_snowy_taiga",
+      "treemendous:fir_snowy_taiga_hills",
+      "treemendous:fir_snowy_taiga_mountains"
+    ],
+    [
+      "treemendous:alder_forest",
+      "treemendous:alder_forest_hills"
+    ],
+    [
+      "treemendous:willow_forest",
+      "treemendous:willow_forest_hills"
+    ],
+    [
+      "treemendous:walnut_forest",
+      "treemendous:walnut_forest_hills"
+    ],
+    [
+      "treemendous:cedar_taiga",
+      "treemendous:cedar_taiga_hills",
+      "treemendous:cedar_taiga_mountains",
+      "treemendous:cedar_snowy_taiga",
+      "treemendous:cedar_snowy_taiga_hills",
+      "treemendous:cedar_snowy_taiga_mountains"
+    ],
+    [
+      "treemendous:magnolia_forest",
+      "treemendous:magnolia_forest_hills"
+    ],
+    [
+      "treemendous:japanese_forest",
+      "treemendous:japanese_forest_hills"
+    ],
+    [
+      "treemendous:beech_forest",
+      "treemendous:beech_forest_hills"
+    ],
+    [
+      "treemendous:rainbow_eucalyptus_forest",
+      "treemendous:rainbow_eucalyptus_forest_hills"
+    ],
+    [
+      "treemendous:ash_forest",
+      "treemendous:ash_forest_hills"
+    ],
+    [
+      "treemendous:pomegranate_savanna",
+      "treemendous:pomegranate_savanna_plateau",
+      "treemendous:pomegranate_shattered_savanna"
+    ],
+    [
+      "treemendous:maple_forest",
+      "treemendous:maple_forest_hills",
+      "treemendous:maple_red_forest",
+      "treemendous:maple_red_forest_hills",
+      "treemendous:maple_brown_forest",
+      "treemendous:maple_brown_forest_hills"
+    ],
+    [
+      "treemendous:linden_forest",
+      "treemendous:linden_forest_hills"
+    ],
+    [
+      "treemendous:douglas_taiga",
+      "treemendous:douglas_taiga_hills",
+      "treemendous:douglas_taiga_mountains",
+      "treemendous:douglas_snowy_taiga",
+      "treemendous:douglas_snowy_taiga_hills",
+      "treemendous:douglas_snowy_taiga_mountains"
+    ],
+    [
+      "treemendous:larch_taiga",
+      "treemendous:larch_taiga_hills",
+      "treemendous:larch_taiga_mountains",
+      "treemendous:larch_snowy_taiga",
+      "treemendous:larch_snowy_taiga_hills",
+      "treemendous:larch_snowy_taiga_mountains"
+    ]
+  ]
+}

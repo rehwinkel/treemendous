@@ -1,6 +1,17 @@
 package de.deerangle.treemendous.tree;
 
-import de.deerangle.treemendous.block.*;
+import de.deerangle.treemendous.block.CustomChestBlock;
+import de.deerangle.treemendous.block.CustomCraftingTableBlock;
+import de.deerangle.treemendous.block.CustomStandingSignBlock;
+import de.deerangle.treemendous.block.CustomWallSignBlock;
+import de.deerangle.treemendous.block.FlammableBlock;
+import de.deerangle.treemendous.block.FlammableFenceBlock;
+import de.deerangle.treemendous.block.FlammableFenceGateBlock;
+import de.deerangle.treemendous.block.FlammableLeavesBlock;
+import de.deerangle.treemendous.block.FlammableRotatedPillarBlock;
+import de.deerangle.treemendous.block.FlammableSlabBlock;
+import de.deerangle.treemendous.block.FlammableStairBlock;
+import de.deerangle.treemendous.block.StrippableBlock;
 import de.deerangle.treemendous.entity.BoatType;
 import de.deerangle.treemendous.item.CustomBoatItem;
 import de.deerangle.treemendous.item.CustomChestBlockItem;
@@ -25,7 +36,24 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.CraftingTableBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallSignBlock;
+import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -40,11 +68,18 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class Tree {
+public class Tree
+{
 
     private final String registryName;
     private RegistryObject<Block> planks;
@@ -80,11 +115,13 @@ public class Tree {
     private Map<String, ConfiguredFeature<?, ?>> savannaTrees;
     private Map<String, ConfiguredFeature<?, ?>> shatteredSavannaTrees;
 
-    public Tree(String registryName) {
+    public Tree(String registryName)
+    {
         this.registryName = registryName;
     }
 
-    public static Tree fromConfig(DeferredRegister<Block> blocks, DeferredRegister<Item> items, TreeConfig config) {
+    public static Tree fromConfig(DeferredRegister<Block> blocks, DeferredRegister<Item> items, TreeConfig config)
+    {
         Tree tree = new Tree(config.registryName());
         tree.saplings = new HashMap<>();
         tree.pottedSaplings = new HashMap<>();
@@ -121,12 +158,15 @@ public class Tree {
         tree.door = blocks.register(getNameForTree(config, "door"), () -> new DoorBlock(doorProperties));
         tree.trapdoor = blocks.register(getNameForTree(config, "trapdoor"), () -> new TrapDoorBlock(trapdoorProperties));
         tree.hasMegaTree = config.saplingConfigs().stream().flatMap(saplingConfig -> saplingConfig.getTreeMakers().stream()).anyMatch(WeightedTreeMaker::mega);
-        for (SaplingConfig saplingConfig : config.saplingConfigs()) {
+        for (SaplingConfig saplingConfig : config.saplingConfigs())
+        {
             String saplingName = saplingConfig.variantName();
             String name;
-            if (saplingName == null) {
+            if (saplingName == null)
+            {
                 name = "sapling";
-            } else {
+            } else
+            {
                 name = saplingName + "_sapling";
             }
             RegistryObject<SaplingBlock> registeredSapling = blocks.register(getNameForTree(config, name), () -> new SaplingBlock(new TreemendousTreeGrower(saplingConfig, tree), BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
@@ -156,13 +196,16 @@ public class Tree {
         registerBlockItem(items, getNameForTree(config, "fence_gate"), tree.fenceGate, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "door"), tree.door, CreativeModeTab.TAB_REDSTONE);
         registerBlockItem(items, getNameForTree(config, "trapdoor"), tree.trapdoor, CreativeModeTab.TAB_REDSTONE);
-        for (int i = 0; i < config.saplingConfigs().size(); i++) {
+        for (int i = 0; i < config.saplingConfigs().size(); i++)
+        {
             SaplingConfig saplingConfig = config.saplingConfigs().get(i);
             String saplingName = saplingConfig.variantName();
             String name;
-            if (saplingName == null) {
+            if (saplingName == null)
+            {
                 name = "sapling";
-            } else {
+            } else
+            {
                 name = saplingName + "_sapling";
             }
             registerBlockItem(items, getNameForTree(config, name), tree.saplings.get(saplingName), CreativeModeTab.TAB_DECORATIONS);
@@ -173,15 +216,19 @@ public class Tree {
         return tree;
     }
 
-    private static ConfiguredFeature<?, ?> getTreesFeature(Tree tree, String saplingName, Predicate<WeightedTreeMaker> use) {
+    private static ConfiguredFeature<?, ?> getTreesFeature(Tree tree, String saplingName, Predicate<WeightedTreeMaker> use)
+    {
         SaplingConfig saplingConfig = tree.getSaplingConfig(saplingName);
         List<WeightedTreeMaker> treeMakers = saplingConfig.getTreeMakers();
         List<Supplier<ConfiguredFeature<?, ?>>> configuredTrees = new ArrayList<>();
-        for (WeightedTreeMaker treeMaker : treeMakers) {
-            if (use.test(treeMaker)) {
+        for (WeightedTreeMaker treeMaker : treeMakers)
+        {
+            if (use.test(treeMaker))
+            {
                 ConfiguredFeature<?, ?> configuredTree = saplingConfig.makeTree(treeMaker.treeMaker(), tree);
                 Supplier<ConfiguredFeature<?, ?>> treeSupplier = () -> configuredTree;
-                for (int i = 0; i < treeMaker.weight(); i++) {
+                for (int i = 0; i < treeMaker.weight(); i++)
+                {
                     configuredTrees.add(treeSupplier);
                 }
             }
@@ -191,50 +238,61 @@ public class Tree {
                 .decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED);
     }
 
-    private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature) {
+    private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature)
+    {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Treemendous.MODID, name), feature);
     }
 
-    private static ConfiguredFeature<?, ?> registerForestOrTaigaTrees(Tree tree, String saplingName, Predicate<WeightedTreeMaker> predicate) {
+    private static ConfiguredFeature<?, ?> registerForestOrTaigaTrees(Tree tree, String saplingName, Predicate<WeightedTreeMaker> predicate)
+    {
         String name = (saplingName == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + saplingName) + "_trees";
         return registerConfiguredFeature(name, getTreesFeature(tree, saplingName, predicate).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(10, 0.1F, 1))));
     }
 
-    private static ConfiguredFeature<?, ?> registerSavannaTrees(Tree tree, String saplingName, Predicate<WeightedTreeMaker> predicate) {
+    private static ConfiguredFeature<?, ?> registerSavannaTrees(Tree tree, String saplingName, Predicate<WeightedTreeMaker> predicate)
+    {
         String name = (saplingName == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + saplingName) + "_savanna_trees";
         return registerConfiguredFeature(name, getTreesFeature(tree, saplingName, predicate).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.1F, 1))));
     }
 
-    private static ConfiguredFeature<?, ?> registerShatteredTrees(Tree tree, String saplingName, Predicate<WeightedTreeMaker> predicate) {
+    private static ConfiguredFeature<?, ?> registerShatteredTrees(Tree tree, String saplingName, Predicate<WeightedTreeMaker> predicate)
+    {
         String name = (saplingName == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + saplingName) + "_shattered_savanna_trees";
         return registerConfiguredFeature(name, getTreesFeature(tree, saplingName, predicate).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(2, 0.1F, 1))));
     }
 
-    private static void registerChestBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block) {
+    private static void registerChestBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block)
+    {
         //noinspection unchecked
         items.register(name, () -> new CustomChestBlockItem(block.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
     }
 
-    public static boolean ocelotOrParrot(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> entityType) {
+    public static boolean ocelotOrParrot(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> entityType)
+    {
         return entityType == EntityType.OCELOT || entityType == EntityType.PARROT;
     }
 
-    private static void registerBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block, CreativeModeTab tab) {
+    private static void registerBlockItem(DeferredRegister<Item> items, String name, RegistryObject<? extends Block> block, CreativeModeTab tab)
+    {
         //noinspection unchecked
         items.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     }
 
-    private static String getNameForTree(TreeConfig config, String suffix) {
+    private static String getNameForTree(TreeConfig config, String suffix)
+    {
         return String.format("%s_%s", config.registryName(), suffix);
     }
 
-    private static String getNameForTree(TreeConfig config, String prefix, String suffix) {
+    private static String getNameForTree(TreeConfig config, String prefix, String suffix)
+    {
         return String.format("%s_%s_%s", prefix, config.registryName(), suffix);
     }
 
-    public ConfiguredFeature<?, ?> getForestOrTaigaTrees(String sapling) {
+    public ConfiguredFeature<?, ?> getForestOrTaigaTrees(String sapling)
+    {
         ConfiguredFeature<?, ?> feature = forestOrTaigaTrees.get(sapling);
-        if (feature == null) {
+        if (feature == null)
+        {
             ConfiguredFeature<?, ?> newFeature = registerForestOrTaigaTrees(this, sapling, maker -> !maker.mega());
             this.forestOrTaigaTrees.put(sapling, newFeature);
             feature = newFeature;
@@ -242,9 +300,11 @@ public class Tree {
         return feature;
     }
 
-    public ConfiguredFeature<?, ?> getSavannaTrees(String sapling) {
+    public ConfiguredFeature<?, ?> getSavannaTrees(String sapling)
+    {
         ConfiguredFeature<?, ?> feature = savannaTrees.get(sapling);
-        if (feature == null) {
+        if (feature == null)
+        {
             ConfiguredFeature<?, ?> newFeature = registerSavannaTrees(this, sapling, maker -> !maker.mega());
             this.savannaTrees.put(sapling, newFeature);
             feature = newFeature;
@@ -252,9 +312,11 @@ public class Tree {
         return feature;
     }
 
-    public ConfiguredFeature<?, ?> getShatteredSavannaTrees(String sapling) {
+    public ConfiguredFeature<?, ?> getShatteredSavannaTrees(String sapling)
+    {
         ConfiguredFeature<?, ?> feature = shatteredSavannaTrees.get(sapling);
-        if (feature == null) {
+        if (feature == null)
+        {
             ConfiguredFeature<?, ?> newFeature = registerShatteredTrees(this, sapling, maker -> !maker.mega());
             this.shatteredSavannaTrees.put(sapling, newFeature);
             feature = newFeature;
@@ -262,137 +324,170 @@ public class Tree {
         return feature;
     }
 
-    public String getRegistryName() {
+    public String getRegistryName()
+    {
         return registryName;
     }
 
-    public Block getPlanks() {
+    public Block getPlanks()
+    {
         return this.planks.get();
     }
 
-    public RotatedPillarBlock getLog() {
+    public RotatedPillarBlock getLog()
+    {
         return this.log.get();
     }
 
-    public RotatedPillarBlock getStrippedLog() {
+    public RotatedPillarBlock getStrippedLog()
+    {
         return this.strippedLog.get();
     }
 
-    public RotatedPillarBlock getWood() {
+    public RotatedPillarBlock getWood()
+    {
         return this.wood.get();
     }
 
-    public RotatedPillarBlock getStrippedWood() {
+    public RotatedPillarBlock getStrippedWood()
+    {
         return this.strippedWood.get();
     }
 
-    public StairBlock getStairs() {
+    public StairBlock getStairs()
+    {
         return stairs.get();
     }
 
-    public SlabBlock getSlab() {
+    public SlabBlock getSlab()
+    {
         return slab.get();
     }
 
-    public FenceBlock getFence() {
+    public FenceBlock getFence()
+    {
         return fence.get();
     }
 
-    public FenceGateBlock getFenceGate() {
+    public FenceGateBlock getFenceGate()
+    {
         return fenceGate.get();
     }
 
-    public PressurePlateBlock getPressurePlate() {
+    public PressurePlateBlock getPressurePlate()
+    {
         return pressurePlate.get();
     }
 
-    public WoodButtonBlock getButton() {
+    public WoodButtonBlock getButton()
+    {
         return button.get();
     }
 
-    public DoorBlock getDoor() {
+    public DoorBlock getDoor()
+    {
         return door.get();
     }
 
-    public TrapDoorBlock getTrapdoor() {
+    public TrapDoorBlock getTrapdoor()
+    {
         return trapdoor.get();
     }
 
-    public LeavesBlock getLeaves() {
+    public LeavesBlock getLeaves()
+    {
         return leaves.get();
     }
 
-    public StandingSignBlock getSign() {
+    public StandingSignBlock getSign()
+    {
         return sign.get();
     }
 
-    public WallSignBlock getWallSign() {
+    public WallSignBlock getWallSign()
+    {
         return wallSign.get();
     }
 
-    public SaplingBlock getDefaultSapling() {
+    public SaplingBlock getDefaultSapling()
+    {
         return saplings.get(null).get();
     }
 
-    public FlowerPotBlock getDefaultPottedSapling() {
+    public FlowerPotBlock getDefaultPottedSapling()
+    {
         return pottedSaplings.get(null).get();
     }
 
-    public CraftingTableBlock getCraftingTable() {
+    public CraftingTableBlock getCraftingTable()
+    {
         return craftingTable.get();
     }
 
-    public ChestBlock getChest() {
+    public ChestBlock getChest()
+    {
         return chest.get();
     }
 
-    public CustomBoatItem getBoatItem() {
+    public CustomBoatItem getBoatItem()
+    {
         return boatItem.get();
     }
 
-    public SignItem getSignItem() {
+    public SignItem getSignItem()
+    {
         return signItem.get();
     }
 
-    public WoodType getWoodType() {
+    public WoodType getWoodType()
+    {
         return woodType;
     }
 
-    public Tag.Named<Block> getLogsBlockTag() {
+    public Tag.Named<Block> getLogsBlockTag()
+    {
         return logsBlockTag;
     }
 
-    public Tag.Named<Item> getLogsItemTag() {
+    public Tag.Named<Item> getLogsItemTag()
+    {
         return logsItemTag;
     }
 
-    public ILeavesColor getLeavesColor() {
+    public ILeavesColor getLeavesColor()
+    {
         return this.leavesColor;
     }
 
-    public SaplingBlock getSapling(String key) {
+    public SaplingBlock getSapling(String key)
+    {
         return this.saplings.get(key).get();
     }
 
-    public SaplingBlock getRandomSapling(Random rand) {
+    public SaplingBlock getRandomSapling(Random rand)
+    {
         Collection<RegistryObject<SaplingBlock>> saplings = this.saplings.values();
         RegistryObject<SaplingBlock> sapling = saplings.stream().skip(rand.nextInt(saplings.size())).findFirst().orElseThrow();
         return sapling.get();
     }
 
-    public FlowerPotBlock getPottedSapling(String key) {
+    public FlowerPotBlock getPottedSapling(String key)
+    {
         return pottedSaplings.get(key).get();
     }
 
-    public SaplingConfig getSaplingConfig(String key) {
+    public SaplingConfig getSaplingConfig(String key)
+    {
         return this.saplingConfigs.get(key);
     }
 
-    public boolean hasMegaTree() {
+    public boolean hasMegaTree()
+    {
         return this.hasMegaTree;
     }
 
-    public Set<String> getSaplingNames() {
+    public Set<String> getSaplingNames()
+    {
         return this.saplings.keySet();
     }
 

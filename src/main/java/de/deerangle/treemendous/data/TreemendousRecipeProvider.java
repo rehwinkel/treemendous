@@ -10,7 +10,11 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
@@ -24,44 +28,54 @@ import net.minecraftforge.registries.RegistryManager;
 
 import java.util.function.Consumer;
 
-public class TreemendousRecipeProvider extends RecipeProvider {
+public class TreemendousRecipeProvider extends RecipeProvider
+{
 
-    public TreemendousRecipeProvider(DataGenerator generator) {
+    public TreemendousRecipeProvider(DataGenerator generator)
+    {
         super(generator);
     }
 
-    private static void planksFromLog(Consumer<FinishedRecipe> p_125999_, ItemLike result, Tag<Item> ingredient) {
+    private static void planksFromLog(Consumer<FinishedRecipe> p_125999_, ItemLike result, Tag<Item> ingredient)
+    {
         ShapelessRecipeBuilder.shapeless(result, 4).requires(ingredient).group("planks").unlockedBy("has_log", has(ingredient)).save(p_125999_);
     }
 
-    private static void woodFromLogs(Consumer<FinishedRecipe> p_126003_, ItemLike p_126004_, ItemLike p_126005_) {
+    private static void woodFromLogs(Consumer<FinishedRecipe> p_126003_, ItemLike p_126004_, ItemLike p_126005_)
+    {
         ShapedRecipeBuilder.shaped(p_126004_, 3).define('#', p_126005_).pattern("##").pattern("##").group("bark").unlockedBy("has_log", has(p_126005_)).save(p_126003_);
     }
 
-    private static void woodenBoat(Consumer<FinishedRecipe> p_126022_, ItemLike p_126023_, ItemLike p_126024_) {
+    private static void woodenBoat(Consumer<FinishedRecipe> p_126022_, ItemLike p_126023_, ItemLike p_126024_)
+    {
         ShapedRecipeBuilder.shaped(p_126023_).define('#', p_126024_).pattern("# #").pattern("###").group("boat").unlockedBy("in_water", insideOf(Blocks.WATER)).save(p_126022_);
     }
 
-    private static void choppingBlock(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, Tag.Named<Item> planks, Tag.Named<Item> logs) {
+    private static void choppingBlock(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, Tag.Named<Item> planks, Tag.Named<Item> logs)
+    {
         ShapedRecipeBuilder.shaped(result).define('#', planks).define('L', logs).pattern("LL").pattern("##").pattern("##").unlockedBy("has_log", has(logs)).save(recipeConsumer);
     }
 
-    private static void lumberAxe(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, ItemLike ingredient, String hasConditionName) {
+    private static void lumberAxe(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, ItemLike ingredient, String hasConditionName)
+    {
         ShapedRecipeBuilder.shaped(result).define('#', Items.STICK).define('X', ingredient).pattern("XXX").pattern("X# ").pattern("X# ").unlockedBy(hasConditionName, has(ingredient)).save(recipeConsumer);
     }
 
-    private static String getItemName(ItemLike p_176633_) {
+    private static String getItemName(ItemLike p_176633_)
+    {
         //noinspection deprecation
         return Registry.ITEM.getKey(p_176633_.asItem()).getPath();
     }
 
-    private static void netheriteSmithing(Consumer<FinishedRecipe> recipeConsumer, Item ingredient, Item result) {
+    private static void netheriteSmithing(Consumer<FinishedRecipe> recipeConsumer, Item ingredient, Item result)
+    {
         UpgradeRecipeBuilder.smithing(Ingredient.of(ingredient), Ingredient.of(Items.NETHERITE_INGOT), result).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(recipeConsumer, new ResourceLocation(Treemendous.MODID, getItemName(result) + "_smithing"));
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer) {
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer)
+    {
         choppingBlock(recipeConsumer, ExtraRegistry.CHOPPING_BLOCK.get(), ItemTags.PLANKS, ItemTags.LOGS);
         lumberAxe(recipeConsumer, ExtraRegistry.IRON_LUMBER_AXE.get(), Items.IRON_INGOT, "has_iron_ingot");
         lumberAxe(recipeConsumer, ExtraRegistry.GOLDEN_LUMBER_AXE.get(), Items.GOLD_INGOT, "has_gold_ingot");
@@ -86,8 +100,10 @@ public class TreemendousRecipeProvider extends RecipeProvider {
         chest(recipeConsumer, ExtraRegistry.CRIMSON_CHEST.get(), Blocks.CRIMSON_PLANKS);
         chest(recipeConsumer, ExtraRegistry.WARPED_CHEST.get(), Blocks.WARPED_PLANKS);
 
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            if (!regTree.isFake()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
+            if (!regTree.isFake())
+            {
                 Tree tree = regTree.getTree();
                 planksFromLog(recipeConsumer, tree.getPlanks(), tree.getLogsItemTag());
                 woodFromLogs(recipeConsumer, tree.getWood(), tree.getLog());
@@ -108,11 +124,13 @@ public class TreemendousRecipeProvider extends RecipeProvider {
         }
     }
 
-    private void chest(Consumer<FinishedRecipe> recipeConsumer, Block chest, Block planks) {
+    private void chest(Consumer<FinishedRecipe> recipeConsumer, Block chest, Block planks)
+    {
         ShapedRecipeBuilder.shaped(chest).define('#', planks).pattern("###").pattern("# #").pattern("###").group("wooden_chest").unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, MinMaxBounds.Ints.atLeast(10), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(recipeConsumer);
     }
 
-    private void craftingTable(Consumer<FinishedRecipe> recipeConsumer, Block craftingTable, Block planks) {
+    private void craftingTable(Consumer<FinishedRecipe> recipeConsumer, Block craftingTable, Block planks)
+    {
         ShapedRecipeBuilder.shaped(craftingTable).define('#', planks).pattern("##").pattern("##").unlockedBy("has_planks", has(ItemTags.PLANKS)).save(recipeConsumer);
     }
 

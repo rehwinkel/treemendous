@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class TreeConfigBuilder {
+public class TreeConfigBuilder
+{
 
     private final String registryName;
     private final ILeavesColor leavesColor;
@@ -20,7 +21,8 @@ public class TreeConfigBuilder {
     private final List<SaplingConfig> saplingConfigs;
     private Supplier<Item> appleItem;
 
-    public TreeConfigBuilder(String registryName, ILeavesColor leavesColor, MaterialColor woodColor, MaterialColor barkColor) {
+    public TreeConfigBuilder(String registryName, ILeavesColor leavesColor, MaterialColor woodColor, MaterialColor barkColor)
+    {
         this.registryName = registryName;
         this.saplingConfigs = new ArrayList<>();
         this.leavesColor = leavesColor;
@@ -29,24 +31,29 @@ public class TreeConfigBuilder {
         this.appleItem = () -> null;
     }
 
-    public TreeConfigBuilder(String registryName, int leavesColor, boolean evergreen, int woodColor, int barkColor) {
+    public TreeConfigBuilder(String registryName, int leavesColor, boolean evergreen, int woodColor, int barkColor)
+    {
         this(registryName, new FixedLeavesColor(leavesColor, !evergreen), Util.getMaterialColor(woodColor), Util.getMaterialColor(barkColor));
     }
 
-    public TreeConfigBuilder setAppleItem(Supplier<Item> appleItem) {
+    public TreeConfigBuilder setAppleItem(Supplier<Item> appleItem)
+    {
         this.appleItem = appleItem;
         return this;
     }
 
-    void addSapling(SaplingConfig saplingConfig) {
+    void addSapling(SaplingConfig saplingConfig)
+    {
         this.saplingConfigs.add(saplingConfig);
     }
 
-    public TreeConfig createTreeConfig() {
+    public TreeConfig createTreeConfig()
+    {
         return new TreeConfig(registryName, leavesColor, appleItem, woodColor, barkColor, saplingConfigs);
     }
 
-    public SaplingConfigBuilder defaultSapling() {
+    public SaplingConfigBuilder defaultSapling()
+    {
         SaplingConfigBuilder builder = new SaplingConfigBuilder(this, null);
         builder.setLeaves(Tree::getLeaves);
         builder.setWood(Tree::getLog);
@@ -54,7 +61,8 @@ public class TreeConfigBuilder {
         return builder;
     }
 
-    public SaplingConfigBuilder extraSapling(String variantName) {
+    public SaplingConfigBuilder extraSapling(String variantName)
+    {
         SaplingConfigBuilder builder = new SaplingConfigBuilder(this, variantName);
         builder.setLeaves(Tree::getLeaves);
         builder.setWood(Tree::getLog);

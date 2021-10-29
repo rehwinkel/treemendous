@@ -17,21 +17,25 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class TreemendousLootTableProvider extends LootTableProvider {
+public class TreemendousLootTableProvider extends LootTableProvider
+{
 
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> subProviders = ImmutableList.of(Pair.of(TreemendousBlockLoot::new, LootContextParamSets.BLOCK), Pair.of(TreemendousChestLoot::new, LootContextParamSets.CHEST));
 
-    public TreemendousLootTableProvider(DataGenerator generator) {
+    public TreemendousLootTableProvider(DataGenerator generator)
+    {
         super(generator);
     }
 
     @Override
-    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext) {
+    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationContext)
+    {
         map.forEach((location, lootTable) -> LootTables.validate(validationContext, location, lootTable));
     }
 
     @Override
-    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
+    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables()
+    {
         return subProviders;
     }
 }

@@ -17,35 +17,42 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 
-public class RangerHouseFeature extends StructureFeature<RangerHouseConfiguration> {
+public class RangerHouseFeature extends StructureFeature<RangerHouseConfiguration>
+{
 
-    public RangerHouseFeature(Codec<RangerHouseConfiguration> codec) {
+    public RangerHouseFeature(Codec<RangerHouseConfiguration> codec)
+    {
         super(codec);
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public GenerationStep.Decoration step() {
+    public GenerationStep.Decoration step()
+    {
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public StructureStartFactory<RangerHouseConfiguration> getStartFactory() {
+    public StructureStartFactory<RangerHouseConfiguration> getStartFactory()
+    {
         return RangerHouseFeature.FeatureStart::new;
     }
 
-    public static class FeatureStart extends StructureStart<RangerHouseConfiguration> {
+    public static class FeatureStart extends StructureStart<RangerHouseConfiguration>
+    {
 
         static final ResourceLocation STRUCTURE_LOCATION = new ResourceLocation(Treemendous.MODID, "ranger_house");
 
-        public FeatureStart(StructureFeature<RangerHouseConfiguration> feature, ChunkPos chunkPos, int references, long seed) {
+        public FeatureStart(StructureFeature<RangerHouseConfiguration> feature, ChunkPos chunkPos, int references, long seed)
+        {
             super(feature, chunkPos, references, seed);
         }
 
         @SuppressWarnings("NullableProblems")
         @Override
-        public void generatePieces(RegistryAccess registryAccess, ChunkGenerator generator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, RangerHouseConfiguration config, LevelHeightAccessor heightAccessor) {
+        public void generatePieces(RegistryAccess registryAccess, ChunkGenerator generator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, RangerHouseConfiguration config, LevelHeightAccessor heightAccessor)
+        {
             int height = generator.getBaseHeight(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), Heightmap.Types.WORLD_SURFACE_WG, heightAccessor);
             BlockPos blockpos = new BlockPos(chunkPos.getMinBlockX(), height, chunkPos.getMinBlockZ());
             Rotation rotation = Rotation.getRandom(this.random);

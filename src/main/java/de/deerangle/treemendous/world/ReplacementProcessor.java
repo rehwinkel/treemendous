@@ -26,16 +26,19 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class ReplacementProcessor extends StructureProcessor {
+public class ReplacementProcessor extends StructureProcessor
+{
 
     public static final Codec<ReplacementProcessor> CODEC = Codec.simpleMap(blockStringCodec(), blockStringCodec(), new ForgeBlocksKeyable()).fieldOf("replacement_map").xmap(ReplacementProcessor::new, (instance) -> instance.blockReplacementMap).codec();
     private final Map<Block, Block> blockReplacementMap;
 
-    public ReplacementProcessor(Map<Block, Block> blockReplacementMap) {
+    public ReplacementProcessor(Map<Block, Block> blockReplacementMap)
+    {
         this.blockReplacementMap = blockReplacementMap;
     }
 
-    public static ReplacementProcessor rangerHouseReplacer(Tree tree, Block flowerOne, Block flowerTwo) {
+    public static ReplacementProcessor rangerHouseReplacer(Tree tree, Block flowerOne, Block flowerTwo)
+    {
         HashMap<Block, Block> map = new HashMap<>();
         map.put(Blocks.OAK_BUTTON, tree.getButton());
         map.put(Blocks.OAK_DOOR, tree.getDoor());
@@ -59,14 +62,17 @@ public class ReplacementProcessor extends StructureProcessor {
         return new ReplacementProcessor(ImmutableMap.copyOf(map));
     }
 
-    private static Codec<Block> blockStringCodec() {
+    private static Codec<Block> blockStringCodec()
+    {
         return Codec.STRING.xmap(name -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name)), block -> Objects.requireNonNull(block.getRegistryName()).toString());
     }
 
-    public static StructureProcessor fromNBT(CompoundTag tag) {
+    public static StructureProcessor fromNBT(CompoundTag tag)
+    {
         CompoundTag blockMapNbt = tag.getCompound("BlockMap");
         HashMap<Block, Block> map = new HashMap<>();
-        for (String key : blockMapNbt.getAllKeys()) {
+        for (String key : blockMapNbt.getAllKeys())
+        {
             String value = blockMapNbt.getString(key);
             Block from = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(key));
             Block to = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(value));
@@ -75,9 +81,11 @@ public class ReplacementProcessor extends StructureProcessor {
         return new ReplacementProcessor(ImmutableMap.copyOf(map));
     }
 
-    public CompoundTag toNBT() {
+    public CompoundTag toNBT()
+    {
         CompoundTag blockMap = new CompoundTag();
-        for (Block key : this.blockReplacementMap.keySet()) {
+        for (Block key : this.blockReplacementMap.keySet())
+        {
             Block value = this.blockReplacementMap.get(key);
             blockMap.putString(Objects.requireNonNull(key.getRegistryName()).toString(), Objects.requireNonNull(value.getRegistryName()).toString());
         }
@@ -88,21 +96,26 @@ public class ReplacementProcessor extends StructureProcessor {
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected StructureProcessorType<?> getType()
+    {
         return ExtraRegistry.REPLACEMENT_PROCESSOR;
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public StructureTemplate.StructureBlockInfo process(LevelReader world, BlockPos pos1, BlockPos pos2, StructureTemplate.StructureBlockInfo blockInfo1, StructureTemplate.StructureBlockInfo blockInfo2, StructurePlaceSettings settings, @Nullable StructureTemplate template) {
+    public StructureTemplate.StructureBlockInfo process(LevelReader world, BlockPos pos1, BlockPos pos2, StructureTemplate.StructureBlockInfo blockInfo1, StructureTemplate.StructureBlockInfo blockInfo2, StructurePlaceSettings settings, @Nullable StructureTemplate template)
+    {
         Block replacementBlock = this.blockReplacementMap.get(blockInfo2.state.getBlock());
-        if (replacementBlock == null) {
+        if (replacementBlock == null)
+        {
             return blockInfo2;
-        } else {
+        } else
+        {
             BlockState state = blockInfo2.state;
             BlockState replacementState = replacementBlock.defaultBlockState();
 
-            for (Property<?> prop : state.getProperties()) {
+            for (Property<?> prop : state.getProperties())
+            {
                 replacementState = copyProp(state, replacementState, prop);
             }
 
@@ -110,14 +123,17 @@ public class ReplacementProcessor extends StructureProcessor {
         }
     }
 
-    private <T extends Comparable<T>> BlockState copyProp(BlockState source, BlockState dest, Property<T> prop) {
+    private <T extends Comparable<T>> BlockState copyProp(BlockState source, BlockState dest, Property<T> prop)
+    {
         T value = source.getValue(prop);
         return dest.setValue(prop, value);
     }
 
-    private static class ForgeBlocksKeyable implements Keyable {
+    private static class ForgeBlocksKeyable implements Keyable
+    {
         @Override
-        public <T> Stream<T> keys(DynamicOps<T> ops) {
+        public <T> Stream<T> keys(DynamicOps<T> ops)
+        {
             return ForgeRegistries.BLOCKS.getKeys().stream().map((resourceLocation) -> ops.createString(resourceLocation.toString()));
         }
     }

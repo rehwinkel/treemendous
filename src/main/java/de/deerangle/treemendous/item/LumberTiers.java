@@ -6,7 +6,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum LumberTiers implements Tier {
+public enum LumberTiers implements Tier
+{
     IRON(2, 500, 6.0F, 2.0F, 14, () -> {
         return Ingredient.of(Items.IRON_INGOT);
     }),
@@ -27,7 +28,8 @@ public enum LumberTiers implements Tier {
     private final int enchantmentValue;
     private final Supplier<Ingredient> repairIngredient;
 
-    LumberTiers(int level, int uses, float speed, float damage, int enchantmentValue, Supplier<Ingredient> ingredientSupplier) {
+    LumberTiers(int level, int uses, float speed, float damage, int enchantmentValue, Supplier<Ingredient> ingredientSupplier)
+    {
         this.level = level;
         this.uses = uses;
         this.speed = speed;
@@ -36,28 +38,34 @@ public enum LumberTiers implements Tier {
         this.repairIngredient = ingredientSupplier;
     }
 
-    public int getUses() {
+    public int getUses()
+    {
         return this.uses;
     }
 
-    public float getSpeed() {
+    public float getSpeed()
+    {
         return this.speed;
     }
 
-    public float getAttackDamageBonus() {
+    public float getAttackDamageBonus()
+    {
         return this.damage;
     }
 
-    public int getLevel() {
+    public int getLevel()
+    {
         return this.level;
     }
 
-    public int getEnchantmentValue() {
+    public int getEnchantmentValue()
+    {
         return this.enchantmentValue;
     }
 
     @SuppressWarnings("NullableProblems")
-    public Ingredient getRepairIngredient() {
+    public Ingredient getRepairIngredient()
+    {
         return this.repairIngredient.get();
     }
 

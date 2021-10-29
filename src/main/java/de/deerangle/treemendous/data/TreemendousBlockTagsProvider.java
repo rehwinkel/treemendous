@@ -12,14 +12,17 @@ import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
 
-public class TreemendousBlockTagsProvider extends BlockTagsProvider {
+public class TreemendousBlockTagsProvider extends BlockTagsProvider
+{
 
-    public TreemendousBlockTagsProvider(DataGenerator generator, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+    public TreemendousBlockTagsProvider(DataGenerator generator, String modId, @Nullable ExistingFileHelper existingFileHelper)
+    {
         super(generator, modId, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags()
+    {
         this.tag(BlockTags.LEAVES).add(ExtraRegistry.MAPLE_RED_LEAVES.get(), ExtraRegistry.MAPLE_BROWN_LEAVES.get());
         this.tag(BlockTags.GUARDED_BY_PIGLINS).add(ExtraRegistry.BIRCH_CHEST.get(), ExtraRegistry.SPRUCE_CHEST.get(), ExtraRegistry.JUNGLE_CHEST.get(), ExtraRegistry.ACACIA_CHEST.get(), ExtraRegistry.DARK_OAK_CHEST.get(), ExtraRegistry.CRIMSON_CHEST.get(), ExtraRegistry.WARPED_CHEST.get());
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), ExtraRegistry.JUNGLE_CRAFTING_TABLE.get(), ExtraRegistry.ACACIA_CRAFTING_TABLE.get(), ExtraRegistry.DARK_OAK_CRAFTING_TABLE.get(), ExtraRegistry.CRIMSON_CRAFTING_TABLE.get(), ExtraRegistry.WARPED_CRAFTING_TABLE.get());
@@ -27,8 +30,10 @@ public class TreemendousBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(ExtraRegistry.CHOPPING_BLOCK.get());
         this.tag(BlockTags.FEATURES_CANNOT_REPLACE).add(ExtraRegistry.BIRCH_CHEST.get(), ExtraRegistry.SPRUCE_CHEST.get(), ExtraRegistry.JUNGLE_CHEST.get(), ExtraRegistry.ACACIA_CHEST.get(), ExtraRegistry.DARK_OAK_CHEST.get(), ExtraRegistry.CRIMSON_CHEST.get(), ExtraRegistry.WARPED_CHEST.get());
 
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            if (!regTree.isFake()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
+            if (!regTree.isFake())
+            {
                 Tree tree = regTree.getTree();
                 this.tag(BlockTags.PLANKS).add(tree.getPlanks());
                 this.tag(BlockTags.WOODEN_BUTTONS).add(tree.getButton());
@@ -38,7 +43,8 @@ public class TreemendousBlockTagsProvider extends BlockTagsProvider {
                 this.tag(BlockTags.WOODEN_FENCES).add(tree.getFence());
                 TagAppender<Block> saplingsTag = this.tag(BlockTags.SAPLINGS);
                 TagAppender<Block> pottedSaplingsTag = this.tag(BlockTags.FLOWER_POTS);
-                for (String saplingName : tree.getSaplingNames()) {
+                for (String saplingName : tree.getSaplingNames())
+                {
                     saplingsTag.add(tree.getSapling(saplingName));
                     pottedSaplingsTag.add(tree.getPottedSapling(saplingName));
                 }

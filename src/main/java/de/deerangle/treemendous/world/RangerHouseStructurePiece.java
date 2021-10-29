@@ -27,18 +27,25 @@ import net.minecraft.world.level.block.state.properties.StructureMode;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
-import net.minecraft.world.level.levelgen.structure.templatesystem.*;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockRotProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
 import java.util.Random;
 
-public class RangerHouseStructurePiece extends StructurePiece {
+public class RangerHouseStructurePiece extends StructurePiece
+{
 
     protected final ResourceLocation templateLocation;
     protected StructureTemplate template;
     protected StructurePlaceSettings placeSettings;
     protected BlockPos templatePosition;
 
-    public RangerHouseStructurePiece(StructureManager structureManager, ResourceLocation template, BlockPos position, Rotation rotation, RegisteredTree tree, Block flowerOne, Block flowerTwo) {
+    public RangerHouseStructurePiece(StructureManager structureManager, ResourceLocation template, BlockPos position, Rotation rotation, RegisteredTree tree, Block flowerOne, Block flowerTwo)
+    {
         super(ExtraRegistry.RANGER_HOUSE_PIECE_TYPE, 0, structureManager.getOrCreate(template).getBoundingBox(makeSettings(rotation), position));
         this.setOrientation(Direction.NORTH);
         this.templateLocation = template;
@@ -48,7 +55,8 @@ public class RangerHouseStructurePiece extends StructurePiece {
         this.placeSettings = makeSettings(rotation, replacer);
     }
 
-    public RangerHouseStructurePiece(ServerLevel world, CompoundTag tag) {
+    public RangerHouseStructurePiece(ServerLevel world, CompoundTag tag)
+    {
         super(ExtraRegistry.RANGER_HOUSE_PIECE_TYPE, tag);
         this.setOrientation(Direction.NORTH);
         this.templateLocation = new ResourceLocation(tag.getString("Template"));
@@ -59,24 +67,29 @@ public class RangerHouseStructurePiece extends StructurePiece {
         this.boundingBox = this.template.getBoundingBox(this.placeSettings, this.templatePosition);
     }
 
-    private static StructurePlaceSettings makeSettings(Rotation rotation) {
+    private static StructurePlaceSettings makeSettings(Rotation rotation)
+    {
         return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK).addProcessor(new BlockRotProcessor(0.95f));
     }
 
-    private static StructurePlaceSettings makeSettings(Rotation rotation, StructureProcessor replacer) {
+    private static StructurePlaceSettings makeSettings(Rotation rotation, StructureProcessor replacer)
+    {
         return (new StructurePlaceSettings()).setRotation(rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK).addProcessor(new BlockRotProcessor(0.95f)).addProcessor(replacer);
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected void addAdditionalSaveData(ServerLevel world, CompoundTag tag) {
+    protected void addAdditionalSaveData(ServerLevel world, CompoundTag tag)
+    {
         tag.putInt("TPX", this.templatePosition.getX());
         tag.putInt("TPY", this.templatePosition.getY());
         tag.putInt("TPZ", this.templatePosition.getZ());
         tag.putString("Template", this.templateLocation.toString());
         tag.putString("Rot", this.placeSettings.getRotation().name());
-        for (StructureProcessor processor : this.placeSettings.getProcessors()) {
-            if (processor instanceof ReplacementProcessor woodReplacer) {
+        for (StructureProcessor processor : this.placeSettings.getProcessors())
+        {
+            if (processor instanceof ReplacementProcessor woodReplacer)
+            {
                 tag.put("WoodReplacer", woodReplacer.toNBT());
             }
         }
@@ -84,14 +97,19 @@ public class RangerHouseStructurePiece extends StructurePiece {
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public boolean postProcess(WorldGenLevel world, StructureFeatureManager featureManager, ChunkGenerator generator, Random rand, BoundingBox bounds, ChunkPos chunkPos, BlockPos blockPos) {
+    public boolean postProcess(WorldGenLevel world, StructureFeatureManager featureManager, ChunkGenerator generator, Random rand, BoundingBox bounds, ChunkPos chunkPos, BlockPos blockPos)
+    {
         this.placeSettings.setBoundingBox(bounds);
         this.boundingBox = this.template.getBoundingBox(this.placeSettings, this.templatePosition);
-        if (this.template.placeInWorld(world, this.templatePosition.below(1), blockPos, this.placeSettings, rand, 2)) {
-            for (StructureTemplate.StructureBlockInfo structureBlockInfo : this.template.filterBlocks(this.templatePosition, this.placeSettings, Blocks.STRUCTURE_BLOCK)) {
-                if (structureBlockInfo.nbt != null) {
+        if (this.template.placeInWorld(world, this.templatePosition.below(1), blockPos, this.placeSettings, rand, 2))
+        {
+            for (StructureTemplate.StructureBlockInfo structureBlockInfo : this.template.filterBlocks(this.templatePosition, this.placeSettings, Blocks.STRUCTURE_BLOCK))
+            {
+                if (structureBlockInfo.nbt != null)
+                {
                     StructureMode structuremode = StructureMode.valueOf(structureBlockInfo.nbt.getString("mode"));
-                    if (structuremode == StructureMode.DATA) {
+                    if (structuremode == StructureMode.DATA)
+                    {
                         this.handleDataMarker(structureBlockInfo.nbt.getString("metadata"), structureBlockInfo.pos, world, rand);
                     }
                 }
@@ -102,24 +120,30 @@ public class RangerHouseStructurePiece extends StructurePiece {
     }
 
     @Override
-    public void move(int x, int y, int z) {
+    public void move(int x, int y, int z)
+    {
         super.move(x, y, z);
         this.templatePosition = this.templatePosition.offset(x, y, z);
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public Rotation getRotation() {
+    public Rotation getRotation()
+    {
         return this.placeSettings.getRotation();
     }
 
-    protected void handleDataMarker(String name, BlockPos blockPos, ServerLevelAccessor world, Random random) {
-        if ("chest".equals(name)) {
+    protected void handleDataMarker(String name, BlockPos blockPos, ServerLevelAccessor world, Random random)
+    {
+        if ("chest".equals(name))
+        {
             BlockEntity blockentity = world.getBlockEntity(blockPos.below(2));
-            if (blockentity instanceof ChestBlockEntity) {
+            if (blockentity instanceof ChestBlockEntity)
+            {
                 ((ChestBlockEntity) blockentity).setLootTable(TreemendousChestLoot.RANGER_HOUSE, random.nextLong());
             }
-        } else if ("monster".equals(name)) {
+        } else if ("monster".equals(name))
+        {
             ZombieVillager monster = EntityType.ZOMBIE_VILLAGER.create(world.getLevel());
             assert monster != null;
             monster.setPersistenceRequired();

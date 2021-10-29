@@ -20,16 +20,20 @@ import net.minecraftforge.registries.RegistryManager;
 
 import java.util.function.BiConsumer;
 
-public class TreemendousChestLoot extends ChestLoot {
+public class TreemendousChestLoot extends ChestLoot
+{
 
     public static final ResourceLocation RANGER_HOUSE = new ResourceLocation(Treemendous.MODID, "chests/ranger_house");
 
     @Override
-    public void accept(BiConsumer<ResourceLocation, LootTable.Builder> tables) {
+    public void accept(BiConsumer<ResourceLocation, LootTable.Builder> tables)
+    {
         LootPool.Builder saplingPool = LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 2.0F));
         LootPool.Builder logPool = LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 3.0F));
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            for (String saplingName : regTree.getTree().getSaplingNames()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
+            for (String saplingName : regTree.getTree().getSaplingNames())
+            {
                 SaplingBlock sapling = regTree.getTree().getSapling(saplingName);
                 saplingPool.add(LootItem.lootTableItem(sapling).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))));
             }

@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
+public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree>
+{
 
     private final Tree tree;
     private final boolean isFake;
     private ResourceLocation registryName;
 
-    public RegisteredTree(Tree tree, boolean isFake) {
+    public RegisteredTree(Tree tree, boolean isFake)
+    {
         this.tree = tree;
         this.isFake = isFake;
         this.registryName = null;
@@ -24,31 +26,38 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
 
     @Nullable
     @Override
-    public ResourceLocation getRegistryName() {
+    public ResourceLocation getRegistryName()
+    {
         return this.registryName;
     }
 
     @Override
-    public RegisteredTree setRegistryName(ResourceLocation name) {
+    public RegisteredTree setRegistryName(ResourceLocation name)
+    {
         this.registryName = name;
         return this;
     }
 
     @Override
-    public Class<RegisteredTree> getRegistryType() {
+    public Class<RegisteredTree> getRegistryType()
+    {
         return RegisteredTree.class;
     }
 
-    public Tree getTree() {
+    public Tree getTree()
+    {
         return tree;
     }
 
-    public boolean isFake() {
+    public boolean isFake()
+    {
         return isFake;
     }
 
-    public Collection<Block> getAllBlocks() {
-        if (!this.isFake()) {
+    public Collection<Block> getAllBlocks()
+    {
+        if (!this.isFake())
+        {
             List<Block> mostTreeBlocks = ImmutableList.of(this.getTree().getPlanks(),
                     this.getTree().getStrippedLog(),
                     this.getTree().getLog(),
@@ -68,12 +77,14 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree> {
                     this.getTree().getChest(),
                     this.getTree().getCraftingTable());
             List<Block> blocks = new ArrayList<>(mostTreeBlocks);
-            for (String saplingName : tree.getSaplingNames()) {
+            for (String saplingName : tree.getSaplingNames())
+            {
                 blocks.add(this.getTree().getSapling(saplingName));
                 blocks.add(this.getTree().getPottedSapling(saplingName));
             }
             return blocks;
-        } else {
+        } else
+        {
             return ImmutableList.of();
         }
     }

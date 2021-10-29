@@ -18,18 +18,23 @@ import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
 
-public class TreemendousItemTagsProvider extends ItemTagsProvider {
+public class TreemendousItemTagsProvider extends ItemTagsProvider
+{
 
     public static final Tag.Named<Item> FITS_IN_CHOPPING_BLOCK = ItemTags.bind(Treemendous.MODID + ":fits_in_chopping_block");
 
-    public TreemendousItemTagsProvider(DataGenerator generator, BlockTagsProvider provider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+    public TreemendousItemTagsProvider(DataGenerator generator, BlockTagsProvider provider, String modId, @Nullable ExistingFileHelper existingFileHelper)
+    {
         super(generator, provider, modId, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            if (!regTree.isFake()) {
+    protected void addTags()
+    {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
+            if (!regTree.isFake())
+            {
                 Tree tree = regTree.getTree();
                 this.copy(tree.getLogsBlockTag(), tree.getLogsItemTag());
                 this.tag(ItemTags.BOATS).add(tree.getBoatItem());

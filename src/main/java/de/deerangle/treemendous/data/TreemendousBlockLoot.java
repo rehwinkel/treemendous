@@ -11,12 +11,14 @@ import net.minecraftforge.registries.RegistryManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TreemendousBlockLoot extends BlockLoot {
+public class TreemendousBlockLoot extends BlockLoot
+{
 
     private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
 
     @Override
-    protected void addTables() {
+    protected void addTables()
+    {
         this.add(ExtraRegistry.MAPLE_RED_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling("red"), NORMAL_LEAVES_SAPLING_CHANCES));
         this.add(ExtraRegistry.MAPLE_BROWN_LEAVES.get(), (drops) -> createLeavesDrops(drops, TreeRegistry.MAPLE_TREE.getSapling("brown"), NORMAL_LEAVES_SAPLING_CHANCES));
 
@@ -37,8 +39,10 @@ public class TreemendousBlockLoot extends BlockLoot {
 
         this.dropSelf(ExtraRegistry.CHOPPING_BLOCK.get());
 
-        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues()) {
-            if (!regTree.isFake()) {
+        for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
+        {
+            if (!regTree.isFake())
+            {
                 Tree tree = regTree.getTree();
                 this.dropSelf(tree.getButton());
                 this.dropSelf(tree.getChest());
@@ -52,7 +56,8 @@ public class TreemendousBlockLoot extends BlockLoot {
                 this.dropSelf(tree.getStrippedWood());
                 this.dropSelf(tree.getPlanks());
                 this.dropSelf(tree.getPressurePlate());
-                for (String saplingName : tree.getSaplingNames()) {
+                for (String saplingName : tree.getSaplingNames())
+                {
                     this.dropSelf(tree.getSapling(saplingName));
                     this.dropPottedContents(tree.getPottedSapling(saplingName));
                 }
@@ -68,7 +73,8 @@ public class TreemendousBlockLoot extends BlockLoot {
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected Iterable<Block> getKnownBlocks()
+    {
         List<Block> treeBlocks = RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues().stream().flatMap(tree -> tree.getAllBlocks().stream()).collect(Collectors.toList());
         treeBlocks.add(ExtraRegistry.BIRCH_CHEST.get());
         treeBlocks.add(ExtraRegistry.JUNGLE_CHEST.get());

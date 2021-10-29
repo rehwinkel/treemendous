@@ -11,13 +11,19 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class TreemendousConfiguredFeatures {
+public class TreemendousConfiguredFeatures
+{
 
     private static final Map<ResourceLocation, ConfiguredStructureFeature<?, ?>> BIOME_STRUCTURE_MAP = new HashMap<>();
 
-    public static void registerConfiguredStructures() {
+    public static void registerConfiguredStructures()
+    {
         register("douglas_ranger_house", CommonHandler.DOUGLAS_TREE, TreemendousBiomes.BiomeKind.TAIGA);
         register("pine_ranger_house", CommonHandler.PINE_TREE, TreemendousBiomes.BiomeKind.TAIGA);
         register("larch_ranger_house", CommonHandler.LARCH_TREE, TreemendousBiomes.BiomeKind.TAIGA);
@@ -50,11 +56,14 @@ public class TreemendousConfiguredFeatures {
         register("dark_oak_ranger_house", CommonHandler.DARK_OAK_TREE, Biomes.DARK_FOREST.getRegistryName());
     }
 
-    private static void register(String name, RegisteredTree tree, TreemendousBiomes.BiomeKind biomeKind) {
+    private static void register(String name, RegisteredTree tree, TreemendousBiomes.BiomeKind biomeKind)
+    {
         List<ResourceLocation> biomes = new ArrayList<>();
-        for (String saplingName : tree.getTree().getSaplingNames()) {
+        for (String saplingName : tree.getTree().getSaplingNames())
+        {
             String treeName = saplingName != null ? String.format("%s_%s", tree.getTree().getRegistryName(), saplingName) : tree.getTree().getRegistryName();
-            switch (biomeKind) {
+            switch (biomeKind)
+            {
                 case TAIGA -> {
                     biomes.add(new ResourceLocation(Treemendous.MODID, treeName + "_taiga"));
                 }
@@ -70,24 +79,29 @@ public class TreemendousConfiguredFeatures {
         register(name, tree, biomes);
     }
 
-    private static void register(String name, RegisteredTree tree, ResourceLocation biome) {
+    private static void register(String name, RegisteredTree tree, ResourceLocation biome)
+    {
         register(name, tree, ImmutableList.of(biome));
     }
 
-    private static void register(String name, RegisteredTree tree, Collection<ResourceLocation> biomes) {
+    private static void register(String name, RegisteredTree tree, Collection<ResourceLocation> biomes)
+    {
         ConfiguredStructureFeature<?, ?> feature = getRangerHouse(tree);
         BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(Treemendous.MODID, name), feature);
-        for (ResourceLocation biome : biomes) {
+        for (ResourceLocation biome : biomes)
+        {
             BIOME_STRUCTURE_MAP.put(biome, feature);
         }
         FlatLevelGeneratorSettings.STRUCTURE_FEATURES.put(ExtraRegistry.RANGER_HOUSE_FEATURE.get(), feature);
     }
 
-    private static ConfiguredStructureFeature<?, ?> getRangerHouse(RegisteredTree tree) {
+    private static ConfiguredStructureFeature<?, ?> getRangerHouse(RegisteredTree tree)
+    {
         return ExtraRegistry.RANGER_HOUSE_FEATURE.get().configured(new RangerHouseConfiguration(tree));
     }
 
-    public static ConfiguredStructureFeature<?, ?> getRangerHouseForBiome(ResourceLocation biome) {
+    public static ConfiguredStructureFeature<?, ?> getRangerHouseForBiome(ResourceLocation biome)
+    {
         return BIOME_STRUCTURE_MAP.get(biome);
     }
 

@@ -9,14 +9,17 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.function.Supplier;
 
-public class ClientPacketHandlers {
+public class ClientPacketHandlers
+{
 
-    public static void handleUpdateChoppingBlock(UpdateChoppingBlock msg, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handleUpdateChoppingBlock(UpdateChoppingBlock msg, Supplier<NetworkEvent.Context> contextSupplier)
+    {
         contextSupplier.get().enqueueWork(() -> {
             Level world = Minecraft.getInstance().level;
             assert world != null;
             BlockEntity be = world.getBlockEntity(msg.pos);
-            if (be instanceof ChoppingBlockBlockEntity blockEntity) {
+            if (be instanceof ChoppingBlockBlockEntity blockEntity)
+            {
                 ItemStackHandler inventory = (ItemStackHandler) blockEntity.getInventory();
                 inventory.setStackInSlot(0, msg.stack);
             }

@@ -6,14 +6,31 @@ import de.deerangle.treemendous.tree.util.ILeavesColor;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.CraftingTableBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallSignBlock;
+import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class FakeTree extends Tree {
+public class FakeTree extends Tree
+{
 
     private final RotatedPillarBlock log;
     private final RotatedPillarBlock strippedLog;
@@ -33,7 +50,8 @@ public class FakeTree extends Tree {
     private final WallSignBlock wallSign;
     private final Block planks;
 
-    public FakeTree(Block log, Block strippedLog, Block wood, Block strippedWood, Block sapling, Supplier<ChestBlock> chest, Supplier<CraftingTableBlock> craftingTable, Block button, Block door, Block fence, Block fenceGate, Block pressurePlate, Block slab, Block stairs, Block trapdoor, Block wallSign, Block planks) {
+    public FakeTree(Block log, Block strippedLog, Block wood, Block strippedWood, Block sapling, Supplier<ChestBlock> chest, Supplier<CraftingTableBlock> craftingTable, Block button, Block door, Block fence, Block fenceGate, Block pressurePlate, Block slab, Block stairs, Block trapdoor, Block wallSign, Block planks)
+    {
         super(null);
         this.log = (RotatedPillarBlock) log;
         this.strippedLog = (RotatedPillarBlock) strippedLog;
@@ -55,147 +73,176 @@ public class FakeTree extends Tree {
     }
 
     @Override
-    public SaplingBlock getRandomSapling(Random rand) {
+    public SaplingBlock getRandomSapling(Random rand)
+    {
         return this.sapling;
     }
 
     @Override
-    public SaplingBlock getSapling(String key) {
+    public SaplingBlock getSapling(String key)
+    {
         return this.sapling;
     }
 
     @Override
-    public Set<String> getSaplingNames() {
+    public Set<String> getSaplingNames()
+    {
         return ImmutableSet.of("dummy");
     }
 
     @Override
-    public FlowerPotBlock getPottedSapling(String key) {
+    public FlowerPotBlock getPottedSapling(String key)
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public CustomBoatItem getBoatItem() {
+    public CustomBoatItem getBoatItem()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ILeavesColor getLeavesColor() {
+    public ILeavesColor getLeavesColor()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public LeavesBlock getLeaves() {
+    public LeavesBlock getLeaves()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Tag.Named<Block> getLogsBlockTag() {
+    public Tag.Named<Block> getLogsBlockTag()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Tag.Named<Item> getLogsItemTag() {
+    public Tag.Named<Item> getLogsItemTag()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public SaplingBlock getDefaultSapling() {
+    public SaplingBlock getDefaultSapling()
+    {
         return this.sapling;
     }
 
     @Override
-    public SignItem getSignItem() {
+    public SignItem getSignItem()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public StandingSignBlock getSign() {
+    public StandingSignBlock getSign()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public WoodType getWoodType() {
+    public WoodType getWoodType()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public RotatedPillarBlock getLog() {
+    public RotatedPillarBlock getLog()
+    {
         return log;
     }
 
     @Override
-    public RotatedPillarBlock getStrippedLog() {
+    public RotatedPillarBlock getStrippedLog()
+    {
         return strippedLog;
     }
 
     @Override
-    public RotatedPillarBlock getWood() {
+    public RotatedPillarBlock getWood()
+    {
         return wood;
     }
 
     @Override
-    public RotatedPillarBlock getStrippedWood() {
+    public RotatedPillarBlock getStrippedWood()
+    {
         return strippedWood;
     }
 
     @Override
-    public ChestBlock getChest() {
+    public ChestBlock getChest()
+    {
         return chest.get();
     }
 
     @Override
-    public CraftingTableBlock getCraftingTable() {
+    public CraftingTableBlock getCraftingTable()
+    {
         return craftingTable.get();
     }
 
     @Override
-    public WoodButtonBlock getButton() {
+    public WoodButtonBlock getButton()
+    {
         return button;
     }
 
     @Override
-    public DoorBlock getDoor() {
+    public DoorBlock getDoor()
+    {
         return door;
     }
 
     @Override
-    public FenceBlock getFence() {
+    public FenceBlock getFence()
+    {
         return fence;
     }
 
     @Override
-    public FenceGateBlock getFenceGate() {
+    public FenceGateBlock getFenceGate()
+    {
         return fenceGate;
     }
 
     @Override
-    public PressurePlateBlock getPressurePlate() {
+    public PressurePlateBlock getPressurePlate()
+    {
         return pressurePlate;
     }
 
     @Override
-    public SlabBlock getSlab() {
+    public SlabBlock getSlab()
+    {
         return slab;
     }
 
     @Override
-    public StairBlock getStairs() {
+    public StairBlock getStairs()
+    {
         return stairs;
     }
 
     @Override
-    public TrapDoorBlock getTrapdoor() {
+    public TrapDoorBlock getTrapdoor()
+    {
         return trapdoor;
     }
 
     @Override
-    public WallSignBlock getWallSign() {
+    public WallSignBlock getWallSign()
+    {
         return wallSign;
     }
 
     @Override
-    public Block getPlanks() {
+    public Block getPlanks()
+    {
         return planks;
     }
 

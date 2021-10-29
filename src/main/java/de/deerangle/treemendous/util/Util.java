@@ -2,13 +2,17 @@ package de.deerangle.treemendous.util;
 
 import net.minecraft.world.level.material.MaterialColor;
 
-public class Util {
+public class Util
+{
 
-    public static MaterialColor getMaterialColor(int color) {
+    public static MaterialColor getMaterialColor(int color)
+    {
         MaterialColor closest = null;
         double closestDiff = 3;
-        for (MaterialColor matColor : MaterialColor.MATERIAL_COLORS) {
-            if (matColor != null) {
+        for (MaterialColor matColor : MaterialColor.MATERIAL_COLORS)
+        {
+            if (matColor != null)
+            {
                 int blueMat = matColor.col & 0xFF;
                 int greenMat = (matColor.col & 0xFF00) >> 8;
                 int redMat = (matColor.col & 0xFF0000) >> 16;
@@ -19,7 +23,8 @@ public class Util {
                 double greenDiff = Math.abs(green / 255.0 - greenMat / 255.0);
                 double blueDiff = Math.abs(blue / 255.0 - blueMat / 255.0);
                 double diff = redDiff + greenDiff + blueDiff;
-                if (diff < closestDiff) {
+                if (diff < closestDiff)
+                {
                     closest = matColor;
                     closestDiff = diff;
                 }

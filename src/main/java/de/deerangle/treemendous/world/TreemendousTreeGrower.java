@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class TreemendousTreeGrower extends AbstractMegaTreeGrower {
+public class TreemendousTreeGrower extends AbstractMegaTreeGrower
+{
 
     private final SaplingConfig saplingConfig;
     private final Tree tree;
@@ -28,7 +29,8 @@ public class TreemendousTreeGrower extends AbstractMegaTreeGrower {
     private List<ConfiguredFeature<TreeConfiguration, ?>> madeTrees;
     private List<ConfiguredFeature<TreeConfiguration, ?>> madeMegaTrees;
 
-    public TreemendousTreeGrower(SaplingConfig saplingConfig, Tree tree) {
+    public TreemendousTreeGrower(SaplingConfig saplingConfig, Tree tree)
+    {
         this.saplingConfig = saplingConfig;
         this.tree = tree;
         this.madeTrees = null;
@@ -37,11 +39,16 @@ public class TreemendousTreeGrower extends AbstractMegaTreeGrower {
     }
 
     @SuppressWarnings("NullableProblems")
-    public boolean growTree(ServerLevel world, ChunkGenerator generator, BlockPos pos, BlockState state, Random random) {
-        if (this.hasMegaVariant) {
-            for (int i = 0; i >= -1; --i) {
-                for (int j = 0; j >= -1; --j) {
-                    if (isTwoByTwoSapling(state, world, pos, i, j)) {
+    public boolean growTree(ServerLevel world, ChunkGenerator generator, BlockPos pos, BlockState state, Random random)
+    {
+        if (this.hasMegaVariant)
+        {
+            for (int i = 0; i >= -1; --i)
+            {
+                for (int j = 0; j >= -1; --j)
+                {
+                    if (isTwoByTwoSapling(state, world, pos, i, j))
+                    {
                         return this.placeMega(world, generator, pos, state, random, i, j);
                     }
                 }
@@ -51,39 +58,51 @@ public class TreemendousTreeGrower extends AbstractMegaTreeGrower {
         return this.growSmallTree(world, generator, pos, state, random);
     }
 
-    public boolean growSmallTree(ServerLevel world, ChunkGenerator generator, BlockPos pos, BlockState state, Random rand) {
+    public boolean growSmallTree(ServerLevel world, ChunkGenerator generator, BlockPos pos, BlockState state, Random rand)
+    {
         ConfiguredFeature<TreeConfiguration, ?> configuredFeature = this.getConfiguredFeature(rand, this.hasFlowers(world, pos));
-        if (configuredFeature == null) {
+        if (configuredFeature == null)
+        {
             return false;
-        } else {
+        } else
+        {
             world.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
-            if (configuredFeature.place(world, generator, rand, pos)) {
+            if (configuredFeature.place(world, generator, rand, pos))
+            {
                 return true;
-            } else {
+            } else
+            {
                 world.setBlock(pos, state, 4);
                 return false;
             }
         }
     }
 
-    private boolean hasFlowers(LevelAccessor world, BlockPos pos) {
-        for (BlockPos blockpos : BlockPos.MutableBlockPos.betweenClosed(pos.below().north(2).west(2), pos.above().south(2).east(2))) {
-            if (world.getBlockState(blockpos).is(BlockTags.FLOWERS)) {
+    private boolean hasFlowers(LevelAccessor world, BlockPos pos)
+    {
+        for (BlockPos blockpos : BlockPos.MutableBlockPos.betweenClosed(pos.below().north(2).west(2), pos.above().south(2).east(2)))
+        {
+            if (world.getBlockState(blockpos).is(BlockTags.FLOWERS))
+            {
                 return true;
             }
         }
         return false;
     }
 
-    private void makeAllTrees() {
+    private void makeAllTrees()
+    {
         List<ConfiguredFeature<TreeConfiguration, ?>> madeTrees = new ArrayList<>();
         List<ConfiguredFeature<TreeConfiguration, ?>> madeMegaTrees = new ArrayList<>();
-        for (WeightedTreeMaker maker : saplingConfig.getTreeMakers()) {
+        for (WeightedTreeMaker maker : saplingConfig.getTreeMakers())
+        {
             ConfiguredFeature<TreeConfiguration, ?> madeTree = saplingConfig.makeTree(maker.treeMaker(), tree);
             List<ConfiguredFeature<TreeConfiguration, ?>> outputList;
-            if (maker.mega()) {
+            if (maker.mega())
+            {
                 outputList = madeMegaTrees;
-            } else {
+            } else
+            {
                 outputList = madeTrees;
             }
             IntStream.range(0, maker.weight()).forEach(x -> outputList.add(madeTree));
@@ -94,17 +113,21 @@ public class TreemendousTreeGrower extends AbstractMegaTreeGrower {
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random random, boolean b) {
-        if (madeTrees == null) {
-            this.makeAllTrees(); //TODO: can I do this earlier?
+    protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random random, boolean b)
+    {
+        if (madeTrees == null)
+        {
+            this.makeAllTrees();
         }
         return madeTrees.get(random.nextInt(madeTrees.size()));
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredMegaFeature(Random random) {
-        if (madeMegaTrees == null) {
+    protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredMegaFeature(Random random)
+    {
+        if (madeMegaTrees == null)
+        {
             this.makeAllTrees();
         }
         return madeMegaTrees.get(random.nextInt(madeMegaTrees.size()));
