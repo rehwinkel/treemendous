@@ -96,7 +96,7 @@ public class TreemendousLanguageProvider extends LanguageProvider
         addTree(TreeRegistry.MAPLE_TREE, "Maple", "Ahorn");
         addTree(TreeRegistry.JAPANESE_TREE, "Japanese Maple", "Fächer-Ahorn");
         addTree(TreeRegistry.BEECH_TREE, "Beech", "Buchen");
-        addTree(TreeRegistry.CHERRY_TREE, "Chery", "Kirsch");
+        addTree(TreeRegistry.CHERRY_TREE, "Cherry", "Kirsch");
         addTree(TreeRegistry.ALDER_TREE, "Alder", "Erlen");
         addTree(TreeRegistry.CHESTNUT_TREE, "Chestnut", "Kastanien");
         addTree(TreeRegistry.PLANE_TREE, "Plane", "Platanen");

@@ -36,13 +36,12 @@ public class BallFoliagePlacer extends FoliagePlacer
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> consumer, Random random, TreeConfiguration configuration, int p_161364_, FoliagePlacer.FoliageAttachment foliageAttachment, int p_161366_, int p_161367_, int p_161368_)
+    protected void createFoliage(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> consumer, Random random, TreeConfiguration configuration, int p_161364_, FoliagePlacer.FoliageAttachment foliageAttachment, int height, int radius, int offset)
     {
         int size = this.size.sample(random);
-        for (int i = size; i >= -size; --i)
+        for (int i = offset + size; i > offset - size * 2; --i)
         {
-            int j = Math.max(p_161367_ + foliageAttachment.radiusOffset() - 1 - i / 2, 0);
-            this.placeLeavesRow(level, consumer, random, configuration, foliageAttachment.pos(), j, i, foliageAttachment.doubleTrunk());
+            this.placeLeavesRow(level, consumer, random, configuration, foliageAttachment.pos(), size, i, foliageAttachment.doubleTrunk());
         }
     }
 

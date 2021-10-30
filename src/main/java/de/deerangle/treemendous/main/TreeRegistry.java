@@ -26,7 +26,10 @@ public class TreeRegistry
             .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeDouglasTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig PINE_CONFIG = new TreeConfigBuilder("pine", WoodColors.PINE_LEAVES, true, WoodColors.PINE_WOOD, WoodColors.PINE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makePineTree(leaves, wood, sapling))).addTree(1, true, ((leaves, wood, sapling, tree) -> TreeMaker.makeMegaPineTree(leaves, wood, sapling))).add()
+            .defaultSapling()
+            .addTree((leaves, wood, sapling, tree) -> TreeMaker.makePineTree(leaves, wood, sapling))
+            //TODO: .addTree(1, true, ((leaves, wood, sapling, tree) -> TreeMaker.makeMegaPineTree(leaves, wood, sapling)))
+            .add()
             .createTreeConfig();
     private static final TreeConfig LARCH_CONFIG = new TreeConfigBuilder("larch", WoodColors.LARCH_LEAVES, true, WoodColors.LARCH_WOOD, WoodColors.LARCH_LOG)
             .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeLarchTree(leaves, wood, sapling))).add()
@@ -40,7 +43,7 @@ public class TreeRegistry
             .extraSapling("brown").setLeaves(tree -> ExtraRegistry.MAPLE_BROWN_LEAVES.get()).addTree((leaves, wood, sapling, tree) -> TreeMaker.makeMapleTree(leaves, wood, sapling)).add()
             .createTreeConfig();
     private static final TreeConfig JAPANESE_CONFIG = new TreeConfigBuilder("japanese", WoodColors.JAPANESE_LEAVES, true, WoodColors.JAPANESE_WOOD, WoodColors.JAPANESE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeMapleTree(leaves, wood, sapling))).add()
+            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeJapaneseTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig BEECH_CONFIG = new TreeConfigBuilder("beech", WoodColors.BEECH_LEAVES, false, WoodColors.BEECH_WOOD, WoodColors.BEECH_LOG)
             .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeBeechTree(leaves, wood, sapling))).add()
