@@ -1,5 +1,6 @@
 package de.deerangle.treemendous.world;
 
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -71,7 +72,12 @@ public class TreeMaker extends BaseTreeMaker
 
     public static ConfiguredFeature<TreeConfiguration, ?> makeAshTree(Block leaves, Block wood, Block sapling)
     {
-        return makeBaseOakTree(provider(leaves), provider(wood), provider(sapling));
+        return makeBlobulousTree(
+                provider(leaves), provider(wood), provider(sapling), 7, 5,
+                UniformInt.of(1, 2),
+                UniformInt.of(4, 6),
+                UniformInt.of(2, 3)
+        );
     }
 
     public static ConfiguredFeature<TreeConfiguration, ?> makeLindenTree(Block leaves, Block wood, Block sapling)

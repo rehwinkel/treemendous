@@ -9,6 +9,7 @@ import de.deerangle.treemendous.data.TreemendousModelProvider;
 import de.deerangle.treemendous.data.TreemendousRecipeProvider;
 import de.deerangle.treemendous.network.NetworkHandler;
 import de.deerangle.treemendous.tree.RegisteredTree;
+import de.deerangle.treemendous.tree.TreeFeatureRegistry;
 import de.deerangle.treemendous.world.Biomes;
 import de.deerangle.treemendous.world.TreemendousConfiguredFeatures;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -42,6 +43,7 @@ public class Treemendous
         ExtraRegistry.PROFESSIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.POI_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.STRUCTURE_FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TreeFeatureRegistry.FOLIAGE_PLACERS.register(FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
     }
 

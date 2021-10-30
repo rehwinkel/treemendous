@@ -1,23 +1,33 @@
 package de.deerangle.treemendous.tree;
 
+import com.mojang.serialization.Codec;
+import de.deerangle.treemendous.main.Treemendous;
+import de.deerangle.treemendous.world.foliage.BallFoliagePlacer;
+import de.deerangle.treemendous.world.trunk.AshTrunkPlacer;
+import de.deerangle.treemendous.world.trunk.CrossTrunkPlacer;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
 public class TreeFeatureRegistry
 {
 
-    /*
     public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Treemendous.MODID);
-    // public static final DeferredRegister<FoliagePlacerType<?>> TRUNK_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Treemendous.MODID);
+    // TODO: public static final DeferredRegister<FoliagePlacerType<?>> TRUNK_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Treemendous.MODID);
 
-    public static final TrunkPlacerType<StraightTrunkPlacer> STRAIGHT_TRUNK_PLACER = registerTrunkPlacer("straight_trunk_placer", StraightTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<ForkingTrunkPlacer> FORKING_TRUNK_PLACER = registerTrunkPlacer("forking_trunk_placer", ForkingTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<GiantTrunkPlacer> GIANT_TRUNK_PLACER = registerTrunkPlacer("giant_trunk_placer", GiantTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<MegaJungleTrunkPlacer> MEGA_JUNGLE_TRUNK_PLACER = registerTrunkPlacer("mega_jungle_trunk_placer", MegaJungleTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<DarkOakTrunkPlacer> DARK_OAK_TRUNK_PLACER = registerTrunkPlacer("dark_oak_trunk_placer", DarkOakTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<FancyTrunkPlacer> FANCY_TRUNK_PLACER = registerTrunkPlacer("fancy_trunk_placer", FancyTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<BendingTrunkPlacer> BENDING_TRUNK_PLACER = registerTrunkPlacer("bending_trunk_placer", BendingTrunkPlacer.CODEC);
+    public static final RegistryObject<FoliagePlacerType<BallFoliagePlacer>> BALL_FOLIAGE_PLACER = FOLIAGE_PLACERS.register("ball_foliage_placer", () -> new FoliagePlacerType<>(BallFoliagePlacer.CODEC));
 
-    private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunkPlacer(String p_70327_, Codec<P> p_70328_) {
-        return Registry.register(Registry.TRUNK_PLACER_TYPES, new ResourceLocation(Treemendous.MODID, p_70327_), new TrunkPlacerType<>(p_70328_));
+    public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacer("ash_trunk_placer", AshTrunkPlacer.CODEC);
+    public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = registerTrunkPlacer("cross_trunk_placer", CrossTrunkPlacer.CODEC);
+
+    private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunkPlacer(String name, Codec<P> codec)
+    {
+        return Registry.register(Registry.TRUNK_PLACER_TYPES, new ResourceLocation(Treemendous.MODID, name), new TrunkPlacerType<>(codec));
     }
-    */
 
 }

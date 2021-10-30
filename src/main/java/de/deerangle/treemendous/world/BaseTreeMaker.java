@@ -1,6 +1,9 @@
 package de.deerangle.treemendous.world;
 
+import de.deerangle.treemendous.world.foliage.BallFoliagePlacer;
+import de.deerangle.treemendous.world.trunk.AshTrunkPlacer;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -58,6 +61,17 @@ public class BaseTreeMaker
     protected static ConfiguredFeature<TreeConfiguration, ?> makeMegaTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling)
     {
         return Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(wood, new GiantTrunkPlacer(13, 2, 14), leaves, sapling, new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(13, 17)), new TwoLayersFeatureSize(1, 1, 2))).build());
+    }
+
+    protected static ConfiguredFeature<TreeConfiguration, ?> makeBlobulousTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling, int baseHeight, int extraHeight, IntProvider leavesSideOffset, IntProvider minLeavesHeight, IntProvider leavesSize)
+    {
+        return Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
+                wood,
+                new AshTrunkPlacer(baseHeight, extraHeight, 1, leavesSideOffset, minLeavesHeight),
+                leaves,
+                sapling,
+                new BallFoliagePlacer(leavesSize),
+                new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build());
     }
 
 }

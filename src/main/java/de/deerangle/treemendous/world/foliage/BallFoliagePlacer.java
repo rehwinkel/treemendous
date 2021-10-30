@@ -2,10 +2,10 @@ package de.deerangle.treemendous.world.foliage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import de.deerangle.treemendous.tree.TreeFeatureRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -18,7 +18,7 @@ import java.util.function.BiConsumer;
 public class BallFoliagePlacer extends FoliagePlacer
 {
     public static final Codec<BallFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> instance
-            .group(UniformInt.codec(0, 8).fieldOf("size").forGetter(inst -> inst.size))
+            .group(IntProvider.codec(0, 8).fieldOf("size").forGetter(inst -> inst.size))
             .apply(instance, BallFoliagePlacer::new));
 
     private final IntProvider size;
@@ -32,7 +32,7 @@ public class BallFoliagePlacer extends FoliagePlacer
     @Override
     protected FoliagePlacerType<?> type()
     {
-        return null; //TODO: TreeWorldGenRegistry.BALL_FOLIAGE_PLACER;
+        return TreeFeatureRegistry.BALL_FOLIAGE_PLACER.get();
     }
 
     @Override
