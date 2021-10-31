@@ -7,6 +7,7 @@ import de.deerangle.treemendous.world.foliage.RoundedFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.WillowFoliagePlacer;
 import de.deerangle.treemendous.world.trunk.AshTrunkPlacer;
 import de.deerangle.treemendous.world.trunk.CrossTrunkPlacer;
+import de.deerangle.treemendous.world.trunk.FingerTrunkPlacer;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -188,6 +189,19 @@ public class BaseTreeMaker
                         leaves,
                         sapling,
                         new PointyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), topSpread, bottomSpread, UniformInt.of(bottomOffset, bottomOffset + 1)),
+                        new TwoLayersFeatureSize(1, 0, 1)
+                ).ignoreVines().build());
+    }
+
+    protected static ConfiguredFeature<TreeConfiguration, ?> makeFingerTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling)
+    {
+        return Feature.TREE.configured(
+                new TreeConfiguration.TreeConfigurationBuilder(
+                        wood,
+                        new FingerTrunkPlacer(9, 4, ConstantInt.of(2), UniformInt.of(2, 3), UniformInt.of(3, 4), 0.9, 0.1, 0.1, 0.5, 10),
+                        leaves,
+                        sapling,
+                        new BallFoliagePlacer(UniformInt.of(2, 3)),
                         new TwoLayersFeatureSize(1, 0, 1)
                 ).ignoreVines().build());
     }

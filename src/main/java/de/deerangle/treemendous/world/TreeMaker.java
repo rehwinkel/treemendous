@@ -108,6 +108,11 @@ public class TreeMaker extends BaseTreeMaker
         return makeCrossBallTree(provider(leaves), provider(wood), provider(sapling), 5, 3, UniformInt.of(2, 3), UniformInt.of(1, 2), ConstantInt.of(1), UniformInt.of(2, 3));
     }
 
+    public static ConfiguredFeature<TreeConfiguration, ?> makeWalnutTree(Block leaves, Block wood, Block sapling)
+    {
+        return makeFingerTree(provider(leaves), provider(wood), provider(sapling));
+    }
+
     public static ConfiguredFeature<TreeConfiguration, ?> makeAshTree(Block leaves, Block wood, Block sapling)
     {
         //TODO
@@ -115,12 +120,6 @@ public class TreeMaker extends BaseTreeMaker
     }
 
     public static ConfiguredFeature<TreeConfiguration, ?> makePomegranateTree(Block leaves, Block wood, Block sapling)
-    {
-        //TODO
-        return makeBaseOakTree(provider(leaves), provider(wood), provider(sapling));
-    }
-
-    public static ConfiguredFeature<TreeConfiguration, ?> makeWalnutTree(Block leaves, Block wood, Block sapling)
     {
         //TODO
         return makeBaseOakTree(provider(leaves), provider(wood), provider(sapling));

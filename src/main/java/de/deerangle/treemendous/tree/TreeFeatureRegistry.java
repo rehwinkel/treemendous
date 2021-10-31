@@ -9,6 +9,7 @@ import de.deerangle.treemendous.world.foliage.RoundedFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.WillowFoliagePlacer;
 import de.deerangle.treemendous.world.trunk.AshTrunkPlacer;
 import de.deerangle.treemendous.world.trunk.CrossTrunkPlacer;
+import de.deerangle.treemendous.world.trunk.FingerTrunkPlacer;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -32,6 +33,7 @@ public class TreeFeatureRegistry
 
     public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacer("ash_trunk_placer", AshTrunkPlacer.CODEC);
     public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = registerTrunkPlacer("cross_trunk_placer", CrossTrunkPlacer.CODEC);
+    public static final TrunkPlacerType<FingerTrunkPlacer> FINGER_TRUNK_PLACER = registerTrunkPlacer("finger_trunk_placer", FingerTrunkPlacer.CODEC);
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunkPlacer(String name, Codec<P> codec)
     {

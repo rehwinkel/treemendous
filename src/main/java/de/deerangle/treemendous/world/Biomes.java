@@ -22,41 +22,41 @@ public class Biomes
 
     static
     {
-        registerBiomes(TreeRegistry.DOUGLAS_TREE, TreemendousBiomes.BiomeKind.TAIGA);
-        registerBiomes(TreeRegistry.PINE_TREE, TreemendousBiomes.BiomeKind.TAIGA);
-        registerBiomes(TreeRegistry.LARCH_TREE, TreemendousBiomes.BiomeKind.TAIGA);
-        registerBiomes(TreeRegistry.FIR_TREE, TreemendousBiomes.BiomeKind.TAIGA);
-        registerBiomes(TreeRegistry.MAPLE_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.MAPLE_TREE, "red", TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.MAPLE_TREE, "brown", TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.JAPANESE_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.BEECH_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.CHERRY_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.ALDER_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.CHESTNUT_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.PLANE_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.ASH_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.LINDEN_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.ROBINIA_TREE, TreemendousBiomes.BiomeKind.SAVANNA);
-        registerBiomes(TreeRegistry.WILLOW_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.POMEGRANATE_TREE, TreemendousBiomes.BiomeKind.SAVANNA);
-        registerBiomes(TreeRegistry.WALNUT_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.CEDAR_TREE, TreemendousBiomes.BiomeKind.TAIGA);
-        registerBiomes(TreeRegistry.POPLAR_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.ELM_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.JUNIPER_TREE, TreemendousBiomes.BiomeKind.TAIGA);
-        registerBiomes(TreeRegistry.MAGNOLIA_TREE, TreemendousBiomes.BiomeKind.FOREST);
-        registerBiomes(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, TreemendousBiomes.BiomeKind.FOREST);
+        registerBiomes(TreeRegistry.DOUGLAS_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
+        registerBiomes(TreeRegistry.PINE_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
+        registerBiomes(TreeRegistry.LARCH_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
+        registerBiomes(TreeRegistry.FIR_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
+        registerBiomes(TreeRegistry.MAPLE_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.MAPLE_TREE, "red", TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.MAPLE_TREE, "brown", TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.JAPANESE_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.BEECH_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.CHERRY_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.ALDER_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.CHESTNUT_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.PLANE_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.ASH_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.LINDEN_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.ROBINIA_TREE, TreemendousBiomes.BiomeKind.SAVANNA, 2);
+        registerBiomes(TreeRegistry.WILLOW_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.POMEGRANATE_TREE, TreemendousBiomes.BiomeKind.SAVANNA, 2);
+        registerBiomes(TreeRegistry.WALNUT_TREE, TreemendousBiomes.BiomeKind.FOREST, 4);
+        registerBiomes(TreeRegistry.CEDAR_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
+        registerBiomes(TreeRegistry.POPLAR_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.ELM_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.JUNIPER_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
+        registerBiomes(TreeRegistry.MAGNOLIA_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
     }
 
-    private static void registerBiomes(Tree tree, TreemendousBiomes.BiomeKind kind)
+    private static void registerBiomes(Tree tree, TreemendousBiomes.BiomeKind kind, int density)
     {
-        registerBiomes(tree, null, kind);
+        registerBiomes(tree, null, kind, density);
     }
 
-    private static void registerBiomes(Tree tree, String saplingName, TreemendousBiomes.BiomeKind kind)
+    private static void registerBiomes(Tree tree, String saplingName, TreemendousBiomes.BiomeKind kind, int density)
     {
-        Collection<TreemendousBiomes.RegisteredBiome> registeredBiomes = TreemendousBiomes.registerBiomes(BIOMES, tree, saplingName, kind);
+        Collection<TreemendousBiomes.RegisteredBiome> registeredBiomes = TreemendousBiomes.registerBiomes(BIOMES, tree, saplingName, kind, density);
         ALL_BIOMES.addAll(registeredBiomes);
     }
 

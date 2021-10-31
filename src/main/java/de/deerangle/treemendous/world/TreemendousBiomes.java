@@ -1,11 +1,17 @@
 package de.deerangle.treemendous.world;
 
+import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.Tree;
+import de.deerangle.treemendous.tree.config.SaplingConfig;
+import de.deerangle.treemendous.tree.util.WeightedTreeMaker;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.data.worldgen.SurfaceBuilders;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -16,17 +22,29 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class TreemendousBiomes
 {
+
+    private static final Map<String, ConfiguredFeature<?, ?>> forestOrTaigaTrees = new HashMap<>();
+    private static final Map<String, ConfiguredFeature<?, ?>> savannaTrees = new HashMap<>();
+    private static final Map<String, ConfiguredFeature<?, ?>> shatteredSavannaTrees = new HashMap<>();
 
     private static int calculateSkyColor(float temperature)
     {
@@ -280,14 +298,89 @@ public class TreemendousBiomes
         return baseSavannaBiome(0.3625F, 1.225F, 1.1F, true, true, false, shatteredTrees);
     }
 
-    public static Collection<RegisteredBiome> registerBiomes(DeferredRegister<Biome> biomes, Tree tree, String saplingName, BiomeKind kind)
+    private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature)
+    {
+        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Treemendous.MODID, name), feature);
+    }
+
+    public static ConfiguredFeature<?, ?> getForestOrTaigaTrees(Tree tree, String sapling, int density)
+    {
+        String name = sapling != null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
+        ConfiguredFeature<?, ?> feature = forestOrTaigaTrees.get(name);
+        if (feature == null)
+        {
+            String name1 = (sapling == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling) + "_trees";
+            ConfiguredFeature<?, ?> newFeature = registerConfiguredFeature(name1, getTreesFeature(tree, sapling, maker -> !maker.mega())
+                    .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(density, 0.1F, 1)))
+            );
+            forestOrTaigaTrees.put(name, newFeature);
+            feature = newFeature;
+        }
+        return feature;
+    }
+
+    public static ConfiguredFeature<?, ?> getSavannaTrees(Tree tree, String sapling, int density)
+    {
+        String name = sapling != null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
+        ConfiguredFeature<?, ?> feature = savannaTrees.get(name);
+        if (feature == null)
+        {
+            String name1 = (sapling == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling) + "_savanna_trees";
+            ConfiguredFeature<?, ?> newFeature = registerConfiguredFeature(name1, getTreesFeature(tree, sapling, maker -> !maker.mega())
+                    .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(density, 0.1F, 1)))
+            );
+            savannaTrees.put(name, newFeature);
+            feature = newFeature;
+        }
+        return feature;
+    }
+
+    public static ConfiguredFeature<?, ?> getShatteredSavannaTrees(Tree tree, String sapling, int density)
+    {
+        String name = sapling != null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
+        ConfiguredFeature<?, ?> feature = shatteredSavannaTrees.get(name);
+        if (feature == null)
+        {
+            String name1 = (sapling == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling) + "_shattered_savanna_trees";
+            ConfiguredFeature<?, ?> newFeature = registerConfiguredFeature(name1, getTreesFeature(tree, sapling, maker -> !maker.mega())
+                    .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(density, 0.1F, 1)))
+            );
+            shatteredSavannaTrees.put(name, newFeature);
+            feature = newFeature;
+        }
+        return feature;
+    }
+
+    private static ConfiguredFeature<?, ?> getTreesFeature(Tree tree, String saplingName, Predicate<WeightedTreeMaker> use)
+    {
+        SaplingConfig saplingConfig = tree.getSaplingConfig(saplingName);
+        List<WeightedTreeMaker> treeMakers = saplingConfig.getTreeMakers();
+        List<Supplier<ConfiguredFeature<?, ?>>> configuredTrees = new ArrayList<>();
+        for (WeightedTreeMaker treeMaker : treeMakers)
+        {
+            if (use.test(treeMaker))
+            {
+                ConfiguredFeature<?, ?> configuredTree = saplingConfig.makeTree(treeMaker.treeMaker(), tree);
+                Supplier<ConfiguredFeature<?, ?>> treeSupplier = () -> configuredTree;
+                for (int i = 0; i < treeMaker.weight(); i++)
+                {
+                    configuredTrees.add(treeSupplier);
+                }
+            }
+        }
+        return Feature.SIMPLE_RANDOM_SELECTOR
+                .configured(new SimpleRandomFeatureConfiguration(configuredTrees))
+                .decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED);
+    }
+
+    public static Collection<RegisteredBiome> registerBiomes(DeferredRegister<Biome> biomes, Tree tree, String saplingName, BiomeKind kind, int density)
     {
         List<RegisteredBiome> biomeList = new ArrayList<>();
         String treeName = saplingName != null ? String.format("%s_%s", tree.getRegistryName(), saplingName) : tree.getRegistryName();
         switch (kind)
         {
             case TAIGA -> {
-                Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> tree.getForestOrTaigaTrees(saplingName);
+                Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> getForestOrTaigaTrees(tree, saplingName, density);
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_taiga", () -> taigaBiome(treesFeature)), BiomeManager.BiomeType.COOL, kind, BiomeTerrain.FLAT));
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_taiga_hills", () -> taigaHillsBiome(treesFeature)), BiomeManager.BiomeType.COOL, kind, BiomeTerrain.HILLS));
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_taiga_mountains", () -> taigaMountainsBiome(treesFeature)), BiomeManager.BiomeType.COOL, kind, BiomeTerrain.MOUNTAINS));
@@ -296,14 +389,14 @@ public class TreemendousBiomes
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_snowy_taiga_mountains", () -> snowyTaigaMountainsBiome(treesFeature)), BiomeManager.BiomeType.ICY, kind, BiomeTerrain.MOUNTAINS));
             }
             case SAVANNA -> {
-                Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> tree.getSavannaTrees(saplingName);
-                Supplier<ConfiguredFeature<?, ?>> shatteredTreesFeature = () -> tree.getShatteredSavannaTrees(saplingName);
+                Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> getSavannaTrees(tree, saplingName, density);
+                Supplier<ConfiguredFeature<?, ?>> shatteredTreesFeature = () -> getShatteredSavannaTrees(tree, saplingName, density / 2);
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_savanna", () -> savannaBiome(treesFeature)), BiomeManager.BiomeType.DESERT, kind, BiomeTerrain.FLAT));
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_savanna_plateau", () -> savannaPlateauBiome(treesFeature)), BiomeManager.BiomeType.DESERT, kind, BiomeTerrain.FLAT));
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_shattered_savanna", () -> shatteredSavannaBiome(shatteredTreesFeature)), BiomeManager.BiomeType.DESERT, kind, BiomeTerrain.MOUNTAINS));
             }
             case FOREST -> {
-                Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> tree.getForestOrTaigaTrees(saplingName);
+                Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> getForestOrTaigaTrees(tree, saplingName, density);
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_forest", () -> forestBiome(treesFeature)), BiomeManager.BiomeType.WARM, kind, BiomeTerrain.FLAT));
                 biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_forest_hills", () -> forestHillsBiome(treesFeature)), BiomeManager.BiomeType.WARM, kind, BiomeTerrain.HILLS));
             }
