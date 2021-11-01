@@ -80,7 +80,7 @@ public class BaseTreeMaker
         return Feature.TREE.configured(
                 new TreeConfiguration.TreeConfigurationBuilder(
                         wood,
-                        new RizoniTrunkPlacer(8, 5, 2, ConstantInt.of(0), UniformInt.of(4, 6), ConstantInt.of(3), 1.5),
+                        new RizoniTrunkPlacer(8, 5, 2, ConstantInt.of(0), UniformInt.of(4, 6), ConstantInt.of(3), 1.5f),
                         leaves,
                         sapling,
                         new BallFoliagePlacer(ConstantInt.of(2)),
