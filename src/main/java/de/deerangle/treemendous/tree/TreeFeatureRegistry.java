@@ -7,9 +7,9 @@ import de.deerangle.treemendous.world.foliage.ParabolicFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.PointyFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.RoundedFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.WillowFoliagePlacer;
-import de.deerangle.treemendous.world.trunk.AshTrunkPlacer;
 import de.deerangle.treemendous.world.trunk.CrossTrunkPlacer;
 import de.deerangle.treemendous.world.trunk.FingerTrunkPlacer;
+import de.deerangle.treemendous.world.trunk.RizoniTrunkPlacer;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -31,7 +31,7 @@ public class TreeFeatureRegistry
     public static final RegistryObject<FoliagePlacerType<WillowFoliagePlacer>> WILLOW_FOLIAGE_PLACER = FOLIAGE_PLACERS.register("willow_foliage_placer", () -> new FoliagePlacerType<>(WillowFoliagePlacer.CODEC));
     public static final RegistryObject<FoliagePlacerType<PointyFoliagePlacer>> POINTY_FOLIAGE_PLACER = FOLIAGE_PLACERS.register("pointy_foliage_placer", () -> new FoliagePlacerType<>(PointyFoliagePlacer.CODEC));
 
-    public static final TrunkPlacerType<AshTrunkPlacer> ASH_TRUNK_PLACER = registerTrunkPlacer("ash_trunk_placer", AshTrunkPlacer.CODEC);
+    public static final TrunkPlacerType<RizoniTrunkPlacer> RIZONI_TRUNK_PLACER = registerTrunkPlacer("rizoni_trunk_placer", RizoniTrunkPlacer.CODEC);
     public static final TrunkPlacerType<CrossTrunkPlacer> CROSS_TRUNK_PLACER = registerTrunkPlacer("cross_trunk_placer", CrossTrunkPlacer.CODEC);
     public static final TrunkPlacerType<FingerTrunkPlacer> FINGER_TRUNK_PLACER = registerTrunkPlacer("finger_trunk_placer", FingerTrunkPlacer.CODEC);
 

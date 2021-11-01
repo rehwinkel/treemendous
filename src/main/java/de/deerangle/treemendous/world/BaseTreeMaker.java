@@ -5,9 +5,9 @@ import de.deerangle.treemendous.world.foliage.ParabolicFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.PointyFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.RoundedFoliagePlacer;
 import de.deerangle.treemendous.world.foliage.WillowFoliagePlacer;
-import de.deerangle.treemendous.world.trunk.AshTrunkPlacer;
 import de.deerangle.treemendous.world.trunk.CrossTrunkPlacer;
 import de.deerangle.treemendous.world.trunk.FingerTrunkPlacer;
+import de.deerangle.treemendous.world.trunk.RizoniTrunkPlacer;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -75,15 +75,15 @@ public class BaseTreeMaker
                 ).ignoreVines().build());
     }
 
-    protected static ConfiguredFeature<TreeConfiguration, ?> makeBlobulousTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling, int baseHeight, int extraHeight, IntProvider leavesSideOffset, IntProvider minLeavesHeight, IntProvider leavesSize)
+    protected static ConfiguredFeature<TreeConfiguration, ?> makeAshTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling)
     {
         return Feature.TREE.configured(
                 new TreeConfiguration.TreeConfigurationBuilder(
                         wood,
-                        new AshTrunkPlacer(baseHeight, extraHeight, 1, leavesSideOffset, minLeavesHeight),
+                        new RizoniTrunkPlacer(8, 5, 2, ConstantInt.of(0), UniformInt.of(4, 6), ConstantInt.of(3), 1.5),
                         leaves,
                         sapling,
-                        new BallFoliagePlacer(leavesSize),
+                        new BallFoliagePlacer(ConstantInt.of(2)),
                         new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
                 ).ignoreVines().build());
     }

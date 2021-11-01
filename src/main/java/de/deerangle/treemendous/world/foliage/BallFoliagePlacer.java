@@ -41,7 +41,8 @@ public class BallFoliagePlacer extends FoliagePlacer
         int size = this.size.sample(random);
         for (int i = offset + size; i > offset - size * 2; --i)
         {
-            this.placeLeavesRow(level, consumer, random, configuration, foliageAttachment.pos(), size, i, foliageAttachment.doubleTrunk());
+            int layerSize = size + foliageAttachment.radiusOffset();
+            this.placeLeavesRow(level, consumer, random, configuration, foliageAttachment.pos(), layerSize, i, foliageAttachment.doubleTrunk());
         }
     }
 
