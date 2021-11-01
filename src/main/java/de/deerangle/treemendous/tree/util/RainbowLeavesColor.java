@@ -21,6 +21,12 @@ public class RainbowLeavesColor implements ILeavesColor
     }
 
     @Override
+    public int getColor()
+    {
+        return Color.HSBtoRGB((System.currentTimeMillis() % 3000) / 3000.0f, 0.7f, 0.8f);
+    }
+
+    @Override
     public boolean isBiomeDependent()
     {
         return false;

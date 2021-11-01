@@ -100,7 +100,7 @@ public class TreeMaker extends BaseTreeMaker
 
     public static ConfiguredFeature<TreeConfiguration, ?> makeRainbowEucalyptusTree(Block leaves, Block wood, Block sapling)
     {
-        return makeCrossBallTree(provider(leaves), provider(wood), provider(sapling), 9, 3, UniformInt.of(2, 4), UniformInt.of(1, 3), ConstantInt.of(0), UniformInt.of(2, 4));
+        return makeCrossBallTree(provider(leaves), provider(wood), provider(sapling), 9, 3, UniformInt.of(2, 4), UniformInt.of(1, 3), ConstantInt.of(0), UniformInt.of(2, 3));
     }
 
     public static ConfiguredFeature<TreeConfiguration, ?> makeMagnoliaTree(Block leaves, Block wood, Block sapling)

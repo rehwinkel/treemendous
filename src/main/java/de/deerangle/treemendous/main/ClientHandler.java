@@ -98,7 +98,7 @@ public class ClientHandler
                 Tree tree = regTree.getTree();
                 event.enqueueWork(() -> Sheets.addWoodType(tree.getWoodType()));
                 blockColors.register((state, blockAndTintGetter, pos, tindId) -> getLeavesColor(tree, blockAndTintGetter, pos), tree.getLeaves());
-                itemColors.register((stack, tintId) -> tree.getLeavesColor().getColor(BlockPos.ZERO), tree.getLeaves());
+                itemColors.register((stack, tintId) -> tree.getLeavesColor().getColor(), tree.getLeaves());
                 ItemBlockRenderTypes.setRenderLayer(tree.getTrapdoor(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(tree.getDoor(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(tree.getLeaves(), RenderType.cutout());

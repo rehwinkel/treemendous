@@ -7,6 +7,11 @@ public interface ILeavesColor
 
     int getColor(BlockPos pos);
 
+    default int getColor()
+    {
+        return getColor(BlockPos.ZERO);
+    }
+
     boolean isBiomeDependent();
 
 }
