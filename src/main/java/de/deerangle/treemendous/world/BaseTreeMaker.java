@@ -193,7 +193,7 @@ public class BaseTreeMaker
         return Feature.TREE.configured(
                 new TreeConfiguration.TreeConfigurationBuilder(
                         wood,
-                        new FingerTrunkPlacer(9, 4, ConstantInt.of(2), UniformInt.of(2, 3), UniformInt.of(3, 4), 0.9, 0.1, 0.1, 0.5, 10),
+                        new FingerTrunkPlacer(11, 5, ConstantInt.of(2), UniformInt.of(4, 5), UniformInt.of(3, 4), 0.9, 0.1, 0.1, 0.5, 10),
                         leaves,
                         sapling,
                         new BallFoliagePlacer(UniformInt.of(2, 3)),

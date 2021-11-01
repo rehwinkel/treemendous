@@ -4,6 +4,7 @@ import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.main.Treemendous;
 import de.deerangle.treemendous.tree.Tree;
+import de.deerangle.treemendous.world.TreemendousBiomes;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +26,6 @@ public class TreemendousLanguageProvider extends LanguageProvider
     @Override
     protected void addTranslations()
     {
-        //TODO: biomes
         if (this.locale.equals("en_us"))
         {
             add("advancements." + Treemendous.MODID + ".explore_forests.title", "Green Tourist Destinations");
@@ -112,6 +112,99 @@ public class TreemendousLanguageProvider extends LanguageProvider
         addTree(TreeRegistry.JUNIPER_TREE, "Juniper", "Wacholder");
         addTree(TreeRegistry.MAGNOLIA_TREE, "Magnolia", "Magnolien");
         addTree(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, "Rainbow Eucalyptus", "Regenbogen-Eukalyptus");
+        addBiome(TreeRegistry.DOUGLAS_TREE, TreemendousBiomes.BiomeKind.TAIGA, "Douglas Fir", "Douglasien");
+        addBiome(TreeRegistry.PINE_TREE, TreemendousBiomes.BiomeKind.TAIGA, "Pine", "Kiefern");
+        addBiome(TreeRegistry.LARCH_TREE, TreemendousBiomes.BiomeKind.TAIGA, "Larch", "Lärchen");
+        addBiome(TreeRegistry.FIR_TREE, TreemendousBiomes.BiomeKind.TAIGA, "Fir", "Tannen");
+        addBiome(TreeRegistry.MAPLE_TREE, TreemendousBiomes.BiomeKind.FOREST, "Maple", "Ahorn");
+        if (this.locale.equals("en_us"))
+        {
+            add("biome." + Treemendous.MODID + ".maple_red_forest", "Red Maple Forest");
+            add("biome." + Treemendous.MODID + ".maple_red_forest_hills", "Red Maple Forest Hills");
+            add("biome." + Treemendous.MODID + ".maple_brown_forest", "Brown Maple Forest");
+            add("biome." + Treemendous.MODID + ".maple_brown_forest_hills", "Brown Maple Forest Hills");
+        } else if (this.locale.equals("de_de"))
+        {
+            add("biome." + Treemendous.MODID + ".maple_red_forest", "Roter Ahornwald");
+            add("biome." + Treemendous.MODID + ".maple_red_forest_hills", "Rote Ahornwaldhügel");
+            add("biome." + Treemendous.MODID + ".maple_brown_forest", "Brauner Ahornwald");
+            add("biome." + Treemendous.MODID + ".maple_brown_forest_hills", "Braune Ahornwaldhügel");
+        }
+        addBiome(TreeRegistry.JAPANESE_TREE, TreemendousBiomes.BiomeKind.FOREST, "Japanese Maple", "Fächer-Ahorn");
+        addBiome(TreeRegistry.BEECH_TREE, TreemendousBiomes.BiomeKind.FOREST, "Beech", "Buchen");
+        addBiome(TreeRegistry.CHERRY_TREE, TreemendousBiomes.BiomeKind.FOREST, "Cherry", "Kirsch");
+        addBiome(TreeRegistry.ALDER_TREE, TreemendousBiomes.BiomeKind.FOREST, "Alder", "Erlen");
+        addBiome(TreeRegistry.CHESTNUT_TREE, TreemendousBiomes.BiomeKind.FOREST, "Chestnut", "Kastanien");
+        addBiome(TreeRegistry.PLANE_TREE, TreemendousBiomes.BiomeKind.FOREST, "Plane", "Platanen");
+        addBiome(TreeRegistry.ASH_TREE, TreemendousBiomes.BiomeKind.FOREST, "Ash", "Eschen");
+        addBiome(TreeRegistry.LINDEN_TREE, TreemendousBiomes.BiomeKind.FOREST, "Linden", "Linden");
+        addBiome(TreeRegistry.ROBINIA_TREE, TreemendousBiomes.BiomeKind.SAVANNA, "Robinia", "Robinien");
+        addBiome(TreeRegistry.WILLOW_TREE, TreemendousBiomes.BiomeKind.FOREST, "Willow", "Weiden");
+        addBiome(TreeRegistry.POMEGRANATE_TREE, TreemendousBiomes.BiomeKind.SAVANNA, "Pomegranate", "Granatapfel");
+        addBiome(TreeRegistry.WALNUT_TREE, TreemendousBiomes.BiomeKind.FOREST, "Walnut", "Walnuss");
+        addBiome(TreeRegistry.CEDAR_TREE, TreemendousBiomes.BiomeKind.TAIGA, "Cedar", "Zedern");
+        addBiome(TreeRegistry.POPLAR_TREE, TreemendousBiomes.BiomeKind.FOREST, "Poplar", "Pappel");
+        addBiome(TreeRegistry.ELM_TREE, TreemendousBiomes.BiomeKind.FOREST, "Elm", "Ulmen");
+        addBiome(TreeRegistry.JUNIPER_TREE, TreemendousBiomes.BiomeKind.TAIGA, "Juniper", "Wacholder");
+        addBiome(TreeRegistry.MAGNOLIA_TREE, TreemendousBiomes.BiomeKind.FOREST, "Magnolia", "Magnolien");
+        addBiome(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, TreemendousBiomes.BiomeKind.FOREST, "Rainbow Eucalyptus", "Regenbogen-Eukalyptus");
+    }
+
+    private void addBiome(Tree tree, TreemendousBiomes.BiomeKind biomeKind, String english, String german)
+    {
+        this.addBiome(tree, null, biomeKind, english, german);
+    }
+
+    private void addBiome(Tree tree, String saplingName, TreemendousBiomes.BiomeKind biomeKind, String english, String german)
+    {
+        String treeName = saplingName != null ? String.format("%s_%s", tree.getRegistryName(), saplingName) : tree.getRegistryName();
+        switch (biomeKind)
+        {
+            case TAIGA -> {
+                if (this.locale.equals("en_us"))
+                {
+                    add("biome." + Treemendous.MODID + "." + treeName + "_taiga", String.format("%s Taiga", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_taiga_hills", String.format("%s Taiga Hills", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_taiga_mountains", String.format("%s Taiga Mountains", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_snowy_taiga", String.format("Snowy %s Taiga", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_snowy_taiga_hills", String.format("Snowy %s Taiga Hills", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_snowy_taiga_mountains", String.format("Snowy %s Taiga Mountains", english));
+                } else if (this.locale.equals("de_de"))
+                {
+                    add("biome." + Treemendous.MODID + "." + treeName + "_taiga", String.format("%staiga", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_taiga_hills", String.format("%staigahügel", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_taiga_mountains", String.format("%staigaberge", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_snowy_taiga", String.format("Verschneite %staiga", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_snowy_taiga_hills", String.format("Verschneite %staigahügel", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_snowy_taiga_mountains", String.format("Verschneite %staigaberge", german));
+                }
+            }
+            case SAVANNA -> {
+                if (this.locale.equals("en_us"))
+                {
+                    add("biome." + Treemendous.MODID + "." + treeName + "_savanna", String.format("%s Savanna", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_savanna_plateau", String.format("%s Savanna Plateau", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_shattered_savanna", String.format("Shattered %s Savanna", english));
+                } else if (this.locale.equals("de_de"))
+                {
+                    add("biome." + Treemendous.MODID + "." + treeName + "_savanna", String.format("%ssavanne", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_savanna_plateau", String.format("%ssavannenhochebene", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_shattered_savanna", String.format("Zerklüftete %ssavanne", german));
+                }
+
+            }
+            case FOREST -> {
+                if (this.locale.equals("en_us"))
+                {
+                    add("biome." + Treemendous.MODID + "." + treeName + "_forest", String.format("%s Forest", english));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_forest_hills", String.format("%s Forest Hills", english));
+                } else if (this.locale.equals("de_de"))
+                {
+                    add("biome." + Treemendous.MODID + "." + treeName + "_forest", String.format("%swald", german));
+                    add("biome." + Treemendous.MODID + "." + treeName + "_forest_hills", String.format("%swaldhügel", german));
+                }
+            }
+        }
     }
 
     private void addTree(Tree tree, String english, String german)
