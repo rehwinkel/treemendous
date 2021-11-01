@@ -21,21 +21,18 @@ public class RizoniTrunkPlacer extends TrunkPlacer
 {
 
     public static final Codec<RizoniTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> trunkPlacerParts(instance)
-            .and(IntProvider.codec(0, 8).fieldOf("leaves_offset").forGetter(inst -> inst.leavesOffset))
             .and(IntProvider.codec(0, 8).fieldOf("min_leaf_height").forGetter(inst -> inst.bottomOffset))
             .and(IntProvider.codec(0, 8).fieldOf("distance_between_foliage").forGetter(inst -> inst.distanceBetweenFoliage))
             .and(Codec.FLOAT.fieldOf("middle_foliage_factor").forGetter(inst -> inst.middleFoliageFactor))
             .apply(instance, RizoniTrunkPlacer::new));
 
-    private final IntProvider leavesOffset;
     private final IntProvider bottomOffset;
     private final IntProvider distanceBetweenFoliage;
     private final float middleFoliageFactor;
 
-    public RizoniTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, IntProvider leavesOffset, IntProvider bottomOffset, IntProvider distanceBetweenFoliage, float middleFoliageFactor)
+    public RizoniTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, IntProvider bottomOffset, IntProvider distanceBetweenFoliage, float middleFoliageFactor)
     {
         super(baseHeight, heightRandA, heightRandB);
-        this.leavesOffset = leavesOffset;
         this.bottomOffset = bottomOffset;
         this.distanceBetweenFoliage = distanceBetweenFoliage;
         this.middleFoliageFactor = middleFoliageFactor;
@@ -70,13 +67,6 @@ public class RizoniTrunkPlacer extends TrunkPlacer
             int foliageExtra = Math.round(pos * this.middleFoliageFactor);
             foliages.add(new FoliagePlacer.FoliageAttachment(startPos.above(Math.round(y)), foliageExtra, false));
         }
-        /*
-        return IntStream.range(0, foliages.size()).mapToObj(i -> {
-            FoliagePlacer.FoliageAttachment foliage = foliages.get(i);
-            double pos = 1.0 - Math.abs(i / (foliages.size() - 1.0) * 2.0 - 1.0);
-            return new FoliagePlacer.FoliageAttachment(foliage.pos(), (int) (pos * middleFoliageFactor), foliage.doubleTrunk());
-        }).collect(Collectors.toList());
-        */
         return foliages;
     }
 

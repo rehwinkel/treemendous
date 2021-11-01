@@ -22,6 +22,7 @@ public class Biomes
 
     static
     {
+        // TODO: work out densities
         registerBiomes(TreeRegistry.DOUGLAS_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
         registerBiomes(TreeRegistry.PINE_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
         registerBiomes(TreeRegistry.LARCH_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
@@ -43,7 +44,7 @@ public class Biomes
         registerBiomes(TreeRegistry.WALNUT_TREE, TreemendousBiomes.BiomeKind.FOREST, 4);
         registerBiomes(TreeRegistry.CEDAR_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
         registerBiomes(TreeRegistry.POPLAR_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
-        registerBiomes(TreeRegistry.ELM_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
+        registerBiomes(TreeRegistry.ELM_TREE, TreemendousBiomes.BiomeKind.FOREST, 5);
         registerBiomes(TreeRegistry.JUNIPER_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
         registerBiomes(TreeRegistry.MAGNOLIA_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);
         registerBiomes(TreeRegistry.RAINBOW_EUCALYPTUS_TREE, TreemendousBiomes.BiomeKind.FOREST, 10);

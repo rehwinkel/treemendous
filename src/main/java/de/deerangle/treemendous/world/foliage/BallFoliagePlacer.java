@@ -53,9 +53,10 @@ public class BallFoliagePlacer extends FoliagePlacer
     }
 
     @Override
-    protected boolean shouldSkipLocation(Random random, int x, int y, int z, int size, boolean p_68567_)
+    protected boolean shouldSkipLocation(Random random, int x, int y, int z, int roughSize, boolean p_68567_)
     {
         double sqrt = Math.sqrt(x * x + y * y + z * z);
+        double size = roughSize + 0.25;
         return sqrt > size || (sqrt > size * 0.9 && random.nextBoolean());
     }
 

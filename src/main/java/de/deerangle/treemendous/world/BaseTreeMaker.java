@@ -31,11 +31,6 @@ import java.util.OptionalInt;
 public class BaseTreeMaker
 {
 
-    protected static ConfiguredFeature<TreeConfiguration, ?> makeBaseOakTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling)
-    {
-        return Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(wood, new StraightTrunkPlacer(4, 2, 0), leaves, sapling, new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
-    }
-
     protected static ConfiguredFeature<TreeConfiguration, ?> makeAcaciaTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling)
     {
         return Feature.TREE.configured(
@@ -75,15 +70,15 @@ public class BaseTreeMaker
                 ).ignoreVines().build());
     }
 
-    protected static ConfiguredFeature<TreeConfiguration, ?> makeAshTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling)
+    protected static ConfiguredFeature<TreeConfiguration, ?> makeRizoniTree(BlockStateProvider leaves, BlockStateProvider wood, BlockStateProvider sapling, int baseHeight, int heightRandA, int heightRandB, IntProvider bottomOffset, IntProvider leavesSize, IntProvider distBetweenFoliage, float middleFoliageFactor)
     {
         return Feature.TREE.configured(
                 new TreeConfiguration.TreeConfigurationBuilder(
                         wood,
-                        new RizoniTrunkPlacer(8, 5, 2, ConstantInt.of(0), UniformInt.of(4, 6), ConstantInt.of(3), 1.5f),
+                        new RizoniTrunkPlacer(baseHeight, heightRandA, heightRandB, bottomOffset, distBetweenFoliage, middleFoliageFactor),
                         leaves,
                         sapling,
-                        new BallFoliagePlacer(ConstantInt.of(2)),
+                        new BallFoliagePlacer(leavesSize),
                         new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
                 ).ignoreVines().build());
     }
