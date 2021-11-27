@@ -1,30 +1,21 @@
 package de.deerangle.treemendous.main;
 
 import de.deerangle.treemendous.item.LumberAxeItem;
-import de.deerangle.treemendous.tree.Tree;
-import de.deerangle.treemendous.village.TreemendousTrades;
 import de.deerangle.treemendous.world.TreemendousConfiguredFeatures;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = Treemendous.MODID)
 public class ForgeEventHandler
 {
 
+    // TODO: re-add once structure modifiers work
+    /*
     @SubscribeEvent
     public static void onVillagerTrade(VillagerTradesEvent event)
     {
@@ -50,6 +41,7 @@ public class ForgeEventHandler
             tradesLevel5.add(new TreemendousTrades.TreasureMapForEmeralds(13, ExtraRegistry.RANGER_HOUSE_FEATURE.get(), MapDecoration.Type.RED_X, 12, 5));
         }
     }
+    */
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event)

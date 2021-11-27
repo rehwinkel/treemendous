@@ -1,7 +1,6 @@
 package de.deerangle.treemendous.main;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
 import de.deerangle.treemendous.block.ChoppingBlockBlock;
 import de.deerangle.treemendous.block.CustomChestBlock;
@@ -20,7 +19,6 @@ import de.deerangle.treemendous.world.ReplacementProcessor;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -56,8 +54,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import static net.minecraft.world.entity.ai.village.poi.PoiType.getBlockStates;
-
 public class ExtraRegistry
 {
 
@@ -84,9 +80,10 @@ public class ExtraRegistry
     @SuppressWarnings("ConstantConditions")
     public static final RegistryObject<BlockEntityType<ChoppingBlockBlockEntity>> CHOPPING_BLOCK_BE = BLOCK_ENTITIES.register("chopping_block", () -> BlockEntityType.Builder.of(ChoppingBlockBlockEntity::new, CHOPPING_BLOCK.get()).build(null));
 
+    // TODO: add this back once structure modifiers work
     // Village
-    public static final RegistryObject<PoiType> FOREST_RANGER_POI = POI_TYPES.register("forest_ranger", () -> new PoiType("forest_ranger", getBlockStates(CHOPPING_BLOCK.get()), 1, 1));
-    public static final RegistryObject<VillagerProfession> FOREST_RANGER_PROFESSION = PROFESSIONS.register("forest_ranger", () -> new VillagerProfession("forest_ranger", FOREST_RANGER_POI.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.WOOD_PLACE));
+    // public static final RegistryObject<PoiType> FOREST_RANGER_POI = POI_TYPES.register("forest_ranger", () -> new PoiType("forest_ranger", getBlockStates(CHOPPING_BLOCK.get()), 1, 1));
+    // public static final RegistryObject<VillagerProfession> FOREST_RANGER_PROFESSION = PROFESSIONS.register("forest_ranger", () -> new VillagerProfession("forest_ranger", FOREST_RANGER_POI.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.WOOD_PLACE));
 
     // Houses
     public static final RegistryObject<RangerHouseFeature> RANGER_HOUSE_FEATURE = STRUCTURE_FEATURES.register("ranger_house", () -> new RangerHouseFeature(RangerHouseConfiguration.CODEC));

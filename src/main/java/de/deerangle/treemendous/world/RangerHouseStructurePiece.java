@@ -11,8 +11,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.ZombieVillager;
-import net.minecraft.world.entity.npc.VillagerData;
-import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureFeatureManager;
@@ -147,7 +145,8 @@ public class RangerHouseStructurePiece extends StructurePiece
             ZombieVillager monster = EntityType.ZOMBIE_VILLAGER.create(world.getLevel());
             assert monster != null;
             monster.setPersistenceRequired();
-            monster.setVillagerData(new VillagerData(VillagerType.PLAINS, ExtraRegistry.FOREST_RANGER_PROFESSION.get(), 1));
+            // TODO: re-add once structure modifiers work
+            // monster.setVillagerData(new VillagerData(VillagerType.PLAINS, ExtraRegistry.FOREST_RANGER_PROFESSION.get(), 1));
             monster.moveTo(blockPos, 0.0f, 0.0f);
             monster.finalizeSpawn(world, world.getCurrentDifficultyAt(monster.blockPosition()), MobSpawnType.STRUCTURE, null, null);
             world.addFreshEntityWithPassengers(monster);

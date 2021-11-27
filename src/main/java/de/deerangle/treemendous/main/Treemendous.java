@@ -16,7 +16,9 @@ import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
@@ -33,8 +35,10 @@ public class Treemendous
 
     public Treemendous()
     {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TreemendousConfig.serverSpec);
         TreeRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Biomes.registerTrees();
         Biomes.BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ExtraRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());

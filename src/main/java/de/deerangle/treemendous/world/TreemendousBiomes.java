@@ -381,24 +381,24 @@ public class TreemendousBiomes
         {
             case TAIGA -> {
                 Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> getForestOrTaigaTrees(tree, saplingName, density);
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_taiga", () -> taigaBiome(treesFeature)), BiomeManager.BiomeType.COOL, kind, BiomeTerrain.FLAT));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_taiga_hills", () -> taigaHillsBiome(treesFeature)), BiomeManager.BiomeType.COOL, kind, BiomeTerrain.HILLS));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_taiga_mountains", () -> taigaMountainsBiome(treesFeature)), BiomeManager.BiomeType.COOL, kind, BiomeTerrain.MOUNTAINS));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_snowy_taiga", () -> snowyTaigaBiome(treesFeature)), BiomeManager.BiomeType.ICY, kind, BiomeTerrain.FLAT));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_snowy_taiga_hills", () -> snowyTaigaHillsBiome(treesFeature)), BiomeManager.BiomeType.ICY, kind, BiomeTerrain.HILLS));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_snowy_taiga_mountains", () -> snowyTaigaMountainsBiome(treesFeature)), BiomeManager.BiomeType.ICY, kind, BiomeTerrain.MOUNTAINS));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_taiga", () -> taigaBiome(treesFeature)), BiomeManager.BiomeType.COOL));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_taiga_hills", () -> taigaHillsBiome(treesFeature)), BiomeManager.BiomeType.COOL));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_taiga_mountains", () -> taigaMountainsBiome(treesFeature)), BiomeManager.BiomeType.COOL));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_snowy_taiga", () -> snowyTaigaBiome(treesFeature)), BiomeManager.BiomeType.ICY));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_snowy_taiga_hills", () -> snowyTaigaHillsBiome(treesFeature)), BiomeManager.BiomeType.ICY));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_snowy_taiga_mountains", () -> snowyTaigaMountainsBiome(treesFeature)), BiomeManager.BiomeType.ICY));
             }
             case SAVANNA -> {
                 Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> getSavannaTrees(tree, saplingName, density);
                 Supplier<ConfiguredFeature<?, ?>> shatteredTreesFeature = () -> getShatteredSavannaTrees(tree, saplingName, density / 2);
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_savanna", () -> savannaBiome(treesFeature)), BiomeManager.BiomeType.DESERT, kind, BiomeTerrain.FLAT));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_savanna_plateau", () -> savannaPlateauBiome(treesFeature)), BiomeManager.BiomeType.DESERT, kind, BiomeTerrain.FLAT));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_shattered_savanna", () -> shatteredSavannaBiome(shatteredTreesFeature)), BiomeManager.BiomeType.DESERT, kind, BiomeTerrain.MOUNTAINS));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_savanna", () -> savannaBiome(treesFeature)), BiomeManager.BiomeType.DESERT));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_savanna_plateau", () -> savannaPlateauBiome(treesFeature)), BiomeManager.BiomeType.DESERT));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_shattered_savanna", () -> shatteredSavannaBiome(shatteredTreesFeature)), BiomeManager.BiomeType.DESERT));
             }
             case FOREST -> {
                 Supplier<ConfiguredFeature<?, ?>> treesFeature = () -> getForestOrTaigaTrees(tree, saplingName, density);
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_forest", () -> forestBiome(treesFeature)), BiomeManager.BiomeType.WARM, kind, BiomeTerrain.FLAT));
-                biomeList.add(new RegisteredBiome(tree, biomes.register(treeName + "_forest_hills", () -> forestHillsBiome(treesFeature)), BiomeManager.BiomeType.WARM, kind, BiomeTerrain.HILLS));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_forest", () -> forestBiome(treesFeature)), BiomeManager.BiomeType.WARM));
+                biomeList.add(new RegisteredBiome(tree, treeName, biomes.register(treeName + "_forest_hills", () -> forestHillsBiome(treesFeature)), BiomeManager.BiomeType.WARM));
             }
         }
         return biomeList;
@@ -424,18 +424,16 @@ public class TreemendousBiomes
     {
 
         private final Tree tree;
+        private final String treeName;
         private final ResourceKey<Biome> biomeKey;
         private final BiomeManager.BiomeType biomeType;
-        private final BiomeKind kind;
-        private final BiomeTerrain terrain;
 
-        public RegisteredBiome(Tree tree, RegistryObject<Biome> biome, BiomeManager.BiomeType biomeType, BiomeKind kind, BiomeTerrain terrain)
+        public RegisteredBiome(Tree tree, String treeName, RegistryObject<Biome> biome, BiomeManager.BiomeType biomeType)
         {
             this.tree = tree;
+            this.treeName = treeName;
             this.biomeKey = ResourceKey.create(Registry.BIOME_REGISTRY, biome.getId());
             this.biomeType = biomeType;
-            this.kind = kind;
-            this.terrain = terrain;
         }
 
         public Tree getTree()
@@ -443,14 +441,9 @@ public class TreemendousBiomes
             return tree;
         }
 
-        public BiomeKind getKind()
+        public String getTreeName()
         {
-            return kind;
-        }
-
-        public BiomeTerrain getTerrain()
-        {
-            return terrain;
+            return treeName;
         }
 
         public BiomeManager.BiomeType getBiomeType()
