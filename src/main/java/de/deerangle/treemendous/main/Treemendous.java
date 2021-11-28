@@ -23,19 +23,16 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryBuilder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(Treemendous.MODID)
 public class Treemendous
 {
 
     public static final String MODID = "treemendous";
-    public static final Logger LOGGER = LogManager.getLogger();
 
     public Treemendous()
     {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TreemendousConfig.serverSpec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TreemendousConfig.commonSpec);
         TreeRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TreeRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Biomes.registerTrees();
