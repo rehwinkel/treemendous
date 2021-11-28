@@ -7,6 +7,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "treemendous:beech_door",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
           "name": "treemendous:beech_door"
         }
       ],

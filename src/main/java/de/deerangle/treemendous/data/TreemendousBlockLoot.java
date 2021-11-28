@@ -47,7 +47,7 @@ public class TreemendousBlockLoot extends BlockLoot
                 this.dropSelf(tree.getButton());
                 this.dropSelf(tree.getChest());
                 this.dropSelf(tree.getCraftingTable());
-                this.dropSelf(tree.getDoor());
+                this.add(tree.getDoor(), BlockLoot::createDoorTable);
                 this.dropSelf(tree.getFence());
                 this.dropSelf(tree.getFenceGate());
                 this.dropSelf(tree.getLog());

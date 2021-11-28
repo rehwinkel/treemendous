@@ -139,6 +139,10 @@
         {
           "type": "img_overlay",
           "src": "templates/door_item_overlay1.png"
+        },
+        {
+          "type": "mask_cutout",
+          "img_mask": "templates/item_mask10.png"
         }
       ],
       "door_top": [

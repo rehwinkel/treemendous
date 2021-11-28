@@ -163,6 +163,10 @@
         {
           "type": "img_overlay",
           "src": "templates/door_item_overlay1.png"
+        },
+        {
+          "type": "img_overlay",
+          "src": "templates/door_item_overlay4.png"
         }
       ],
       "door_top": [
