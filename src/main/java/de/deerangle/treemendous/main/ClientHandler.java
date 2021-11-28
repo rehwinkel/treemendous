@@ -156,6 +156,19 @@ public class ClientHandler
     private static class ColorResolverWithBase implements ColorResolver
     {
 
+        /**
+         * This function interpolates a value using an exponential function, making values closer to 0 lower and values closer to 1 higher.
+         *
+         * @param value The value to be interpolated, between 0 and 1
+         * @return The interpolated value
+         */
+        private static float interpolateExp(float value)
+        {
+            float base = (float) Math.sqrt(1.5);
+            float max = 13.0269f;
+            return ((float) Math.pow(base, value * max) - 1) / max;
+        }
+
         private static int getFoliageColor(Biome biome, int baseColor)
         {
             return biome.getSpecialEffects().getFoliageColorOverride().orElseGet(() -> {
@@ -163,17 +176,30 @@ public class ClientHandler
                 double downfall = Mth.clamp(biome.climateSettings.downfall, 0.0F, 1.0F);
                 float[] hsb = new float[3];
                 Color.RGBtoHSB((baseColor >> 16) & 0xFF, (baseColor >> 8) & 0xFF, baseColor & 0xFF, hsb);
-                //TODO: use base color
-                /*
-                // hot
-                [0.28237793, 0.8674033, 0.70980394]
-                [0.15404041, 0.7586207, 0.68235296]
 
-                // moist
-                [0.28237793, 0.8674033, 0.70980394]
-                [0.29829547, 0.9411765, 0.73333335]
-                 */
-                return Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
+                float hue = hsb[0];
+                float saturation = hsb[1];
+                if (temperature < 0.6)
+                {
+                    // linear interpolation for cold climates
+                    float factor = 1 - (float) temperature / 0.6f;
+                    hue += factor * 0.04f;
+                } else
+                {
+                    // exponential interpolation for warm climates
+                    float factor = ((float) temperature - 0.6f) / 0.4f;
+                    factor = interpolateExp(factor);
+                    hue -= factor * 0.08f;
+                    // if the downfall is over a certain threshold, mix the "jungle color" with the leaves color to varying degrees
+                    float downfallFactor = ((float) downfall - 0.4f) / 0.6f;
+                    if (downfallFactor > 0)
+                    {
+                        downfallFactor = interpolateExp(downfallFactor);
+                        hue = downfallFactor * 0.28f + (1 - downfallFactor) * hue;
+                        saturation = Math.max(saturation, downfallFactor * 0.85f + (1 - downfallFactor) * saturation);
+                    }
+                }
+                return Color.HSBtoRGB(hue, saturation, hsb[2]);
             });
         }
 
