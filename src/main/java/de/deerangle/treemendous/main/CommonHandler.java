@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Treemendous.MODID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Treemendous.MOD_ID)
 public class CommonHandler
 {
 
@@ -85,14 +85,14 @@ public class CommonHandler
     private static RegisteredTree register(String name, Tree tree)
     {
         RegisteredTree newTree = new RegisteredTree(tree, false);
-        newTree.setRegistryName(new ResourceLocation(Treemendous.MODID, name));
+        newTree.setRegistryName(new ResourceLocation(Treemendous.MOD_ID, name));
         return newTree;
     }
 
     private static RegisteredTree registerFake(String name, FakeTree tree)
     {
         RegisteredTree newTree = new RegisteredTree(tree, true);
-        newTree.setRegistryName(new ResourceLocation(Treemendous.MODID, name));
+        newTree.setRegistryName(new ResourceLocation(Treemendous.MOD_ID, name));
         return newTree;
     }
 

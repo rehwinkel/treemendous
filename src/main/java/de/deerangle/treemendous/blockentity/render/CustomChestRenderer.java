@@ -38,6 +38,7 @@ public class CustomChestRenderer extends ChestRenderer<CustomChestBlockEntity>
         addChestMaterials("warped", defaultMaterials, leftMaterials, rightMaterials);
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
+            assert regTree.getRegistryName() != null;
             String woodName = regTree.getRegistryName().getPath();
             if (!"oak".equals(woodName))
             {
@@ -51,9 +52,9 @@ public class CustomChestRenderer extends ChestRenderer<CustomChestBlockEntity>
 
     private void addChestMaterials(String woodName, Map<String, Material> defaultMaterials, Map<String, Material> leftMaterials, Map<String, Material> rightMaterials)
     {
-        defaultMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName)));
-        leftMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_left")));
-        rightMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_right")));
+        defaultMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MOD_ID, "entity/chest/" + woodName)));
+        leftMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MOD_ID, "entity/chest/" + woodName + "_left")));
+        rightMaterials.put(woodName, new Material(new ResourceLocation("textures/atlas/chest.png"), new ResourceLocation(Treemendous.MOD_ID, "entity/chest/" + woodName + "_right")));
     }
 
     @SuppressWarnings("NullableProblems")

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 public class TreemendousItemTagsProvider extends ItemTagsProvider
 {
 
-    public static final Tag.Named<Item> FITS_IN_CHOPPING_BLOCK = ItemTags.bind(Treemendous.MODID + ":fits_in_chopping_block");
+    public static final Tag.Named<Item> FITS_IN_CHOPPING_BLOCK = ItemTags.bind(Treemendous.MOD_ID + ":fits_in_chopping_block");
 
     public TreemendousItemTagsProvider(DataGenerator generator, BlockTagsProvider provider, String modId, @Nullable ExistingFileHelper existingFileHelper)
     {
@@ -33,7 +33,7 @@ public class TreemendousItemTagsProvider extends ItemTagsProvider
     {
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
-            if (!regTree.isFake())
+            if (regTree.isNotFake())
             {
                 Tree tree = regTree.getTree();
                 this.copy(tree.getLogsBlockTag(), tree.getLogsItemTag());

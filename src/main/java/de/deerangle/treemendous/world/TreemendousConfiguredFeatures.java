@@ -64,16 +64,12 @@ public class TreemendousConfiguredFeatures
             String treeName = saplingName != null ? String.format("%s_%s", tree.getTree().getRegistryName(), saplingName) : tree.getTree().getRegistryName();
             switch (biomeKind)
             {
-                case TAIGA -> {
-                    biomes.add(new ResourceLocation(Treemendous.MODID, treeName + "_taiga"));
-                }
+                case TAIGA -> biomes.add(new ResourceLocation(Treemendous.MOD_ID, treeName + "_taiga"));
                 case SAVANNA -> {
-                    biomes.add(new ResourceLocation(Treemendous.MODID, treeName + "_savanna"));
-                    biomes.add(new ResourceLocation(Treemendous.MODID, treeName + "_savanna_plateau"));
+                    biomes.add(new ResourceLocation(Treemendous.MOD_ID, treeName + "_savanna"));
+                    biomes.add(new ResourceLocation(Treemendous.MOD_ID, treeName + "_savanna_plateau"));
                 }
-                case FOREST -> {
-                    biomes.add(new ResourceLocation(Treemendous.MODID, treeName + "_forest"));
-                }
+                case FOREST -> biomes.add(new ResourceLocation(Treemendous.MOD_ID, treeName + "_forest"));
             }
         }
         register(name, tree, biomes);
@@ -87,7 +83,7 @@ public class TreemendousConfiguredFeatures
     private static void register(String name, RegisteredTree tree, Collection<ResourceLocation> biomes)
     {
         ConfiguredStructureFeature<?, ?> feature = getRangerHouse(tree);
-        BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(Treemendous.MODID, name), feature);
+        BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(Treemendous.MOD_ID, name), feature);
         for (ResourceLocation biome : biomes)
         {
             BIOME_STRUCTURE_MAP.put(biome, feature);

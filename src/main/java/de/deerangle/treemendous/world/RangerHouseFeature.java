@@ -42,7 +42,7 @@ public class RangerHouseFeature extends StructureFeature<RangerHouseConfiguratio
     public static class FeatureStart extends StructureStart<RangerHouseConfiguration>
     {
 
-        static final ResourceLocation STRUCTURE_LOCATION = new ResourceLocation(Treemendous.MODID, "ranger_house");
+        static final ResourceLocation STRUCTURE_LOCATION = new ResourceLocation(Treemendous.MOD_ID, "ranger_house");
 
         public FeatureStart(StructureFeature<RangerHouseConfiguration> feature, ChunkPos chunkPos, int references, long seed)
         {
@@ -56,7 +56,7 @@ public class RangerHouseFeature extends StructureFeature<RangerHouseConfiguratio
             int height = generator.getBaseHeight(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), Heightmap.Types.WORLD_SURFACE_WG, heightAccessor);
             BlockPos blockpos = new BlockPos(chunkPos.getMinBlockX(), height, chunkPos.getMinBlockZ());
             Rotation rotation = Rotation.getRandom(this.random);
-            RangerHouseStructurePiece piece = new RangerHouseStructurePiece(structureManager, STRUCTURE_LOCATION, blockpos, rotation, config.getTree(), BlockTags.SMALL_FLOWERS.getRandomElement(random), BlockTags.SMALL_FLOWERS.getRandomElement(random));
+            RangerHouseStructurePiece piece = new RangerHouseStructurePiece(structureManager, STRUCTURE_LOCATION, blockpos, rotation, config.tree(), BlockTags.SMALL_FLOWERS.getRandomElement(random), BlockTags.SMALL_FLOWERS.getRandomElement(random));
             this.addPiece(piece);
         }
 

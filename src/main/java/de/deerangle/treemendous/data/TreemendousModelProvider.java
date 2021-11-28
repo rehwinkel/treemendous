@@ -42,12 +42,12 @@ import java.util.Objects;
 public class TreemendousModelProvider extends BlockStateProvider
 {
 
-    private final String modid;
+    private final String modId;
 
-    public TreemendousModelProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper)
+    public TreemendousModelProvider(DataGenerator gen, String modId, ExistingFileHelper exFileHelper)
     {
-        super(gen, modid, exFileHelper);
-        this.modid = modid;
+        super(gen, modId, exFileHelper);
+        this.modId = modId;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class TreemendousModelProvider extends BlockStateProvider
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
-            if (!regTree.isFake())
+            if (regTree.isNotFake())
             {
                 Tree tree = regTree.getTree();
                 planksItemBlock(tree.getPlanks());
@@ -122,13 +122,13 @@ public class TreemendousModelProvider extends BlockStateProvider
         String name = Objects.requireNonNull(chest.getRegistryName()).getPath();
         ModelFile model = models().getBuilder(name).texture("particle", blockTexture(planks));
         getVariantBuilder(chest).partialState().modelForState().modelFile(model).addModel();
-        itemModels().getBuilder(name).parent(new ModelFile.ExistingModelFile(new ResourceLocation(Treemendous.MODID, "block/chest"), models().existingFileHelper)).texture("particle", blockTexture(planks));
+        itemModels().getBuilder(name).parent(new ModelFile.ExistingModelFile(new ResourceLocation(Treemendous.MOD_ID, "block/chest"), models().existingFileHelper)).texture("particle", blockTexture(planks));
     }
 
     private void craftingTableBlock(CraftingTableBlock craftingTable, Block planks)
     {
         String name = Objects.requireNonNull(craftingTable.getRegistryName()).getPath();
-        ModelFile model = models().singleTexture(name, new ResourceLocation(this.modid, "block/crafting_table"), "planks", blockTexture(planks));
+        ModelFile model = models().singleTexture(name, new ResourceLocation(this.modId, "block/crafting_table"), "planks", blockTexture(planks));
         getVariantBuilder(craftingTable).partialState().modelForState().modelFile(model).addModel();
         itemModels().getBuilder(name).parent(model);
     }
@@ -143,13 +143,13 @@ public class TreemendousModelProvider extends BlockStateProvider
     private void generatedItem(Item item)
     {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
-        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modid, "item/" + name));
+        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modId, "item/" + name));
     }
 
     private void handheldItem(Item item)
     {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
-        itemModels().singleTexture(name, new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(this.modid, "item/" + name));
+        itemModels().singleTexture(name, new ResourceLocation("item/handheld"), "layer0", new ResourceLocation(this.modId, "item/" + name));
     }
 
     private void signItemBlock(SignBlock sign, Block planks)
@@ -164,7 +164,7 @@ public class TreemendousModelProvider extends BlockStateProvider
         String name = Objects.requireNonNull(sapling.getRegistryName()).getPath();
         ModelFile leavesModel = models().singleTexture(name, new ResourceLocation("block/cross"), "cross", blockTexture(sapling));
         getVariantBuilder(sapling).partialState().modelForState().modelFile(leavesModel).addModel();
-        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modid, "block/" + name));
+        itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(this.modId, "block/" + name));
     }
 
     private void leavesItemBlock(LeavesBlock leaves)
@@ -178,15 +178,15 @@ public class TreemendousModelProvider extends BlockStateProvider
     private void trapdoorItemBlock(TrapDoorBlock trapdoor)
     {
         String name = Objects.requireNonNull(trapdoor.getRegistryName()).getPath();
-        trapdoorBlock(trapdoor, new ResourceLocation(this.modid, "block/" + name), true);
-        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modid, "block/" + name + "_bottom"), models().existingFileHelper);
+        trapdoorBlock(trapdoor, new ResourceLocation(this.modId, "block/" + name), true);
+        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modId, "block/" + name + "_bottom"), models().existingFileHelper);
         itemModels().getBuilder(name).parent(inventoryModel);
     }
 
     private void doorItemBlock(DoorBlock door)
     {
         String name = Objects.requireNonNull(door.getRegistryName()).getPath();
-        doorBlock(door, new ResourceLocation(this.modid, "block/" + name + "_bottom"), new ResourceLocation(this.modid, "block/" + name + "_top"));
+        doorBlock(door, new ResourceLocation(this.modId, "block/" + name + "_bottom"), new ResourceLocation(this.modId, "block/" + name + "_top"));
         itemModels().singleTexture(name, new ResourceLocation("item/generated"), "layer0", new ResourceLocation(door.getRegistryName().getNamespace(), "item/" + name));
     }
 
@@ -194,7 +194,7 @@ public class TreemendousModelProvider extends BlockStateProvider
     {
         String name = Objects.requireNonNull(fence.getRegistryName()).getPath();
         fenceGateBlock(fence, blockTexture(planks));
-        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modid, "block/" + name), this.models().existingFileHelper);
+        ModelFile inventoryModel = new ModelFile.ExistingModelFile(new ResourceLocation(this.modId, "block/" + name), this.models().existingFileHelper);
         itemModels().getBuilder(name).parent(inventoryModel);
     }
 

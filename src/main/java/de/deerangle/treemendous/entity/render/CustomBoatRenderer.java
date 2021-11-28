@@ -31,9 +31,9 @@ public class CustomBoatRenderer extends EntityRenderer<CustomBoat>
     {
         super(context);
         this.boatResources = BoatType.getBoatTypeStream().map(boatType ->
-                Pair.of(boatType.getId(),
+                Pair.of(boatType.id(),
                         Pair.of(
-                                new ResourceLocation(Treemendous.MODID, "textures/entity/boat/" + boatType.getName() + ".png"),
+                                new ResourceLocation(Treemendous.MOD_ID, "textures/entity/boat/" + boatType.name() + ".png"),
                                 new BoatModel(context.bakeLayer(ModelLayers.createBoatModelName(Boat.Type.OAK)))
                         )
                 )
@@ -91,7 +91,7 @@ public class CustomBoatRenderer extends EntityRenderer<CustomBoat>
 
     public Pair<ResourceLocation, BoatModel> getModelWithLocation(CustomBoat boat)
     {
-        return this.boatResources.get(boat.getCustomBoatType().getId());
+        return this.boatResources.get(boat.getCustomBoatType().id());
     }
 
 }

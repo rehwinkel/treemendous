@@ -18,7 +18,7 @@ import java.util.List;
 public class Biomes
 {
 
-    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Treemendous.MODID);
+    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Treemendous.MOD_ID);
     private static final List<TreemendousBiomes.RegisteredBiome> ALL_BIOMES = new ArrayList<>();
 
     public static void registerTrees()

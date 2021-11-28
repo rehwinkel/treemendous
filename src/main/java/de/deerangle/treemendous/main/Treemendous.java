@@ -24,11 +24,11 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryBuilder;
 
-@Mod(Treemendous.MODID)
+@Mod(Treemendous.MOD_ID)
 public class Treemendous
 {
 
-    public static final String MODID = "treemendous";
+    public static final String MOD_ID = "treemendous";
 
     public Treemendous()
     {
@@ -63,21 +63,21 @@ public class Treemendous
     @SubscribeEvent
     public void createRegistries(RegistryEvent.NewRegistry event)
     {
-        new RegistryBuilder<RegisteredTree>().setName(new ResourceLocation(Treemendous.MODID, "trees")).setType(RegisteredTree.class).create();
+        new RegistryBuilder<RegisteredTree>().setName(new ResourceLocation(Treemendous.MOD_ID, "trees")).setType(RegisteredTree.class).create();
     }
 
     @SubscribeEvent
     public void onGatherData(GatherDataEvent event)
     {
-        event.getGenerator().addProvider(new TreemendousModelProvider(event.getGenerator(), MODID, event.getExistingFileHelper()));
-        BlockTagsProvider blockTagsProvider = new TreemendousBlockTagsProvider(event.getGenerator(), MODID, event.getExistingFileHelper());
+        event.getGenerator().addProvider(new TreemendousModelProvider(event.getGenerator(), MOD_ID, event.getExistingFileHelper()));
+        BlockTagsProvider blockTagsProvider = new TreemendousBlockTagsProvider(event.getGenerator(), MOD_ID, event.getExistingFileHelper());
         event.getGenerator().addProvider(blockTagsProvider);
-        event.getGenerator().addProvider(new TreemendousItemTagsProvider(event.getGenerator(), blockTagsProvider, MODID, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new TreemendousItemTagsProvider(event.getGenerator(), blockTagsProvider, MOD_ID, event.getExistingFileHelper()));
         event.getGenerator().addProvider(new TreemendousRecipeProvider(event.getGenerator()));
         event.getGenerator().addProvider(new TreemendousLootTableProvider(event.getGenerator()));
         event.getGenerator().addProvider(new TreemendousAdvancementProvider(event.getGenerator(), event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MODID, "en_us"));
-        event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MODID, "de_de"));
+        event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MOD_ID, "en_us"));
+        event.getGenerator().addProvider(new TreemendousLanguageProvider(event.getGenerator(), MOD_ID, "de_de"));
     }
 
 }

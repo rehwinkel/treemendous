@@ -22,8 +22,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class TreeFeatureRegistry
 {
 
-    public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Treemendous.MODID);
-    // TODO: public static final DeferredRegister<FoliagePlacerType<?>> TRUNK_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Treemendous.MODID);
+    public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Treemendous.MOD_ID);
+    // TODO: public static final DeferredRegister<FoliagePlacerType<?>> TRUNK_PLACERS = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, Treemendous.MOD_ID);
 
     public static final RegistryObject<FoliagePlacerType<BallFoliagePlacer>> BALL_FOLIAGE_PLACER = FOLIAGE_PLACERS.register("ball_foliage_placer", () -> new FoliagePlacerType<>(BallFoliagePlacer.CODEC));
     public static final RegistryObject<FoliagePlacerType<ParabolicFoliagePlacer>> PARABOLIC_FOLIAGE_PLACER = FOLIAGE_PLACERS.register("parabolic_foliage_placer", () -> new FoliagePlacerType<>(ParabolicFoliagePlacer.CODEC));
@@ -37,7 +37,7 @@ public class TreeFeatureRegistry
 
     private static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunkPlacer(String name, Codec<P> codec)
     {
-        return Registry.register(Registry.TRUNK_PLACER_TYPES, new ResourceLocation(Treemendous.MODID, name), new TrunkPlacerType<>(codec));
+        return Registry.register(Registry.TRUNK_PLACER_TYPES, new ResourceLocation(Treemendous.MOD_ID, name), new TrunkPlacerType<>(codec));
     }
 
 }

@@ -32,7 +32,7 @@ public class TreemendousBlockTagsProvider extends BlockTagsProvider
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
-            if (!regTree.isFake())
+            if (regTree.isNotFake())
             {
                 Tree tree = regTree.getTree();
                 this.tag(BlockTags.PLANKS).add(tree.getPlanks());

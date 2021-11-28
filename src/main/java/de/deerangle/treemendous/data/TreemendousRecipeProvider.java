@@ -51,9 +51,9 @@ public class TreemendousRecipeProvider extends RecipeProvider
         ShapedRecipeBuilder.shaped(p_126023_).define('#', p_126024_).pattern("# #").pattern("###").group("boat").unlockedBy("in_water", insideOf(Blocks.WATER)).save(p_126022_);
     }
 
-    private static void choppingBlock(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, Tag.Named<Item> planks, Tag.Named<Item> logs)
+    private static void choppingBlock(Consumer<FinishedRecipe> recipeConsumer, ItemLike result)
     {
-        ShapedRecipeBuilder.shaped(result).define('#', planks).define('L', logs).pattern("LL").pattern("##").pattern("##").unlockedBy("has_log", has(logs)).save(recipeConsumer);
+        ShapedRecipeBuilder.shaped(result).define('#', ItemTags.PLANKS).define('L', ItemTags.LOGS).pattern("LL").pattern("##").pattern("##").unlockedBy("has_log", has(ItemTags.LOGS)).save(recipeConsumer);
     }
 
     private static void lumberAxe(Consumer<FinishedRecipe> recipeConsumer, ItemLike result, ItemLike ingredient, String hasConditionName)
@@ -69,14 +69,14 @@ public class TreemendousRecipeProvider extends RecipeProvider
 
     private static void netheriteSmithing(Consumer<FinishedRecipe> recipeConsumer, Item ingredient, Item result)
     {
-        UpgradeRecipeBuilder.smithing(Ingredient.of(ingredient), Ingredient.of(Items.NETHERITE_INGOT), result).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(recipeConsumer, new ResourceLocation(Treemendous.MODID, getItemName(result) + "_smithing"));
+        UpgradeRecipeBuilder.smithing(Ingredient.of(ingredient), Ingredient.of(Items.NETHERITE_INGOT), result).unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT)).save(recipeConsumer, new ResourceLocation(Treemendous.MOD_ID, getItemName(result) + "_smithing"));
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> recipeConsumer)
     {
-        choppingBlock(recipeConsumer, ExtraRegistry.CHOPPING_BLOCK.get(), ItemTags.PLANKS, ItemTags.LOGS);
+        choppingBlock(recipeConsumer, ExtraRegistry.CHOPPING_BLOCK.get());
         lumberAxe(recipeConsumer, ExtraRegistry.IRON_LUMBER_AXE.get(), Items.IRON_INGOT, "has_iron_ingot");
         lumberAxe(recipeConsumer, ExtraRegistry.GOLDEN_LUMBER_AXE.get(), Items.GOLD_INGOT, "has_gold_ingot");
         lumberAxe(recipeConsumer, ExtraRegistry.DIAMOND_LUMBER_AXE.get(), Items.DIAMOND, "has_diamond");
@@ -102,7 +102,7 @@ public class TreemendousRecipeProvider extends RecipeProvider
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
-            if (!regTree.isFake())
+            if (regTree.isNotFake())
             {
                 Tree tree = regTree.getTree();
                 planksFromLog(recipeConsumer, tree.getPlanks(), tree.getLogsItemTag());

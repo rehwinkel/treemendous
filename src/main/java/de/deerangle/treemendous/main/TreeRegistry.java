@@ -19,8 +19,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class TreeRegistry
 {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Treemendous.MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Treemendous.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Treemendous.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Treemendous.MOD_ID);
 
     private static final TreeConfig DOUGLAS_CONFIG = new TreeConfigBuilder("douglas", WoodColors.DOUGLAS_LEAVES, true, WoodColors.DOUGLAS_WOOD, WoodColors.DOUGLAS_LOG)
             .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeDouglasTree(leaves, wood, sapling))).add()

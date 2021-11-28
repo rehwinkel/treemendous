@@ -49,14 +49,14 @@ public class RegisteredTree implements IForgeRegistryEntry<RegisteredTree>
         return tree;
     }
 
-    public boolean isFake()
+    public boolean isNotFake()
     {
-        return isFake;
+        return !isFake;
     }
 
     public Collection<Block> getAllBlocks()
     {
-        if (!this.isFake())
+        if (this.isNotFake())
         {
             List<Block> mostTreeBlocks = ImmutableList.of(this.getTree().getPlanks(),
                     this.getTree().getStrippedLog(),

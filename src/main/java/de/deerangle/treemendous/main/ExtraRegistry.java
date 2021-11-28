@@ -60,13 +60,13 @@ public class ExtraRegistry
     private static final List<Supplier<SignBlock>> SIGN_BLOCK_LIST = new ArrayList<>();
     private static final List<Supplier<ChestBlock>> CHEST_BLOCK_LIST = new ArrayList<>();
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Treemendous.MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Treemendous.MODID);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Treemendous.MODID);
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Treemendous.MODID);
-    public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.PROFESSIONS, Treemendous.MODID);
-    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, Treemendous.MODID);
-    public static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, Treemendous.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Treemendous.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Treemendous.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Treemendous.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Treemendous.MOD_ID);
+    public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.PROFESSIONS, Treemendous.MOD_ID);
+    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, Treemendous.MOD_ID);
+    public static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, Treemendous.MOD_ID);
 
     // Treemendous Extras
     @SuppressWarnings("ConstantConditions")
@@ -92,7 +92,7 @@ public class ExtraRegistry
 
     static <P extends StructureProcessor> StructureProcessorType<P> registerStructureProcessor(String name, Codec<P> codec)
     {
-        return Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(Treemendous.MODID, name), () -> codec);
+        return Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(Treemendous.MOD_ID, name), () -> codec);
     }
 
     // Vanilla Extras

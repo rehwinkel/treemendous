@@ -90,8 +90,8 @@ public class LumberAxeItem extends AxeItem
 
         private final LevelAccessor level;
         private final Predicate<BlockState> isLog;
-        Set<BlockPos> visited = new HashSet<>();
-        Queue<BlockPos> bfsQueue = new ArrayDeque<>();
+        private final Set<BlockPos> visited = new HashSet<>();
+        private final Queue<BlockPos> bfsQueue = new ArrayDeque<>();
 
         public TreeIterator(LevelAccessor world, BlockPos start, Predicate<BlockState> isLog)
         {

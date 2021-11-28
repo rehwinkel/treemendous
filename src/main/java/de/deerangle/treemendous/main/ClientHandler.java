@@ -34,7 +34,7 @@ import net.minecraftforge.registries.RegistryManager;
 
 import java.awt.*;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT, modid = Treemendous.MODID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT, modid = Treemendous.MOD_ID)
 public class ClientHandler
 {
 
@@ -86,18 +86,18 @@ public class ClientHandler
         BlockColors blockColors = Minecraft.getInstance().getBlockColors();
         ItemColors itemColors = Minecraft.getInstance().getItemColors();
 
-        blockColors.register((state, blockAndTintGetter, pos, tindId) -> WoodColors.MAPLE_RED_LEAVES, ExtraRegistry.MAPLE_RED_LEAVES.get());
-        blockColors.register((state, blockAndTintGetter, pos, tindId) -> WoodColors.MAPLE_BROWN_LEAVES, ExtraRegistry.MAPLE_BROWN_LEAVES.get());
+        blockColors.register((state, blockAndTintGetter, pos, tintId) -> WoodColors.MAPLE_RED_LEAVES, ExtraRegistry.MAPLE_RED_LEAVES.get());
+        blockColors.register((state, blockAndTintGetter, pos, tintId) -> WoodColors.MAPLE_BROWN_LEAVES, ExtraRegistry.MAPLE_BROWN_LEAVES.get());
         itemColors.register((stack, tintId) -> WoodColors.MAPLE_RED_LEAVES, ExtraRegistry.MAPLE_RED_LEAVES.get());
         itemColors.register((stack, tintId) -> WoodColors.MAPLE_BROWN_LEAVES, ExtraRegistry.MAPLE_BROWN_LEAVES.get());
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
-            if (!regTree.isFake())
+            if (regTree.isNotFake())
             {
                 Tree tree = regTree.getTree();
                 event.enqueueWork(() -> Sheets.addWoodType(tree.getWoodType()));
-                blockColors.register((state, blockAndTintGetter, pos, tindId) -> getLeavesColor(tree, blockAndTintGetter, pos), tree.getLeaves());
+                blockColors.register((state, blockAndTintGetter, pos, tintId) -> getLeavesColor(tree, blockAndTintGetter, pos), tree.getLeaves());
                 itemColors.register((stack, tintId) -> tree.getLeavesColor().getColor(), tree.getLeaves());
                 ItemBlockRenderTypes.setRenderLayer(tree.getTrapdoor(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(tree.getDoor(), RenderType.cutout());
@@ -138,6 +138,7 @@ public class ClientHandler
 
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
+            assert regTree.getRegistryName() != null;
             String woodName = regTree.getRegistryName().getPath();
             if (!"oak".equals(woodName))
             {
@@ -148,9 +149,9 @@ public class ClientHandler
 
     private static void addChestSprites(TextureStitchEvent.Pre event, String woodName)
     {
-        event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName));
-        event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_left"));
-        event.addSprite(new ResourceLocation(Treemendous.MODID, "entity/chest/" + woodName + "_right"));
+        event.addSprite(new ResourceLocation(Treemendous.MOD_ID, "entity/chest/" + woodName));
+        event.addSprite(new ResourceLocation(Treemendous.MOD_ID, "entity/chest/" + woodName + "_left"));
+        event.addSprite(new ResourceLocation(Treemendous.MOD_ID, "entity/chest/" + woodName + "_right"));
     }
 
     private static class ColorResolverWithBase implements ColorResolver

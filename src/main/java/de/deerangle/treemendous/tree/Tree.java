@@ -109,8 +109,8 @@ public class Tree
         tree.saplings = new HashMap<>();
         tree.pottedSaplings = new HashMap<>();
         tree.saplingConfigs = new HashMap<>();
-        tree.logsBlockTag = BlockTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
-        tree.logsItemTag = ItemTags.bind(Treemendous.MODID + ":" + config.registryName() + "_logs");
+        tree.logsBlockTag = BlockTags.bind(Treemendous.MOD_ID + ":" + config.registryName() + "_logs");
+        tree.logsItemTag = ItemTags.bind(Treemendous.MOD_ID + ":" + config.registryName() + "_logs");
         tree.woodType = WoodType.register(WoodType.create(config.registryName()));
         MaterialColor woodColor = config.woodMaterialColor();
         MaterialColor barkColor = config.barkMaterialColor();

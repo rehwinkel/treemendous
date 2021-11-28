@@ -300,12 +300,12 @@ public class TreemendousBiomes
 
     private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerConfiguredFeature(String name, ConfiguredFeature<FC, ?> feature)
     {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Treemendous.MODID, name), feature);
+        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(Treemendous.MOD_ID, name), feature);
     }
 
     public static ConfiguredFeature<?, ?> getForestOrTaigaTrees(Tree tree, String sapling, int density)
     {
-        String name = sapling != null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
+        String name = sapling == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
         ConfiguredFeature<?, ?> feature = forestOrTaigaTrees.get(name);
         if (feature == null)
         {
@@ -321,7 +321,7 @@ public class TreemendousBiomes
 
     public static ConfiguredFeature<?, ?> getSavannaTrees(Tree tree, String sapling, int density)
     {
-        String name = sapling != null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
+        String name = sapling == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
         ConfiguredFeature<?, ?> feature = savannaTrees.get(name);
         if (feature == null)
         {
@@ -337,7 +337,7 @@ public class TreemendousBiomes
 
     public static ConfiguredFeature<?, ?> getShatteredSavannaTrees(Tree tree, String sapling, int density)
     {
-        String name = sapling != null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
+        String name = sapling == null ? tree.getRegistryName() : tree.getRegistryName() + "_" + sapling;
         ConfiguredFeature<?, ?> feature = shatteredSavannaTrees.get(name);
         if (feature == null)
         {

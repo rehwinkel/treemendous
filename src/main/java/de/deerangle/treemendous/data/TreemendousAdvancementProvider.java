@@ -51,11 +51,11 @@ public class TreemendousAdvancementProvider extends AdvancementProvider
         builder.parent(new ResourceLocation("adventure/root"))
                 .display(
                         ExtraRegistry.IRON_LUMBER_AXE.get(),
-                        new TranslatableComponent("advancements." + Treemendous.MODID + ".explore_forests.title"),
-                        new TranslatableComponent("advancements." + Treemendous.MODID + ".explore_forests.description"),
+                        new TranslatableComponent("advancements." + Treemendous.MOD_ID + ".explore_forests.title"),
+                        new TranslatableComponent("advancements." + Treemendous.MOD_ID + ".explore_forests.description"),
                         null, FrameType.CHALLENGE, true, true, false)
                 .requirements(requirementsArrays)
-                .rewards(AdvancementRewards.Builder.experience(500)).save(consumer, new ResourceLocation(Treemendous.MODID, "explore_forests"), fileHelper);
+                .rewards(AdvancementRewards.Builder.experience(500)).save(consumer, new ResourceLocation(Treemendous.MOD_ID, "explore_forests"), fileHelper);
     }
 
 }

@@ -38,8 +38,8 @@ public class RangerHouseStructurePiece extends StructurePiece
 {
 
     protected final ResourceLocation templateLocation;
-    protected StructureTemplate template;
-    protected StructurePlaceSettings placeSettings;
+    protected final StructureTemplate template;
+    protected final StructurePlaceSettings placeSettings;
     protected BlockPos templatePosition;
 
     public RangerHouseStructurePiece(StructureManager structureManager, ResourceLocation template, BlockPos position, Rotation rotation, RegisteredTree tree, Block flowerOne, Block flowerTwo)

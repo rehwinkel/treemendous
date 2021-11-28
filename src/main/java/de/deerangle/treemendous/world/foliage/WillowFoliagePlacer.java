@@ -17,7 +17,7 @@ import java.util.function.BiConsumer;
 public class WillowFoliagePlacer extends FoliagePlacer
 {
 
-    public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> foliagePlacerParts(instance).and(IntProvider.codec(0, 8).fieldOf("branch_lengeth").forGetter((inst) -> inst.branchLength)).apply(instance, WillowFoliagePlacer::new));
+    public static final Codec<WillowFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> foliagePlacerParts(instance).and(IntProvider.codec(0, 8).fieldOf("branch_length").forGetter((inst) -> inst.branchLength)).apply(instance, WillowFoliagePlacer::new));
     private static final double[] foliageRadii = new double[]{1.5, 2.5, 3, 3.5};
 
     private final IntProvider branchLength;

@@ -40,6 +40,7 @@ public class CustomChestItemRenderer extends BlockEntityWithoutLevelRenderer
         chestMap.put("warped", new CustomChestBlockEntity(BlockPos.ZERO, ExtraRegistry.WARPED_CHEST.get().defaultBlockState()));
         for (RegisteredTree regTree : RegistryManager.ACTIVE.getRegistry(RegisteredTree.class).getValues())
         {
+            assert regTree.getRegistryName() != null;
             String woodName = regTree.getRegistryName().getPath();
             if (!"oak".equals(woodName))
             {

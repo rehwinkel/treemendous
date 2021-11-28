@@ -8,7 +8,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class BoatType
+public record BoatType(int id, String name,
+                       Supplier<Supplier<Item>> boatItem)
 {
 
     private static final Map<Integer, BoatType> boatTypes = new HashMap<>();
@@ -16,17 +17,6 @@ public class BoatType
     static
     {
         boatTypes.put(0, new BoatType(0, "oak", () -> () -> Items.OAK_BOAT));
-    }
-
-    private final String name;
-    private final Supplier<Supplier<Item>> boatItem;
-    private final int id;
-
-    private BoatType(int id, String name, Supplier<Supplier<Item>> boatItem)
-    {
-        this.id = id;
-        this.name = name;
-        this.boatItem = boatItem;
     }
 
     public static BoatType createAndRegister(String registryName, Supplier<Supplier<Item>> boatItem)
@@ -50,16 +40,6 @@ public class BoatType
     public Item getBoatItem()
     {
         return boatItem.get().get();
-    }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public String getName()
-    {
-        return name;
     }
 
 }

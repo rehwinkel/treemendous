@@ -23,7 +23,7 @@ import java.util.function.BiConsumer;
 public class TreemendousChestLoot extends ChestLoot
 {
 
-    public static final ResourceLocation RANGER_HOUSE = new ResourceLocation(Treemendous.MODID, "chests/ranger_house");
+    public static final ResourceLocation RANGER_HOUSE = new ResourceLocation(Treemendous.MOD_ID, "chests/ranger_house");
 
     @Override
     public void accept(BiConsumer<ResourceLocation, LootTable.Builder> tables)

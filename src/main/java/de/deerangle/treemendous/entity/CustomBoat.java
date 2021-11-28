@@ -43,7 +43,7 @@ public class CustomBoat extends Boat
 
     public void setCustomBoatType(BoatType woodName)
     {
-        this.entityData.set(DATA_ID_BOAT_TYPE, woodName.getId());
+        this.entityData.set(DATA_ID_BOAT_TYPE, woodName.id());
     }
 
     @SuppressWarnings("NullableProblems")
@@ -51,7 +51,7 @@ public class CustomBoat extends Boat
     {
         if (this.getCustomBoatType() != null)
         {
-            tag.putInt("BoatType", this.getCustomBoatType().getId());
+            tag.putInt("BoatType", this.getCustomBoatType().id());
         }
     }
 
