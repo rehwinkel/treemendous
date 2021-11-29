@@ -73,7 +73,7 @@ public class TreeRegistry
             .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeWillowTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig POMEGRANATE_CONFIG = new TreeConfigBuilder("pomegranate", WoodColors.POMEGRANATE_LEAVES, false, WoodColors.POMEGRANATE_WOOD, WoodColors.POMEGRANATE_LOG)
-            .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makePomegranateTree(leaves, wood, sapling))).add()
+            .setAppleItem(ExtraRegistry.POMEGRANATE).defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makePomegranateTree(leaves, wood, sapling))).add()
             .createTreeConfig();
     private static final TreeConfig WALNUT_CONFIG = new TreeConfigBuilder("walnut", WoodColors.WALNUT_LEAVES, false, WoodColors.WALNUT_WOOD, WoodColors.WALNUT_LOG)
             .defaultSapling().addTree(((leaves, wood, sapling, tree) -> TreeMaker.makeWalnutTree(leaves, wood, sapling))).add()

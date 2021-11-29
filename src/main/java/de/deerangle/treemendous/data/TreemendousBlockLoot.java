@@ -4,17 +4,54 @@ import de.deerangle.treemendous.main.ExtraRegistry;
 import de.deerangle.treemendous.main.TreeRegistry;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.RegistryManager;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class TreemendousBlockLoot extends BlockLoot
 {
 
+    private static final LootItemCondition.Builder HAS_SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+    private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
+    private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
+    private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
     private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
+
+    protected static LootTable.Builder createCustomLeavesDrops(Block block, Block sapling, Supplier<Item> fruitSupplier, float... chances)
+    {
+        Item fruit = fruitSupplier.get();
+        if (fruit != null)
+        {
+            return createLeavesDrops(block, sapling, chances).withPool(
+                    LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                            .add(applyExplosionCondition(block, LootItem.lootTableItem(fruit))
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))
+                            )
+            );
+        } else
+        {
+            return createLeavesDrops(block, sapling, chances);
+        }
+    }
 
     @Override
     protected void addTables()
@@ -66,7 +103,7 @@ public class TreemendousBlockLoot extends BlockLoot
                 this.dropSelf(tree.getSlab());
                 this.dropSelf(tree.getTrapdoor());
                 this.dropSelf(tree.getWallSign());
-                this.add(tree.getLeaves(), (drops) -> createLeavesDrops(drops, tree.getDefaultSapling(), NORMAL_LEAVES_SAPLING_CHANCES));
+                this.add(tree.getLeaves(), (drops) -> createCustomLeavesDrops(drops, tree.getDefaultSapling(), tree::getFruit, NORMAL_LEAVES_SAPLING_CHANCES));
             }
         }
     }

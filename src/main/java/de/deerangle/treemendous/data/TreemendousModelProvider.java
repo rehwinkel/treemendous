@@ -60,6 +60,7 @@ public class TreemendousModelProvider extends BlockStateProvider
         handheldItem(ExtraRegistry.GOLDEN_LUMBER_AXE.get());
         handheldItem(ExtraRegistry.DIAMOND_LUMBER_AXE.get());
         handheldItem(ExtraRegistry.NETHERITE_LUMBER_AXE.get());
+        generatedItem(ExtraRegistry.POMEGRANATE.get());
 
         craftingTableBlock(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
         craftingTableBlock(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);

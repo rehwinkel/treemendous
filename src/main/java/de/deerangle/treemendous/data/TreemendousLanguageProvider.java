@@ -39,6 +39,7 @@ public class TreemendousLanguageProvider extends LanguageProvider
             add(ExtraRegistry.GOLDEN_LUMBER_AXE.get(), "Golden Lumber Axe");
             add(ExtraRegistry.DIAMOND_LUMBER_AXE.get(), "Diamond Lumber Axe");
             add(ExtraRegistry.NETHERITE_LUMBER_AXE.get(), "Netherite Lumber Axe");
+            add(ExtraRegistry.POMEGRANATE.get(), "Pomegranate");
             add("block." + Treemendous.MOD_ID + ".maple_red_sapling", "Red Maple Sapling");
             add("block." + Treemendous.MOD_ID + ".maple_brown_sapling", "Brown Maple Sapling");
             add(Blocks.CHEST, "Oak Chest");
@@ -70,6 +71,7 @@ public class TreemendousLanguageProvider extends LanguageProvider
             add(ExtraRegistry.GOLDEN_LUMBER_AXE.get(), "Gold-Holzfälleraxt");
             add(ExtraRegistry.DIAMOND_LUMBER_AXE.get(), "Diamant-Holzfälleraxt");
             add(ExtraRegistry.NETHERITE_LUMBER_AXE.get(), "Netherit-Holzfälleraxt");
+            add(ExtraRegistry.POMEGRANATE.get(), "Granatapfel");
             add("block." + Treemendous.MOD_ID + ".maple_red_sapling", "Roter Ahornsetzling");
             add("block." + Treemendous.MOD_ID + ".maple_brown_sapling", "Brauner Ahornsetzling");
             add(Blocks.CHEST, "Eichenholztruhe");

@@ -63,6 +63,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class Tree
 {
@@ -97,6 +98,7 @@ public class Tree
     private BoatType boatType;
     private ILeavesColor leavesColor;
     private boolean hasMegaTree;
+    private Supplier<Item> fruitSupplier;
 
     public Tree(String registryName)
     {
@@ -106,6 +108,7 @@ public class Tree
     public static Tree fromConfig(DeferredRegister<Block> blocks, DeferredRegister<Item> items, TreeConfig config)
     {
         Tree tree = new Tree(config.registryName());
+        tree.fruitSupplier = config.appleItem();
         tree.saplings = new HashMap<>();
         tree.pottedSaplings = new HashMap<>();
         tree.saplingConfigs = new HashMap<>();
@@ -361,6 +364,11 @@ public class Tree
     public SaplingBlock getSapling(String key)
     {
         return this.saplings.get(key).get();
+    }
+
+    public Item getFruit()
+    {
+        return fruitSupplier.get();
     }
 
     public SaplingBlock getRandomSapling(Random rand)
