@@ -24,6 +24,7 @@ public class Biomes
     public static void registerTrees()
     {
         // TODO: squirrels and woodpeckers?
+        // TODO: mixed forests
         registerBiomes(TreeRegistry.DOUGLAS_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);
         registerBiomes(TreeRegistry.PINE_TREE, TreemendousBiomes.BiomeKind.TAIGA, 9);
         registerBiomes(TreeRegistry.LARCH_TREE, TreemendousBiomes.BiomeKind.TAIGA, 10);

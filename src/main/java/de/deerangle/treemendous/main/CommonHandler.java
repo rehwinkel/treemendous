@@ -1,10 +1,12 @@
 package de.deerangle.treemendous.main;
 
+import de.deerangle.treemendous.entity.Woodpecker;
 import de.deerangle.treemendous.tree.FakeTree;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -80,6 +82,12 @@ public class CommonHandler
         ACACIA_TREE = registerFake("acacia", TreeRegistry.ACACIA_TREE);
         DARK_OAK_TREE = registerFake("dark_oak", TreeRegistry.DARK_OAK_TREE);
         registry.registerAll(OAK_TREE, BIRCH_TREE, SPRUCE_TREE, JUNGLE_TREE, ACACIA_TREE, DARK_OAK_TREE);
+    }
+
+    @SubscribeEvent
+    public static void onEntityAttributes(EntityAttributeCreationEvent event)
+    {
+        event.put(ExtraRegistry.WOODPECKER.get(), Woodpecker.createAttributes().build());
     }
 
     private static RegisteredTree register(String name, Tree tree)

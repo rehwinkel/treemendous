@@ -8,6 +8,7 @@ import de.deerangle.treemendous.block.CustomCraftingTableBlock;
 import de.deerangle.treemendous.blockentity.ChoppingBlockBlockEntity;
 import de.deerangle.treemendous.blockentity.CustomChestBlockEntity;
 import de.deerangle.treemendous.entity.CustomBoat;
+import de.deerangle.treemendous.entity.Woodpecker;
 import de.deerangle.treemendous.item.CustomChestBlockItem;
 import de.deerangle.treemendous.item.LumberAxeItem;
 import de.deerangle.treemendous.item.LumberTiers;
@@ -44,6 +45,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -81,6 +83,8 @@ public class ExtraRegistry
     @SuppressWarnings("ConstantConditions")
     public static final RegistryObject<BlockEntityType<ChoppingBlockBlockEntity>> CHOPPING_BLOCK_BE = BLOCK_ENTITIES.register("chopping_block", () -> BlockEntityType.Builder.of(ChoppingBlockBlockEntity::new, CHOPPING_BLOCK.get()).build(null));
     public static final RegistryObject<Item> POMEGRANATE = ITEMS.register("pomegranate", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(4).build())));
+    public static final RegistryObject<EntityType<Woodpecker>> WOODPECKER = ENTITIES.register("woodpecker", () -> EntityType.Builder.<Woodpecker>of(Woodpecker::new, MobCategory.CREATURE).sized(0.5F, 0.5F).clientTrackingRange(8).build("woodpecker"));
+    public static final RegistryObject<ForgeSpawnEggItem> WOODPECKER_SPAWN_EGG = ITEMS.register("woodpecker_spawn_egg", () -> new ForgeSpawnEggItem(WOODPECKER, 0x1f1f1e, 0xce1632, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC)));
 
     // TODO: add this back once structure modifiers work
     // Village

@@ -3,6 +3,8 @@ package de.deerangle.treemendous.main;
 import de.deerangle.treemendous.blockentity.render.ChoppingBlockRenderer;
 import de.deerangle.treemendous.blockentity.render.CustomChestRenderer;
 import de.deerangle.treemendous.entity.render.CustomBoatRenderer;
+import de.deerangle.treemendous.entity.render.WoodpeckerModel;
+import de.deerangle.treemendous.entity.render.WoodpeckerRenderer;
 import de.deerangle.treemendous.tree.RegisteredTree;
 import de.deerangle.treemendous.tree.Tree;
 import de.deerangle.treemendous.util.WoodColors;
@@ -10,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintCache;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -26,6 +29,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,7 +42,13 @@ import java.awt.*;
 public class ClientHandler
 {
 
+    public static final ModelLayerLocation WOODPECKER_LAYER = createLayerLocation("woodpecker");
     private static final ColorResolverWithBase FOLIAGE_COLOR_RESOLVER = new ColorResolverWithBase();
+
+    private static ModelLayerLocation createLayerLocation(String name)
+    {
+        return new ModelLayerLocation(new ResourceLocation(Treemendous.MOD_ID, name), "main");
+    }
 
     public static int getAverageFoliageColor(BlockAndTintGetter tintGetter, BlockPos pos, int baseColor)
     {
@@ -123,6 +133,13 @@ public class ClientHandler
         BlockEntityRenderers.register(ExtraRegistry.CHEST.get(), CustomChestRenderer::new);
         BlockEntityRenderers.register(ExtraRegistry.CHOPPING_BLOCK_BE.get(), ChoppingBlockRenderer::new);
         EntityRenderers.register(ExtraRegistry.BOAT.get(), CustomBoatRenderer::new);
+        EntityRenderers.register(ExtraRegistry.WOODPECKER.get(), WoodpeckerRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event)
+    {
+        event.registerLayerDefinition(WOODPECKER_LAYER, WoodpeckerModel::createBodyLayer);
     }
 
     @SubscribeEvent

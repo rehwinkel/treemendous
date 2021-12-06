@@ -33,6 +33,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryManager;
 
@@ -61,6 +62,7 @@ public class TreemendousModelProvider extends BlockStateProvider
         handheldItem(ExtraRegistry.DIAMOND_LUMBER_AXE.get());
         handheldItem(ExtraRegistry.NETHERITE_LUMBER_AXE.get());
         generatedItem(ExtraRegistry.POMEGRANATE.get());
+        spawnEggItem(ExtraRegistry.WOODPECKER_SPAWN_EGG.get());
 
         craftingTableBlock(ExtraRegistry.BIRCH_CRAFTING_TABLE.get(), Blocks.BIRCH_PLANKS);
         craftingTableBlock(ExtraRegistry.SPRUCE_CRAFTING_TABLE.get(), Blocks.SPRUCE_PLANKS);
@@ -109,6 +111,12 @@ public class TreemendousModelProvider extends BlockStateProvider
                 signItemBlock(tree.getWallSign(), tree.getPlanks());
             }
         }
+    }
+
+    private void spawnEggItem(ForgeSpawnEggItem spawnEgg)
+    {
+        String name = Objects.requireNonNull(spawnEgg.getRegistryName()).getPath();
+        itemModels().withExistingParent(name, new ResourceLocation("item/template_spawn_egg"));
     }
 
     private void existingModelBlock(Block block)
